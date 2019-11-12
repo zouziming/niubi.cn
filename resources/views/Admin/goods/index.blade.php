@@ -7,19 +7,20 @@
 
 @section('body')
 <div class="wrap">
-  <div class="page-title">
-    <span class="modular fl"><i></i><em>商品列表</em></span>
-    <span class="modular fr"><a href="/admin/goods/add" class="pt-link-btn">+添加商品</a></span>
-  </div>
-  <div class="operate">
+	<div class="page-title">
+		<span class="modular fl"><i></i><em>商品列表</em></span>
+		<span class="modular fr"><a href="/admin/goods/add" class="pt-link-btn">+添加商品</a></span>
+	</div>
+	
+	<div class="operate">
 	  
 	<form action="/admin/goods" method="post">
 		{{ csrf_field() }}
 		<input name="name" type="text" class="textBox length-long" placeholder="输入商品名称..."/>
 		<input type="submit" value="查询" class="tdBtn"/>
 	</form>
+	</div>
 	
-  </div>
   <table class="list-style Interlaced">
    <tr>
     <th width="70">ID编号</th>
@@ -70,6 +71,7 @@
 		@endif
 			
 		<td class="center">
+			<a href="/admin/goods/specs/{{$v->id}}" title="规格" ><img width="40px;" src="/lib/images/icon_view.gif"/></a>
 			<a href="/admin/goods/edit/{{$v->id}}" title="编辑"><img width="40px;" src="/lib/images/icon_edit.gif"/></a>
 			<a href="/admin/goods/del/{{$v->id}}" title="删除"><img width="40px;" src="/lib/images/icon_drop.gif"/></a>
 		</td>

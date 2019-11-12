@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Cate;
 use App\Goods;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,14 +13,17 @@ class GoodsController extends Controller
     public function index()
 	{
 		$goods = new \App\Goods;
-		$data = $goods->paginate(3);
+		$data = $goods->orderBy('id', 'desc')->paginate(3);
 		// dump($data);
 		return view('Admin.goods.index')->with("data",$data);
 	}
 	
 	public function add()
 	{
-		return view('Admin.goods.add');
+		$cate = new \App\Cate;
+		$catedata = $cate->get();
+		// dump($catedata);
+		return view('Admin.goods.add')->with('cate', $catedata);
 	}
 	
 	public function checkadd(Request $request)
@@ -88,10 +92,12 @@ class GoodsController extends Controller
 	public function edit($id)
 	{
 		$goods = new \App\Goods;
-		// dump($id);
+		$cate = new \App\Cate;
+		$catedata = $cate->get();
+
 		$data = $goods->find($id);
 		// dump($data->name);
-		return view('Admin.goods.edit')->with('data', $data);
+		return view('Admin.goods.edit')->with(['data'=>$data, 'cate'=>$catedata]);
 	}
 	
 	public function checkedit(Request $request, $id)
@@ -172,8 +178,7 @@ class GoodsController extends Controller
 	{
 		$goods = new \App\Goods;
 		$name = $request->all()['name'];
-		// dump($name);
 		$data = $goods->where('name','like','%'.$name.'%')->paginate(3);
-		return view('Admin.goods.index')->with("data",$data);
+		return view('Admin.goods.index')->with("data", $data);
 	}
 }

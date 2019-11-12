@@ -20,10 +20,16 @@
             <tr>
                 <td style="text-align:right;">商品分类：</td>
                 <td>
+					
                     <select class="textBox" name="cid">
-                        <optgroup label="西餐">
-                            <option value="1">面包</option>
-						</optgroup>
+						<option value="">--请选择--</option>
+							@foreach($cate as $v)
+							<?php 
+								$num = substr_count($v['path'], ',');
+								$str = str_repeat('--', $num-1);
+							?>
+                            <option <?=$num<2?'disabled':''?> value="{{$v->id}}">{{$str.$v->name}}</option>
+							@endforeach		
                     </select>
                 </td>
             </tr>

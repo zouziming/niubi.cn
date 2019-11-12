@@ -21,9 +21,18 @@
                 <td style="text-align:right;">商品分类：</td>
                 <td>
                     <select class="textBox" name="cid">
-                        <optgroup label="西餐">
-                            <option value="1">面包</option>
-						</optgroup>
+                    	<option value="">--请选择--</option>
+                    		@foreach($cate as $v)
+                    		<?php 
+                    			$num = substr_count($v['path'], ',');
+                    			$str = str_repeat('--', $num-1);
+                    		?>
+                            <option <?=$num<2?'disabled':''?> 
+							@if($data->cid == $v->id)
+								selected='selected'
+							@endif
+							 value="{{$v->id}}">{{$str.$v->name}}</option>
+                    		@endforeach		
                     </select>
                 </td>
             </tr>
@@ -90,7 +99,7 @@
             <tr>
                 <td style="text-align:right;"></td>
                 <td>
-                    <input type="submit" value="发布新商品" class="tdBtn" /></td>
+                    <input type="submit" value="修改商品" class="tdBtn" /></td>
             </tr>
         </table>
     </form>
