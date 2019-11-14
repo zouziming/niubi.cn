@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cate extends Model
 {
-    protected $table = 'cate';
+    protected $table = 'shop_cate';
     
     public $timestamps = false;
     

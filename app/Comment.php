@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AttributeValue extends Model
+class Comment extends Model
 {
-    protected $table = 'shop_attribute_value';
+    protected $table = 'shop_comment';
     
     public $timestamps = false;
     

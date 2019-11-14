@@ -64,9 +64,9 @@
 	                </ul>
 	            </li>
 	            <li class="childUlLi">
-	                <a href="#"> <i class="glyph-icon icon-reorder"></i>订单管理</a>
+	                <a href="#"> <i class="glyph-icon icon-reorder"></i>友链管理</a>
 	                <ul style="display: none;">
-	                    <li><a href="#" target="_self"><i class="glyph-icon icon-chevron-right"></i>订单列表</a></li>
+	                    <li><a href="/admin/link"><i class="glyph-icon icon-chevron-right"></i>友链列表</a></li>
 	                </ul>
 	            </li>
 	        </ul>

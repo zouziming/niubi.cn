@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AttributeKey extends Model
 {
-    protected $table = 'attribute_key';
+    protected $table = 'shop_attribute_key';
     
     public $timestamps = false;
     

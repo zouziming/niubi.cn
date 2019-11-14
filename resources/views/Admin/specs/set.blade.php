@@ -72,7 +72,7 @@
 		data.push($(ele).children().eq(1).children().eq(0).val());
 		data.push($(ele).children().eq(2).children().eq(0).val());
 		
-		console.dir(data)
+		// console.dir(data)
 		
 		
 		$.ajax({
@@ -101,7 +101,7 @@
 		data.push($(ele).children().eq(1).children().eq(0).val());
 		data.push($(ele).children().eq(2).children().eq(0).val());
 		
-		console.dir(data)
+		// console.dir(data)
 		
 		
 		$.ajax({

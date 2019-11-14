@@ -65,5 +65,23 @@ Route::group(['prefix' => '/admin'], function(){
 	Route::post('/specs/editgoods', 'Admin\SpecsController@editsetprice');
 	
 	//评论
-	Route::get('/comment', 'Admin\commentController@index');
+	Route::get('/comment', 'Admin\CommentController@index');
+	
+	Route::get('/comment/del/{id}', 'Admin\CommentController@del');
+	Route::post('/comment/reply', 'Admin\CommentController@reply');
+	
+	Route::get('/comment/search', 'Admin\CommentController@search');
+	
+	//友链
+	Route::get('/link', 'Admin\LinkController@index');
+	
+	Route::get('/link/add', 'Admin\LinkController@add');
+	Route::post('/link/add', 'Admin\LinkController@checkadd');
+	
+	Route::get('/link/edit/{id}', 'Admin\LinkController@edit');
+	Route::post('/link/edit', 'Admin\LinkController@checkedit');
+	
+	Route::get('/link/del/{id}', 'Admin\LinkController@del');
+	
+	Route::get('/link/search', 'Admin\LinkController@search');
 });

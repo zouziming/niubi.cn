@@ -83,11 +83,8 @@ class GoodsController extends Controller
 		} else {
 			$data['hot'] = $request->rexiao;
 		}
-		
-		// dump($data);
-		
-		$goods = new \App\Goods;
-		$result = $goods->create($data);
+				
+		$result = Goods::create($data);
 		
 		if ($result) {
 			return redirect("admin/goods");
