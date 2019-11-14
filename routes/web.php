@@ -19,7 +19,7 @@ Route::get('/', function () {
 Route::group(['prefix' => '/admin'], function(){
 	//商品
     Route::get('/goods', 'Admin\GoodsController@index');
-	Route::post('/goods', 'Admin\GoodsController@search');
+	Route::get('/goods/search', 'Admin\GoodsController@search');
 	
 	Route::get('/goods/add', 'Admin\GoodsController@add');
 	Route::post('/goods/add', 'Admin\GoodsController@checkadd');
@@ -29,7 +29,11 @@ Route::group(['prefix' => '/admin'], function(){
 	
 	Route::get('/goods/del/{id}', 'Admin\GoodsController@del');
 	
-	//规格
+	Route::get('/goods/recycle', 'Admin\GoodsController@recycle');
+	Route::get('/goods/gorecycle/{id}', 'Admin\GoodsController@gorecycle');
+	Route::get('/goods/backrecycle/{id}', 'Admin\GoodsController@backrecycle');
+	
+	//规格属性
 	Route::get('/goods/attr', 'Admin\AttrController@attr');
 	
 	Route::get('/attr/add', 'Admin\AttrController@add');
@@ -38,7 +42,20 @@ Route::group(['prefix' => '/admin'], function(){
 	Route::get('/attr/edit/{id}', 'Admin\AttrController@edit');
 	Route::post('/attr/edit', 'Admin\AttrController@checkedit');
 	
-	Route::get('/attr/son/{id}', 'Admin\AttrController@son');
+	Route::get('/attr/son/{id}', 'Admin\AttrController@addson');
+	Route::post('attr/son', 'Admin\AttrController@checkaddson');
 	
 	Route::get('/attr/del/{id}', 'Admin\AttrController@del');
+	
+	//全部规格属性
+	Route::get('/allattr', 'Admin\AttrController@allattr');
+	
+	Route::get('/allattr/editson/{id}', 'Admin\AttrController@editson');
+	Route::post('/allattr/editson', 'Admin\AttrController@checkeditson');
+	
+	Route::get('/allattr/delson/{id}', 'Admin\AttrController@delson');
+	
+	//规格与商品
+	Route::get('/specs/{id}', 'Admin\SpecsController@index');
+	Route::post('/specs', 'Admin\SpecsController@set');
 });

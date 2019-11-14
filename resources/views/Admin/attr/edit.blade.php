@@ -51,11 +51,10 @@
 				name : name
 			},
 			success: function(res){
-				// console.dir(res)
 				if (res.code == 0) {
-					alert(res.msg);
-				} else if (res.code == 1) {
-					alert(res.msg);
+					layer.msg('修改成功!');
+				} else if (res.code != 0) {
+					layer.msg('修改失败!');
 				}
 			}	
 		});

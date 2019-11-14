@@ -26,8 +26,8 @@
 			</span>
 		</td>
 		<td class="center">
-			<a href="/admin/attr/son/{{$v[1]['id']}}" title="编辑子规格"><img width="40" src="/lib/images/icon_view.gif"/></a>
-			<a href="/admin/attr/edit/{{$v[1]['id']}}" title="设置规则"><img width="40" src="/lib/images/icon_edit.gif"/></a>
+			<a href="/admin/attr/son/{{$v[1]['id']}}" title="添加子规格"><img width="40" src="/lib/images/icon_view.gif"/></a>
+			<a href="/admin/attr/edit/{{$v[1]['id']}}" title="设置规格"><img width="40" src="/lib/images/icon_edit.gif"/></a>
 			<a href="/admin/attr/del/{{$v[1]['id']}}" title="删除"><img width="40px;" src="/lib/images/icon_drop.gif"/></a>
 		</td>
 	</tr>

@@ -12,6 +12,7 @@
 	<script src="/lib/js/common.js"></script>
 	<!-- <script src="/lib/js/jquery1.js"></script> -->
 	<script src="/lib/js/public.js"></script>
+	<script src="/lib/layer/layer.js"></script>
 	
 	@yield('css')
 </head>
@@ -56,7 +57,9 @@
 	                <a href="#"> <i class="glyph-icon  glyph-icon icon-reorder"></i>商品管理</a>
 	                <ul style="display: none;">
 	                    <li><a href="/admin/goods"><i class="glyph-icon icon-chevron-right"></i>商品列表</a></li>
+						<li><a href="/admin/goods/recycle"><i class="glyph-icon icon-chevron-right"></i>回收站</a></li>
 						<li><a href="/admin/goods/attr"><i class="glyph-icon icon-chevron-right"></i>添加规格属性</a></li>
+						<li><a href="/admin/allattr"><i class="glyph-icon icon-chevron-right"></i>查看所有规格</a></li>
 	                </ul>
 	            </li>
 	            <li class="childUlLi">

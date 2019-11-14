@@ -11,4 +11,9 @@ class AttributeKey extends Model
     public $timestamps = false;
     
     protected $guarded = [];
+	
+	public function attr()
+	{
+		return $this->hasMany('App\AttributeValue', 'attr_id');
+	}
 }

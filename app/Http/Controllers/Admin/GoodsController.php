@@ -13,9 +13,10 @@ class GoodsController extends Controller
     public function index()
 	{
 		$goods = new \App\Goods;
-		$data = $goods->orderBy('id', 'desc')->paginate(3);
+		$res = '1';
+		$data = $goods->where('is_recycle', 0)->orderBy('id', 'desc')->paginate(3);
 		// dump($data);
-		return view('Admin.goods.index')->with("data",$data);
+		return view('Admin.goods.index')->with(["data"=>$data, 'res'=>$res]);
 	}
 	
 	public function add()
@@ -163,6 +164,29 @@ class GoodsController extends Controller
 		}
 	}
 	
+	public function gorecycle($id)
+	{
+		$res = Goods::where('id', $id)->update(['is_recycle' => 1]);
+		if ($res) {
+			return redirect("admin/goods");
+		}
+	}
+	
+	public function backrecycle($id)
+	{
+		$res = Goods::where('id', $id)->update(['is_recycle' => 0]);
+		if ($res) {
+			return redirect("admin/goods/recycle");
+		}
+	}
+	
+	public function recycle()
+	{
+		// dump($id);
+		$data = Goods::where('is_recycle', 1)->get();
+		return view('Admin.goods.recycle')->with('data', $data);
+	}
+	
 	public function del($id)
 	{
 		$ids = explode(',', $id);
@@ -176,9 +200,15 @@ class GoodsController extends Controller
 	
 	public function search(Request $request)
 	{
+		if ($request->name == null) {
+			return redirect("admin/goods");
+		}
+		
 		$goods = new \App\Goods;
 		$name = $request->all()['name'];
-		$data = $goods->where('name','like','%'.$name.'%')->paginate(3);
-		return view('Admin.goods.index')->with("data", $data);
+		$res = $goods->where('name','like','%'.$name.'%')->first();
+		$data = $goods->where('name','like','%'.$name.'%')->paginate(1)->appends($request->all());
+		// dump($res);
+		return view('Admin.goods.index')->with(["data"=>$data, 'res'=>$res]);
 	}
 }
