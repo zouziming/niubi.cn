@@ -24,7 +24,7 @@
 		<tr>
 			<td style="text-align:right;"></td>
 			<td>
-				<a href="#"><input type="submit" value="保存" class="tdBtn"/></a>
+				<a href="javascript:void(0)"><input type="submit" value="保存" class="tdBtn"/></a>
 				<a href="/admin/goods"><input type="submit" value="返回" class="tdBtn"/></a>
 			</td>
 		</tr>
@@ -35,10 +35,8 @@
 
 @section('script')
 <script>
-	var attr = {!! $attr !!}
-	
+	var attr = {!! $attr !!};
 	$(document).ready(function(){
-		// console.dir(attr);
 		var count = $('.val').length;
 		for (var i = 0; i < count; i++) {
 			for (key in attr) {
@@ -49,10 +47,9 @@
 				}
 			}
 		}
-	})
+	});
 	
 	$('.val').click(function(){
-		// console.log($(this).css('background-color'))
 		if ($(this).css('background-color') == 'rgb(0, 128, 0)') {
 			$(this).css('background-color', 'white');
 			$(this).css('color', 'black');

@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Bootstrap后台模板</title>
+	
 	<link rel="stylesheet" href="/lib/css/index.css" />
 	<link rel="stylesheet" href="/lib/css/add.css">
 	<link rel="stylesheet" href="/lib/css/bootstrap.css">
@@ -10,7 +11,6 @@
 	<script src="/lib/js/jquery.js"></script>
 	<script src="/lib/js/tendina.js"></script>
 	<script src="/lib/js/common.js"></script>
-	<!-- <script src="/lib/js/jquery1.js"></script> -->
 	<script src="/lib/js/public.js"></script>
 	<script src="/lib/layer/layer.js"></script>
 	
@@ -60,6 +60,7 @@
 						<li><a href="/admin/goods/recycle"><i class="glyph-icon icon-chevron-right"></i>回收站</a></li>
 						<li><a href="/admin/goods/attr"><i class="glyph-icon icon-chevron-right"></i>添加规格属性</a></li>
 						<li><a href="/admin/allattr"><i class="glyph-icon icon-chevron-right"></i>查看所有规格</a></li>
+						<li><a href="/admin/comment"><i class="glyph-icon icon-chevron-right"></i>评论列表</a></li>
 	                </ul>
 	            </li>
 	            <li class="childUlLi">

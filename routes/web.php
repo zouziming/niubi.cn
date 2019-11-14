@@ -20,6 +20,7 @@ Route::group(['prefix' => '/admin'], function(){
 	//商品
     Route::get('/goods', 'Admin\GoodsController@index');
 	Route::get('/goods/search', 'Admin\GoodsController@search');
+	Route::post('/goods/status', 'Admin\GoodsController@changestatus');
 	
 	Route::get('/goods/add', 'Admin\GoodsController@add');
 	Route::post('/goods/add', 'Admin\GoodsController@checkadd');
@@ -58,4 +59,11 @@ Route::group(['prefix' => '/admin'], function(){
 	//规格与商品
 	Route::get('/specs/{id}', 'Admin\SpecsController@index');
 	Route::post('/specs', 'Admin\SpecsController@set');
+	
+	Route::get('/specs/goods/{id}', 'Admin\SpecsController@setprice');
+	Route::post('/specs/addgoods', 'Admin\SpecsController@addsetprice');
+	Route::post('/specs/editgoods', 'Admin\SpecsController@editsetprice');
+	
+	//评论
+	Route::get('/comment', 'Admin\commentController@index');
 });

@@ -99,9 +99,16 @@ class AttrController extends Controller
 	
 	public function del($id)
 	{
-		$data = AttributeKey::where('cate_id', $id)->delete();
-		if ($data) {
-			return redirect("admin/goods/attr");
+		$keyid = AttributeKey::where('cate_id', $id)->pluck('id');
+		$value = AttributeValue::whereIn('attr_id', $keyid)->get();
+		
+		if ($value->isempty()) {
+			$data = AttributeKey::where('cate_id', $id)->delete();
+			if ($data) {
+				return redirect("admin/goods/attr");
+			}	
+		} else {
+			echo "<script>alert('请先删除属性下的值');window.history.back(-1);</script>";die;		
 		}
 	}
 	

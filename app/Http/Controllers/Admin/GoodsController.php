@@ -16,6 +16,10 @@ class GoodsController extends Controller
 		$res = '1';
 		$data = $goods->where('is_recycle', 0)->orderBy('id', 'desc')->paginate(3);
 		// dump($data);
+		foreach ($data as $k=>$v) {
+			$v['cid'] = Cate::where('id', $v['cid'])->pluck('name')[0];
+			// dump($v['cid']);
+		}
 		return view('Admin.goods.index')->with(["data"=>$data, 'res'=>$res]);
 	}
 	
@@ -210,5 +214,22 @@ class GoodsController extends Controller
 		$data = $goods->where('name','like','%'.$name.'%')->paginate(1)->appends($request->all());
 		// dump($res);
 		return view('Admin.goods.index')->with(["data"=>$data, 'res'=>$res]);
+	}
+	
+	public function changestatus(Request $request)
+	{
+		$change = $request->all();
+		// dump($change);
+		$res = Goods::where('id', $change['id'])->update(['status'=>$change['status']]);
+		if ($res) {
+		    $res = [
+		        'code' => 0,
+		    ];
+		} else {
+		    $res = [
+		        'code' => 1,
+		    ];
+		}
+		return $res;
 	}
 }

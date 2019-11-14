@@ -25,14 +25,16 @@
 	客官，伦家真的尽力了
 	@else  
 	<tr>
-		<th width="70">ID编号</th>
-		<th width="300">商品图片</th>
-		<th>商品名称</th> 
-		<th>精品</th>
-		<th>新品</th>
-		<th>热销</th>
-		<th>包邮</th>
-		<th>操作</th>
+		<th width="70" class="center">ID编号</th>
+		<th width="150" class="center">分类</th>
+		<th width="150" class="center">商品图片</th>
+		<th class="center">商品名称</th> 
+		<th class="center">精品</th>
+		<th class="center">新品</th>
+		<th class="center">热销</th>
+		<th class="center">包邮</th>
+		<th class="center">上下架</th>
+		<th class="center">操作</th>
 	</tr>
 	
 		@foreach($data as $k=>$v)
@@ -44,6 +46,7 @@
 					<i>{{$v->id}}</i>
 				</span>
 			</td>
+			<td class="center">{{$v->cid}}</td>
 			<td class="center pic-area"><img style="width: 100px;height: 100px;" src="{{$v->pic}}" class="thumbnail"/></td>
 			<td class="td-name">
 				<span class="ellipsis td-name block">{{$v->name}}</span>
@@ -71,11 +74,18 @@
 			@else
 				<td class="center"><img src="/lib/images/no.gif"/></td>
 			@endif
-				
+			
+			@if($v->status == 1)
+				<td class="center" ids="{{$v->id}}"><img class="jia"  src="/lib/images/yes.gif"/></td>
+			@else
+				<td class="center" ids="{{$v->id}}"><img class="jia" src="/lib/images/no.gif"/></td>
+			@endif
+			
 			<td class="center">
-				<a href="/admin/specs/{{$v->id}}" title="规格" ><img width="40px;" src="/lib/images/icon_view.gif"/></a>
 				<a href="/admin/goods/edit/{{$v->id}}" title="编辑"><img width="40px;" src="/lib/images/icon_edit.gif"/></a>
 				<a href="/admin/goods/gorecycle/{{$v->id}}" title="删除"><img width="40px;" src="/lib/images/icon_drop.gif"/></a>
+				<a href="/admin/specs/{{$v->id}}" title="规格" ><img width="40px;" src="/lib/images/icon_view.gif"/></a>
+				<a href="/admin/specs/goods/{{$v->id}}" title="设置商品价格" ><img width="40px;" src="/lib/images/icon_title.gif"/></a>
 			</td>
 		</tr>
 		@endforeach
@@ -122,6 +132,35 @@
 			});
 			console.dir(ids);
 			location.href = "/admin/goods/del/"+ids;
-		})		
+		})	
+			
+		$('.jia').click(function(){
+			var pan
+			var id = $(this.parentElement).attr('ids');
+			// console.dir($(this).attr('src'))
+			if ($(this).attr('src') == '/lib/images/yes.gif') {
+				$(this).attr('src', '/lib/images/no.gif')
+				pan = 0;
+			} else {
+				$(this).attr('src', '/lib/images/yes.gif')
+				pan = 1;
+			}
+			$.ajax({
+				method:'post',
+				url:'/admin/goods/status',
+				data:{
+					_token : '{{ csrf_token() }}',
+					id : id,
+					status : pan,
+				},
+				success: function(res){
+					if (res.code == 0) {
+						layer.msg('修改状态成功!');
+					} else if (res.code != 0) {
+						layer.msg('修改状态失败!');
+					}
+				}	
+			});
+		})
 	</script>
 @endsection
