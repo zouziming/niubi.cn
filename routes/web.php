@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 // test哈希加密
 Route::get('/test', function () {
-    return password_hash("123456", PASSWORD_DEFAULT);
+    return password_hash("123456789", PASSWORD_DEFAULT);
 });
 
 
@@ -48,9 +48,14 @@ Route::post('/admin/user/add', 'Admin\UserController@store');
 // 删除用户 
 Route::post('/admin/user/del/{id}', 'Admin\UserController@del');
 
-//
+// 显示修改页面
 Route::get('/admin/user/edit', 'Admin\UserController@edit');
+// Route::post('/admin/user/edit', 'Admin\UserController@doedit');
+// 修改用户
 Route::post('/admin/user/doedit', 'Admin\UserController@doedit');
+
+// 修改用户状态
+Route::post('/admin/user/change', 'Admin\UserController@change');
 
 // 搜索功能
 Route::post('/search', 'Admin\UserController@search');

@@ -50,17 +50,15 @@
                 <td>{{$user->email}}</td>
                 <td>
                 @if ($user->status === 1)
-                    正常
+                    <a href="">正常</a>
                 @else
-                    禁用
+                    <a href="">禁用</a>
                 @endif
                 </td>
                 <td>{{$user->addtime}}</td>
                 <td>
-                    <!-- <a href="/admin/user/in">删除</a> -->
-                    <!-- <a href="">修改</a> -->
                     <button type="button" data-id=" {{ $user->id }} " class="btn btn-info delete">删除</button>
-                    <a href="/admin/user/edit"><button type="button" class="btn btn-info">修改</button></a>
+                    <a href="/admin/user/edit?id={{$user->id}}"><button type="button" data-id="{{$user->id}}" class="btn btn-info edit">编辑</button></a>
                 </td>
             </tr>
             @endforeach
@@ -69,7 +67,6 @@
     </div>
 </div>
 @endsection
-
 @section('script')
 <script>
     $('.delete').click(function(){
@@ -98,5 +95,5 @@
         });
     });
 </script>
-@endsection;
+@endsection
 

@@ -28,7 +28,7 @@
             <div class="row cl">
                 <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
                 <div class="formControls col-xs-8">
-                    <input id="" name="username" type="text" value="{{ old('username') }}" placeholder="账户" class="input-text size-L">
+                    <input id="" name="username" type="text" value="{{ old('username') }}" placeholder="用户名" class="input-text size-L">
                 </div>
             </div>
             <div class="row cl">
@@ -37,6 +37,18 @@
                     <input id="" name="password" type="password" placeholder="密码" class="input-text size-L">
                 </div>
             </div>
+
+
+            <div class="row cl">
+                <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60c;</i></label>
+                <div class="formControls col-xs-5">
+                    <input id="captcha" name="captcha" type="text" placeholder="验证码" class="input-text size-L" style="width:254px">
+                </div>
+                <img src="{{captcha_src('flat')}}" style="width:106px;height:41px;background:#fff;border:1px solid #ccc" class="captcha" onclick="this.src='/captcha/flat?'+Math.random();">
+            </div>
+
+
+
             <div class="row cl">
                 <div class="formControls col-xs-8 col-xs-offset-3">
                     <label for="online">
@@ -55,6 +67,5 @@
     </div>
 </div>
 <div class="footer">Copyright 最终解释权归老子所有</div>
-
 </body>
 </html>

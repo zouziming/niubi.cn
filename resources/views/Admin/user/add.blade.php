@@ -60,7 +60,7 @@
         var phone = $('input[name=phone]').val();
         var sex = $('select[name=sex]').val();
 
-        var fd = new FormData();phone
+        var fd = new FormData();
         fd.append('username', username);
         fd.append('pic', file);
         fd.append('email', email);

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>@yield('title') - 后台首页</title>
+    <title>@yield('title') - 后台</title>
     <link rel="stylesheet" href="/lib/css/index.css" />
     <link rel="stylesheet" href="/lib/css/add.css" />
     <link rel="stylesheet" href="/lib/css/bootstrap.css" />

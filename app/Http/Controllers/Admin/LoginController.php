@@ -21,14 +21,20 @@ class LoginController extends Controller
 
         // 表单验证
         $this->validate($request, [
-            'username' => 'required|exists:shop_users',
-            'password' => 'required'
-        ], [
-            'required' => ':attribute 必须要填写',
-            'exists' => ':attribute 错误'
-        ], [
-            'username' => '用户名或密码',
-            'password' => '密码'
+            'username' => 'required|exists:shop_users|max:255',
+            'password' => 'required|min:6',
+            'captcha' => 'required|captcha',
+        ],[
+            'username.required' => '用户名不能为空',
+            'username.exists' => '密码或用户名不正确',
+            'username.max' => '用户名过长',
+            
+            'password.required' => '密码不能为空',
+            'password.exists' => '密码或用户名不正确',
+            'password.min' => '密码不能低于6位数',
+
+            'captcha.required' => '验证码不能为空',
+            'captcha.captcha' => '验证码不正确',
         ]);
 
         // 验证身份
@@ -54,4 +60,5 @@ class LoginController extends Controller
                 ->withInput();
         }
     }
+
 }
