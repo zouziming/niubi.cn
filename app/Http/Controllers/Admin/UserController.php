@@ -33,14 +33,13 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'username' => 'required|exists:shop_users|max:255',
+            'username' => 'required|max:255',
             'pic' => 'required',
             'email' => 'required',
             'phone' => 'required',
             'sex' => 'required',
         ],[
             'username.required' => '用户名不能为空',
-            'username.exists' => '密码或用户名不正确',
             'username.max' => '用户名过长',
         ]);
         $data = [];
