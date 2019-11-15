@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Comment extends Model
+class ShopLunbo extends Model
 {
-    protected $table = 'shop_comment';
+    protected $table = 'shop_lunbo';
     
     public $timestamps = false;
     

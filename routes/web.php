@@ -91,4 +91,15 @@ Route::group(['prefix' => '/admin'], function(){
 	Route::get('/collection/del/{id}', 'Admin\CollectionController@del');
 	
 	Route::get('/collection/search', 'Admin\CollectionController@search');
+	
+	//轮播
+	Route::get('/lunbo', 'Admin\LunboController@index');
+	
+	Route::get('/lunbo/add', 'Admin\LunboController@add');
+	Route::post('/lunbo/add', 'Admin\LunboController@checkadd');
+	
+	Route::get('/lunbo/edit/{id}', 'Admin\LunboController@edit');
+	Route::post('/lunbo/edit', 'Admin\LunboController@checkedit');
+	
+	Route::get('lunbo/del/{id}', 'Admin\LunboController@del');
 });

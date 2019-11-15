@@ -29,6 +29,7 @@ class LinkController extends Controller
 		
 		$data['name'] = $request->name;
 		$data['url'] = $request->url;
+		$data['addtime'] = date('Y-m-d H:i:s', time());
 		
 		$res = ShopLink::create($data);
 		
@@ -53,6 +54,7 @@ class LinkController extends Controller
 		
 		$data['name'] = $request->name;
 		$data['url'] = $request->url;
+		$data['createtime'] = date('Y-m-d H:i:s', time());
 		
 		$res = ShopLink::where('id', $request->id)->update($data);
 		

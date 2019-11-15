@@ -70,6 +70,12 @@
 	                    <li><a href="/admin/link"><i class="glyph-icon icon-chevron-right"></i>友链列表</a></li>
 	                </ul>
 	            </li>
+				<li class="childUlLi">
+				    <a href="#"> <i class="glyph-icon icon-reorder"></i>轮播管理</a>
+				    <ul style="display: none;">
+				        <li><a href="/admin/lunbo"><i class="glyph-icon icon-chevron-right"></i>轮播列表</a></li>
+				    </ul>
+				</li>
 	        </ul>
 	    </div>
 	    <!--菜单结束-->    <!-- 主体 -->
