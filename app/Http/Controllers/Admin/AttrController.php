@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Cate;
+use App\ShopCate;
 use App\AttributeKey;
 use App\AttributeValue;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ class AttrController extends Controller
     public function attr()
     {
 		$cateid = AttributeKey::groupBy('cate_id')->pluck('cate_id');
-		$data = Cate::where('pid', '0')->whereIn('id', $cateid)->get();
+		$data = ShopCate::where('pid', '0')->whereIn('id', $cateid)->get();
 		
 		$result = [];
 		foreach ($data as $k=>$v) {
@@ -27,7 +27,7 @@ class AttrController extends Controller
     {
 		$cateid = AttributeKey::groupBy('cate_id')->pluck('cate_id');
 		// dump($cateid);
-		$catedata = Cate::where('pid', '0')->whereNotIn('id', $cateid)->get();
+		$catedata = ShopCate::where('pid', '0')->whereNotIn('id', $cateid)->get();
 		// dump($catedata[0]->id);
     	return view('Admin.attr.add')->with('catedata', $catedata);
     }
@@ -61,7 +61,7 @@ class AttrController extends Controller
     {
 		
 		$data = AttributeKey::where('cate_id', $id)->get();
-		$cate = Cate::where('id', $data[0]['cate_id'])->get();
+		$cate = ShopCate::where('id', $data[0]['cate_id'])->get();
 		// dump($cate);
 
 		// dump($data);
@@ -114,7 +114,7 @@ class AttrController extends Controller
 	
 	public function addson($id)
 	{
-		$cate = Cate::where('id', $id)->get();
+		$cate = ShopCate::where('id', $id)->get();
 		$attr = AttributeKey::where('cate_id', $id)->get();
 		// dump($attr);
 		return view('Admin.attr.son')->with(['cate'=>$cate[0], 'attr'=>$attr]);
@@ -148,7 +148,7 @@ class AttrController extends Controller
 	public function allattr()
 	{
 		$cateid = AttributeKey::groupBy('cate_id')->pluck('cate_id');
-		$keydata = Cate::where('pid', '0')->whereIn('id', $cateid)->get();
+		$keydata = ShopCate::where('pid', '0')->whereIn('id', $cateid)->get();
 		// $value = 
 		$result = [];
 		foreach ($keydata as $k=>$v) {

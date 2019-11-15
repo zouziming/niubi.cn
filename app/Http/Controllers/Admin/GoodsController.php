@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Cate;
+use App\ShopCate;
 use App\Goods;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,7 +17,7 @@ class GoodsController extends Controller
 		$data = $goods->where('is_recycle', 0)->orderBy('id', 'desc')->paginate(3);
 		// dump($data);
 		foreach ($data as $k=>$v) {
-			$v['cid'] = Cate::where('id', $v['cid'])->pluck('name')[0];
+			$v['cid'] = ShopCate::where('id', $v['cid'])->pluck('name')[0];
 			// dump($v['cid']);
 		}
 		return view('Admin.goods.index')->with(["data"=>$data, 'res'=>$res]);
@@ -25,8 +25,8 @@ class GoodsController extends Controller
 	
 	public function add()
 	{
-		$cate = new \App\Cate;
-		$catedata = $cate->get();
+		
+		$catedata = ShopCate::get();
 		// dump($catedata);
 		return view('Admin.goods.add')->with('cate', $catedata);
 	}
@@ -92,21 +92,17 @@ class GoodsController extends Controller
 	}
 	
 	public function edit($id)
-	{
-		$goods = new \App\Goods;
-		$cate = new \App\Cate;
-		$catedata = $cate->get();
+	{	
+		$catedata = ShopCate::get();
 
-		$data = $goods->find($id);
+		$data = Goods::find($id);
 		// dump($data->name);
 		return view('Admin.goods.edit')->with(['data'=>$data, 'cate'=>$catedata]);
 	}
 	
 	public function checkedit(Request $request, $id)
 	{
-		$goods = new \App\Goods;
-		
-		$olddata = $goods->find($id);
+		$olddata = Goods::find($id);
 		
 		$this->validate($request, [
 		    'name' => 'required',
@@ -159,7 +155,7 @@ class GoodsController extends Controller
 		}
 		
 		// dump($data);
-		$res = $goods->where('id', $id)->update($data);
+		$res = Goods::where('id', $id)->update($data);
 		if ($res) {
 			return redirect("admin/goods");
 		}
@@ -205,11 +201,10 @@ class GoodsController extends Controller
 			return redirect("admin/goods");
 		}
 		
-		$goods = new \App\Goods;
 		$name = $request->all()['name'];
-		$res = $goods->where('name','like','%'.$name.'%')->first();
-		$data = $goods->where('name','like','%'.$name.'%')->paginate(1)->appends($request->all());
-		// dump($res);
+		$res = Goods::where('name','like','%'.$name.'%')->first();
+		$data = Goods::where('name','like','%'.$name.'%')->paginate(1)->appends($request->all());
+
 		return view('Admin.goods.index')->with(["data"=>$data, 'res'=>$res]);
 	}
 	

@@ -57,10 +57,11 @@
 	                <a href="#"> <i class="glyph-icon  glyph-icon icon-reorder"></i>商品管理</a>
 	                <ul style="display: none;">
 	                    <li><a href="/admin/goods"><i class="glyph-icon icon-chevron-right"></i>商品列表</a></li>
-						<li><a href="/admin/goods/recycle"><i class="glyph-icon icon-chevron-right"></i>回收站</a></li>
 						<li><a href="/admin/goods/attr"><i class="glyph-icon icon-chevron-right"></i>添加规格属性</a></li>
 						<li><a href="/admin/allattr"><i class="glyph-icon icon-chevron-right"></i>查看所有规格</a></li>
 						<li><a href="/admin/comment"><i class="glyph-icon icon-chevron-right"></i>评论列表</a></li>
+						<li><a href="/admin/collection"><i class="glyph-icon icon-chevron-right"></i>收藏列表</a></li>
+						<li><a href="/admin/goods/recycle"><i class="glyph-icon icon-chevron-right"></i>回收站</a></li>
 	                </ul>
 	            </li>
 	            <li class="childUlLi">

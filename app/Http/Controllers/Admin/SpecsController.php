@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Cate;
+use App\ShopCate;
 use App\Goods;
 use App\GoodsSpecs;
 use App\AttributeKey;
@@ -18,7 +18,7 @@ class SpecsController extends Controller
 		$cid = Goods::where('id', $id)->pluck('cid');
 		$attr = Goods::where('id', $id)->pluck('attribute_list');
 		
-		$pid = Cate::where('id', $cid)->pluck('pid');
+		$pid = ShopCate::where('id', $cid)->pluck('pid');
 		
 		$key = AttributeKey::where('cate_id', $pid)->get();
 		
@@ -81,7 +81,7 @@ class SpecsController extends Controller
 		
 		$data = GoodsSpecs::where('goods_id', $id)->get();
 		$pan = $data->isempty();
-		dump($data);
+		// dump($data);
 		
 		return view('Admin.specs.set')->with(['group'=>$group, 'gid'=>$id, 'pan'=>$pan, 'data'=>$data]);
 	}

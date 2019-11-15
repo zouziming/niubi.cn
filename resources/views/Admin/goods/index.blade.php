@@ -14,8 +14,11 @@
 	
 	<div class="operate">
 	<form action="/admin/goods/search">
-		<!-- {{ csrf_field() }} -->
-		<input name="name" type="text" class="textBox length-long" placeholder="输入商品名称..." value="" />
+		@if($_GET == null)
+			<input name="name" type="text" class="textBox length-long" placeholder="输入商品名称..." value="" />
+		@else
+			<input name="name" type="text" class="textBox length-long" placeholder="输入商品名称..." value="{{$_GET['name']}}" />
+		@endif
 		<input type="submit" value="查询" class="tdBtn"/>
 	</form>
 	</div>

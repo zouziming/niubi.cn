@@ -84,4 +84,11 @@ Route::group(['prefix' => '/admin'], function(){
 	Route::get('/link/del/{id}', 'Admin\LinkController@del');
 	
 	Route::get('/link/search', 'Admin\LinkController@search');
+	
+	//收藏
+	Route::get('/collection', 'Admin\CollectionController@index');
+	
+	Route::get('/collection/del/{id}', 'Admin\CollectionController@del');
+	
+	Route::get('/collection/search', 'Admin\CollectionController@search');
 });

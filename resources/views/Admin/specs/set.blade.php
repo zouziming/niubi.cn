@@ -113,7 +113,7 @@
 			},
 			success: function(res){
 				if (res.code == 0) {
-					layer.msg('添加成功!');
+					layer.msg('修改成功!');
 				} else if (res.code != 0) {
 					layer.msg(res.msg);
 				}

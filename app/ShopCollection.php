@@ -4,16 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Cate extends Model
+class ShopCollection extends Model
 {
-    protected $table = 'shop_cate';
+    protected $table = 'shop_collection';
     
     public $timestamps = false;
     
     protected $guarded = [];
-	
-	public function posts()
-	{
-		return $this->hasMany('App\AttributeKey');
-	}
 }
