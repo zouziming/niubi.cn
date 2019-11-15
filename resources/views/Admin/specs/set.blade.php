@@ -4,7 +4,7 @@
 <div class="wrap">
 	<div class="page-title">
 		<span class="modular fl"><i></i><em>编辑对应规格的价格</em></span>
-		<span class="fr"><a href="/admin/goods"><input type="submit" value="返回" class="tdBtn"/></a></span>
+		<span class="fr"><a href="javascript:void(0)"><input type="submit" value="返回" class="tdBtn fan"/></a></span>
 		
 	</div>
 
@@ -50,6 +50,7 @@
 				</td>
 				<td style="position: relative;" class="attr center">
 					<span><a href="javascript:void(0)"><input type="submit" value="修改" class="tdBtn edit"/></a></span>
+					<span><a href="javascript:void(0)"><input type="submit" value="清空" class="tdBtn del"/></a></span>
 				</td>
 			</tr>
 			@endforeach
@@ -77,7 +78,7 @@
 		
 		$.ajax({
 			method:'post',
-			url:'/admin/specs/addgoods',
+			url:'/admin/specs/addgoodsspecs',
 			data:{
 				_token : '{{ csrf_token() }}',
 				data : data,
@@ -106,7 +107,7 @@
 		
 		$.ajax({
 			method:'post',
-			url:'/admin/specs/editgoods',
+			url:'/admin/specs/editgoodsspecs',
 			data:{
 				_token : '{{ csrf_token() }}',
 				data : data,
@@ -120,5 +121,50 @@
 			}	
 		});
 	});
+	
+	$('.del').click(function(){
+		var ele = this.parentElement.parentElement.parentElement.parentElement;
+		var id = $(ele).children().eq(0).children().eq(0).attr('ids');
+		var data1 = $(ele).children().eq(1).children().eq(0);
+		var data2 = $(ele).children().eq(2).children().eq(0);
+		$.ajax({
+			method:'post',
+			url:'/admin/specs/delgoodsspecs',
+			data:{
+				_token : '{{ csrf_token() }}',
+				id : id,
+			},
+			success: function(res){
+				if (res.code == 0) {
+					data1.val('');
+					data2.val('');
+					layer.msg('清除成功!');
+				} else if (res.code != 0) {
+					layer.msg(res.msg);
+				}
+			}	
+		});
+	});
+	
+	$('.fan').click(function(){
+		var ele = this.parentElement.parentElement.parentElement.parentElement;
+		var ipts = $(ele).find('input.textBox');
+		var pan = 0;
+		// console.dir($(ipts[3]).val());
+		count = ipts.length
+		for (var i = 0; i < count; i++) {
+			if (i % 3 != 0) {
+				if ($(ipts[i]).val() == null || $(ipts[i]).val() == '') {
+					pan += 1;
+				}
+			}
+		}
+		if (pan == 0 || pan == count/3*2) {
+			location.href = '/admin/goods'
+		} else {
+			alert('宝贝请先写完再走好吗');
+		}
+	});
+	
 </script>
 @endsection

@@ -31,6 +31,7 @@
 		</td>
 		<td class="center">
 			<!-- <a href="/admin/attr/son/" title="编辑子规格"><img width="40" src="/lib/images/icon_view.gif"/></a> -->
+			<a href="/admin/attr/son/{{$v['cate']['id']}}" title="添加子规格"><img width="40" src="/lib/images/icon_view.gif"/></a>
 			<a href="/admin/allattr/editson/{{$v['cate']['id']}}" title="编辑子规格"><img width="40" src="/lib/images/icon_edit.gif"/></a>
 			<a href="/admin/allattr/delson/{{$v['cate']['id']}}" title="删除子规格"><img width="40px;" src="/lib/images/icon_drop.gif"/></a>
 		</td>

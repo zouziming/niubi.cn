@@ -4,6 +4,7 @@
 <div class="wrap">
 	<div class="page-title">
 		<span class="modular fl"><i></i><em>编辑子规格</em></span>
+		<span class="modular fr"><a href="/admin/allattr" class="pt-link-btn">规格列表</a></span>
 	</div>
 
 	<table class="list-style">
@@ -25,7 +26,7 @@
 		@endforeach
 		<tr>
 			<td style="text-align:right;"></td>
-			<td><a href="/admin/goods/attr"><input type="submit" value="保存" class="tdBtn"/></a></td>
+			<td><a href="/admin/allattr"><input type="submit" value="保存" class="tdBtn"/></a></td>
 		</tr>
 	</table>
 </div>

@@ -51,10 +51,22 @@ class SpecsController extends Controller
 	
 	public function setprice($id)
 	{
-		
 		$attr_list = Goods::where('id', $id)->pluck('attribute_list')[0];
 		$attr_list = json_decode($attr_list);
-		// dump($attr_list);
+		foreach ($attr_list as $v) {
+			$res = AttributeValue::where('attr_value', $v)->first();
+		}
+		if ($res == null) {
+			echo "<script>alert('请先设置好子规格');window.history.back(-1);</script>";die;	
+		}
+		
+		foreach ($attr_list as $v) {
+			$res1[] = AttributeValue::where('attr_value', $v)->pluck('attr_id')[0];
+		}
+		if (count(array_unique($res1)) <= 1) {
+			echo "<script>alert('请先设置好子规格');window.history.back(-1);</script>";die;	
+		}
+		
 		foreach ($attr_list as $v) {
 			foreach ($attr_list as $j) {
 				$a = AttributeValue::where('attr_value', $v)->get()[0];
@@ -125,6 +137,7 @@ class SpecsController extends Controller
 		} else {
 		    $res = [
 		        'code' => 1,
+				'msg'=>'服务器繁忙，添加失败！',
 		    ];
 		}
 		return $res;
@@ -137,7 +150,7 @@ class SpecsController extends Controller
 		if ($data[1] == null || $data[2] == null) {
 			$res = [
 				'code' => 1,
-				'msg' => '服务器繁忙,添加失败',
+				'msg' => '服务器繁忙,修改失败',
 		    ];
 			return $res;
 		}
@@ -167,6 +180,25 @@ class SpecsController extends Controller
 		} else {
 		    $res = [
 		        'code' => 1,
+				'msg'=>'服务器繁忙，修改失败！',
+		    ];
+		}
+		return $res;
+	}
+	
+	public function delsetprice(Request $request)
+	{
+		$id = $request->id;
+		
+		$res = GoodsSpecs::where('id', $id)->delete();
+		if ($res) {
+		    $res = [
+				'code' => 0,
+		    ];
+		} else {
+		    $res = [
+		        'code' => 1,
+				'msg'=>'服务器繁忙，修改失败！',
 		    ];
 		}
 		return $res;

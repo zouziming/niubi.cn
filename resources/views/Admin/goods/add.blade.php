@@ -85,7 +85,6 @@
 
 
 @section('script')
-<script src="/lib/js/jquery.min.js"></script>
 <script>
 	function demo(file)
 	  {

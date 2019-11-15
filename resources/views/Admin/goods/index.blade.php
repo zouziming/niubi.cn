@@ -15,9 +15,13 @@
 	<div class="operate">
 	<form action="/admin/goods/search">
 		@if($_GET == null)
+			@if(empty($_GET['name']))
 			<input name="name" type="text" class="textBox length-long" placeholder="输入商品名称..." value="" />
-		@else
+			@else
 			<input name="name" type="text" class="textBox length-long" placeholder="输入商品名称..." value="{{$_GET['name']}}" />
+			@endif
+		@else
+			<input name="name" type="text" class="textBox length-long" placeholder="输入商品名称..." value="" />
 		@endif
 		<input type="submit" value="查询" class="tdBtn"/>
 	</form>

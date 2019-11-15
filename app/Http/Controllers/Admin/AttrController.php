@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\GoodsSpecs;
+use App\Goods;
 use App\ShopCate;
 use App\AttributeKey;
 use App\AttributeValue;
@@ -34,14 +36,17 @@ class AttrController extends Controller
 	
 	public function checkadd(Request $request)
 	{
+		foreach ($request->name as $v) {
+			if ($v == null) {
+				return redirect("admin/attr/add");
+			}
+		}
 		$this->validate($request, [
-		    'name' => 'required',
 		    'cate_id' => 'required',
 		], [
 		    'required' => ':attribute 必须填写',
 		], [
-		    'name' => '规格名称',
-		    'cate_id' => '分类',
+		    'cate_id' => '分类', 
 		]);
 		
 		// dump($request->all());
@@ -108,7 +113,7 @@ class AttrController extends Controller
 				return redirect("admin/goods/attr");
 			}	
 		} else {
-			echo "<script>alert('请先删除属性下的值');window.history.back(-1);</script>";die;		
+			echo "<script>alert('请先删除属性下的值');window.history.back(-1);</script>";die;	
 		}
 	}
 	
@@ -204,9 +209,17 @@ class AttrController extends Controller
 	
 	public function delson($id)
 	{
+		$soncid = ShopCate::where('pid', $id)->pluck('id');
+		foreach ($soncid as $v) {
+			$gid[] = Goods::where('cid', $v)->pluck('id');
+		}
+		foreach ($gid[0] as $v) {
+			GoodsSpecs::where('goods_id', $v)->delete();
+		}
+		
 		$keyid = AttributeKey::where('cate_id', $id)->pluck('id');
-		$data = AttributeValue::whereIn('attr_id', $keyid)->delete();
-		if ($data) {
+		$res = AttributeValue::whereIn('attr_id', $keyid)->delete();
+		if ($res) {
 			return redirect("admin/allattr");
 		}
 	}

@@ -61,8 +61,9 @@ Route::group(['prefix' => '/admin'], function(){
 	Route::post('/specs', 'Admin\SpecsController@set');
 	
 	Route::get('/specs/goods/{id}', 'Admin\SpecsController@setprice');
-	Route::post('/specs/addgoods', 'Admin\SpecsController@addsetprice');
-	Route::post('/specs/editgoods', 'Admin\SpecsController@editsetprice');
+	Route::post('/specs/addgoodsspecs', 'Admin\SpecsController@addsetprice');
+	Route::post('/specs/editgoodsspecs', 'Admin\SpecsController@editsetprice');
+	Route::post('/specs/delgoodsspecs', 'Admin\SpecsController@delsetprice');
 	
 	//评论
 	Route::get('/comment', 'Admin\CommentController@index');

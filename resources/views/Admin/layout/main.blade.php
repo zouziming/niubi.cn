@@ -8,11 +8,7 @@
 	<link rel="stylesheet" href="/lib/css/add.css">
 	<link rel="stylesheet" href="/lib/css/bootstrap.css">
 	<link href="/lib/style/adminStyle.css" rel="stylesheet" type="text/css" />
-	<script src="/lib/js/jquery.js"></script>
-	<script src="/lib/js/tendina.js"></script>
-	<script src="/lib/js/common.js"></script>
-	<script src="/lib/js/public.js"></script>
-	<script src="/lib/layer/layer.js"></script>
+	
 	
 	@yield('css')
 </head>
@@ -91,6 +87,11 @@
 	        <p>Copyright © 2019 - 世界第一个没有之一科技</p>
 	    </div>
 	    <!-- 尾部结束 -->
+		<script src="/lib/js/jquery.js"></script>
+		<script src="/lib/js/tendina.js"></script>
+		<script src="/lib/js/common.js"></script>
+		<script src="/lib/js/public.js"></script>
+		<script src="/lib/layer/layer.js"></script>
 		@yield('script')
 </body>
 </html>
