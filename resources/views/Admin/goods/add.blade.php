@@ -65,7 +65,8 @@
             <tr>
                 <td style="text-align:right;">商品缩图片：</td>
                 <td>
-                    <img src="" width="60" height="60" class="mlr5" /></td>
+                    <img src="" width="250" class="mlr5" />
+				</td>
             </tr>
             <tr>
                 <td style="text-align:right;">商品详情：</td>
