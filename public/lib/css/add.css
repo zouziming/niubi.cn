@@ -63,6 +63,7 @@ input:focus{
     text-decoration: none;
 
 }
+<<<<<<< HEAD
 
 .page{
     display: inline-block;
@@ -83,3 +84,5 @@ input:focus{
     cursor:not-allowed;
     background:#eee;
 }
+=======
+>>>>>>> zzm

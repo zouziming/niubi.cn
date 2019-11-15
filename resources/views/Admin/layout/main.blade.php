@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="/lib/css/index.css" />
     <link rel="stylesheet" href="/lib/css/add.css" />
     <link rel="stylesheet" href="/lib/css/bootstrap.css" />
+	<link href="/lib/style/adminStyle.css" rel="stylesheet" type="text/css" />
+	@yield('css')
 </head>
 <body>
     
@@ -55,12 +57,28 @@
                 </ul>
             </li>
             <li class="childUlLi">
-                <a href="#"> <i class="glyph-icon  icon-reorder"></i>商品管理</a>
+                <a href="#"> <i class="glyph-icon  glyph-icon icon-reorder"></i>商品管理</a>
                 <ul style="display: none;">
-                    <li><a href="__APP__/Admin/Goods/index" target="main"><i class="glyph-icon icon-chevron-right"></i>商品列表</a></li>
-                    <li><a href="__APP__/Admin/Goods/add" target="main"><i class="glyph-icon icon-chevron-right"></i>添加商品</a></li>
+                    <li><a href="/admin/goods"><i class="glyph-icon icon-chevron-right"></i>商品列表</a></li>
+            		<li><a href="/admin/goods/attr"><i class="glyph-icon icon-chevron-right"></i>添加规格属性</a></li>
+            		<li><a href="/admin/allattr"><i class="glyph-icon icon-chevron-right"></i>查看所有规格</a></li>
+            		<li><a href="/admin/comment"><i class="glyph-icon icon-chevron-right"></i>评论列表</a></li>
+            		<li><a href="/admin/collection"><i class="glyph-icon icon-chevron-right"></i>收藏列表</a></li>
+            		<li><a href="/admin/goods/recycle"><i class="glyph-icon icon-chevron-right"></i>回收站</a></li>
                 </ul>
             </li>
+			<li class="childUlLi">
+			    <a href="#"> <i class="glyph-icon icon-reorder"></i>友链管理</a>
+			    <ul style="display: none;">
+			        <li><a href="/admin/link"><i class="glyph-icon icon-chevron-right"></i>友链列表</a></li>
+			    </ul>
+			</li>
+			<li class="childUlLi">
+			    <a href="#"> <i class="glyph-icon icon-reorder"></i>轮播管理</a>
+			    <ul style="display: none;">
+			        <li><a href="/admin/lunbo"><i class="glyph-icon icon-chevron-right"></i>轮播列表</a></li>
+			    </ul>
+			</li>
             <li class="childUlLi">
                 <a href="#"> <i class="glyph-icon  icon-reorder"></i>订单管理</a>
                 <ul style="display: none;">
@@ -81,6 +99,7 @@
                 <include file="main:index" />
                 </block> --> 
                 @yield('content')
+				@yield('body')
             </div>
         </div>
     </div>
@@ -94,6 +113,9 @@
     <script src="/lib/js/jquery.js"></script>
     <script src="/lib/js/tendina.js"></script>
     <script src="/lib/js/common.js"></script>
+	<script src="/lib/js/public.js"></script>
+	<script src="/lib/layer/layer.js"></script>
     @yield('script')
+
 </body>
 </html>
