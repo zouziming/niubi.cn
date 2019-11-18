@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 
 // 分类
-Route::group(['prefix'=>'/admin'],function() {
+Route::group(['prefix'=>'/admin','middleware' => ['power']],function() {
 	// 首页
 	Route::get('/','Admin\IndexController@index');
 	// 分类列表
@@ -36,5 +36,43 @@ Route::group(['prefix'=>'/admin'],function() {
 	Route::get('/cate/edit','Admin\CateController@edit');
 	// 编辑分类
 	Route::post('/cate/edit','Admin\CateController@cateEdit');
+
+
+	// 权限表
+	Route::get('/power','Admin\PowerController@index');
+	// 删除权限
+	Route::get('/power/del/{id}','Admin\PowerController@del');
+	// 添加权限页面
+	Route::get('/power/add','Admin\PowerController@add');
+	// 添加权限
+	Route::post('/power/add','Admin\PowerController@addPower');
+	// 编辑权限页面
+	Route::get('/power/edit/index','Admin\PowerController@edit');
+	// 编辑权限
+	Route::post('/power/edit/index','Admin\PowerController@editPower');
+	// 角色列表
+	Route::get('/power/role','Admin\PowerController@role');
+	// 添加角色页面
+	Route::get('/power/role/add','Admin\PowerController@roleIndex');
+	// 添加角色
+	Route::post('/power/role/add','Admin\PowerController@roleAdd');
+	// 删除角色
+	Route::get('/power/role/del','Admin\PowerController@roleDel');
+	// 编辑角色页面
+	Route::get('/power/role/edit','Admin\PowerController@roleEdit');
+	// 编辑角色
+	Route::post('/power/role/edit','Admin\PowerController@editRole');
+	// 管理员列表
+	Route::get('/power/userRole','Admin\PowerController@userRole');
+	// 删除管理员
+	Route::get('/power/userRole/del','Admin\PowerController@userRoleDel');
+	// 添加管理员页面
+	Route::get('/power/userRole/addIndex','Admin\PowerController@userRoleAdd');
+	// 添加管理员
+	Route::post('/power/userRole/addIndex','Admin\PowerController@addUserRole');
+	// 修改管理员页面
+	Route::get('/power/userRole/edit/index','Admin\PowerController@userRoleEdit');
+	// 修改管理员
+	Route::post('/power/userRole/edit/index','Admin\PowerController@editUserRole');
 
 });

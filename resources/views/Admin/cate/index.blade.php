@@ -6,7 +6,7 @@
 @section('body')
 
 
-   <form class="form-search" action="/admin/cate/index" placeholder="" method="post">
+   <form class="form-search" action="/admin/cate/index" placeholder="" method="get">
      {{ csrf_field() }}
             搜索商品：
   <div class="form-group">
@@ -35,10 +35,15 @@
                     <th>操作</th>
                 </tr>
                
-                @foreach($cate as $v)             
+                @foreach($cate as $v)  
+                @php
+                   $num = substr_count($v->path, ',');
+                        $str = str_repeat('--', ($num-1)*2);
+
+                @endphp           
                     <tr style="font-size: 10px">
                        <td>{{$v->id}}</td>
-                       <td>{{$v->name}}</td>
+                       <td>{{$str}}{{$v->name}}</td>
                        <td>{{$v->pid}}</td>
                        <td>{{$v->path}}</td>
                        <td><a href="/admin/cate/add?id={{$v->id}}">添加子类</a>|<a href="/admin/cate/del?id={{$v->id}}">删除</a>|
@@ -46,6 +51,7 @@
                     </tr>
                @endforeach
             </table>
+            {{ $cate->links() }}
         </div>
     </div>
 @endsection

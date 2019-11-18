@@ -10,28 +10,40 @@ use App\Models\Cate;
 class CateController extends Controller
 {
     //
-    public function index()
-    {	
-        $cate =new \App\Models\Cate;
-    	$res=$cate->orderBy('path')->orderBy('pid')
-        ->get();
-    	dump($res);       
-    	return view('/Admin/cate/index',['cate'=>$res]);
-    } 
+    // public function index()
+    // {	
+    //     $cate =new \App\Models\Cate;
+    // 	$res=$cate->orderByRaw('concat(path, id) ASC')
+    //     ->paginate(5);
+    // 	dump($res);       
+    // 	return view('/Admin/cate/index',['cate'=>$res]);
+    // } 
 
-    public function seek(Request $request)
+    // 搜索
+    public function index(Request $request)
     {   
         $map=[];
         if (!empty($request->name)) {
             $map[]=['name','like','%'.$request->name.'%'];
-        }
+        };
+        if (empty($request->name)) {
+            $map[]=['name','like','%'.$request->name.'%'];
+        };
         if (!empty($request->id)) {
             $map[]=['id','like','%'.$request->id.'%'];
-        }
+        };
+        if (empty($request->id)) {
+            $map[]=['id','like','%'.$request->id.'%'];
+        };
+        //  if (empty($request->id)) {
+        //    $map[]=$request->id;
+        // };
         // dump($map);
         // return '123';
         $cate =new \App\Models\Cate;
-       $data= $cate->where($map)->orderBy('path')->orderBy('pid')->get();
+       $data= $cate->where($map)
+                   ->orderByRaw('concat(path, id) ASC')
+                   ->paginate(4);
        return view('/Admin/cate/index',['cate'=>$data]);
     }
 

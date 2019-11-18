@@ -2,12 +2,16 @@
 <head>
     <meta charset="utf-8">
     <title>@yield('title')</title>
-    <link rel="stylesheet" href="/lib/bootstrap-3.3.7/css/index.css" />
-    <script  type="text/javascript" src="/lib/bootstrap-3.3.7/js/jquery.js"></script>
-    <script type="text/javascript" src="/lib/bootstrap-3.3.7/js/tendina.js"></script>
-    <script type="text/javascript" src="/lib/bootstrap-3.3.7/js/common.js"></script>
-    <link rel="stylesheet" href="/lib/bootstrap-3.3.7/css/add.css" />
-    <link rel="stylesheet" href="/lib/bootstrap-3.3.7/css/bootstrap.css" />
+   
+   <link rel="stylesheet" href="/lib/css/index.css" />
+    <link rel="stylesheet" href="/lib/css/add.css">
+    <link rel="stylesheet" href="/lib/css/bootstrap.css">
+    <link href="/lib/style/adminStyle.css" rel="stylesheet" type="text/css" />
+    <script src="/lib/js/jquery.js"></script>
+    <script src="/lib/js/tendina.js"></script>
+    <script src="/lib/js/common.js"></script>
+    <script src="/lib/js/public.js"></script>
+    <script src="/lib/layer/layer.js"></script>
 </head>
 <body>
 	 <!--顶部-->
@@ -63,6 +67,15 @@
                     <li><a href="__MODULE__/Orders/index" target="main"><i class="glyph-icon icon-chevron-right"></i>订单列表</a></li>
                     
                     
+                </ul>
+            </li>
+
+            <li class="childUlLi">
+                <a href="#"> <i class="glyph-icon  icon-location-arrow"></i>权限管理</a>
+                <ul style="display: none;">
+                    <li><a href="/admin/power/role" target="main"><i class="glyph-icon icon-chevron-right"></i>角色列表</a></li>
+                    <li><a href="/admin/power" target="main"><i class="glyph-icon icon-chevron-right"></i>权限列表</a></li>
+                    <li><a href="/admin/power/userRole" target="main"><i class="glyph-icon icon-chevron-right"></i>管理员列表</a></li>
                 </ul>
             </li>
         </ul>
