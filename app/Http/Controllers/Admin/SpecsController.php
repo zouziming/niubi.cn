@@ -35,6 +35,11 @@ class SpecsController extends Controller
 		
 		$data = json_encode($all['datas'], JSON_UNESCAPED_UNICODE);
 		
+		$result = GoodsSpecs::where('goods_id', $all['id'])->first();
+		// dd($result);
+		if ($result != null) {
+			return ['code' => 1, 'msg'=>'请先清空商品价格的设置，好吗'];
+		}
 		$res = Goods::where('id', $all['id'])->update(['attribute_list' => $data]);
 		
 		if ($res) {
@@ -44,6 +49,7 @@ class SpecsController extends Controller
 		} else {
 		    $res = [
 		        'code' => 1,
+				'msg' => '修改失败'
 		    ];
 		}
 		return $res;

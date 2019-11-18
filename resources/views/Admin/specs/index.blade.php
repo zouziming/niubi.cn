@@ -24,8 +24,8 @@
 		<tr>
 			<td style="text-align:right;"></td>
 			<td>
-				<a href="javascript:void(0)"><input type="submit" value="保存" class="tdBtn"/></a>
-				<a href="/admin/goods"><input type="submit" value="返回" class="tdBtn"/></a>
+				<a href="/admin/goods" class="fr"><input type="submit" value="返回" class="tdBtn"/></a>
+				<a href="javascript:void(0)" id="submit" style="display: none;"><input type="submit" value="保存" class="tdBtns"/></a>
 			</td>
 		</tr>
 	</table>
@@ -60,7 +60,7 @@
 		
 	});
 	
-	$('.tdBtn').click(function(){
+	$('.tdBtns').click(function(){
 		var count = $('.val').length;
 		var data = [];
 		for (var i = 0; i < count; i++) {
@@ -82,10 +82,14 @@
 				if (res.code == 0) {
 					layer.msg('修改成功!');
 				} else if (res.code != 0) {
-					layer.msg('修改失败!');
+					layer.msg(res.msg);
 				}
 			}	
 		});
+	});
+	
+	$('.list-style').on('click', '.val', function(){
+		$('#submit').css('display','inline');
 	});
 </script>
 @endsection

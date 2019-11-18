@@ -28,9 +28,9 @@ class AttrController extends Controller
     public function add()
     {
 		$cateid = AttributeKey::groupBy('cate_id')->pluck('cate_id');
-		// dump($cateid);
+
 		$catedata = ShopCate::where('pid', '0')->whereNotIn('id', $cateid)->get();
-		// dump($catedata[0]->id);
+
     	return view('Admin.attr.add')->with('catedata', $catedata);
     }
 	
@@ -49,7 +49,6 @@ class AttrController extends Controller
 		    'cate_id' => '分类', 
 		]);
 		
-		// dump($request->all());
 		foreach ($request->all()['name'] as $v) {
 			$data['attr_name'] = $v;
 			$data['cate_id'] = $request->all()['cate_id'];
@@ -67,9 +66,7 @@ class AttrController extends Controller
 		
 		$data = AttributeKey::where('cate_id', $id)->get();
 		$cate = ShopCate::where('id', $data[0]['cate_id'])->get();
-		// dump($cate);
 
-		// dump($data);
 		return view('Admin.attr.edit')->with(['data'=>$data, 'cate'=>$cate]);
     }
 	
@@ -102,18 +99,21 @@ class AttrController extends Controller
 		return $res;
 	}
 	
-	public function del($id)
+	public function del(Request $request)
 	{
+		$id = $request->id;
 		$keyid = AttributeKey::where('cate_id', $id)->pluck('id');
 		$value = AttributeValue::whereIn('attr_id', $keyid)->get();
 		
 		if ($value->isempty()) {
-			$data = AttributeKey::where('cate_id', $id)->delete();
-			if ($data) {
-				return redirect("admin/goods/attr");
+			$res = AttributeKey::where('cate_id', $id)->delete();
+			if ($res) {
+				return ['code' => 0,];
+			} else {
+				return ['code'=>1, 'msg'=>'删除失败'];
 			}	
 		} else {
-			echo "<script>alert('请先删除属性下的值');window.history.back(-1);</script>";die;	
+			return  ['code'=>1, 'msg'=>'请先删除属性下的值'];
 		}
 	}
 	
@@ -121,7 +121,10 @@ class AttrController extends Controller
 	{
 		$cate = ShopCate::where('id', $id)->get();
 		$attr = AttributeKey::where('cate_id', $id)->get();
-		// dump($attr);
+		foreach ($attr as $k=>$v) {
+			$attr[$k]['value'] = AttributeValue::where('attr_id', $v['id'])->pluck('attr_value');
+		}
+		// dd($attr);
 		return view('Admin.attr.son')->with(['cate'=>$cate[0], 'attr'=>$attr]);
 	}
 	
@@ -142,7 +145,6 @@ class AttrController extends Controller
 		$val->attr_value = $data['value'];
 		$val->attr_id = $data['id'];
 		$res = $val->save();
-		
 		
 		$res = [
 			'code' => 0,

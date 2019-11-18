@@ -27,7 +27,9 @@
 		</td>
 		<td class="center">
 			<a href="/admin/attr/edit/{{$v[1]['id']}}" title="设置规格"><img width="40" src="/lib/images/icon_edit.gif"/></a>
-			<a href="/admin/attr/del/{{$v[1]['id']}}" title="删除"><img width="40px;" src="/lib/images/icon_drop.gif"/></a>
+			<a href="javascript:void(0)" title="删除" class="del" data-id="{{$v[1]['id']}}">
+				<img width="40px;" src="/lib/images/icon_drop.gif"/>
+			</a>
 		</td>
 	</tr>
 	@endforeach
@@ -43,4 +45,28 @@
 	  </div>
   </div>
  </div>
+@endsection
+
+@section('script')
+<script>
+	$('.del').click(function(){
+		var id = $(this).data('id');
+		var tr = $(this.parentElement.parentElement)
+		$.ajax({
+			method:'get',
+			url:'/admin/attr/del',
+			data:{
+				id : id,
+			},
+			success: function(res){
+				if (res.code == 0) {
+					layer.msg('删除成功!');
+					tr.remove();
+				} else if (res.code != 0) {
+					layer.msg(res.msg);
+				}
+			}
+		});
+	});
+</script>
 @endsection

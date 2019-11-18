@@ -46,7 +46,7 @@ Route::group(['prefix' => '/admin'], function(){
 	Route::get('/attr/son/{id}', 'Admin\AttrController@addson');
 	Route::post('attr/son', 'Admin\AttrController@checkaddson');
 	
-	Route::get('/attr/del/{id}', 'Admin\AttrController@del');
+	Route::get('/attr/del', 'Admin\AttrController@del');
 	
 	//全部规格属性
 	Route::get('/allattr', 'Admin\AttrController@allattr');

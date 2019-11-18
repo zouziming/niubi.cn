@@ -4,7 +4,7 @@
 <div class="wrap">
 	<div class="page-title">
 		<span class="modular fl"><i></i><em>编辑对应规格的价格</em></span>
-		<span class="fr"><a href="javascript:void(0)"><input type="submit" value="返回" class="tdBtn fan"/></a></span>
+		<span class="fr"><a href="/admin/goods"><input type="submit" value="返回" class="tdBtn fan"/></a></span>
 		
 	</div>
 
@@ -146,25 +146,25 @@
 		});
 	});
 	
-	$('.fan').click(function(){
-		var ele = this.parentElement.parentElement.parentElement.parentElement;
-		var ipts = $(ele).find('input.textBox');
-		var pan = 0;
-		// console.dir($(ipts[3]).val());
-		count = ipts.length
-		for (var i = 0; i < count; i++) {
-			if (i % 3 != 0) {
-				if ($(ipts[i]).val() == null || $(ipts[i]).val() == '') {
-					pan += 1;
-				}
-			}
-		}
-		if (pan == 0 || pan == count/3*2) {
-			location.href = '/admin/goods'
-		} else {
-			alert('宝贝请先写完再走好吗');
-		}
-	});
+	// $('.fan').click(function(){
+	// 	var ele = this.parentElement.parentElement.parentElement.parentElement;
+	// 	var ipts = $(ele).find('input.textBox');
+	// 	var pan = 0;
+	// 	// console.dir($(ipts[3]).val());
+	// 	count = ipts.length
+	// 	for (var i = 0; i < count; i++) {
+	// 		if (i % 3 != 0) {
+	// 			if ($(ipts[i]).val() == null || $(ipts[i]).val() == '') {
+	// 				pan += 1;
+	// 			}
+	// 		}
+	// 	}
+	// 	if (pan == 0 || pan == count/3*2) {
+	// 		location.href = '/admin/goods'
+	// 	} else {
+	// 		alert('宝贝请先写完再走好吗');
+	// 	}
+	// });
 	
 </script>
 @endsection

@@ -36,7 +36,9 @@
             <tr>
                 <td style="text-align:right;"></td>
                 <td>
-                    <input type="submit" value="修改" class="tdBtn" /></td>
+                    <input type="submit" value="修改" class="tdBtn" />
+					<a href="/admin/lunbo"><input type="button" value="返回" class="tdBtn"/></a>
+				</td>
             </tr>
         </table>
     </form>
