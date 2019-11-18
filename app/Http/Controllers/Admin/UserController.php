@@ -103,7 +103,6 @@ class UserController extends Controller
         $res = \App\ShopUserinfo::where('id', '=', $request->id)
                 ->update([
                     'username' => $request->username,
-                    'pic' => $request->pic,
                     'email' => $request->email,
                     'phone' => $request->phone,
                     'sex' => $request->sex,
@@ -111,8 +110,25 @@ class UserController extends Controller
         if ($res) {
             echo "<script>alert('修改成功');location.href='index'</script>";
         } else {
-            echo "<script>alert('修改失败');location.href='edit'</script>";
+            echo "<script>alert('修改失败');location.href='index'</script>";
         }
+    }
+    // 更改状态
+    public function status(Request $request)
+    {
+        // $data = \App\ShopUserinfo::where('status', '=', 1)
+        //         ->save();
+        // dd($data);
+        // $data = \App\ShopUserinfo::where('status', '=', $request->status);
+
+        // $res = \App\ShopUserinfo::save($data);
+        if ($data) {
+            return view('Admin.user.index');
+        } else {
+            return view('Admin.user.status');
+
+        }
+
     }
 
 
@@ -122,15 +138,17 @@ class UserController extends Controller
     // 搜索
     public function search(Request $request)
     {
-        $name = [];
-        // if (!empty($request->status)) {
-        //   $name[] = ['status','like',$request->status];
-        // }
-        $res = \App\ShopUserinfo::where('username','like','%'.$request->username.'%')
-        ->where($name)
-        ->paginate(10);
+        $status = [];
+        if (!empty($request->status)) {
+          $status[] = ['status','like',$request->status];
+        }
+        $users = \App\ShopUserinfo::where('id','like','%'.$request->id.'%')
+        ->where('username','like','%'.$request->username.'%')
+        ->where($status)
+        ->paginate(10)
+        ->appends(['id' => $request->id, 'username'=> $request->username, 'status' => $request->status]);
         return view('Admin.user.index',[
-            'users' => $res,
+            'users' => $users,
         ]);
     }
     

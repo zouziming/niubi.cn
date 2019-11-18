@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use App\ShopUserinfo;
 
 class LoginController extends Controller
 {
@@ -41,7 +42,6 @@ class LoginController extends Controller
         $userInfo = DB::table('shop_userinfo')
             ->where('username', '=', $request->username)
             ->first();
-
         // 验证密码
         if (password_verify($request->password, $userInfo->password)) {
             
@@ -50,7 +50,13 @@ class LoginController extends Controller
                 'isLogin' => true,
                 'userInfo' => [
                     'id' => $userInfo->id,
-                    'username' => $userInfo->username
+                    'username' => $userInfo->username,
+                    'sex' => $userInfo->sex,
+                    'phone' => $userInfo->phone,
+                    'pic' => $userInfo->pic,
+                    'email' => $userInfo->email,
+                    'status' => $userInfo->status,
+                    'addtime' => $userInfo->addtime
                 ]
             ]);
             // 跳转到后台首页
