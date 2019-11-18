@@ -93,9 +93,9 @@ class GoodsController extends Controller
 		}
 	}
 	
-	public function edit(Request $request, $id, $page)
+	public function edit(Request $request, $id)
 	{	
-		dump($page);
+		// dump($page);
 		$catedata = ShopCate::get();
 		
 		$data = Goods::find($id);

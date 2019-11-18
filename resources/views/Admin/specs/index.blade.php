@@ -35,7 +35,7 @@
 
 @section('script')
 <script>
-	var attr = {!! $attr !!};
+	var attr = {!! $attr !!}
 	$(document).ready(function(){
 		var count = $('.val').length;
 		for (var i = 0; i < count; i++) {
