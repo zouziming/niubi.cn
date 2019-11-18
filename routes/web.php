@@ -89,8 +89,6 @@ Route::get('/home/register', 'Home\RegisterController@show');
 
 Auth::routes();
 
-<<<<<<< HEAD
-
 Route::group(['prefix' => '/admin'], function(){
 	//商品
     Route::get('/goods', 'Admin\GoodsController@index');
@@ -238,6 +236,5 @@ Route::group(['prefix'=>'/admin','middleware' => ['power']],function() {
 	// 修改管理员
 	Route::post('/power/userRole/edit/index','Admin\PowerController@editUserRole');
 });
-=======
 Route::get('/home', 'HomeController@index')->name('home');
->>>>>>> zjl
+
