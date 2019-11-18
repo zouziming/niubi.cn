@@ -5,7 +5,7 @@
 @section('body')
 	<div class="route_bg">
 
-        <a href="__MODULE__/Index/main">返回主页</a>
+        <a href="/admin">返回主页</a>
         >
         <span>添加角色</span>
 

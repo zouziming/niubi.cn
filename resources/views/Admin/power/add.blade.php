@@ -3,6 +3,13 @@
 @section('title','添加权限')
 
 @section('body')
+<div class="route_bg">
+
+        <a href="/admin">返回主页</a>
+        >
+        <span>添加权限</span>
+
+    </div>
 <form action="/admin/power/add" method="post">
 	 {{ csrf_field() }}
   <div class="form-group">

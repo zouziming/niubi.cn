@@ -36,7 +36,7 @@
     <div class="layout_left_menu">
         <ul class="tendina" id="menu">
             <li class="childUlLi">
-               <a href=""><i class="glyph-icon icon-home"></i>首页</a>
+               <a href="/admin"><i class="glyph-icon icon-home"></i>首页</a>
             </li>
             <li class="childUlLi">
                 <a href="#"> <i class="glyph-icon icon-reorder"></i>用户管理</a>
