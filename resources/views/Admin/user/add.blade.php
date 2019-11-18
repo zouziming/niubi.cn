@@ -5,7 +5,7 @@
 @section('content')
 <div class="route_bg">
     <a href="/admin/user/index">返回主页</a>
-    >
+    -
     <span>添加用户</span>
 </div>
 <div class="div_from_aoto" style="width: 500px;">
@@ -18,6 +18,16 @@
             <label class="laber_from">用户名</label>
             <div class="controls"><input class="input_from" placeholder=" 请输入用户名" name="username" type="text"><p class="help-block"></p></div>
         </div>
+
+        <!-- <div class="control-group">
+            <label class="laber_from">密码</label>
+            <div class="controls"><input class="input_from" placeholder=" 请输入密码" name="password" type="password"><p class="help-block"></p></div>
+        </div>
+        <div class="control-group">
+            <label class="laber_from">确认密码</label>
+            <div class="controls"><input class="input_from" placeholder=" 请输确认密码" name="password2" type="password"><p class="help-block"></p></div>
+        </div> -->
+
         <div class="control-group">
             <label class="laber_from">头像</label>
             <div class="controls"><input class="input_from file" placeholder=" 请选择头像" name="pic" type="file"><p class="help-block"></p></div>

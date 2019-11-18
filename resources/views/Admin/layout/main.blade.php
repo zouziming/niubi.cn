@@ -11,7 +11,7 @@
     
     <!--顶部-->
     <div class="layout_top_header">
-        <div style="float: left"><span style="font-siz e: 16px;line-height: 45px;padding-left: 20px;color: #8d8d8d">{{ session('userInfo.username') }}管理后台</span></div>
+        <div style="float: left"><span style="font-siz e: 16px;line-height: 45px;padding-left: 20px;color: violet ">您好，{{ session('userInfo.username') }} 欢迎您来到后台管理</span></div>
         <div id="ad_setting" class="ad_setting">
             <a class="ad_setting_a" href="javascript:;">
                 <i class="icon-user glyph-icon" style="font-size: 20px"></i>
@@ -19,8 +19,8 @@
                 <i class="icon-chevron-down glyph-icon"></i>
             </a>
             <ul class="dropdown-menu-uu" style="display: none" id="ad_setting_ul">
-                <li class="ad_setting_ul_li"> <a href="javascript:;"><i class="icon-user glyph-icon"></i> 个人中心 </a> </li>
-                <li class="ad_setting_ul_li"> <a href="javascript:;"><i class="icon-cog glyph-icon"></i> 设置 </a> </li>
+                <li class="ad_setting_ul_li"> <a href="/admin"><i class="icon-user glyph-icon"></i> 个人中心 </a> </li>
+                <li class="ad_setting_ul_li"> <a href="/admin/pwd?id={{ session('userInfo.id') }}"><i class="icon-cog glyph-icon"></i> 修改密码 </a> </li>
                 <li class="ad_setting_ul_li"> <a href="/admin/logout"><i class="icon-signout glyph-icon"></i><span class="font-bold">退出</span> </a> </li>
             </ul>
         </div>
@@ -76,10 +76,6 @@
     <div id="layout_right_content" class="layout_right_content">
         <div class="mian_content">
             <div id="page_content">
-                <!-- <iframe id="main" name="main" src="/admin/user/body" style="overflow:visible;" scrolling="yes" frameborder="no" height="100%" width="100%"></iframe>
-                <block name="main">
-                <include file="main:index" />
-                </block> --> 
                 @yield('content')
             </div>
         </div>
