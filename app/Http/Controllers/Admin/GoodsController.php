@@ -10,23 +10,25 @@ use Illuminate\Support\Facades\DB;
 
 class GoodsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
 	{
-		$goods = new \App\Goods;
 		$res = '1';
-		$data = $goods->where('is_recycle', 0)->orderBy('id', 'desc')->paginate(3);
+		$data = Goods::where('is_recycle', 0)->orderBy('id', 'desc')->paginate(3);
 		// dump($data);
+		// $page = $_SERVER['QUERY_STRING'];
+		// $page = explode('=', $page);
+		// $page = $page[1];
 		foreach ($data as $k=>$v) {
 			$v['cid'] = ShopCate::where('id', $v['cid'])->pluck('name')[0];
-			// dump($v['cid']);
 		}
+		
 		return view('Admin.goods.index')->with(["data"=>$data, 'res'=>$res]);
 	}
 	
 	public function add()
 	{
 		
-		$catedata = ShopCate::get();
+		$catedata = ShopCate::orderByRaw('concat(path, id) ASC')->get();
 		// dump($catedata);
 		return view('Admin.goods.add')->with('cate', $catedata);
 	}
@@ -91,12 +93,13 @@ class GoodsController extends Controller
 		}
 	}
 	
-	public function edit($id)
+	public function edit(Request $request, $id, $page)
 	{	
+		dump($page);
 		$catedata = ShopCate::get();
-
+		
 		$data = Goods::find($id);
-		// dump($data->name);
+		// dump($this->name);
 		return view('Admin.goods.edit')->with(['data'=>$data, 'cate'=>$catedata]);
 	}
 	
