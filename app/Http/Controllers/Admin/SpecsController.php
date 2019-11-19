@@ -75,19 +75,21 @@ class SpecsController extends Controller
 		if (count(array_unique($res1)) <= 1) {
 			echo "<script>alert('请先设置好子规格');window.history.back(-1);</script>";die;	
 		}
-		// dump($attr_list);
+		dump($attr_list);
 		foreach ($attr_list as $v) {
 			foreach ($attr_list as $j) {
 				$a = AttributeValue::where('attr_value', $v)->get()[0];
 				$b = AttributeValue::where('attr_value', $j)->get()[0];
+				
 				if (AttributeKey::where('id', $a['attr_id'])->pluck('cate_id')[0] == AttributeKey::where('id', $b['attr_id'])->pluck('cate_id')[0]) {
-					 if ($a['attr_id'] != $b['attr_id']) {
+					
+					if ($a['attr_id'] != $b['attr_id']) {
 						$keygroup[] = $a['id'].'_'.$b['id'];
 					}
-				 }
+				}
 			}
 		}
-		// dump($keygroup);
+		// dd($keygroup);
 		// dump($group);
 		foreach ($keygroup as $v) {
 			$arr = explode('_', $v);
