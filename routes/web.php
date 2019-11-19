@@ -106,9 +106,10 @@ Route::group(['prefix' => '/admin'], function(){
 });
 
 
-Route::get('/', 'Home\IndexController@index');
+
 
 Route::group(['prefix' => '/home'], function(){
+	Route::get('/', 'Home\IndexController@index');
 	Route::get('/goods/{id}', 'Home\GoodsController@index');
 	Route::post('/goods/specs', 'Home\GoodsController@changespecs');
 	Route::post('/goods/collection', 'Home\GoodsController@collection');
