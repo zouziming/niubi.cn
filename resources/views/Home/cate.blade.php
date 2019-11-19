@@ -95,7 +95,7 @@
         <div class="pc-term">
             <dl class="pc-term-dl clearfix">
                 <dt>品牌：</dt>
-                <dd><a href="/cate?id={{$pid}}">所有</a></dd>
+                <dd style="width:50px"><a href="/cate?id={{$pid}}">所有</a></dd>
                 @foreach($data as $v)
                 <dd><a href="#">{{$v->name}}</a></dd>
                 @endforeach

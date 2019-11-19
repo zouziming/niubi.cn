@@ -39,37 +39,12 @@
                <a href="/admin"><i class="glyph-icon icon-home"></i>首页</a>
             </li>
             <li class="childUlLi">
-                <a href="#"> <i class="glyph-icon icon-reorder"></i>用户管理</a>
-                <ul style="display: none;">
-                    <li><a href="__MODULE__/User/index" target="main"><i class="glyph-icon icon-chevron-right"></i>用户列表</a></li>
-                    <li><a href="__MODULE__/User/add" target="main"><i class="glyph-icon icon-chevron-right"></i>添加用户</a></li>
-                    
-                </ul>
-            </li>
-            <li class="childUlLi">
                 <a href="#" target="menuFrame"> <i class="glyph-icon icon-reorder"></i>分类管理</a>
                 <ul style="display: none;">
                     <li><a target="main" href="/admin/cate/index"><i class="glyph-icon icon-chevron-right"></i>分类列表</a></li>
                     <li><a target="main" href="/admin/cate/add"><i class="glyph-icon icon-chevron-right"></i>添加顶级分类</a></li>
                 </ul>
             </li>
-            <li class="childUlLi">
-                <a href="#"> <i class="glyph-icon  icon-location-arrow"></i>商品管理</a>
-                <ul style="display: none;">
-                    <li><a href="__MODULE__/Goods/index" target="main"><i class="glyph-icon icon-chevron-right"></i>商品列表</a></li>
-                    <li><a href="__MODULE__/Goods/add" target="main"><i class="glyph-icon icon-chevron-right"></i>添加商品</a></li>
-
-                </ul>
-            </li>
-            <li class="childUlLi">
-                <a href="{:U(Orders)}"> <i class="glyph-icon  icon-location-arrow"></i>订单管理</a>
-                <ul style="display: none;">
-                    <li><a href="__MODULE__/Orders/index" target="main"><i class="glyph-icon icon-chevron-right"></i>订单列表</a></li>
-                    
-                    
-                </ul>
-            </li>
-
             <li class="childUlLi">
                 <a href="#"> <i class="glyph-icon  icon-location-arrow"></i>权限管理</a>
                 <ul style="display: none;">
