@@ -121,10 +121,7 @@
     </div>
     <div class="yHeader">
         <div class="yNavIndex">
-            <div class="pullDown">
-            <h2 class="pullDownTitle">
-                全部商品分类
-            </h2>
+
             <ul class="pullDownList">
                 <li class="menulihover">
                     <i class="listi1"></i>
@@ -361,7 +358,9 @@
         </div>
     </div>
 </div>
+
 <script type="text/javascript">banner()</script>
 @yield('script')
+
 </body>
 </html>

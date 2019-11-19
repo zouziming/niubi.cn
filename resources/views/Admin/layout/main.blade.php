@@ -8,10 +8,6 @@
     <link rel="stylesheet" href="/lib/css/bootstrap.css" />
 	<link href="/lib/style/adminStyle.css" rel="stylesheet" type="text/css" />
 
-    <script src="/lib/js/jquery.js"></script>
-    <script src="/lib/js/tendina.js"></script>
-    <script src="/lib/js/common.js"></script>
-
     @yield('css')
 </head>
 <body>
@@ -66,8 +62,7 @@
             		<li><a href="/admin/collection"><i class="glyph-icon icon-chevron-right"></i>收藏列表</a></li>
             		<li><a href="/admin/goods/recycle"><i class="glyph-icon icon-chevron-right"></i>回收站</a></li>
                 </ul>
-            </li>
-            
+            </li> 
             <li class="childUlLi">
                 <a href="#" target="_self"> <i class="glyph-icon icon-reorder"></i>订单管理</a>
                 <ul>
@@ -91,6 +86,18 @@
 			        <li><a href="/admin/lunbo"><i class="glyph-icon icon-chevron-right"></i>轮播列表</a></li>
 			    </ul>
 			</li>
+            <li class="childUlLi">
+                <a href="#"> <i class="glyph-icon icon-reorder"></i>友链管理</a>
+                <ul style="display: none;">
+                    <li><a href="/admin/link"><i class="glyph-icon icon-chevron-right"></i>友链列表</a></li>
+                </ul>
+            </li>
+            <li class="childUlLi">
+                <a href="#"> <i class="glyph-icon icon-reorder"></i>轮播管理</a>
+                <ul style="display: none;">
+                    <li><a href="/admin/lunbo"><i class="glyph-icon icon-chevron-right"></i>轮播列表</a></li>
+                </ul>
+            </li>
             
             <li class="childUlLi">
                 <a href="#" target="menuFrame"> <i class="glyph-icon icon-reorder"></i>分类管理</a>

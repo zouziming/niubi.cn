@@ -4,6 +4,7 @@
 <div class="wrap">
 	<div class="page-title">
 		<span class="modular fl"><i></i><em>添加分类</em></span>
+		<span class="modular fr"><a href="/admin/goods/attr" class="pt-link-btn">规格列表</a></span>
 	</div>
 	
 	<form method="post" action="/admin/attr/add">

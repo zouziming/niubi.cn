@@ -85,7 +85,6 @@
 
 
 @section('script')
-
 <script>
 	function demo(file)
 	  {

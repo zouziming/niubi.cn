@@ -9,7 +9,7 @@
         <span class="modular fr">
             <a href="/admin/link" class="pt-link-btn">友链列表</a></span>
     </div>
-    <form action="/admin/link/edit" method="post">
+    <form action="/admin/link/edit" method="post" id="formData">
 		<input type="hidden" name="id" value="{{$data['id']}}"/>
 		{{ csrf_field() }}
         <table class="list-style">
@@ -30,9 +30,19 @@
             <tr>
                 <td style="text-align:right;"></td>
                 <td>
-                    <input type="submit" value="保存" class="tdBtn" /></td>
+					<a href="/admin/link"><input type="submit" value="返回" class="tdBtn"/></a>
+                    <input type="submit" value="保存" class="tdBtn" id="submit" style="display: none;" />
+				</td>
             </tr>
         </table>
     </form>
 </div>
+@endsection
+
+@section('script')
+<script>
+	$('#formData').on('input','.textBox',function(){
+		$('#submit').css('display','inline');
+	});
+</script>
 @endsection
