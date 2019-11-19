@@ -94,26 +94,13 @@
                     <!--nav/-->
                     <div class="banner">
                         <div id="kinMaxShow">
+							@foreach($lunbo as $v)
                             <div>
-                                <a href="#">
-                                    <img src="/lib/image/ban1.jpg" height="360" /></a>
+                                <a href="{{$v['url']}}">
+                                    <img src="{{$v['pic']}}" height="360" />
+								</a>
                             </div>
-                            <div>
-                                <a href="#">
-                                    <img src="/lib/image/ban2.jpg" height="360" /></a>
-                            </div>
-                            <div>
-                                <a href="#">
-                                    <img src="/lib/image/ban3.jpg" height="360" /></a>
-                            </div>
-                            <div>
-                                <a href="#">
-                                    <img src="/lib/image/ban4.jpg" height="360" /></a>
-                            </div>
-                            <div>
-                                <a href="#">
-                                    <img src="/lib/image/ban5.jpg" height="360" /></a>
-                            </div>
+                            @endforeach
                         </div>
                         <!--kinMaxShow/--></div>
                     <!--banner/--></div>

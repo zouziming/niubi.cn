@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\ShopLunbo;
 use App\ShopCate;
 use App\Goods;
 use App\GoodsSpecs;
@@ -35,6 +36,9 @@ class IndexController extends Controller
 			$hot[$k]['price'] = GoodsSpecs::where('goods_id', $v['id'])->pluck('goods_price')[0];
 		}
 
-		return view('Home.index')->with(['data'=>$data, 'tui'=>$tui, 'hot'=>$hot]);
+		$lunbo = ShopLunbo::limit(5)->orderBy('id', 'desc')->get();
+		dump($lunbo);
+		
+		return view('Home.index')->with(['data'=>$data, 'tui'=>$tui, 'hot'=>$hot, 'lunbo'=>$lunbo]);
 	}
 }

@@ -12,6 +12,19 @@
     <link rel="shortcut icon" type="image/x-icon" href="/lib/theme/icon/favicon.ico">
 	<link rel="stylesheet" type="text/css" href="/lib/theme/css/base.css">
 	<link rel="stylesheet" type="text/css" href="/lib/theme/css/home.css">
+	<link rel="stylesheet" type="text/css" href="/lib/viewer/css/viewer.min.css">
+	
+	<style>
+		#big{
+			width: 500px;
+			height: 500px;
+			overflow:hidden;
+			display:none;
+			position:absolute;
+			left:800px;
+			top:258px;
+		}
+	</style>
  </head>
  <body>
 
@@ -91,11 +104,22 @@
             <div class="pc-details-l">
                 <div class="pc-product clearfix">
                     <div class="pc-product-h">
-                        <div class="pc-product-top"><img src="{{$data['pic']}}" id="big_img" width="418" height="418"></div>
+						
+						
+						<div id="small" class="pc-product-top">
+							<img data-original="{{$data['pic']}}" src="{{$data['pic']}}"  width="418" height="418">
+						</div>
+						<div id="big">
+							<img src="{{$data['pic']}}" alt="" width="1000" height="1000">
+						</div>
+
                         <div class="pc-product-bop clearfix" id="pro_detail">
                             <ul>
-                                <li><a href="javascript:void(0);" class="cur" simg="{{$data['pic']}}">
-								<img src="{{$data['pic']}}" width="58" height="58"></a> </li>
+                                <li>
+									<a href="javascript:void(0);" class="cur" simg="{{$data['pic']}}">
+										<img src="{{$data['pic']}}" width="58" height="58">
+									</a>
+								</li>
                             </ul>
                         </div>
                     </div>
@@ -299,21 +323,6 @@
 					</div>
                 </div>
             </div>
-            <!-- <div class="clearfix">
-                <div class="fr pc-search-g pc-search-gs">
-                    <a href="#" class="fl " style="display:none">上一页</a>
-                    <a class="current" href="#">1</a>
-                    <a href="javascript:;">2</a>
-                    <a href="javascript:;">3</a>
-                    <a href="javascript:;">4</a>
-                    <a href="javascript:;">5</a>
-                    <a href="javascript:;">6</a>
-                    <a href="javascript:;">7</a>
-                    <span class="pc-search-di">…</span>
-                    <a href="javascript:;">1088</a>
-                    <a href="javascript:;" class="" title="使用方向键右键也可翻到下一页哦！">下一页</a>
-                </div>
-            </div> -->
         </div>
     </div>
 </section>
@@ -428,6 +437,7 @@
 	<script type="text/javascript" src="/lib/theme/js/jquery.js"></script>
 	<script type="text/javascript" src="/lib/theme/js/index.js"></script>
 	<script type="text/javascript" src="/lib/theme/js/js-tab.js"></script>
+	<script src="/lib/viewer/js/viewer-jquery.min.js"></script>
 	<script src="/lib/layer/layer.js"></script>
 	<script>
          $(function(){
@@ -614,6 +624,32 @@
 				}
 			})
 		})
+	</script>
+	<script>
+		// 1. 给小图绑定鼠标移动事件
+		    small.onmousemove = function()
+		    {
+		        // 2. 获取鼠标坐标点, 根据鼠标坐标点计算在小图上的偏移量
+		        var x = event.clientX - small.offsetLeft;
+		        var y = event.clientY - small.offsetTop;
+		        // 4. 偏移量乘以8，设置为大图的滚动条位置
+		        big.scrollLeft = x * 2 - 100;
+		        big.scrollTop = y * 2 - 50;
+		
+		        big.style.display = 'block'
+		    }
+		    small.onmouseout = function()
+		    {
+		        big.style.display = 'none'
+		    }
+	</script>
+	
+	<script>
+	$(function() {
+	    $('.pc-product-top').viewer({
+	        url: 'data-original',
+	    });
+	});
 	</script>
 </body>
 </html>

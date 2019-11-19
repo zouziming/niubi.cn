@@ -46,10 +46,11 @@ class GoodsController extends Controller
 		foreach ($allcate as $k=>$v) {
 			$allcatedata[$k]['fu'] = $v['name'];
 			$allcatedata[$k]['er'] = ShopCate::where('pid', $v['id'])->pluck('name');
-		} 
+		}
+		
 		// dd($comment);
 		// dd($allcatedata);
-		// dump($attr);
+		
 		return view('Home.goods')->with(['data'=>$goods, 'cate'=>$cate, 'pcate'=>$pcate, 'prices'=>$prices, 'comment'=>$comment, 'specs'=>$specs, 'allattr'=>$allattr, 'allcatedata'=>$allcatedata]);
 	}
 	
