@@ -45,13 +45,13 @@ Route::get('/', function () {
 
 // 订单退款搜索功能 
     Route::post('/refund', 'Admin\OrdersController@refund_seek');
-/*-----------------------------------------------------------------------------*/
+
 // 退换单
     Route::get('/returnExchange', 'Admin\OrdersController@return_exchange');
 
 // 订单退换搜索功能 
     Route::post('/returnExchange', 'Admin\OrdersController@ReturnExchangeSeek');
-/*-----------------------------------------------------------------------------*/
+
 // 发货单
     Route::get('/deliverGoods', 'Admin\OrdersController@DeliverGoods');
 
@@ -90,4 +90,11 @@ Route::get('/', function () {
 
 // 订单退换删除功能
     Route::get('/dels','Admin\OrdersController@del');
-    
+
+/*----------------------------------------------------------------------------------*/
+// 订单：前台我的订单显示
+    Route::get('/ShowOrders','Home\OrdersController@show_orders');
+
+//
+    // Route::get('/Sds','Home\OrdersController@show_details');
+
