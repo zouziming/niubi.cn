@@ -119,7 +119,7 @@ Route::group(['prefix' => '/admin'], function(){
 	Route::get('/attr/son/{id}', 'Admin\AttrController@addson');
 	Route::post('attr/son', 'Admin\AttrController@checkaddson');
 	
-	Route::get('/attr/del/{id}', 'Admin\AttrController@del');
+	Route::get('/attr/del', 'Admin\AttrController@del');
 	
 	//全部规格属性
 	Route::get('/allattr', 'Admin\AttrController@allattr');
@@ -134,8 +134,9 @@ Route::group(['prefix' => '/admin'], function(){
 	Route::post('/specs', 'Admin\SpecsController@set');
 	
 	Route::get('/specs/goods/{id}', 'Admin\SpecsController@setprice');
-	Route::post('/specs/addgoods', 'Admin\SpecsController@addsetprice');
-	Route::post('/specs/editgoods', 'Admin\SpecsController@editsetprice');
+	Route::post('/specs/addgoodsspecs', 'Admin\SpecsController@addsetprice');
+	Route::post('/specs/editgoodsspecs', 'Admin\SpecsController@editsetprice');
+	Route::post('/specs/delgoodsspecs', 'Admin\SpecsController@delsetprice');
 	
 	//评论
 	Route::get('/comment', 'Admin\CommentController@index');
@@ -176,6 +177,7 @@ Route::group(['prefix' => '/admin'], function(){
 	
 	Route::get('lunbo/del/{id}', 'Admin\LunboController@del');
 });
+
 
 // 分类
 Route::group(['prefix'=>'/admin','middleware' => ['power']],function() {
@@ -237,4 +239,15 @@ Route::group(['prefix'=>'/admin','middleware' => ['power']],function() {
 	Route::post('/power/userRole/edit/index','Admin\PowerController@editUserRole');
 });
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+
+
+Route::group(['prefix' => '/home'], function(){
+	Route::get('/goods/{id}', 'Home\GoodsController@index');
+	Route::post('/goods/specs', 'Home\GoodsController@changespecs');
+	Route::post('/goods/collection', 'Home\GoodsController@collection');
+	Route::post('/goods/share', 'Home\GoodsController@share');
+});
 

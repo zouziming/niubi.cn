@@ -9,7 +9,7 @@
         <span class="modular fr">
             <a href="/admin/goods" class="pt-link-btn">商品列表</a></span>
     </div>
-    <form action="/admin/goods/edit/{{$data->id}}" method="post" enctype="multipart/form-data">
+    <form id="formData" action="/admin/goods/edit/{{$data->id}}" method="post" enctype="multipart/form-data">
 		{{ csrf_field() }}
         <table class="list-style">
             <tr>
@@ -99,7 +99,9 @@
             <tr>
                 <td style="text-align:right;"></td>
                 <td>
-                    <input type="submit" value="修改商品" class="tdBtn" /></td>
+                    <input type="submit" value="修改商品" class="tdBtn" />
+					<a href="/admin/goods"><input type="submit" value="返回" class="tdBtn"/></a>
+				</td>
             </tr>
         </table>
     </form>
@@ -124,6 +126,5 @@
 	      jQuery(".mlr5").attr("src",evt.target.result)
 	    }
 	  }
-
 </script>
 @endsection

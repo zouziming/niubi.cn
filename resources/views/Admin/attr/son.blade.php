@@ -4,6 +4,7 @@
 <div class="wrap">
 	<div class="page-title">
 		<span class="modular fl"><i></i><em>编辑子规格</em></span>
+		<span class="modular fr"><a href="/admin/allattr" class="pt-link-btn">规格列表</a></span>
 	</div>
 
 	<table class="list-style">
@@ -19,13 +20,16 @@
 			<td style="position: relative;" class="attr{{$v->id}}">
 				<label  class="labelBtnAdd add" style="position:absolute;right: 5px;">+</label>
 				<input disabled type="text" class="textBox" value="{{$v->attr_name}}" style="height: 60px;" ids="{{$v->id}}" />
+				@foreach($v['value'] as $vv)
+					<input disabled type="text" class="textBox" style="height: 60px;" value="{{$vv}}" />
+				@endforeach
 				<input name="value" type="text" class="textBox" style="height: 60px;" value="" />
 			</td>
 		</tr>
 		@endforeach
 		<tr>
 			<td style="text-align:right;"></td>
-			<td><a href="/admin/goods/attr"><input type="submit" value="保存" class="tdBtn"/></a></td>
+			<td><a href="/admin/allattr"><input type="submit" value="保存" class="tdBtn"/></a></td>
 		</tr>
 	</table>
 </div>
@@ -49,17 +53,20 @@
 				value : value
 			},
 			success: function(res){
-				
 				if (res.code == 0) {
 					layer.msg('添加成功!');
+					$('<input name="value" type="text" class="textBox" style="height: 60px;" value="" />').appendTo($('.attr'+id));
 				} else if (res.code != 0) {
 					layer.msg('添加失败!');
 				}
-				console.dir(res);
-				$('<input name="value" type="text" class="textBox" style="height: 60px;" value="" />').appendTo($('.attr'+id));
-				// console.dir(res)
-				
-			}	
+			},
+			error: function(err){
+				var json = JSON.parse(err.responseText);
+				$.each(json.errors, function(idx, obj) {
+					layer.msg(obj[0]);
+					return false;
+				});
+			}
 		});
 	})
 </script>
