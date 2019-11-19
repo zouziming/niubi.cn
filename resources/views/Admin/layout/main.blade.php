@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="/lib/css/add.css" />
     <link rel="stylesheet" href="/lib/css/bootstrap.css" />
 	<link href="/lib/style/adminStyle.css" rel="stylesheet" type="text/css" />
-	@yield('css')
+
+    @yield('css')
 </head>
 <body>
     <!--顶部-->
     <div class="layout_top_header">
-        <div style="float: left"><span style="font-siz e: 16px;line-height: 45px;padding-left: 20px;color: #8d8d8d">{{ session('userInfo.username') }}管理后台</span></div>
-
+        <div style="float: left"><span style="font-siz e: 16px;line-height: 45px;padding-left: 20px;color: violet ">您好，{{ session('userInfo.username') }} 欢迎您来到后台管理</span></div>
         <div id="ad_setting" class="ad_setting">
             <a class="ad_setting_a" href="javascript:;">
                 <i class="icon-user glyph-icon" style="font-size: 20px"></i>
@@ -21,11 +21,11 @@
                 <i class="icon-chevron-down glyph-icon"></i>
             </a>
             <ul class="dropdown-menu-uu" style="display: none" id="ad_setting_ul">
-                <li class="ad_setting_ul_li"> <a href="javascript:;"><i class="icon-user glyph-icon"></i> 个人中心 </a> </li>
-                <li class="ad_setting_ul_li"> <a href="javascript:;"><i class="icon-cog glyph-icon"></i> 设置 </a> </li>
+
+                <li class="ad_setting_ul_li"> <a href="/admin"><i class="icon-user glyph-icon"></i> 个人中心 </a> </li>
+                <li class="ad_setting_ul_li"> <a href="/admin/pwd?id={{ session('userInfo.id') }}"><i class="icon-cog glyph-icon"></i> 修改密码 </a> </li>
 
                 <li class="ad_setting_ul_li"> <a href="/admin/logout"><i class="icon-signout glyph-icon"></i><span class="font-bold">退出</span> </a> </li>
-
             </ul>
         </div>
     </div>
@@ -62,7 +62,18 @@
             		<li><a href="/admin/collection"><i class="glyph-icon icon-chevron-right"></i>收藏列表</a></li>
             		<li><a href="/admin/goods/recycle"><i class="glyph-icon icon-chevron-right"></i>回收站</a></li>
                 </ul>
+            </li> 
+            <li class="childUlLi">
+                <a href="#" target="_self"> <i class="glyph-icon icon-reorder"></i>订单管理</a>
+                <ul>
+                    <li><a href="/seeks" target="_top"><i class="glyph-icon icon-chevron-right"></i>订单列表</a></li>
+                    <li><a href="/addOrder" target="_self"><i class="glyph-icon icon-chevron-right"></i>添加订单</a></li>
+                    <li><a href="/deliverGoods" target="_self"><i class="glyph-icon icon-chevron-right"></i>发货单</a></li>
+                    <li><a href="/refund" target="_self"><i class="glyph-icon icon-chevron-right"></i>退款单</a></li>
+                    <li><a href="/returnExchange" target="_self"><i class="glyph-icon icon-chevron-right"></i>退换单</a></li>
+                </ul>
             </li>
+
 			<li class="childUlLi">
 			    <a href="#"> <i class="glyph-icon icon-reorder"></i>友链管理</a>
 			    <ul style="display: none;">
@@ -75,6 +86,18 @@
 			        <li><a href="/admin/lunbo"><i class="glyph-icon icon-chevron-right"></i>轮播列表</a></li>
 			    </ul>
 			</li>
+            <li class="childUlLi">
+                <a href="#"> <i class="glyph-icon icon-reorder"></i>友链管理</a>
+                <ul style="display: none;">
+                    <li><a href="/admin/link"><i class="glyph-icon icon-chevron-right"></i>友链列表</a></li>
+                </ul>
+            </li>
+            <li class="childUlLi">
+                <a href="#"> <i class="glyph-icon icon-reorder"></i>轮播管理</a>
+                <ul style="display: none;">
+                    <li><a href="/admin/lunbo"><i class="glyph-icon icon-chevron-right"></i>轮播列表</a></li>
+                </ul>
+            </li>
             
             <li class="childUlLi">
                 <a href="#" target="menuFrame"> <i class="glyph-icon icon-reorder"></i>分类管理</a>
@@ -82,17 +105,16 @@
                     <li><a target="main" href="/admin/cate/index"><i class="glyph-icon icon-chevron-right"></i>分类列表</a></li>
                     <li><a target="main" href="/admin/cate/add"><i class="glyph-icon icon-chevron-right"></i>添加顶级分类</a></li>
                 </ul>
+
             </li> 
+
             <li class="childUlLi">
                 <a href="#"> <i class="glyph-icon  icon-location-arrow"></i>权限管理</a>
                 <ul style="display: none;">
                     <li><a href="/admin/power/role" target="main"><i class="glyph-icon icon-chevron-right"></i>角色列表</a></li>
                     <li><a href="/admin/power" target="main"><i class="glyph-icon icon-chevron-right"></i>权限列表</a></li>
                     <li><a href="/admin/power/userRole" target="main"><i class="glyph-icon icon-chevron-right"></i>管理员列表</a></li>
-
-                </ul>
             </li>
-        </ul>
     </div>
     <!--菜单结束-->
 
@@ -100,13 +122,8 @@
     <div id="layout_right_content" class="layout_right_content">
         <div class="mian_content">
             <div id="page_content">
-                <!-- <iframe id="main" name="main" src="/admin/user/body" style="overflow:visible;" scrolling="yes" frameborder="no" height="100%" width="100%"></iframe>
-                <block name="main">
-                <include file="main:index" />
-                </block> --> 
                 @yield('content')
 				@yield('body')
-
             </div>
         </div>
     </div>
@@ -124,7 +141,5 @@
 	<script src="/lib/js/public.js"></script>
 	<script src="/lib/layer/layer.js"></script>
     @yield('script')
-
-
 </body>
 </html>

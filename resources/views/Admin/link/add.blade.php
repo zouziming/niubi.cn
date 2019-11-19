@@ -29,7 +29,9 @@
             <tr>
                 <td style="text-align:right;"></td>
                 <td>
-                    <input type="submit" value="发布新友链" class="tdBtn" /></td>
+                    <input type="submit" value="发布新友链" class="tdBtn" />
+					<a href="/admin/link"><input type="button" value="返回" class="tdBtn"/></a>
+				</td>
             </tr>
         </table>
     </form>

@@ -35,6 +35,11 @@ class SpecsController extends Controller
 		
 		$data = json_encode($all['datas'], JSON_UNESCAPED_UNICODE);
 		
+		$result = GoodsSpecs::where('goods_id', $all['id'])->first();
+		// dd($result);
+		if ($result != null) {
+			return ['code' => 1, 'msg'=>'请先清空商品价格的设置，好吗'];
+		}
 		$res = Goods::where('id', $all['id'])->update(['attribute_list' => $data]);
 		
 		if ($res) {
@@ -44,6 +49,7 @@ class SpecsController extends Controller
 		} else {
 		    $res = [
 		        'code' => 1,
+				'msg' => '修改失败'
 		    ];
 		}
 		return $res;
@@ -51,22 +57,43 @@ class SpecsController extends Controller
 	
 	public function setprice($id)
 	{
-		
 		$attr_list = Goods::where('id', $id)->pluck('attribute_list')[0];
+		if ($attr_list == null) {
+			echo "<script>alert('请先设置好子规格');window.history.back(-1);</script>";die;	
+		}
 		$attr_list = json_decode($attr_list);
-		// dump($attr_list);
+		foreach ($attr_list as $v) {
+			$res = AttributeValue::where('attr_value', $v)->first();
+		}
+		if ($res == null) {
+			echo "<script>alert('请先设置好子规格');window.history.back(-1);</script>";die;	
+		}
+		
+		foreach ($attr_list as $v) {
+			$res1[] = AttributeValue::where('attr_value', $v)->pluck('attr_id')[0];
+		}
+		if (count(array_unique($res1)) <= 1) {
+			echo "<script>alert('请先设置好子规格');window.history.back(-1);</script>";die;	
+		}
+		dump($attr_list);
 		foreach ($attr_list as $v) {
 			foreach ($attr_list as $j) {
 				$a = AttributeValue::where('attr_value', $v)->get()[0];
 				$b = AttributeValue::where('attr_value', $j)->get()[0];
-				if ($a['attr_id'] != $b['attr_id']) {
-					$keygroup[] = $a['id'].'_'.$b['id'];
+				
+				if (AttributeKey::where('id', $a['attr_id'])->pluck('cate_id')[0] == AttributeKey::where('id', $b['attr_id'])->pluck('cate_id')[0]) {
+					
+					if ($a['attr_id'] != $b['attr_id']) {
+						$keygroup[] = $a['id'].'_'.$b['id'];
+					}
 				}
 			}
 		}
-		
+		// dd($keygroup);
+		// dump($group);
 		foreach ($keygroup as $v) {
 			$arr = explode('_', $v);
+			// dd($arr);
 			foreach ($arr as $k=>$j) {
 				$val[$k] = AttributeValue::where('id', $j)->pluck('attr_value')[0];
 			}
@@ -81,7 +108,7 @@ class SpecsController extends Controller
 		
 		$data = GoodsSpecs::where('goods_id', $id)->get();
 		$pan = $data->isempty();
-		// dump($data);
+		
 		
 		return view('Admin.specs.set')->with(['group'=>$group, 'gid'=>$id, 'pan'=>$pan, 'data'=>$data]);
 	}
@@ -125,6 +152,7 @@ class SpecsController extends Controller
 		} else {
 		    $res = [
 		        'code' => 1,
+				'msg'=>'服务器繁忙，添加失败！',
 		    ];
 		}
 		return $res;
@@ -137,7 +165,7 @@ class SpecsController extends Controller
 		if ($data[1] == null || $data[2] == null) {
 			$res = [
 				'code' => 1,
-				'msg' => '服务器繁忙,添加失败',
+				'msg' => '服务器繁忙,修改失败',
 		    ];
 			return $res;
 		}
@@ -167,6 +195,25 @@ class SpecsController extends Controller
 		} else {
 		    $res = [
 		        'code' => 1,
+				'msg'=>'服务器繁忙，修改失败！',
+		    ];
+		}
+		return $res;
+	}
+	
+	public function delsetprice(Request $request)
+	{
+		$id = $request->id;
+		
+		$res = GoodsSpecs::where('id', $id)->delete();
+		if ($res) {
+		    $res = [
+				'code' => 0,
+		    ];
+		} else {
+		    $res = [
+		        'code' => 1,
+				'msg'=>'服务器繁忙，修改失败！',
 		    ];
 		}
 		return $res;

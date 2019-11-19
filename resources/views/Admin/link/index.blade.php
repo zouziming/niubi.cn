@@ -10,9 +10,13 @@
 		<div class="operate">
 		<form action="/admin/link/search">
 			@if($_GET == null)
-				<input name="link" type="text" class="textBox length-long" placeholder="输入友链名称..." value="" />
+				@if(empty($_GET['link']))
+					<input name="link" type="text" class="textBox length-long" placeholder="输入友链名称..." value="" />
+				@else
+					<input name="link" type="text" class="textBox length-long" placeholder="输入友链名称..." value="{{$_GET['link']}}" />
+				@endif
 			@else
-				<input name="link" type="text" class="textBox length-long" placeholder="输入友链名称..." value="{{$_GET['link']}}" />
+				<input name="link" type="text" class="textBox length-long" placeholder="输入友链名称..." value="" />
 			@endif
 			<input type="submit" value="查询" class="tdBtn"/>
 		</form>

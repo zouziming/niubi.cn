@@ -19,6 +19,7 @@
 	<script type="text/javascript" src="/lib/theme/js/MSClass.js"></script>
 	<script type="text/javascript" src="/lib/theme/js/jcarousellite.js"></script>
 	<script type="text/javascript" src="/lib/theme/js/top.js"></script>
+
     <script type="text/javascript">
          var intDiff = parseInt(80000);//倒计时总秒数量
          function timer(intDiff){
@@ -63,10 +64,20 @@
     <div class="BHeader">
         <div class="yNavIndex">
             <ul class="BHeaderl">
-                <li style="display:none;"><a href="#" style="float:left;">嘻哈杂货铺</a> <a href="#" style="float:left;">退出</a> </li>
-                <li><a href="login.html" style="color:#ea4949;">请登录</a> </li>
+
+                @empty(SESSION('userInfo'))
+                <li style="float:left">亲：</li>
+                <li style="float:left">
+                <a href="/home/login" style="color:#ea4949;">请登录</a>
+                </li>
+                @else
+                <li>欢迎您：</li>
+                <li>
+                <a style="float:left;color:violet">{{ session('userInfo.username') }}</a> 
+                <a href="/home/logout" style="float:left;color:red">退出</a> </li>
+                @endempty
                 <li class="headerul">|</li>
-                <li><a href="register.html">免费注册</a> </li>
+                <li><a href="/home/register">免费注册</a> </li>
                 <li class="headerul">|</li>
                 <li><a href="my-d.html">订单查询</a> </li>
                 <li class="headerul">|</li>
@@ -97,7 +108,7 @@
                 <input type="text" class="search-text" accesskey="" id="key" autocomplete="off"  placeholder="洗衣机">
                 <button class="button" onClick="search('key');return false;">搜索</button>
             </form>
-            @yield('header')
+
             <div class="words-text clearfix">
                 <a href="#" class="red">1元秒爆</a>
                 <a href="#">低至五折</a>
@@ -112,6 +123,7 @@
         <div class="head-mountain"></div>
     </div>
     <div class="yHeader">
+
         <div class="yNavIndex" style="position: relative;">
             <div class="pullDown">
             <h2 class="pullDownTitle">
@@ -120,11 +132,13 @@
 			
             <ul class="pullDownList">
                 @foreach($data as $v)
+
                 <li class="menulihover">
                     <i class="listi1"></i>
                     <a href="all-cl.html" target="_blank">家用电器</a>
                     <span></span>
                 </li>
+
                 @endforeach
             </ul>
             <div class="yMenuListCon">
@@ -234,6 +248,7 @@
                     </div>
                 </div>
 
+
             </div>
             <ul class="yMenuIndex" style="position: relative;top:-517px">
                 @foreach($data as $v)
@@ -245,6 +260,7 @@
             @show
 </header>
 <!-- header End -->
+
 
 
 @yield('body')
@@ -353,6 +369,11 @@
         </div>
     </div>
 </div>
+
+
 <script type="text/javascript">banner()</script>
+@yield('script')
+
+
 </body>
 </html>

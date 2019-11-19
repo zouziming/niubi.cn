@@ -15,15 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 // test哈希加密
 Route::get('/test', function () {
-    return password_hash("123456789", PASSWORD_DEFAULT);
+    return password_hash("123456", PASSWORD_DEFAULT);
 });
 
 
 /**
- * 后台操作
+ * 后台路由
  */
 Route::group(['prefix' => '/admin', 'middleware' => ['user.login']], function(){
     // 后台首页
@@ -36,6 +35,9 @@ Route::group(['prefix' => '/admin', 'middleware' => ['user.login']], function(){
 Route::get('/admin/login', 'Admin\LoginController@show');
 Route::post('/admin/login', 'Admin\LoginController@login');
     
+// 修改密码
+Route::get('/admin/pwd', 'Admin\IndexController@pwd');
+Route::post('/admin/editpwd', 'Admin\IndexController@editpwd');
 
 /**
  * 用户模块
@@ -54,15 +56,37 @@ Route::get('/admin/user/edit', 'Admin\UserController@edit');
 // Route::post('/admin/user/edit', 'Admin\UserController@doedit');
 // 修改用户
 Route::post('/admin/user/doedit', 'Admin\UserController@doedit');
-
 // 修改用户状态
 Route::post('/admin/user/change', 'Admin\UserController@change');
+// 更换状态
+Route::get('/admin/user/status', 'Admin\UserController@status');
 
 // 搜索功能
-Route::post('/search', 'Admin\UserController@search');
+Route::get('/search', 'Admin\UserController@search');
 
 
 
+
+
+/**
+ * 前台路由
+ */
+// 前台首页
+Route::group(['prefix' => '/home', 'middleware' => ['users.login']], function(){
+    Route::get('/', 'Home\IndexController@index');
+
+    // 前台退出
+    Route::get('/logout', 'Home\IndexController@logout');
+});
+// 前台登录
+Route::get('/home/login', 'Home\LoginController@show');
+Route::post('/home/login', 'Home\LoginController@login');
+
+// 前台注册
+Route::get('/home/register', 'Home\RegisterController@show');
+
+
+Auth::routes();
 
 Route::group(['prefix' => '/admin'], function(){
 	//商品
@@ -94,7 +118,7 @@ Route::group(['prefix' => '/admin'], function(){
 	Route::get('/attr/son/{id}', 'Admin\AttrController@addson');
 	Route::post('attr/son', 'Admin\AttrController@checkaddson');
 	
-	Route::get('/attr/del/{id}', 'Admin\AttrController@del');
+	Route::get('/attr/del', 'Admin\AttrController@del');
 	
 	//全部规格属性
 	Route::get('/allattr', 'Admin\AttrController@allattr');
@@ -109,8 +133,9 @@ Route::group(['prefix' => '/admin'], function(){
 	Route::post('/specs', 'Admin\SpecsController@set');
 	
 	Route::get('/specs/goods/{id}', 'Admin\SpecsController@setprice');
-	Route::post('/specs/addgoods', 'Admin\SpecsController@addsetprice');
-	Route::post('/specs/editgoods', 'Admin\SpecsController@editsetprice');
+	Route::post('/specs/addgoodsspecs', 'Admin\SpecsController@addsetprice');
+	Route::post('/specs/editgoodsspecs', 'Admin\SpecsController@editsetprice');
+	Route::post('/specs/delgoodsspecs', 'Admin\SpecsController@delsetprice');
 	
 	//评论
 	Route::get('/comment', 'Admin\CommentController@index');
@@ -151,6 +176,7 @@ Route::group(['prefix' => '/admin'], function(){
 	
 	Route::get('lunbo/del/{id}', 'Admin\LunboController@del');
 });
+
 
 // 分类
 Route::group(['prefix'=>'/admin','middleware' => ['power']],function() {
@@ -213,7 +239,95 @@ Route::group(['prefix'=>'/admin','middleware' => ['power']],function() {
 });
 
 
+
 	// 前台首页
 	Route::get('/','Home\IndexController@index');
 	// 分类页面
 	Route::get('/cate','Home\CateController@cate');
+//后台操作
+// Route::group(['prefix' => '/admin', 'middleware' => ['user.login', 'user.power']], function(){
+
+
+// 显示订单功能
+    Route::get('/seeks', 'Admin\OrdersController@show_orders');
+
+// 显示订单详情
+    Route::get('/details', 'Admin\OrdersController@orders_detail');
+
+// 显示修改订单
+    Route::get('/amend', 'Admin\OrdersController@amend_orders');
+
+// 显示提交修改订单
+    Route::post('/amend', 'Admin\OrdersController@orders_detailq');
+
+// 获取数据库表里的全部数据
+    Route::get('/gainAll', 'Admin\OrdersController@gainAll');
+
+// 添加订单功能
+    Route::get('/datas', 'Admin\OrdersController@show_data');
+
+// 订单管理搜索
+    Route::post('/seeks', 'Admin\OrdersController@seek');
+
+// 退款单
+    Route::get('/refund', 'Admin\OrdersController@refund');
+
+// 订单退款搜索功能 
+    Route::post('/refund', 'Admin\OrdersController@refund_seek');
+/*-----------------------------------------------------------------------------*/
+// 退换单
+    Route::get('/returnExchange', 'Admin\OrdersController@return_exchange');
+
+// 订单退换搜索功能 
+    Route::post('/returnExchange', 'Admin\OrdersController@ReturnExchangeSeek');
+/*-----------------------------------------------------------------------------*/
+// 发货单
+    Route::get('/deliverGoods', 'Admin\OrdersController@DeliverGoods');
+
+// 订单发货搜索功能 
+    Route::post('/deliverGoods', 'Admin\OrdersController@DeliverGoodsSeek');
+
+// 订单确认发货功能
+    Route::get('/OrdersShipments', 'Admin\OrdersController@orders_shipments');
+
+// 订单已发货功能
+    Route::get('/shippeds', 'Admin\OrdersController@shipped');
+
+// 发货成功后修改发货单的状态
+    Route::get('/editStatus', 'Admin\OrdersController@edit_status');
+
+// 显示添加订单
+    Route::get('/addOrder', 'Admin\OrdersController@show_order');
+
+// 添加订单
+    Route::post('/addOrder', 'Admin\OrdersController@add_order');
+
+// 订单退款详情 
+    Route::get('/RefundParticulars', 'Admin\OrdersController@refund_particulars');
+
+// 订单同意退款 
+    Route::get('/ConsentRefund', 'Admin\OrdersController@refund_status');
+
+// 订单拒绝退款  
+    Route::get('/RefuseRefund','Admin\OrdersController@refuse_refund');
+
+// 订单退换货详情  
+    Route::get('/tuihuan','Admin\OrdersController@retreat_exchange');
+
+// 订单退换审核提交
+    Route::post('/tuihuan','Admin\OrdersController@TuiHuans');
+
+// 订单退换删除功能
+    Route::get('/dels','Admin\OrdersController@del');
+   
+
+
+
+
+Route::group(['prefix' => '/home'], function(){
+	Route::get('/goods/{id}', 'Home\GoodsController@index');
+	Route::post('/goods/specs', 'Home\GoodsController@changespecs');
+	Route::post('/goods/collection', 'Home\GoodsController@collection');
+	Route::post('/goods/share', 'Home\GoodsController@share');
+});
+

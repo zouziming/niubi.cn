@@ -5,23 +5,35 @@
 @section('content')
 <div class="route_bg">
     <a href="/admin/user/index">返回主页</a>
+    -
     <span>用户列表</span>
 </div>
 <div class="col-md-12" style="margin-top:5px;">
     <div class="content">
-        <form class="form-inline" method="post" action="/search">>
-             {{ csrf_field() }}
+        <form class="form-inline" method="get" action="/search">
+            <div class="form-group">
+                <label for="exampleInputName2">ID：</label>
+                <input type="text" name="id" value="{{Request::input('id')}}" class="form-control" id="exampleInputName2" placeholder="按ID搜">
+            </div>
             <div class="form-group">
                 <label for="exampleInputName2">用户名：</label>
-                <input type="text" name="username" value="" class="form-control" id="exampleInputName2" placeholder="按用户名搜">
+                <input type="text" name="username" value="{{Request::input('username')}}" class="form-control" id="exampleInputName2" placeholder="按用户名搜">
             </div>
-            <button type="submit" class="btn btn-default">搜索</button>
+            <div class="form-group">
+                <label for="exampleInputEmail2">状态：</label>
+                <select name="status" class="form-control">
+                    <option value="">--请选择--</option>
+                    <option value="1">正常</option>
+                    <option value="2">禁用</option> 
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success">搜索</button>
         </form>
        
         <table class="table table-hover">
             <tr>
                 <th>ID</th>
-                <th>姓名</th>
+                <th>用户名</th>
                 <th>性别</th>
                 <th>手机号</th>
                 <th>头像</th>
@@ -35,9 +47,9 @@
                 <td>{{$user->id}}</td>
                 <td>{{$user->username}}</td>
                 <td>
-                @if ($user->sex === 0)
+                @if ($user->sex == 0)
                     女
-                @elseif ($user->sex === 1)
+                @elseif ($user->sex == 1)
                     男
                 @else
                     保密
@@ -45,14 +57,14 @@
                 </td>
                 <td>{{$user->phone}}</td>
                 <td>
-                    <img src="/storage/{{$user->pic}}" style="width:100px;height:100px;border:1px solid #ccc" alt="">
+                    <img src="/storage/{{$user->pic}}" style="width:100px;height:100px;border:1px solid #ccc">
                 </td>
                 <td>{{$user->email}}</td>
                 <td>
-                @if ($user->status === 1)
-                    <a href="">正常</a>
+                @if ($user->status == 1)
+                    <a href="/admin/user/status?id/{{$user->id}}/status/2" >正常</a>
                 @else
-                    <a href="">禁用</a>
+                    <a href="/admin/user/status?id/{{$user->id}}/status/1" >禁用</a>
                 @endif
                 </td>
                 <td>{{$user->addtime}}</td>
@@ -63,7 +75,7 @@
             </tr>
             @endforeach
         </table>
-        {{ $users->links() }}
+       {{ $users->links() }}
     </div>
 </div>
 @endsection
@@ -76,7 +88,6 @@
 
         $.ajax({
             type: 'post',
-            // url: '/admin/image/del/' + $(this).data('id'),
             url: '/admin/user/del/' + $(this).data('id'),
 
             data: {

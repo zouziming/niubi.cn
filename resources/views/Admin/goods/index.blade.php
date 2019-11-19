@@ -15,9 +15,13 @@
 	<div class="operate">
 	<form action="/admin/goods/search">
 		@if($_GET == null)
+			@if(empty($_GET['name']))
 			<input name="name" type="text" class="textBox length-long" placeholder="输入商品名称..." value="" />
-		@else
+			@else
 			<input name="name" type="text" class="textBox length-long" placeholder="输入商品名称..." value="{{$_GET['name']}}" />
+			@endif
+		@else
+			<input name="name" type="text" class="textBox length-long" placeholder="输入商品名称..." value="" />
 		@endif
 		<input type="submit" value="查询" class="tdBtn"/>
 	</form>
@@ -30,7 +34,7 @@
 	<tr>
 		<th width="70" class="center">ID编号</th>
 		<th width="150" class="center">分类</th>
-		<th width="150" class="center">商品图片</th>
+		<th width="140" class="center">商品图片</th>
 		<th class="center">商品名称</th> 
 		<th class="center">精品</th>
 		<th class="center">新品</th>
@@ -50,7 +54,7 @@
 				</span>
 			</td>
 			<td class="center">{{$v->cid}}</td>
-			<td class="center pic-area"><img style="width: 100px;height: 100px;" src="{{$v->pic}}" class="thumbnail"/></td>
+			<td class="center pic-area"><img style="width: 130px;height: 140px;" src="{{$v->pic}}" class="thumbnail"/></td>
 			<td class="td-name">
 				<span class="ellipsis td-name block">{{$v->name}}</span>
 			</td>
