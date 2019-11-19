@@ -70,7 +70,7 @@
             </div>
         </div>
         <div class="form-group">
-            <button class="btn btn-info" style="width:120px;">修改</button>
+            <!-- <button class="btn btn-info" style="width:120px;">修改</button> -->
         </div>
         <div class="control-group"></div>
         <div class="control-group"></div>

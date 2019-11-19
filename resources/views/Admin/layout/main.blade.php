@@ -40,34 +40,6 @@
                     <li><a target="" href="/admin/user/add"><i class="glyph-icon icon-chevron-right"></i>添加用户</a></li>
                 </ul>
             </li>
-            <li class="childUlLi">
-                <a href="#" target="menuFrame"> <i class="glyph-icon icon-reorder"></i>角色管理</a>
-                <ul style="display: none;">
-                    <li><a target="main" href="http://www.baidu.com"><i class="glyph-icon icon-chevron-right"></i>修改密码</a></li>
-                    <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>帮助</a></li>
-                </ul>
-            </li>
-             <li class="childUlLi">
-                <a href="#" target="menuFrame"> <i class="glyph-icon icon-reorder"></i>分类管理</a>
-                <ul style="display: none;">
-                    <li><a target="main" href="__APP__/Admin/Type/index"><i class="glyph-icon icon-chevron-right"></i>分类列表</a></li>
-                    <li><a target="main" href="__APP__/Admin/Type/add"><i class="glyph-icon icon-chevron-right"></i>添加顶级分类</a></li>
-                </ul>
-            </li>
-            <li class="childUlLi">
-                <a href="#"> <i class="glyph-icon  icon-reorder"></i>商品管理</a>
-                <ul style="display: none;">
-                    <li><a href="__APP__/Admin/Goods/index" target="main"><i class="glyph-icon icon-chevron-right"></i>商品列表</a></li>
-                    <li><a href="__APP__/Admin/Goods/add" target="main"><i class="glyph-icon icon-chevron-right"></i>添加商品</a></li>
-                </ul>
-            </li>
-            <li class="childUlLi">
-                <a href="#"> <i class="glyph-icon  icon-reorder"></i>订单管理</a>
-                <ul style="display: none;">
-                    <li><a href="__APP__/Admin/Order/index" target="main"><i class="glyph-icon icon-chevron-right"></i>订单列表</a></li>
-                    <li><a href="__APP__/Admin/Order/orderdetail" target="main"><i class="glyph-icon icon-chevron-right"></i>订单详情</a></li>
-                </ul>
-            </li>
         </ul>
     </div>
     <!--菜单结束-->

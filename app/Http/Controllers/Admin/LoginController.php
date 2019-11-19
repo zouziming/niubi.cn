@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\ShopUserinfo;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -27,11 +28,10 @@ class LoginController extends Controller
             'captcha' => 'required|captcha',
         ],[
             'username.required' => '用户名不能为空',
-            'username.exists' => '密码或用户名不正确',
+            'username.exists' => '用户名不正确',
             'username.max' => '用户名过长',
             
             'password.required' => '密码不能为空',
-            'password.exists' => '密码或用户名不正确',
             'password.min' => '密码不能低于6位数',
 
             'captcha.required' => '验证码不能为空',
@@ -43,7 +43,7 @@ class LoginController extends Controller
             ->where('username', '=', $request->username)
             ->first();
         // 验证密码
-        if (password_verify($request->password, $userInfo->password)) {
+        if (Hash::check( $request->password, $userInfo->password)) {
             
             // 保存登录状态
             session([
@@ -62,8 +62,7 @@ class LoginController extends Controller
             // 跳转到后台首页
             return redirect('/admin');
         } else {
-            return back()
-                ->withInput();
+            echo "<script>alert('密码错误！');location.href='/admin/login'</script>";
         }
     }
 

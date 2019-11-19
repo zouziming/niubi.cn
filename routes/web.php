@@ -59,7 +59,7 @@ Route::post('/admin/user/doedit', 'Admin\UserController@doedit');
 // 修改用户状态
 Route::post('/admin/user/change', 'Admin\UserController@change');
 // 更换状态
-Route::get('/admin/user/status', 'Admin\UserController@status');
+Route::get('/admin/user/status/{id}/{status}', 'Admin\UserController@status');
 
 // 搜索功能
 Route::get('/search', 'Admin\UserController@search');
@@ -84,8 +84,10 @@ Route::post('/home/login', 'Home\LoginController@login');
 
 // 前台注册
 Route::get('/home/register', 'Home\RegisterController@show');
+Route::post('/home/register', 'Home\RegisterController@register');
+
+// 个人中心
+Route::get('/home/user/secure', 'Home\UserController@secure');
+Route::get('/home/user/mycenter', 'Home\UserController@mycenter');
 
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

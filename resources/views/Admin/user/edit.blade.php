@@ -6,7 +6,7 @@
 <div class="route_bg">
     <a href="/admin/user/index">返回主页</a>
     -
-    <span>添修改用户</span>
+    <span>修改用户</span>
 </div>
 <div class="div_from_aoto" style="width: 500px;">
 
