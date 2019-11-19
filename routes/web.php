@@ -211,3 +211,9 @@ Route::group(['prefix'=>'/admin','middleware' => ['power']],function() {
 	// 修改管理员
 	Route::post('/power/userRole/edit/index','Admin\PowerController@editUserRole');
 });
+
+
+	// 前台首页
+	Route::get('/','Home\IndexController@index');
+	// 分类页面
+	Route::get('/cate','Home\CateController@cate');

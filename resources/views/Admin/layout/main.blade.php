@@ -82,9 +82,7 @@
                     <li><a target="main" href="/admin/cate/index"><i class="glyph-icon icon-chevron-right"></i>分类列表</a></li>
                     <li><a target="main" href="/admin/cate/add"><i class="glyph-icon icon-chevron-right"></i>添加顶级分类</a></li>
                 </ul>
-            </li>
-          
-           
+            </li> 
             <li class="childUlLi">
                 <a href="#"> <i class="glyph-icon  icon-location-arrow"></i>权限管理</a>
                 <ul style="display: none;">
