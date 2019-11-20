@@ -85,4 +85,10 @@ class GoodsController extends Controller
 	{
 		return ['code'=>0, 'msg'=>'功能还没开放'];
 	}
+	
+	public function clicknum(Request $request)
+	{
+		$id = $request->id;
+		$res = Goods::where('id',$id)->increment('clicknum');
+	}
 }

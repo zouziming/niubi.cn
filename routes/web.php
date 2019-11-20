@@ -106,12 +106,19 @@ Route::group(['prefix' => '/admin'], function(){
 });
 
 
-
+Route::get('/', 'Home\IndexController@index');
 
 Route::group(['prefix' => '/home'], function(){
+	
 	Route::get('/', 'Home\IndexController@index');
+	
 	Route::get('/goods/{id}', 'Home\GoodsController@index');
 	Route::post('/goods/specs', 'Home\GoodsController@changespecs');
 	Route::post('/goods/collection', 'Home\GoodsController@collection');
 	Route::post('/goods/share', 'Home\GoodsController@share');
+	Route::post('/clicknum', 'Home\GoodsController@clicknum');
+	
+	Route::get('/cate/{id}', 'Home\CateController@cate');
+	Route::post('/sorts', 'Home\CateController@sorts');
+	Route::post('/cate/search', 'Home\CateController@search');
 });

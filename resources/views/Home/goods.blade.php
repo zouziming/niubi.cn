@@ -97,8 +97,8 @@
     <div class="pc-details" >
         <div class="containers">
             <div class="pc-nav-item">
-				<a class="pc-title" href="#">{{$pcate['name']}}</a> &gt; 
-				<a href="#">{{$cate['name']}}</a> &gt; 
+				<a class="pc-title" href="/home/cate/{{$pcate['id']}}">{{$pcate['name']}}</a> &gt; 
+				<a href="/home/cate/{{$cate['id']}}">{{$cate['name']}}</a> &gt; 
 				<a href="javascript:void(0)">{{$data['name']}}</a> 
 			</div>
             <div class="pc-details-l">
@@ -651,5 +651,6 @@
 	    });
 	});
 	</script>
+	
 </body>
 </html>
