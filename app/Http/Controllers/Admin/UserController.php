@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\ShopUserinfo;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -34,20 +35,25 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'username' => 'required|max:255',
+            'password' => 'required',
+            'password2' => 'required',
             'pic' => 'required',
             'email' => 'required',
             'phone' => 'required',
             'sex' => 'required',
+            'status' => 'required',
         ],[
             'username.required' => '用户名不能为空',
             'username.max' => '用户名过长',
         ]);
         $data = [];
         $data['username'] = $request->username;
+        $data['password'] = Hash::make($request->password);
         $data['pic'] = $request->pic->store('touxiang', 'public');
         $data['email'] = $request->email;
         $data['phone'] = $request->phone;
         $data['sex'] = $request->sex;
+        $data['status'] = $request->status;
         $data['addtime'] = date('Y-m-d H:i:s');
         $res = \App\ShopUserinfo::insert($data);
         if ($res) {
@@ -114,21 +120,16 @@ class UserController extends Controller
         }
     }
     // 更改状态
-    public function status(Request $request)
+    public function status($id,$status)
     {
-        // $data = \App\ShopUserinfo::where('status', '=', 1)
-        //         ->save();
-        // dd($data);
-        // $data = \App\ShopUserinfo::where('status', '=', $request->status);
 
-        // $res = \App\ShopUserinfo::save($data);
-        if ($data) {
-            return view('Admin.user.index');
+        $res = new \App\ShopUserinfo;
+        $res->where('id',$id)->update(['status'=>$status]);
+        if ($res) {
+            return redirect('/admin/user/index');
         } else {
-            return view('Admin.user.status');
-
+            echo "<script>alert('更换失败');location.href='index'</script>";
         }
-
     }
 
 

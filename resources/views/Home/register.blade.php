@@ -32,27 +32,39 @@
         </div>
         <div class="login-back">
             <div class="H-over">
-                <form>
+                
+                @if(count($errors) > 0)
+                <div class="alert alert-danger" role="alert">
+                    <ul>
+                        @foreach($errors->all() as $e)
+                        <li>{{ $e }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+
+                <form action="/home/register" method="post">
+                {{ csrf_field() }}
                     <div class="login-input">
                         <label><i class="heart">*</i>用户名：</label>
-                        <input type="text" class="list-input1" id="username" name="info[username]" placeholder="">
+                        <input type="text" class="list-input1" id="username" name="username" placeholder="">
                     </div>
                     <div class="login-input">
                         <label><i class="heart">*</i>请设置密码：</label>
-                        <input type="text" class="list-input" id="password" name="info[password]" placeholder="">
+                        <input type="password" class="list-input" id="password" name="password" placeholder="">
                     </div>
                     <div class="login-input">
                         <label><i class="heart">*</i>请确认密码：</label>
-                        <input type="text" class="list-input" id="password1" name="info[password]" placeholder="">
+                        <input type="password" class="list-input" id="password1" name="password_confirmation" placeholder="">
                     </div>
                     <div class="login-input">
                         <label><i class="heart">*</i>手机号：</label>
-                        <input type="text" class="list-iphone" id="iphone" name="info[password]" placeholder="">
+                        <input type="text" class="list-iphone" id="iphone" name="phone" placeholder="">
                         <a href="#" class="obtain">获取短信验证码</a>
                     </div>
                     <div class="login-input">
                         <label><i class="heart">*</i>短信验证码：</label>
-                        <input type="text" class="list-notes" id="message" name="info[password]" placeholder="">
+                        <input type="text" class="list-notes" id="message" name="verification_key" placeholder="">
                     </div>
                     <div class="item-ifo">
                         <input type="checkbox" onClick="agreeonProtocol();" id="readme" checked="checked" class="checkbox">
@@ -60,7 +72,7 @@
                         <span class="clr"></span>
                     </div>
                     <div class="login-button">
-                        <a href="#">立即注册</a>
+                        <button style="border:0px"><a>立即注册</a></button>
                     </div>
                 </form>
             </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="Generator" content="EditPlus®">
@@ -162,9 +162,7 @@
     </div>
 </div>
 
-</body>
-
-<script type="text/javascript">
+<script>
     //alert($)
     $(".login-tab-r").click(function(){
         $(".login-box").css({"display":"block","visibility":"visible"});
@@ -175,4 +173,6 @@
         $(".qrcode-login").css({"display":"block","visibility":"visible"})
     });
 </script>
+</body>
+
 </html>
