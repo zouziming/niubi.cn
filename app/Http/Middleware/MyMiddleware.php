@@ -25,14 +25,34 @@ class MyMiddleware
         // dump($action_str);
         // 把控制器跟方法分割
         $action_arr=explode('@',$action_str);
-        // dump($action_arr);
+        dump($action_arr);
 
         // 获取控制器
         // $controller = $action_arr[0];
         // // 获取方法
         // $action = $action_arr[1];
+
+
         // $use_id=session('userInfo.id');
         $power_list=[];
+
+        // 通过用户查权限
+        /* $user_power=DB::table('user_has_permissions')
+        ->where('uid',$use_id)
+        ->get();
+
+        foreach($user_power as $power) {
+            查询出对应的权限详情
+            $power_tmp=DB::table('permissions')
+            ->where('id',$power->permission_id)
+            ->first();
+            $name_tmp=$power_tmp->controller.'@'.$power_tmp->action;
+
+            //将权限保存到数组中
+            $power_list[$name_tmp]=$name_tmp;
+        }
+        */
+
         return $next($request);
     }
 }

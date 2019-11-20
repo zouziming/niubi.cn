@@ -19,9 +19,11 @@ class IndexController extends Controller
     // 退出登录
     public function logout()
     {
+
         session()->forget('qtLogin');
         session()->forget('userInfo');
         return redirect('/home');
+
     }
 	
 	public function index(Request $request)

@@ -1,7 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-
-    
+<html xmlns="http://www.w3.org/1999/xhtml">  
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>17商城</title>
@@ -69,7 +67,7 @@
 				     <li><a href="/cate?id={{$v->id}}">{{$v->name}}</a>
 				      <div class="chilInPorNav">
 				      	@foreach($v->son as $vv)
-				       <a href=#?id={{$vv->id}}">{{$vv->name}}</a>
+				       <a href=/cate?id={{$vv->id}}">{{$vv->name}}</a>
 				       @endforeach 
 				      </div><!--chilLeftNav/-->
 				     </li>
@@ -358,6 +356,7 @@
             <!--footer/--></div>
         <!--mianCont/-->
         <a href="#" class="backTop">&nbsp;</a></body>
+
 
 </html>
 
