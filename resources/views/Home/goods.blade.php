@@ -54,9 +54,9 @@
     <div class="container clearfix">
         <div class="header-logo fl"><h1><a href="/home"><img src="/lib/theme/icon/logo.png"></a> </h1></div>
         <div class="head-form fl">
-            <form class="clearfix">
+            <form class="clearfix" onsubmit="return false">
                 <input type="text" class="search-text" accesskey="" id="key" autocomplete="off"  placeholder="手机模型">
-                <button class="button" onClick="search('key');return false;">搜索</button>
+                <button class="button">搜索</button>
             </form>
             <div class="words-text clearfix">
                 <a href="#" class="red">1元秒爆</a>
@@ -77,15 +77,9 @@
                 <h2 class="pullDownTitle">全部商品分类</h2>
             </div>
             <ul class="yMenuIndex">
-                <li><a href="" target="_blank">服装城</a></li>
-                <li><a href="" target="_blank">美妆馆</a></li>
-                <li><a href="" target="_blank">美食</a></li>
-                <li><a href="" target="_blank">全球购</a></li>
-                <li><a href="" target="_blank">闪购</a></li>
-                <li><a href="" target="_blank">团购</a></li>
-                <li><a href="" target="_blank">拍卖</a></li>
-                <li><a href="" target="_blank">金融</a></li>
-                <li><a href="" target="_blank">智能</a></li>
+				@foreach($parcate as $v)
+					<li><a href="/home/cate/{{$v['id']}}">{{$v['name']}}</a></li>
+				@endforeach
             </ul>
         </div>
     </div>
@@ -179,20 +173,14 @@
     </div>
     <div class="containers clearfix" style="margin-top:20px;">
         <div class="fl">
-            <div class="pc-menu-in">
-                <h2>店内搜索</h2>
-                <form>
-					<p>关键词:<input type="text" class="pc-input1"></p>
-					<p><a href="#">搜索</a> </p>
-                </form>
-            </div>
+            
             <div class="menu_list" id="firstpane">
                 <h2>店内分类</h2>
 				@foreach($allcatedata as $v)
                 <h3 class="menu_head current">{{$v['fu']}}</h3>
 					<div class="menu_body" style="display: none;">
 					@foreach($v['er'] as $vv)
-						<a href="#">{{$vv}}</a>
+						<a href="/home/cate/{{$vv['id']}}">{{$vv['name']}}</a>
 					@endforeach	
 					</div>
 				@endforeach
@@ -645,11 +633,11 @@
 	</script>
 	
 	<script>
-	$(function() {
-	    $('.pc-product-top').viewer({
-	        url: 'data-original',
-	    });
-	});
+		$(function() {
+			$('.pc-product-top').viewer({
+				url: 'data-original',
+			});
+		});
 	</script>
 	
 </body>

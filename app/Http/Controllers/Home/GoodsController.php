@@ -16,6 +16,7 @@ class GoodsController extends Controller
 {
     public function index($id)
 	{
+		$parentcate = ShopCate::where('pid', 0)->get();
 		$goods = Goods::where('id', $id)->get()[0];
 		$cate = ShopCate::where('id', $goods['cid'])->get()[0];
 		$pcate = ShopCate::where('id', $cate['pid'])->get()[0];
@@ -45,13 +46,13 @@ class GoodsController extends Controller
 		$allcate = ShopCate::where('pid', 0)->get();
 		foreach ($allcate as $k=>$v) {
 			$allcatedata[$k]['fu'] = $v['name'];
-			$allcatedata[$k]['er'] = ShopCate::where('pid', $v['id'])->pluck('name');
+			$allcatedata[$k]['er'] = ShopCate::where('pid', $v['id'])->get();
 		}
 		
-		// dd($comment);
+		// dump($pcate);
 		// dd($allcatedata);
 		
-		return view('Home.goods')->with(['data'=>$goods, 'cate'=>$cate, 'pcate'=>$pcate, 'prices'=>$prices, 'comment'=>$comment, 'specs'=>$specs, 'allattr'=>$allattr, 'allcatedata'=>$allcatedata]);
+		return view('Home.goods')->with(['data'=>$goods, 'cate'=>$cate, 'pcate'=>$pcate, 'prices'=>$prices, 'comment'=>$comment, 'specs'=>$specs, 'allattr'=>$allattr, 'allcatedata'=>$allcatedata, 'parcate'=>$parentcate]);
 	}
 	
 	public function changespecs(Request $request)
