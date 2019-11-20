@@ -90,4 +90,9 @@ Route::post('/home/register', 'Home\RegisterController@register');
 Route::get('/home/user/secure', 'Home\UserController@secure');
 Route::get('/home/user/mycenter', 'Home\UserController@mycenter');
 
+// 个人资料修改
+Route::post('/home/user/mycenter', 'Home\UserController@edit');
+// 修改密码
+Route::get('/home/user/password', 'Home\UserController@show');
+Route::post('/home/user/password', 'Home\UserController@password');
 

@@ -17,7 +17,7 @@
 <body>
 <div class="w">
     <div id="logo">
-        <a href="index.html">
+        <a href="/home">
             <img src="/lib/theme/icon/logo.png" alt="">
         </a>
         <b></b>

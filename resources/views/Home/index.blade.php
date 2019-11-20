@@ -60,7 +60,7 @@ $(function(){
      <a href="order.html">去结算</a> <img src="/lib/ind/image/youjian.jpg" width="5" height="8" />    
     </div><!--gouCar/-->
     <div class="myChunlv">
-     <a href="/home/user/mycenter"><img src="/lib/ind/image/mychunlv.jpg" width="112" height="34" /></a>
+     <a href="/home/user/mycenter?id={{ session('userInfo.id') }}"><img src="/lib/ind/image/mychunlv.jpg" width="112" height="34" /></a>
     </div><!--myChunlv/-->
    </div><!--gouwuche/-->
   </div><!--lsg/-->
