@@ -43,7 +43,7 @@ class IndexController extends Controller
             'oldpassword'=>'required',
             'password'=>'required|alpha_num|min:6|confirmed',
         ],[
-            'oldpasswoed.required' => '原密码不能为空',
+            'oldpassword.required' => '原密码不能为空',
 
             'password.required' => '新密码不能为空',
             'password.alpha_num' => '新密码只能是字母数字',

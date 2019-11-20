@@ -1,11 +1,11 @@
-@extends('Home.layout.main')
+@extends('Home.layout.mycenter')
 
-@section('title', '个人中心')
+@section('title', '账户安全')
 
 @section('content')
 <div class="member-right fr">
   <div class="member-head">
-      <div class="member-heels fl"><h2>个中心</h2></div>
+      <div class="member-heels fl"><h2>账户安全</h2></div>
   </div>
   <div class="member-border">
      <div class="member-secure clearfix">
@@ -33,7 +33,7 @@
                  <div class="warn1"></div>
                  <div class="warn2">登录密码</div>
                  <div class="warn3">互联网账号存在被盗风险，建议您定期更改密码以保护账户安全。</div>
-                 <div class="warn4"><a href="#">修改</a> </div>
+                 <div class="warn4"><a href="/home/user/password?id={{ session('userInfo.id') }}">修改</a> </div>
              </li>
              <li class="clearfix">
                  <div class="warn1"></div>

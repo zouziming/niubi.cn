@@ -18,7 +18,7 @@
 <!--- header begin-->
 <header id="pc-header">
     <div class="login-header" style="padding-bottom:0">
-        <div><h1><a href="index.html"><img src="/lib/theme/icon/logo.png"></a></h1></div>
+        <div><h1><a href="/home"><img src="/lib/theme/icon/logo.png"></a></h1></div>
     </div>
 </header>
 <!-- header End -->

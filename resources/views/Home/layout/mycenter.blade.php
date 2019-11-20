@@ -31,10 +31,12 @@
   <meta name="renderer" content="webkit">
     <meta content="歪秀购物, 购物, 大家电, 手机" name="keywords">
     <meta content="歪秀购物，购物商城。" name="description">
-  <title>会员系统帮助中心</title>
+    <title> @yield('title') - 会员系统帮助中心</title>
     <link rel="shortcut icon" type="image/x-icon" href="/lib/theme/icon/favicon.ico">
-  <link rel="stylesheet" type="text/css" href="/lib/theme/css/base.css">
-  <link rel="stylesheet" type="text/css" href="/lib/theme/css/member.css">
+    <link rel="stylesheet" type="text/css" href="/lib/theme/css/base.css">
+    <link rel="stylesheet" type="text/css" href="/lib/theme/css/member.css">
+    <link href="/lib/theme/css/infstyle.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/lib/theme/css/style.css"/>       
     <script type="text/javascript" src="/lib/theme/js/jquery.js"></script>
 
     <script type="text/javascript">
@@ -147,11 +149,15 @@
     <div class="member-center clearfix">
         <div class="member-left fl">
             <div class="member-apart clearfix">
-                <div class="fl"><a href="#">
+                <div class="fl"><a>
+                @if(session('userInfo.pic') == true)
                 <img src="/storage/{{ session('userInfo.pic') }}"></a></div>
+                @else
+                <img src="/lib/img/do.jpg"></a></div>
+                @endif
                 <div class="fl">
                     <p>用户名：</p>
-                    <p><a href="#" style="color:violet">{{ session('userInfo.username') }}</a></p>
+                    <p><a style="color:violet">{{ session('userInfo.username') }}</a></p>
                     <p>搜悦号：</p>
                     <p>389323080</p>
                 </div>
@@ -170,7 +176,8 @@
                     <dt>我的商城</dt>
                     <dd><a href="#">我的订单</a></dd>
                     <dd><a href="#">我的收藏</a></dd>
-                    <dd><a href="/home/user/mycenter">账户安全</a></dd>
+                    <dd><a href="/home/user/mycenter?id={{ session('userInfo.id') }}">我的信息</a></dd>
+                    <dd><a href="/home/user/secure">账户安全</a></dd>
                     <dd><a href="#">我的评价</a></dd>
                     <dd><a href="#">地址管理</a></dd>
                 </dl>
@@ -315,5 +322,6 @@
 
 
 <!-- footer End -->
+@yield('script')
 </body>
 </html>
