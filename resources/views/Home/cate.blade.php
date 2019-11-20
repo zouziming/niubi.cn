@@ -9,10 +9,11 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE"> 
 	<meta name="renderer" content="webkit">
 	<title>二级分类</title>
-    <link rel="shortcut icon" type="image/x-icon" href="lib/theme1/icon/favicon.ico">
-	<link rel="stylesheet" type="text/css" href="lib/theme1/css/base.css">
-	<link rel="stylesheet" type="text/css" href="lib/theme1/css/home.css">
-	<script type="text/javascript" src="lib/theme1/js/jquery.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="/lib/theme/icon/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/lib/theme/css/base.css">
+	<link rel="stylesheet" type="text/css" href="/lib/theme/css/home.css">
+	<script type="text/javascript" src="/lib/theme/js/jquery.js"></script>
+
 
  </head>
  <body>
@@ -35,7 +36,9 @@
         </div>
     </div>
     <div class="container clearfix">
-        <div class="header-logo fl"><h1><a href="#"><img src="lib/theme1/icon/logo.png"></a> </h1></div>
+
+        <div class="header-logo fl"><h1><a href="/home"><img src="/lib/theme/icon/logo.png"></a> </h1></div>
+
         <div class="head-form fl">
             <form class="clearfix">
                 <input type="text" class="search-text" accesskey="" id="key" autocomplete="off"  placeholder="手机模型">
@@ -51,7 +54,9 @@
                 <a href="#">服装城</a>
             </div>
         </div>
-        <div class="header-cart fr"><a href="#"><img src="lib/theme1/icon/car.png"></a> <i class="head-amount">99</i></div>
+
+        <div class="header-cart fr"><a href="#"><img src="/lib/theme/icon/car.png"></a> <i class="head-amount">99</i></div>
+
         <div class="head-mountain"></div>
     </div>
     <div class="yHeader">
@@ -59,17 +64,32 @@
             <div class="pullDown">
                 <h2 class="pullDownTitle">全部商品分类</h2>
             </div>
+
+			
             <ul class="yMenuIndex">
-                @foreach($cate as $v)
-                <li><a href="/cate?id={{$v->id}}" target="_blank">{{$v->name}}</a></li>
-                @endforeach
-            </ul>
+				@foreach($cate as $v)
+					<li><a href="/home/cate/{{$v['id']}}">{{$v->name}}</a></li>
+				@endforeach
+			</ul>
+			
+
         </div>
     </div>
 </header>
 <!-- header End -->
 
-<div class="containers"><div class="pc-nav-item"><a href="#">货架</a> &gt; <a href="#">二级货架</a></div></div>
+
+	<div class="containers">
+		<div class="pc-nav-item">
+			@if(count($catename) == 2)
+				<a href="/home/cate/{{$catename[0]['id']}}">{{$catename[0]['name']}}</a> &gt; 
+				<a href="/home/cate/{{$catename[1]['id']}}">{{$catename[1]['name']}}</a>
+			@else
+				<a href="/home/cate/{{$catename[0]['id']}}">{{$catename[0]['name']}}</a> &gt; 
+			@endif
+		</div>
+	</div>
+
 
 <div class="containers clearfix">
     <div class="fl">
@@ -77,16 +97,15 @@
             <div class="pc-s-title"><h2>商品TOP排行</h2></div>
             <div>
                 <ul>
+
+					@foreach($top as $v)
                     <li>
-                        <div class="pc-s-line"><a href="#"><img src="lib/theme1/img/pd/hot2.png" width="188"></a> </div>
-                        <div class="pc-s-link"><a href="#">小米 4 2GB内存版 白色 移动4G手机不锈钢金属边框、 5英</a> </div>
-                        <div class="pc-s-lins"><p class="reds">￥1000.00</p><p class="blue">已售出：3000+</p></div>
+                        <div class="pc-s-line"><a href="/home/goods/{{$v['id']}}"><img src="{{$v['pic']}}" width="188"></a> </div>
+                        <div class="pc-s-link"><a href="/home/goods/{{$v['id']}}">{{substr($v['name'], 0, 30)}}</a> </div>
+                        <div class="pc-s-lins"><p class="reds">￥{{$v['price']}}</p><p class="blue">已售出：{{$v['buynum']}}</p></div>
                     </li>
-                    <li>
-                        <div class="pc-s-line"><a href="#"><img src="lib/theme1/img/pd/hot2.png" width="188"></a> </div>
-                        <div class="pc-s-link"><a href="#">小米 4 2GB内存版 白色 移动4G手机不锈钢金属边框、 5英</a> </div>
-                        <div class="pc-s-lins"><p class="reds">￥1000.00</p><p class="blue">已售出：3000+</p></div>
-                    </li>
+                    @endforeach
+
                 </ul>
             </div>
         </div>
@@ -95,20 +114,20 @@
         <div class="pc-term">
             <dl class="pc-term-dl clearfix">
                 <dt>品牌：</dt>
-                <dd style="width:50px"><a href="/cate?id={{$pid}}">所有</a></dd>
-                @foreach($data as $v)
-                <dd><a href="#">{{$v->name}}</a></dd>
-                @endforeach
+
+				@foreach($pin as $v)
+					<dd class="selected" style="width:50px;"><a href="/home/cate/{{$v['id']}}">{{$v['name']}}</a></dd>
+				@endforeach
             </dl>
-           
+
 
             <div class="pc-line"></div>
             <div class="pc-search clearfix">
                 <div class="fl pc-search-in">
                     <input type="text" class="pc-search-w">
-                    <input type="text" class="pc-search-s" placeholder="￥">
-                    <input type="text" class="pc-search-s" placeholder="￥">
-                    <a href="#" class="pc-search-a">搜索</a>
+
+                    <a href="javascript:void(0)" class="pc-search-a" data-id="{{$cid}}">搜索</a>
+
                 </div>
                 <div class="fr pc-with">
                     相关搜索： <a href="#">黑糖</a><em>|</em><a href="#">姜茶</a><em>|</em><a href="#">红印黑糖</a><em>|</em><a href="#">黑糖话梅</a><em>|</em><a href="#">黑糖姜母</a><em>|</em><a href="#">茶黑糖饼</a><em>|</em><a href="#">干黑糖</a><em>|</em><a href="#">沙琪玛</a>
@@ -117,100 +136,46 @@
         </div>
         <div class="pc-term">
             <div class="clearfix pc-search-p">
-                <div class="fl pc-search-e"><a href="#" class="cur">销量</a><a href="#">价格</a><a href="#">评价</a><a href="#">上架时间</a></div>
-                <div class="fr pc-search-v">
-                    <ul>
-                        <li><input type="checkbox"><a href="#">有货</a> </li>
-                        <li><input type="checkbox"><a href="#">限时抢购</a> </li>
-                        <li><input type="checkbox"><a href="#">满减大促</a> </li>
-                    </ul>
-                </div>
+
+                <div class="fl pc-search-e">
+					<a href="javascript:void(0)" class="cur" data-id="1_{{$cid}}">销量</a>
+					<a href="javascript:void(0)" data-id="2_{{$cid}}">价格降序</a>
+					<a href="javascript:void(0)" data-id="3_{{$cid}}">价格升序</a>
+					<a href="javascript:void(0)" data-id="4_{{$cid}}">上架时间</a>
+				</div>
+				<div class="fr pc-search-v">
+					<ul>
+						<li><input type="checkbox"><a href="javascript:void(0)" class="jin">精品</a></li>
+						<li><input type="checkbox"><a href="javascript:void(0)" class="hot">热销</a></li>
+						<li><input type="checkbox"><a href="javascript:void(0)" class="new">新品</a></li>
+					</ul>
+				</div>
             </div>
-            <div class="pc-search-i">
-                <div class="fr">
-                    <span class="pc-search-t"><b>1</b><em>/</em><i>32</i></span>
-                    <a href="#" class="pc-search-d">上一页</a>
-                    <a href="#">下一页</a>
-                </div>
-            </div>
+            
         </div>
         <div class="time-border-list pc-search-list clearfix">
             <ul class="clearfix">
+				<div id="goods">
+				@foreach($goods as $v)
                 <li>
-                    <a href="#"> <img src="lib/theme1/img/pd/hot2.png"></a>
-                    <p class="head-name"><a href="#">小米 4 2GB内存版 白色 移动4G手机不锈钢金属边框</a> </p>
-                    <p><span class="price">￥138.00</span></p>
-                    <p class="head-futi clearfix"><span class="fl">好评度：90% </span> <span class="fr">100人购买</span></p>
-                    <p class="clearfix"><span class="label-default fl">抢购</span> <a href="#" class="fr pc-search-c">收藏</a> </p>
+                    <a href="/home/goods/{{$v['id']}}"> <img src="{{$v['pic']}}" width="200"></a>
+                    <p class="head-name"><a href="/home/goods/{{$v['id']}}">{{substr($v['name'], 0, 30)}}</a> </p>
+                    <p><span class="price">￥{{$v['price']}}</span></p>
+                    <p class="head-futi clearfix"><span class="fl">好评度：100% </span> <span class="fr">{{$v['buynum']}}人购买</span></p>
+                    <p class="clearfix">
+						<span class="label-default fl">抢购</span>
+						<a href="javascript:void(0)" class="fr pc-search-c">收藏</a>
+					</p>
                 </li>
-                <li>
-                    <a href="#"> <img src="lib/theme1/img/pd/hot2.png"></a>
-                    <p class="head-name"><a href="#">小米 4 2GB内存版 白色 移动4G手机不锈钢金属边框</a> </p>
-                    <p><span class="price">￥138.00</span></p>
-                    <p class="head-futi clearfix"><span class="fl">好评度：90% </span> <span class="fr">100人购买</span></p>
-                    <p class="clearfix"><span class="label-default fl">抢购</span> <a href="#" class="fr pc-search-c">收藏</a> </p>
-                </li>
-                <li>
-                    <a href="#"> <img src="lib/theme1/img/pd/hot2.png"></a>
-                    <p class="head-name"><a href="#">小米 4 2GB内存版 白色 移动4G手机不锈钢金属边框</a> </p>
-                    <p><span class="price">￥138.00</span></p>
-                    <p class="head-futi clearfix"><span class="fl">好评度：90% </span> <span class="fr">100人购买</span></p>
-                    <p class="clearfix"><span class="label-default fl">抢购</span> <a href="#" class="fr pc-search-c">收藏</a> </p>
-                </li>
-                <li>
-                    <a href="#"> <img src="lib/theme1/img/pd/hot2.png"></a>
-                    <p class="head-name"><a href="#">小米 4 2GB内存版 白色 移动4G手机不锈钢金属边框</a> </p>
-                    <p><span class="price">￥138.00</span></p>
-                    <p class="head-futi clearfix"><span class="fl">好评度：90% </span> <span class="fr">100人购买</span></p>
-                    <p class="clearfix"><span class="label-default fl">抢购</span> <a href="#" class="fr pc-search-c">收藏</a> </p>
-                </li>
-                <li>
-                    <a href="#"> <img src="lib/theme1/img/pd/hot2.png"></a>
-                    <p class="head-name"><a href="#">小米 4 2GB内存版 白色 移动4G手机不锈钢金属边框</a> </p>
-                    <p><span class="price">￥138.00</span></p>
-                    <p class="head-futi clearfix"><span class="fl">好评度：90% </span> <span class="fr">100人购买</span></p>
-                    <p class="clearfix"><span class="label-default fl">抢购</span> <a href="#" class="fr pc-search-c">收藏</a> </p>
-                </li>
-                <li>
-                    <a href="#"> <img src="lib/theme1/img/pd/hot2.png"></a>
-                    <p class="head-name"><a href="#">小米 4 2GB内存版 白色 移动4G手机不锈钢金属边框</a> </p>
-                    <p><span class="price">￥138.00</span></p>
-                    <p class="head-futi clearfix"><span class="fl">好评度：90% </span> <span class="fr">100人购买</span></p>
-                    <p class="clearfix"><span class="label-default fl">抢购</span> <a href="#" class="fr pc-search-c">收藏</a> </p>
-                </li>
-
+				@endforeach
+				</div>
             </ul>
             <div class="clearfix">
-                <div class="fr pc-search-g">
-                    <a class="fl pc-search-f" href="#">上一页</a>
-                    <a href="#" class="current">1</a>
-                    <a href="javascript:;">2</a>
-                    <a href="javascript:;">3</a>
-                    <a href="javascript:;">4</a>
-                    <a href="javascript:;">5</a>
-                    <a href="javascript:;">6</a>
-                    <a href="javascript:;">7</a>
-                    <span class="pc-search-di">…</span>
-                    <a title="使用方向键右键也可翻到下一页哦！" class="pc-search-n" href="javascript:;" onClick="SEARCH.page(3, true)">下一页</a>
-                    <span class="pc-search-y">
-                        <em>  共20页    到第</em>
-                        <input type="text" class="pc-search-j" placeholder="1">
-                        <em>页</em>
-                        <a href="#" class="confirm">确定</a>
-                    </span>
-
-                </div>
+                
             </div>
         </div>
-        <div class="pc-search-re clearfix">
-            <dl>
-                <dt>重新搜索</dt>
-                <dd>
-                    <input type="text" value="三星"  id="key-re-search" class="text">
-                    <input type="button" value="搜&nbsp;索" id="btn-re-search" class="button">
-                </dd>
-            </dl>
-        </div>
+        
+
     </div>
 </div>
 <!--- footer begin-->
@@ -218,7 +183,8 @@
     <div class="time-lists aui-footer-pd clearfix">
         <div class="aui-footer-list clearfix">
             <h4>
-                <span><img src="lib/theme1/icon/icon-d1.png"></span>
+
+                <span><img src="/lib/theme/icon/icon-d1.png"></span>
                 <em>消费者权益</em>
             </h4>
             <ul>
@@ -231,7 +197,8 @@
         </div>
         <div class="aui-footer-list clearfix">
             <h4>
-                <span><img src="lib/theme1/icon/icon-d2.png"></span>
+
+                <span><img src="/lib/theme/icon/icon-d2.png"></span>
                 <em>新手上路</em>
             </h4>
             <ul>
@@ -243,7 +210,7 @@
         </div>
         <div class="aui-footer-list clearfix">
             <h4>
-                <span><img src="lib/theme1/icon/icon-d3.png"></span>
+                <span><img src="/lib/theme/icon/icon-d3.png"></span>
                 <em>保障正品</em>
             </h4>
             <ul>
@@ -255,7 +222,7 @@
         </div>
         <div class="aui-footer-list clearfix">
             <h4>
-                <span><img src="lib/theme1/icon/icon-d1.png"></span>
+                <span><img src="/lib/theme/icon/icon-d1.png"></span>
                 <em>消费者权益</em>
             </h4>
             <ul>
@@ -317,6 +284,83 @@
         </div>
     </div>
 </div>
-<!-- footer End -->
+	<script>
+		// $('.pc-search-c').click(function(){
+		// 	console.dir($(this).css('background-color'))
+		// 	console.dir($(this).css('color'))
+		// 	if ($(this).css('background-color') == 'rgb(225, 37, 36)') {
+		// 		$(this).css('background-color', 'rgb(225, 37, 36)');
+		// 		$(this).css('color', 'rgb(255, 255, 255)');
+		// 	}
+			
+		// });
+		$('.pc-search-e').on('click', 'a', function(){
+			$('.pc-search-e').children().removeClass('cur')
+			$(this).addClass('cur')
+			var id = $(this).data('id')
+			$.ajax({
+				url: '/home/sorts',
+				method: 'post',
+				data: {
+					_token : '{{ csrf_token() }}',
+					id : id,
+				},
+				success : function(res){
+					var str = '';
+					$('#goods').empty();
+					console.dir(res.data)
+					for (k in res.data) {
+						str += '<li>';
+						str += '<a href="/home/goods/'+res.data[k].id+'"> <img src="'+res.data[k].pic+'" width="200"></a>';
+						str += '<p class="head-name"><a href="/home/goods/'+res.data[k].id+'">'+res.data[k].name+'</a></p>';
+						str += '<p><span class="price">￥'+res.data[k].goods_price+'</span></p>'
+						str += '<p class="head-futi clearfix"><span class="fl">好评度：100% </span> <span class="fr">'+res.data[k].buynum+'人购买</span></p>';
+						str += '<p class="clearfix">';
+						str += '<span class="label-default fl">抢购</span>';
+						str += '<a href="javascript:void(0)" class="fr pc-search-c">收藏</a>';
+						str += '</p></li>';
+						console.dir(str);
+						$('#goods').append(str)
+						str = '';
+					}
+				},
+			})
+		})
+		
+		$('.pc-search-in').on('click', 'a', function(){
+			var data = $(this.parentElement).children().eq(0).val();
+			var cid = $(this).data('id')
+			console.dir(cid);
+			$.ajax({
+				url: '/home/cate/search',
+				method: 'post',
+				data: {
+					_token : '{{ csrf_token() }}',
+					data : data,
+					cid : cid,
+				},
+				success : function(res){
+					// console.dir(res.goods)
+					var str = '';
+					$('#goods').empty();
+					console.dir(res.data)
+					for (k in res.data) {
+						str += '<li>';
+						str += '<a href="/home/goods/'+res.data[k].id+'"> <img src="'+res.data[k].pic+'" width="200"></a>';
+						str += '<p class="head-name"><a href="/home/goods/'+res.data[k].id+'">'+res.data[k].name+'</a></p>';
+						str += '<p><span class="price">￥'+res.data[k].goods_price+'</span></p>'
+						str += '<p class="head-futi clearfix"><span class="fl">好评度：100% </span> <span class="fr">'+res.data[k].buynum+'人购买</span></p>';
+						str += '<p class="clearfix">';
+						str += '<span class="label-default fl">抢购</span>';
+						str += '<a href="javascript:void(0)" class="fr pc-search-c">收藏</a>';
+						str += '</p></li>';
+						console.dir(str);
+						$('#goods').append(str)
+						str = '';
+					}
+				}
+			})
+		})
+	</script>
 </body>
 </html>
