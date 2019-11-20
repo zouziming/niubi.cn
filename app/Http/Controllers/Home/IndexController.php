@@ -11,13 +11,13 @@ class IndexController extends Controller
     //
     public function index()
     {
-    	$data=Cate::where('pid','=',0)->get();
-    	foreach ($data as $key => $value) {
+    	$obj=Cate::where('pid','=',0)->get();
+    	foreach ($obj as $key => $value) {
     		$son = Cate::where('pid','=',$value->id)->get();
-    		$data[$key]['son'] =$son;
+    		$obj[$key]['son'] =$son;
     		// dump($son);
     	}
-    	dump($data);
-    	return view('/Home/index',['data'=>$data]);
+    	dump($obj);
+    	return view('/Home/index',['obj'=>$obj]);
     }
 }

@@ -138,6 +138,14 @@ class PowerController extends Controller
             DB::beginTransaction();
             $data=ShopRole::find($request->id);
             // ->shopRoleHasPermission;
+
+            $userRole=$data->shopUserHasRole()->first();
+            // 判断是否有用户使用该角色
+            if ($userRole) {
+                echo "<script>alert('有用户拥有改角色，请先设置该用户的角色');location.href='/admin/power/role'</script>";
+            } else {
+            // dump($userRole);exit;
+
             $delM=$data->shopRoleHasPermission()->delete();
             $del=$data->delete();
 
@@ -148,6 +156,8 @@ class PowerController extends Controller
                 DB::rollBack();
                return redirect('/admin/power/role')->with('status', '删除数据失败!');
             }
+
+        }
             // dump($delM);
             // dump($del);
          

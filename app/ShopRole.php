@@ -14,7 +14,10 @@ class ShopRole extends Model
         return $this->hasMany('\App\shopRoleHasPermission','role_id');
     }
     
-
+    public function shopUserHasRole()
+    {
+        return $this->hasMany('\App\shopUserHasRole','role_id');
+    }
     
     // protected static function boot()
     // {

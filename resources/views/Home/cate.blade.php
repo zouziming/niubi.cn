@@ -69,8 +69,13 @@
 </header>
 <!-- header End -->
 
-<div class="containers"><div class="pc-nav-item"><a href="#">货架</a> &gt; <a href="#">二级货架</a></div></div>
-
+<div class="containers"><div class="pc-nav-item">
+    @if($mb->pid==0)
+     <li> <a href="/">首页</a> > {{$mb->name}}</li>
+    @else
+     <li> <a href="/">首页</a> > <a href="/cate?id={{$pid->id}}">{{$pid->name}}</a> > {{$mb->name}}</li>
+    @endif
+    <!-- <a href="#">货架</a> &gt; <a href="#">二级货架</a></div></div> -->
 <div class="containers clearfix">
     <div class="fl">
         <div class="pc-sisters">
@@ -95,9 +100,17 @@
         <div class="pc-term">
             <dl class="pc-term-dl clearfix">
                 <dt>品牌：</dt>
-                <dd style="width:50px"><a href="/cate?id={{$pid}}">所有</a></dd>
+                <dd class="selected" style="width:120px;"><a 
+                    @if($mb->pid==0)
+                    style="color:red";
+                    @endif
+                    href="/cate?id={{$pid->id}}">所有</a></dd>
                 @foreach($data as $v)
-                <dd><a href="#">{{$v->name}}</a></dd>
+                <dd><a 
+                    @if($v->id==$sonId)
+                    style="color:red";
+                    @endif
+                 href="?id={{$v->id}}">{{$v->name}}</a></dd>
                 @endforeach
             </dl>
            
