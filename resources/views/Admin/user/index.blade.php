@@ -62,9 +62,9 @@
                 <td>{{$user->email}}</td>
                 <td>
                 @if ($user->status == 1)
-                    <a href="/admin/user/status?id/{{$user->id}}/status/2" >正常</a>
+                    <a href="/admin/user/status/{{$user->id}}/2" >正常</a>
                 @else
-                    <a href="/admin/user/status?id/{{$user->id}}/status/1" >禁用</a>
+                    <a href="/admin/user/status/{{$user->id}}/1" style="color:red;">禁用</a>
                 @endif
                 </td>
                 <td>{{$user->addtime}}</td>

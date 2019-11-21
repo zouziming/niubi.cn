@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Home;
 
-
+use App\ShopLunbo;
 use App\ShopCate;
 use App\Goods;
 use App\GoodsSpecs;
@@ -30,8 +30,8 @@ class IndexController extends Controller
 	{
 		$cate = ShopCate::where('pid', 0)->get();
 		foreach ($cate as $k=>$v) {
-			$data[$k]['fu'] = $v['name'];
-			$data[$k]['er'] = ShopCate::where('pid', $v['id'])->pluck('name');
+			$data[$k]['fu'] = $v;
+			$data[$k]['er'] = ShopCate::where('pid', $v['id'])->get();
 			$id = ShopCate::where('pid', $v['id'])->pluck('id');
 			$data[$k]['goods'] = Goods::whereIn('cid', $id)->where('is_recycle', 0)->where('status', 1)->limit(8)->get();
 			foreach ($data[$k]['goods'] as $kk=>$vv) {
@@ -56,10 +56,10 @@ class IndexController extends Controller
             // dump($son);
         }
 
-   
-
-
-		return view('Home.index')->with(['data'=>$data, 'tui'=>$tui, 'hot'=>$hot,'obj'=>$obj]);
+		$lunbo = ShopLunbo::limit(5)->orderBy('id', 'desc')->get();
+		// dump($data);
+		
+		return view('Home.index')->with(['data'=>$data, 'tui'=>$tui, 'hot'=>$hot, 'lunbo'=>$lunbo]);
 	}
 }
 

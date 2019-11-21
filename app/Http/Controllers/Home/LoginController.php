@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\ShopUserinfo;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -35,11 +36,10 @@ class LoginController extends Controller
         ]);
 
         // 验证身份
-        $userInfo = DB::table('shop_userinfo')
-            ->where('username', '=', $request->username)
+        $userInfo = \App\ShopUserinfo::where('username', '=', $request->username)
             ->first();
         // 验证密码
-        if (password_verify($request->password, $userInfo->password)) {
+        if (Hash::check($request->password, $userInfo->password)) {
             
             // 保存登录状态
             session([
@@ -58,8 +58,7 @@ class LoginController extends Controller
             // 跳转到后台首页
             return redirect('/home');
         } else {
-            return back()
-                ->withInput();
+            echo "<script>alert('密码错误！');location.href='/home/login'</script>";
         }
     }
 }

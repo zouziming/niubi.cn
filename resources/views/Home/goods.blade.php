@@ -9,9 +9,22 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE"> 
 	<meta name="renderer" content="webkit">
 	<title>商品详情</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/lib/theme1/icon/favicon.ico">
-	<link rel="stylesheet" type="text/css" href="/lib/theme1/css/base.css">
-	<link rel="stylesheet" type="text/css" href="/lib/theme1/css/home.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/lib/theme/icon/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/lib/theme/css/base.css">
+	<link rel="stylesheet" type="text/css" href="/lib/theme/css/home.css">
+	<link rel="stylesheet" type="text/css" href="/lib/viewer/css/viewer.min.css">
+	
+	<style>
+		#big{
+			width: 500px;
+			height: 500px;
+			overflow:hidden;
+			display:none;
+			position:absolute;
+			left:800px;
+			top:258px;
+		}
+	</style>
  </head>
  <body>
 
@@ -39,11 +52,12 @@
         </div>
     </div>
     <div class="container clearfix">
-        <div class="header-logo fl"><h1><a href="/"><img src="/lib/theme1/icon/logo.png"></a> </h1></div>
+
+        <div class="header-logo fl"><h1><a href="/home"><img src="/lib/theme/icon/logo.png"></a> </h1></div>
         <div class="head-form fl">
-            <form class="clearfix">
+            <form class="clearfix" onsubmit="return false">
                 <input type="text" class="search-text" accesskey="" id="key" autocomplete="off"  placeholder="手机模型">
-                <button class="button" onClick="search('key');return false;">搜索</button>
+                <button class="button">搜索</button>
             </form>
             <div class="words-text clearfix">
                 <a href="#" class="red">1元秒爆</a>
@@ -64,15 +78,9 @@
                 <h2 class="pullDownTitle">全部商品分类</h2>
             </div>
             <ul class="yMenuIndex">
-                <li><a href="" target="_blank">服装城</a></li>
-                <li><a href="" target="_blank">美妆馆</a></li>
-                <li><a href="" target="_blank">美食</a></li>
-                <li><a href="" target="_blank">全球购</a></li>
-                <li><a href="" target="_blank">闪购</a></li>
-                <li><a href="" target="_blank">团购</a></li>
-                <li><a href="" target="_blank">拍卖</a></li>
-                <li><a href="" target="_blank">金融</a></li>
-                <li><a href="" target="_blank">智能</a></li>
+				@foreach($parcate as $v)
+					<li><a href="/home/cate/{{$v['id']}}">{{$v['name']}}</a></li>
+				@endforeach
             </ul>
         </div>
     </div>
@@ -84,18 +92,29 @@
     <div class="pc-details" >
         <div class="containers">
             <div class="pc-nav-item">
-				<a class="pc-title" href="#">{{$pcate['name']}}</a> &gt; 
-				<a href="#">{{$cate['name']}}</a> &gt; 
+				<a class="pc-title" href="/home/cate/{{$pcate['id']}}">{{$pcate['name']}}</a> &gt; 
+				<a href="/home/cate/{{$cate['id']}}">{{$cate['name']}}</a> &gt; 
 				<a href="javascript:void(0)">{{$data['name']}}</a> 
 			</div>
             <div class="pc-details-l">
                 <div class="pc-product clearfix">
                     <div class="pc-product-h">
-                        <div class="pc-product-top"><img src="{{$data['pic']}}" id="big_img" width="418" height="418"></div>
+						
+						
+						<div id="small" class="pc-product-top">
+							<img data-original="{{$data['pic']}}" src="{{$data['pic']}}"  width="418" height="418">
+						</div>
+						<div id="big">
+							<img src="{{$data['pic']}}" alt="" width="1000" height="1000">
+						</div>
+
                         <div class="pc-product-bop clearfix" id="pro_detail">
                             <ul>
-                                <li><a href="javascript:void(0);" class="cur" simg="{{$data['pic']}}">
-								<img src="{{$data['pic']}}" width="58" height="58"></a> </li>
+                                <li>
+									<a href="javascript:void(0);" class="cur" simg="{{$data['pic']}}">
+										<img src="{{$data['pic']}}" width="58" height="58">
+									</a>
+								</li>
                             </ul>
                         </div>
                     </div>
@@ -155,20 +174,14 @@
     </div>
     <div class="containers clearfix" style="margin-top:20px;">
         <div class="fl">
-            <div class="pc-menu-in">
-                <h2>店内搜索</h2>
-                <form>
-					<p>关键词:<input type="text" class="pc-input1"></p>
-					<p><a href="#">搜索</a> </p>
-                </form>
-            </div>
+            
             <div class="menu_list" id="firstpane">
                 <h2>店内分类</h2>
 				@foreach($allcatedata as $v)
                 <h3 class="menu_head current">{{$v['fu']}}</h3>
 					<div class="menu_body" style="display: none;">
 					@foreach($v['er'] as $vv)
-						<a href="#">{{$vv}}</a>
+						<a href="/home/cate/{{$vv['id']}}">{{$vv['name']}}</a>
 					@endforeach	
 					</div>
 				@endforeach
@@ -299,21 +312,6 @@
 					</div>
                 </div>
             </div>
-            <!-- <div class="clearfix">
-                <div class="fr pc-search-g pc-search-gs">
-                    <a href="#" class="fl " style="display:none">上一页</a>
-                    <a class="current" href="#">1</a>
-                    <a href="javascript:;">2</a>
-                    <a href="javascript:;">3</a>
-                    <a href="javascript:;">4</a>
-                    <a href="javascript:;">5</a>
-                    <a href="javascript:;">6</a>
-                    <a href="javascript:;">7</a>
-                    <span class="pc-search-di">…</span>
-                    <a href="javascript:;">1088</a>
-                    <a href="javascript:;" class="" title="使用方向键右键也可翻到下一页哦！">下一页</a>
-                </div>
-            </div> -->
         </div>
     </div>
 </section>
@@ -425,9 +423,12 @@
 </div>
 <!-- footer End -->
 
-	<script type="text/javascript" src="/lib/theme1/js/jquery.js"></script>
-	<script type="text/javascript" src="/lib/theme1/js/index.js"></script>
-	<script type="text/javascript" src="/lib/theme1/js/js-tab.js"></script>
+
+	<script type="text/javascript" src="/lib/theme/js/jquery.js"></script>
+	<script type="text/javascript" src="/lib/theme/js/index.js"></script>
+	<script type="text/javascript" src="/lib/theme/js/js-tab.js"></script>
+	<script src="/lib/viewer/js/viewer-jquery.min.js"></script>
+
 	<script src="/lib/layer/layer.js"></script>
 	<script>
          $(function(){
@@ -615,5 +616,32 @@
 			})
 		})
 	</script>
+	<script>
+		// 1. 给小图绑定鼠标移动事件
+		    small.onmousemove = function()
+		    {
+		        // 2. 获取鼠标坐标点, 根据鼠标坐标点计算在小图上的偏移量
+		        var x = event.clientX - small.offsetLeft;
+		        var y = event.clientY - small.offsetTop;
+		        // 4. 偏移量乘以8，设置为大图的滚动条位置
+		        big.scrollLeft = x * 2 - 100;
+		        big.scrollTop = y * 2 - 50;
+		
+		        big.style.display = 'block'
+		    }
+		    small.onmouseout = function()
+		    {
+		        big.style.display = 'none'
+		    }
+	</script>
+	
+	<script>
+		$(function() {
+			$('.pc-product-top').viewer({
+				url: 'data-original',
+			});
+		});
+	</script>
+	
 </body>
 </html>

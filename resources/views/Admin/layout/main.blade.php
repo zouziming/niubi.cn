@@ -45,6 +45,7 @@
                     <li><a target="" href="/admin/user/add"><i class="glyph-icon icon-chevron-right"></i>添加用户</a></li>
                 </ul>
             </li>
+
             <li class="childUlLi">
                 <a href="#" target="menuFrame"> <i class="glyph-icon icon-reorder"></i>角色管理</a>
                 <ul style="display: none;">
@@ -115,6 +116,9 @@
                     <li><a href="/admin/power" target="main"><i class="glyph-icon icon-chevron-right"></i>权限列表</a></li>
                     <li><a href="/admin/power/userRole" target="main"><i class="glyph-icon icon-chevron-right"></i>管理员列表</a></li>
             </li>
+
+        </ul>
+
     </div>
     <!--菜单结束-->
 

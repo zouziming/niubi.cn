@@ -6,7 +6,7 @@
 <div class="route_bg">
     <a href="/admin/user/index">返回主页</a>
     -
-    <span>添修改用户</span>
+    <span>修改用户</span>
 </div>
 <div class="div_from_aoto" style="width: 500px;">
 
@@ -40,15 +40,28 @@
         <div class="control-group">
             <label class="laber_from">性别</label>
             <div class="controls">
+                @if(($user->sex) == 0)
+                <select name="sex" class="input_select">
+                    <option value="0">女</option>
+                    <option value="1">男</option>
+                    <option value="2">保密</option> 
+                </select>
+                @elseif(($user->sex) == 1)
                 <select name="sex" class="input_select">
                     <option value="1">男</option>
                     <option value="0">女</option>
                     <option value="2">保密</option> 
                 </select>
+                @else
+                <select name="sex" class="input_select">
+                    <option value="2">保密</option> 
+                    <option value="1">男</option>
+                    <option value="0">女</option>
+                </select>
+                @endif
             </div>
         </div>
         <div class="control-group">
-
             <label class="laber_from"></label>
             <div class="controls">
             <button id="btn" class="btn btn-success" style="width:120px;">确认</button>

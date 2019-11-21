@@ -15,11 +15,19 @@
     <body>
         <div class="mianCont">
             <div class="top">
-                <span>您好！欢迎来到17商城 请&nbsp;
-                    <a href="login.html">[登录]</a>&nbsp;
-                    <a href="reg.html">[注册]</a></span>
-                <span class="topRight">
-                    <a href="vip.html">我的17</a>&nbsp;|
+                @empty(SESSION('userInfo'))
+                <span>您好！欢迎来到17商城 请</span>
+                <span>
+                <a href="/home/login">[登录]</a>
+                </span>
+                @else
+                <span>欢迎您：</span>
+                <a style="color:violet">{{ session('userInfo.username') }}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</a>
+                <a href="/home/logout" style="color:red">退出&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</a>
+                @endempty
+                <span>&nbsp;<a href="/home/register">[注册]</a></span>
+               <span class="topRight">
+                <a href="/home/user/secure">账户安全</a>&nbsp;| 
                     <a href="order.html">我的订单</a>&nbsp;|
                     <a href="login.html">会员中心</a>&nbsp;|
                     <a href="contact.html">联系我们</a></span>
@@ -63,17 +71,19 @@
                 <div class="pntLeft">
                     <h2 class="Title">所有商品分类</h2>
                     <ul class="InPorNav">
-				    	@foreach($obj as $v)
-				     <li><a href="/cate?id={{$v->id}}">{{$v->name}}</a>
-				      <div class="chilInPorNav">
-				      	@foreach($v->son as $vv)
-				       <a href=/cate?id={{$vv->id}}">{{$vv->name}}</a>
-				       @endforeach 
-				      </div><!--chilLeftNav/-->
-				     </li>
-				    	@endforeach
-				    </ul>
-                 </div>
+						@foreach($data as $v)
+                        <li>
+                            <a href="/home/cate/{{$v['fu']['id']}}">{{$v['fu']['name']}}</a>
+                            <div class="chilInPorNav">
+								@foreach($v['er'] as $vv)
+								<a href="/home/cate/{{$vv['id']}}">{{$vv['name']}}</a>
+								@endforeach
+							</div>
+                            <!--chilLeftNav/-->
+						</li>
+						@endforeach
+                    </ul>
+                    <!--InPorNav/--></div>
                 <!--pntLeft/-->
                 <div class="pntRight">
                     <ul class="nav">
@@ -90,26 +100,13 @@
                     <!--nav/-->
                     <div class="banner">
                         <div id="kinMaxShow">
+							@foreach($lunbo as $v)
                             <div>
-                                <a href="#">
-                                    <img src="/lib/image/ban1.jpg" height="360" /></a>
+                                <a href="{{$v['url']}}">
+                                    <img src="{{$v['pic']}}" height="360" />
+								</a>
                             </div>
-                            <div>
-                                <a href="#">
-                                    <img src="/lib/image/ban2.jpg" height="360" /></a>
-                            </div>
-                            <div>
-                                <a href="#">
-                                    <img src="/lib/image/ban3.jpg" height="360" /></a>
-                            </div>
-                            <div>
-                                <a href="#">
-                                    <img src="/lib/image/ban4.jpg" height="360" /></a>
-                            </div>
-                            <div>
-                                <a href="#">
-                                    <img src="/lib/image/ban5.jpg" height="360" /></a>
-                            </div>
+                            @endforeach
                         </div>
                         <!--kinMaxShow/--></div>
                     <!--banner/--></div>
@@ -129,7 +126,7 @@
 						@foreach($tui as $v)
                         <dl>
                             <dt>
-                                <a href="/home/goods/{{$v['id']}}">
+                                <a href="/home/goods/{{$v['id']}}" class="clicknum" data-id="{{$v['id']}}">
                                     <img src="{{$v['pic']}}" width="132" height="129" /></a>
                             </dt>
                             <dd>{{substr($v['name'], 0, 31)}}</dd>
@@ -143,7 +140,7 @@
 						@foreach($hot as $v)
 						<dl>
 							<dt>
-								<a href="/home/goods/{{$v['id']}}">
+								<a href="/home/goods/{{$v['id']}}" class="clicknum" data-id="{{$v['id']}}">
 									<img src="{{$v['pic']}}" width="132" height="129" /></a>
 							</dt>
 							<dd>{{substr($v['name'], 0, 31)}}</dd>
@@ -166,16 +163,17 @@
             <!--hengfu/-->
 			
             <div class="floor" id="floor1">
-                <h3 class="floorTitle">1F&nbsp;&nbsp;&nbsp;&nbsp;{{$data[0]['fu']}}系列
-                    <a href="proinfo.html" class="more">更多 &gt;</a></h3>
+                <h3 class="floorTitle">1F&nbsp;&nbsp;&nbsp;&nbsp;{{$data[0]['fu']['name']}}系列
+                    <a href="/home/cate/{{$data[0]['fu']['id']}}" class="more">更多 &gt;</a></h3>
                 <div class="floorBox">
                     <div class="floorLeft">
                         <ul class="flList">
 							@foreach($data[0]['er'] as $v)
-                            <li>{{$v}}</li>
-                            @endforeach
+                            <li>{{$v['name']}}</li>
                             <li>
-                                <a href="proinfo.html">更多&gt;&gt;</a></li>
+                                <a href="/home/cate/{{$v['id']}}">更多&gt;&gt;</a>
+							</li>
+							@endforeach
                             <div class="clears"></div>
                         </ul>
                         <!--flList/-->
@@ -188,12 +186,13 @@
 								@foreach($data[0]['goods'] as $v)
 								<dl>
 									<dt>
-										<a href="/home/goods/{{$v['id']}}">
+										<a href="/home/goods/{{$v['id']}}" class="clicknum" data-id="{{$v['id']}}">
 											<img src="{{$v['pic']}}" width="132" height="129" />
 										</a>
 									</dt>
 									<dd>{{substr($v['name'], 0, 30)}}</dd>
 									<dd class="cheng">￥{{$v['price']}}</dd>
+									<dd style="float: right;">点击:{{$v['clicknum']}}</dd>
 								</dl>
 								@endforeach
 								<div class="clears"></div>
@@ -208,16 +207,16 @@
                 <img src="/lib/image/hengfu2.jpg" width="978" height="97" /></div>
             <!--hengfu/-->
             <div class="floor" id="floor2">
-                <h3 class="floorTitle">2F&nbsp;&nbsp;&nbsp;&nbsp;{{$data[1]['fu']}}系列
-                    <a href="proinfo.html" class="more">更多 &gt;</a></h3>
+                <h3 class="floorTitle">2F&nbsp;&nbsp;&nbsp;&nbsp;{{$data[1]['fu']['name']}}系列
+                    <a href="/home/cate/{{$data[1]['fu']['id']}}" class="more">更多 &gt;</a></h3>
                 <div class="floorBox">
                     <div class="floorLeft">
                         <ul class="flList">
 							@foreach($data[1]['er'] as $v)
-							<li>{{$v}}</li>
+							<li>{{$v['name']}}</li>
 							@endforeach
                             <li>
-                                <a href="proinfo.html">更多&gt;&gt;</a>
+                                <a href="/home/cate/{{$v['id']}}">更多&gt;&gt;</a>
 							</li>
                             <div class="clears"></div>
                         </ul>
@@ -232,12 +231,13 @@
 							@foreach($data[1]['goods'] as $v)
 							<dl>
 								<dt>
-									<a href="/home/goods/{{$v['id']}}">
+									<a href="/home/goods/{{$v['id']}}" class="clicknum" data-id="{{$v['id']}}">
 										<img src="{{$v['pic']}}" width="132" height="129" />
 									</a>
 								</dt>
 								<dd>{{substr($v['name'], 0, 30)}}</dd>
 								<dd class="cheng">￥{{$v['price']}}</dd>
+								<dd style="float: right;">点击:{{$v['clicknum']}}</dd>
 							</dl>
 							@endforeach
 							<div class="clears"></div>
@@ -253,16 +253,16 @@
 			</div>
             <!--hengfu/-->
 			<div class="floor" id="floor3">
-				<h3 class="floorTitle">3F&nbsp;&nbsp;&nbsp;&nbsp;{{$data[2]['fu']}}系列
-					<a href="proinfo.html" class="more">更多 &gt;</a></h3>
+				<h3 class="floorTitle">3F&nbsp;&nbsp;&nbsp;&nbsp;{{$data[2]['fu']['name']}}系列
+					<a href="/home/cate/{{$data[2]['fu']['id']}}" class="more">更多 &gt;</a></h3>
 				<div class="floorBox">
 					<div class="floorLeft">
 						<ul class="flList">
 							@foreach($data[2]['er'] as $v)
-								<li>{{$v}}</li>
+								<li>{{$v['name']}}</li>
 							@endforeach
 							<li>
-								<a href="proinfo.html">更多&gt;&gt;</a>
+								<a href="/home/cate/{{$v['id']}}">更多&gt;&gt;</a>
 							</li>
 							<div class="clears"></div>
 						</ul>
@@ -276,12 +276,13 @@
 							@foreach($data[2]['goods'] as $v)
 							<dl>
 								<dt>
-									<a href="/home/goods/{{$v['id']}}">
+									<a href="/home/goods/{{$v['id']}}" class="clicknum" data-id="{{$v['id']}}">
 										<img src="{{$v['pic']}}" width="132" height="129" />
 									</a>
 								</dt>
 								<dd>{{substr($v['name'], 0, 32)}}</dd>
 								<dd class="cheng">￥{{$v['price']}}</dd>
+								<dd style="float: right;">点击:{{$v['clicknum']}}</dd>
 							</dl>
 							@endforeach
 							<div class="clears"></div>
@@ -355,9 +356,24 @@
             </div>
             <!--footer/--></div>
         <!--mianCont/-->
-        <a href="#" class="backTop">&nbsp;</a></body>
+        <a href="#" class="backTop">&nbsp;</a>
+		
+	<script>
+		$('.clicknum').click(function(){
+			var id = $(this).data('id');
+			$.ajax({
+				url: '/home/clicknum',
+				method: 'post',
+				data: {
+					_token : '{{ csrf_token() }}',
+					id : id,
+				},
+				
+			})
+		});
+	</script>	
+	</body>
 
 
 </html>
-
 
