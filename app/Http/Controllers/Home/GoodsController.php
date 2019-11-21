@@ -92,4 +92,15 @@ class GoodsController extends Controller
 		$id = $request->id;
 		$res = Goods::where('id',$id)->increment('clicknum');
 	}
+	
+	public function search(Request $request)
+	{
+		$name = $request->name;
+		$data = ShopCate::where('name', 'like', '%'.$name.'%')->first();
+		if ($data == null) {
+			return ['msg'=>'没有搜到这个东西'];
+		} else {
+			return ['code'=>0, 'id'=>$data['id']];
+		}
+	}
 }

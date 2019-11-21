@@ -12,8 +12,6 @@
     <link rel="shortcut icon" type="image/x-icon" href="/lib/theme/icon/favicon.ico">
 	<link rel="stylesheet" type="text/css" href="/lib/theme/css/base.css">
 	<link rel="stylesheet" type="text/css" href="/lib/theme/css/home.css">
-	<script type="text/javascript" src="/lib/theme/js/jquery.js"></script>
-
 
  </head>
  <body>
@@ -130,7 +128,11 @@
 
                 </div>
                 <div class="fr pc-with">
-                    相关搜索： <a href="#">黑糖</a><em>|</em><a href="#">姜茶</a><em>|</em><a href="#">红印黑糖</a><em>|</em><a href="#">黑糖话梅</a><em>|</em><a href="#">黑糖姜母</a><em>|</em><a href="#">茶黑糖饼</a><em>|</em><a href="#">干黑糖</a><em>|</em><a href="#">沙琪玛</a>
+                    相关搜索： 
+					<a href="javascript:void(0)">飞机杯</a><em>|</em>
+					<a href="javascript:void(0)">充气娃娃</a><em>|</em>
+					<a href="javascript:void(0)">全自动电动按摩棒</a><em>|</em>
+					<a href="javascript:void(0)">澳门皇家赌场入场券</a>
                 </div>
             </div>
         </div>
@@ -138,7 +140,8 @@
             <div class="clearfix pc-search-p">
 
                 <div class="fl pc-search-e">
-					<a href="javascript:void(0)" class="cur" data-id="1_{{$cid}}">销量</a>
+					
+					<a href="javascript:void(0)" data-id="1_{{$cid}}">销量</a>
 					<a href="javascript:void(0)" data-id="2_{{$cid}}">价格降序</a>
 					<a href="javascript:void(0)" data-id="3_{{$cid}}">价格升序</a>
 					<a href="javascript:void(0)" data-id="4_{{$cid}}">上架时间</a>
@@ -159,7 +162,7 @@
 				@foreach($goods as $v)
                 <li>
                     <a href="/home/goods/{{$v['id']}}"> <img src="{{$v['pic']}}" width="200"></a>
-                    <p class="head-name"><a href="/home/goods/{{$v['id']}}">{{substr($v['name'], 0, 30)}}</a> </p>
+                    <p class="head-name"><a href="/home/goods/{{$v['id']}}">{{substr($v['name'], 0, 25)}}</a> </p>
                     <p><span class="price">￥{{$v['price']}}</span></p>
                     <p class="head-futi clearfix"><span class="fl">好评度：100% </span> <span class="fr">{{$v['buynum']}}人购买</span></p>
                     <p class="clearfix">
@@ -284,6 +287,8 @@
         </div>
     </div>
 </div>
+	<script type="text/javascript" src="/lib/theme/js/jquery.js"></script>
+	<script src="/lib/layer/layer.js"></script>
 	<script>
 		// $('.pc-search-c').click(function(){
 		// 	console.dir($(this).css('background-color'))
@@ -360,6 +365,10 @@
 					}
 				}
 			})
+		})
+		
+		$('.pc-with').on('click', 'a', function(){
+			layer.msg('怎么可能有这些东西，我们是正规网站')
 		})
 	</script>
 </body>
