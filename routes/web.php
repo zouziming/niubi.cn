@@ -340,10 +340,18 @@ Route::group(['prefix' => '/home'], function(){
 	Route::post('/goods/share', 'Home\GoodsController@share');
 	Route::post('/clicknum', 'Home\GoodsController@clicknum');
 	Route::post('goods/search', 'Home\GoodsController@search');
+	Route::post('goods/shop', 'Home\GoodsController@shop');
 	
 	Route::get('/cate/{id}', 'Home\CateController@cate');
 	Route::post('/sorts', 'Home\CateController@sorts');
 	Route::post('/cate/search', 'Home\CateController@search');
+	
+	Route::get('/shopcar','Home\TrolleyController@shopcar');
+	Route::post('/shopcar/jian','Home\TrolleyController@jian');
+	Route::post('/shopcar/jia','Home\TrolleyController@jia');
+	Route::post('/shopcar/ipt','Home\TrolleyController@ipt');
+	Route::post('/shopcar/del','Home\TrolleyController@del');
+	Route::post('/shopcar/alldel','Home\TrolleyController@alldel');
 });
 
 
