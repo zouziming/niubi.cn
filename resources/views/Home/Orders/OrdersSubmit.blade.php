@@ -8,14 +8,13 @@
     <meta name="Description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE"> 
     <meta name="renderer" content="webkit">
-    <meta content="歪秀购物, 购物, 大家电, 手机" name="keywords">
-    <meta content="歪秀购物，购物商城。" name="description">
-    <title>@yield('title')</title>
+    <title>订单提交成功</title>
     <link rel="shortcut icon" type="image/x-icon" href="theme/icon/favicon.ico">
     <link rel="stylesheet" type="text/css" href="theme/css/base.css">
-    <link rel="stylesheet" type="text/css" href="theme/css/member.css">
+    <link rel="stylesheet" type="text/css" href="theme/css/home.css">
     <script type="text/javascript" src="theme/js/jquery.js"></script>
-     <script>
+    <script type="text/javascript" src="theme/js/js-tab.js"></script>
+    <script>
          $(function(){
 
              $("#H-table li").each(function(i){
@@ -40,6 +39,26 @@
              });
          });
      </script>
+    <script type="text/javascript">
+         (function(a){
+             a.fn.hoverClass=function(b){
+                 var a=this;
+                 a.each(function(c){
+                     a.eq(c).hover(function(){
+                         $(this).addClass(b)
+                     },function(){
+                         $(this).removeClass(b)
+                     })
+                 });
+                 return a
+             };
+         })(jQuery);
+
+         $(function(){
+             $("#pc-nav").hoverClass("current");
+         });
+     </script>
+
  </head>
  <body>
 
@@ -67,73 +86,71 @@
         </div>
     </div>
     <div class="container clearfix">
-        <div class="header-logo fl"><h1><a href="#"><img src="theme/icon/logo.png"></a> </h1></div>
-        <div class="member-title fl"><h2></h2></div>
-        <div class="head-form fl">
-            <form class="clearfix">
-                <input type="text" class="search-text" accesskey="" id="key" autocomplete="off"  placeholder="洗衣机">
-                <button class="button" onClick="search('key');return false;">搜索</button>
-            </form>
-            <div class="words-text clearfix">
-                <a href="#" class="red">1元秒爆</a>
-                <a href="#">低至五折</a>
-                <a href="#">农用物资</a>
-                <a href="#">买一赠一</a>
-                <a href="#">佳能相机</a>
-                <a href="#">稻香村月饼</a>
-                <a href="#">服装城</a>
-            </div>
+        <div class="header-logo fl" style="width:212px;"><h1><a href="#"><img src="theme/icon/logo.png"></a></h1></div>
+        <div class="pc-order-titlei fl"><h2>填写订单</h2></div>
+        <div class="pc-step-title fl">
+            <ul>
+                <li class="cur2"><a href="#">1 . 我的购物车</a></li>
+                <li class="cur2"><a href="#">2 . 填写核对订单</a></li>
+                <li class="cur"><a href="#">3 . 成功提交订单</a></li>
+            </ul>
         </div>
-        <div class="header-cart fr"><a href="#"><img src="theme/icon/car.png"></a> <i class="head-amount">99</i></div>
     </div>
+
 </header>
 <!-- header End -->
 
-<div class="containers"><div class="pc-nav-item"><a href="#">首页</a> &gt; <a href="#">会员中心 </a> &gt; <a href="#">商城快讯</a></div></div>
 
-<!-- 商城快讯 begin -->
-<section id="member">
-    <div class="member-center clearfix">
-        <div class="member-left fl">
-            <div class="member-apart clearfix">
-                <div class="fl"><a href="#"><img src="theme/img/bg/mem.png"></a></div>
-                <div class="fl">
-                    <p>用户名：</p>
-                    <p><a href="#">亚里士多德</a></p>
-                    <p>搜悦号：</p>
-                    <p>389323080</p>
-                </div>
+<!-- 订单提交成功 begin-->
+<section>
+    <div class="containers">
+        @foreach($zfs as $zf)
+        <div class="pc-order-title"><h3>您的订单已提交成功!</h3></div>
+        <div class="pc-border">
+            <div class="pc-order-text">
+                <p>订单提交成功，请您尽快付款！   订单号 ：<em>{{$zf->did}}</em></p>
+                <p class="reds">请您在提交订单后24小时内完成付款，否则订单自动取消。</em></p>
             </div>
-            <div class="member-lists">
-                <dl>
-                    <dt>我的商城</dt>
-                    <dd class="cur"><a href="/ShowOrders">我的订单</a></dd>
-                    <dd><a href="#">我的收藏</a></dd>
-                    <dd><a href="#">账户安全</a></dd>
-                    <dd><a href="#">我的评价</a></dd>
-                    <dd><a href="#">地址管理</a></dd>
-                </dl>
-                <dl>
-                    <dt>客户服务</dt>
-                    <dd><a href="/RetreatGoods">退货申请</a></dd>
-                    <dd><a href="#">退货/退款记录</a></dd>
-                </dl>
-                <dl>
-                    <dt>我的消息</dt>
-                    <dd><a href="#">商城快讯</a></dd>
-                    <dd><a href="#">帮助中心</a></dd>
-                </dl>
+            <div class="pc-line"></div>
+            <div class="pc-order-text">
+                <p>收货地址：{{$zf->address}}<br>收货人：{{$zf->getman}} {{$zf->phone}}</p>
             </div>
         </div>
-        
-        <!-- 主体开始 -->
-        <div class="member-right fr">
-        @yield('body')
-        </div>
-        <!-- 主体结束 -->
-
+    </div>
 </section>
-<!-- 商城快讯 End -->
+<!-- 订单提交成功 End-->
+
+<div class="pc-buying clearfix" style="margin-top:30px">
+    <div class="time-list time-list-w fl">
+        <div class="time-title">
+            <ul class="brand-tab H-table H-table-shop clearfix fl" id="H-table">
+                <li class="cur"><a href="javascript:void(0);" class="cur">支付宝</a></li>
+                <li><a href="javascript:void(0);">储蓄卡</a></li>
+                <li><a href="javascript:void(0);">信用卡</a></li>
+            </ul>
+            <span class="pc-order-price">总价：￥{{$zf->total}}</span>
+            @endforeach
+        </div>
+        <div class="time-border time-border-h clearfix">
+            <div class="time-border-list pc-shop-clear pc-order-clear H-over clearfix">
+                <ul class="pc-order-list clearfix">
+                    <li><a href="#"><img src="theme/bank/1.png"></a> </li>
+                </ul>
+            </div>
+            <div style="display:none;" class="time-border-list  pc-shop-clear pc-order-clear H-over clearfix">
+                <ul class="pc-order-list">
+                <li><a href="#"><img src="theme/bank/1.png"></a> </li>
+                </ul>
+            </div>
+            <div style="display:none;" class="time-border-list  pc-shop-clear pc-order-clear H-over clearfix">
+                <ul class="pc-order-list">
+                <li><a href="#"><img src="theme/bank/1.png"></a> </li>
+                </ul>
+            </div>
+            <div class="pc-order-go"><a href="/xgzt?id={{$zf->id}}&status=2">去网银支付</a></div>
+        </div>
+    </div>
+</div>
 
 <!--- footer begin-->
 <div class="aui-footer-bot">
@@ -240,7 +257,5 @@
     </div>
 </div>
 <!-- footer End -->
-@yield('script')
-
 </body>
 </html>

@@ -95,6 +95,14 @@ Route::get('/', function () {
 // 订单：前台我的订单显示
     Route::get('/ShowOrders','Home\OrdersController@show_orders');
 
-//
-    // Route::get('/Sds','Home\OrdersController@show_details');
+//  修改支付状态
+    Route::get('/xgzt','Home\OrdersController@xg');
 
+// 订单提交成功页面
+    Route::get('/OrdersSubmit','Home\OrdersController@orders_submit');
+
+// 确认收货
+    Route::get('/ConfirmReceipt','Home\OrdersController@confirm_receipt');
+/*-----------------------------------------------------------------------------------*/
+// 前台退货页面
+    Route::get('/RetreatGoods','Home\OrdersController@retreat_goods');

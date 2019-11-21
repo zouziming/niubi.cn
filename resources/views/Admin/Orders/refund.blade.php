@@ -41,7 +41,7 @@
                 @foreach($datas as $data)              
                 <tr>
                     <td>{{$data->id}}</td>
-                    <td>{{$data->uid}}</td>
+                    <td>{{$data->did}}</td>
                     <td>{{$data->username}}</td>
                     <td>{{$data->getman}}</td>
                     <td>{{$data->phone}}</td>

@@ -1,169 +1,292 @@
 @extends('Home.layout.main')
 
-@section('title','我的订单')
+@section('title','商城-订单')
 
 @section('body')
-<div class="member-heels fl"><h2>订单号：{{$qts->uid}}</h2></div>
-    <div class="member-backs fr"><a href="#">返回订单首页</a></div>
-        </div>
-        <div class="member-border">
-           <div class="member-order">
-               <dl>
-                   <dt>发货信息</dt>
-                   <dd class="member-seller">卖家已发货 <a href="#">（物流查询）</a> </dd>
-               </dl>
-               <dl class="member-custom clearfix ">
-                   <dt>订单信息</dt>
-                   <dd>订单编号：{{$qts->uid}}</dd>
-                   <dd>订单金额：￥{{$qts->total}}</dd>
-                   <dd>下单时间：{{$qts->addtime}}</dd>
-               </dl>
-               <dl>
-                   <dt>配送信息</dt>
-                   <dd class="member-seller"><span>收货地址：<em>{{$qts->getman}}</em></span> <span>{{$qts->phone}}</span> <span>{{$qts->address}}</span></dd>
-               </dl>
-               <dl>
-                   <dt>商品信息</dt>
-                   <dd class="member-seller">本订单是由 “以纯甲醇旗舰店” 发货并且提高售后服务，商品在下单后会尽快给您发货。 </dd>
-               </dl>
-           </div>
-
-           <div class="member-serial">
-               <ul>
-                   <li class="clearfix">
-                       <div class="No1">商品编号</div>
-                       <div class="No2">商品详情</div>
-                       <div class="No3">数量</div>
-                       <div class="No4">单价</div>
-                       <div class="No5">小计</div>
-                   </li>
-                   <li class="clearfix">
-                       <div class="No1">987645</div>
-                       <div class="No2"><a href="#">BWXD日系复古男士松紧腰小脚九分裤简约休闲收口运动潮裤垮裤百搭</a> </div>
-                       <div class="No3">1</div>
-                       <div class="No4">￥78.00</div>
-                       <div class="No5">￥99.00</div>
-                   </li>
-               </ul>
-           </div>
-
-        </div>
-        <div class="member-settle clearfix">
-            <div class="fr">
-                <div><span>商品金额：</span><em>￥270.00</em></div>
-                <div><span>运费：</span><em>￥270.00</em></div>
-                <div class="member-line"></div>
-                <div><span>共需支付：</span><em>￥280.00</em></div>
-            </div>
-        </div>
-    </div>
+<div class="member-head">
+  <div class="member-heels fl"><h2>订单列表</h2></div>
+  <div class="member-backs member-icons fr"><a href="#">搜索</a></div>
+  <div class="member-about fr"><input type="text" placeholder="商品名称/商品编号/订单编号"></div>
 </div>
-</section>
-<!-- 商城快讯 End -->
 
-<!--- footer begin-->
-<div class="aui-footer-bot">
-<div class="time-lists aui-footer-pd clearfix">
-    <div class="aui-footer-list clearfix">
-        <h4>
-            <span><img src="theme/icon/icon-d1.png"></span>
-            <em>消费者权益</em>
-        </h4>
-        <ul>
-            <li><a href="#">保障范围 </a> </li>
-            <li><a href="#">退货退款流程</a> </li>
-            <li><a href="#">服务中心 </a> </li>
-            <li><a href="#">服务中心</a> </li>
-            <li><a href="#"> 更多特色服务 </a> </li>
-        </ul>
-    </div>
-    <div class="aui-footer-list clearfix">
-        <h4>
-            <span><img src="theme/icon/icon-d2.png"></span>
-            <em>新手上路</em>
-        </h4>
-        <ul>
-            <li><a href="#">退货退款流程</a> </li>
-            <li><a href="#">服务中心 </a> </li>
-            <li><a href="#">服务中心</a> </li>
-            <li><a href="#"> 更多特色服务 </a> </li>
-        </ul>
-    </div>
-    <div class="aui-footer-list clearfix">
-        <h4>
-            <span><img src="theme/icon/icon-d3.png"></span>
-            <em>保障正品</em>
-        </h4>
-        <ul>
-            <li><a href="#">退货退款流程</a> </li>
-            <li><a href="#">服务中心 </a> </li>
-            <li><a href="#">服务中心</a> </li>
-            <li><a href="#"> 更多特色服务 </a> </li>
-        </ul>
-    </div>
-    <div class="aui-footer-list clearfix">
-        <h4>
-            <span><img src="theme/icon/icon-d1.png"></span>
-            <em>消费者权益</em>
-        </h4>
-        <ul>
-            <li><a href="#">退货退款流程</a> </li>
-            <li><a href="#">服务中心 </a> </li>
-            <li><a href="#">服务中心</a> </li>
-            <li><a href="#"> 更多特色服务 </a> </li>
-        </ul>
-    </div>
+<div class="member-whole clearfix">
+  <ul id="H-table" class="H-table">
+    <li class="cur"><a href="#">所有订单</a></li>
+    <li><a href="#">待付款</a></li>
+    <li><a href="#">待发货</a></li>
+    <li><a href="#">待收货</a></li>
+    <li><a href="#">待评价</a></li>
+  </ul>
 </div>
-<div style="border-bottom:1px solid #dedede"></div>
-<div class="time-lists aui-footer-pd time-lists-ls clearfix">
-    <div class="aui-footer-list clearfix">
-        <h4>购物指南</h4>
-        <ul>
-            <li><a href="#">保障范围 </a> </li>
-            <li><a href="#">购物流程</a> </li>
-            <li><a href="#">会员介绍 </a> </li>
-            <li><a href="#">生活旅行</a> </li>
-            <li><a href="#"> 常见问题 </a> </li>
-            <li><a href="#"> 联系客服购物指南 </a> </li>
-        </ul>
+
+<!-- 所有订单开始 -->
+<div class="member-border">
+  <div class="member-return H-over">
+    <div class="member-cancel clearfix">
+      <span class="be1">订单信息</span>
+      <span class="be2">收货人</span>
+      <span class="be2">订单金额</span>
+      <span class="be2">订单时间</span>
+      <span class="be2">订单状态</span>
+      <span class="be2">订单操作</span>
     </div>
-    <div class="aui-footer-list clearfix">
-        <h4>特色服务</h4>
-        <ul>
-            <li><a href="#">退货退款流程</a> </li>
-            <li><a href="#">服务中心 </a> </li>
-            <li><a href="#">服务中心</a> </li>
-            <li><a href="#"> 更多特色服务 </a> </li>
-            <li><a href="#"> 更多特色服务 </a> </li>
-            <li><a href="#"> 更多特色服务 </a> </li>
-            <li><a href="#"> 更多特色服务 </a> </li>
-        </ul>
-    </div>
-    <div class="aui-footer-list clearfix">
-        <h4>帮助中心</h4>
-        <ul>
-            <li><a href="#">退货退款流程</a> </li>
-            <li><a href="#">退货退款流程</a> </li>
-            <li><a href="#">退货退款流程</a> </li>
-            <li><a href="#">退货退款流程</a> </li>
-            <li><a href="#">服务中心 </a> </li>
-            <li><a href="#">服务中心</a> </li>
-            <li><a href="#"> 更多特色服务 </a> </li>
-        </ul>
-    </div>
-    <div class="aui-footer-list clearfix">
-        <h4>新手指导</h4>
-        <ul>
-            <li><a href="#">退货退款流程</a> </li>
-            <li><a href="#">退货退款流程</a> </li>
-            <li><a href="#">服务中心 </a> </li>
-            <li><a href="#">服务中心</a> </li>
-            <li><a href="#">服务中心</a> </li>
-            <li><a href="#"> 更多特色服务 </a> </li>
-            <li><a href="#"> 更多特色服务 </a> </li>
-        </ul>
-    </div>
+
+<div class="member-sheet clearfix">
+  <ul>
+  @foreach($qts as $qt)
+  <?php
+  // dd($qt->ShopDetails);
+  ?>
+    <li>
+      <div class="member-minute clearfix">
+        <span>订单号：<em>{{$qt->did}}</em></span>
+        <span class="member-custom">客服电话：<em>010-6544-0986</em></span>
+      </div>
+      <div class="member-circle clearfix">
+        <div class="ci1">
+        @foreach($qt->ShopDetails as $op)
+        <div class="ci7 clearfix" >
+          <span class="gr1"><a href="#"><img src="theme/img/pd/m1.png" width="60" height="60" title="" about=""></a></span>
+          <span class="gr2"><a href="#">{{$op->gname}}</a></span>
+          <span class="gr3">X1</span>
+        </div>
+        @endforeach
+        </div>
+        <div class="ci2">{{$qt->getman}}</div>
+        <div class="ci3"><b>￥{{$qt->total}}</b></div>
+        <div class="ci4"><p>{{$qt->addtime}}</p></div>
+        <div class="ci5"><p>
+        @if ($qt->status === 1)
+            待付款
+        @elseif ($qt->status === 2)
+            已付款
+        @elseif ($qt->status === 3)
+            已发货
+        @elseif ($qt->status === 4)
+            已收货
+        @endif
+        </p><p><a href="#">订单详情</a></p></div>
+        <div class="ci5 ci8"><!-- <p>剩余15时20分</p> --> <p>
+        @if ($qt->status === 1)
+        <a href="/OrdersSubmit?id={{$qt->id}}&status=2" class="member-touch">立即支付</a> </p> <p><a href="#">取消订单</a> </p>
+        @endif
+      </div>
+    </li>
+  @endforeach
+  </ul>
+</div>
+<!-- 所有订单结束 -->
+  </div>
+
+<!-- 待付款开始 -->
+<div class="member-return H-over" style="display:none;">
+  <div class="member-cancel clearfix">
+    <span class="be1">订单信息</span>
+    <span class="be2">收货人</span>
+    <span class="be2">订单金额</span>
+    <span class="be2">订单时间</span>
+    <span class="be2">订单状态</span>
+    <span class="be2">订单操作</span>
+  </div>
+
+<div class="member-sheet clearfix">
+  <ul>
+  @foreach($sss as $qt)
+  <?php
+  // dd($qt->ShopDetails);
+  ?>
+    <li>
+      <div class="member-minute clearfix">
+        <span>订单号：<em>{{$qt->did}}</em></span>
+        <span class="member-custom">客服电话：<em>010-6544-0986</em></span>
+      </div>
+      <div class="member-circle clearfix">
+        <div class="ci1">
+        @foreach($qt->ShopDetails as $k=> $op)
+        <div class="ci7 clearfix" >
+          <span class="gr1"><a href="#"><img src="theme/img/pd/m1.png" width="60" height="60" title="" about=""></a></span>
+          <span class="gr2"><a href="#">{{$op->gname}}</a></span>
+          <span class="gr3">X1</span>
+        </div>
+        @endforeach
+        </div>
+        <div class="ci2">{{$qt->getman}}</div>
+        <div class="ci3"><b>￥{{$qt->total}}</b></div>
+        <div class="ci4"><p>{{$qt->addtime}}</p></div>
+        <div class="ci5"><p>
+        @if ($qt->status === 1)
+            待付款
+        @elseif ($qt->status === 2)
+            已付款
+        @endif
+
+        </p><p><a href="#">订单详情</a></p></div>
+        @if ($qt->status === 1)
+        <div class="ci5 ci8"><!-- <p>剩余15时20分</p> --> <p>
+        <a href="/OrdersSubmit?id={{$qt->id}}&status=2" class="member-touch">立即支付</a>
+         </p> <p><a href="#">取消订单</a> </p>
+        </div>
+        @endif
+      </div>
+    </li>
+  @endforeach
+  </ul>
+</div>
+<!-- 待付款结束 -->
+
+</div>
+
+<!-- 待发货开始 -->
+<div class="member-return H-over" style="display:none;">
+  <div class="member-cancel clearfix">
+    <span class="be1">订单信息</span>
+    <span class="be2">收货人</span>
+    <span class="be2">订单金额</span>
+    <span class="be2">订单时间</span>
+    <span class="be2">订单状态</span>
+    <span class="be2">订单操作</span>
+  </div>
+<div class="member-sheet clearfix">
+  <ul>
+  @foreach($dds as $qt)
+  <?php
+  // dd($qt->ShopDetails);
+  ?>
+    <li>
+      <div class="member-minute clearfix">
+        <span>订单号：<em>{{$qt->did}}</em></span>
+        <span class="member-custom">客服电话：<em>010-6544-0986</em></span>
+      </div>
+      <div class="member-circle clearfix">
+        <div class="ci1">
+        @foreach($qt->ShopDetails as $k=> $op)
+        <div class="ci7 clearfix" >
+          <span class="gr1"><a href="#"><img src="theme/img/pd/m1.png" width="60" height="60" title="" about=""></a></span>
+          <span class="gr2"><a href="#">{{$op->gname}}</a></span>
+          <span class="gr3">X1</span>
+        </div>
+        @endforeach
+        </div>
+        <div class="ci2">{{$qt->getman}}</div>
+        <div class="ci3"><b>￥{{$qt->total}}</b></div> 
+        <div class="ci4"><p>{{$qt->addtime}}</p></div>
+        <div class="ci5"><p>
+        @if ($qt->status === 2)
+            待发货
+        @elseif ($qt->status === 3)
+            已发货
+        @endif
+
+        </p><p><a href="#">订单详情</a></p></div>
+
+    </li>
+  @endforeach
+  </ul>
+</div>
+</div>
+<!-- 待发货结束 -->
+
+
+<!-- 待收货开始 -->
+<div class="member-return H-over" style="display:none;">
+  <div class="member-cancel clearfix">
+    <span class="be1">订单信息</span>
+    <span class="be2">收货人</span>
+    <span class="be2">订单金额</span>
+    <span class="be2">订单时间</span>
+    <span class="be2">订单状态</span>
+    <span class="be2">订单操作</span>
+  </div>
+<div class="member-sheet clearfix">
+  <ul>
+  @foreach($ffs as $qt)
+    <li>
+      <div class="member-minute clearfix">
+        <span>订单号：<em>{{$qt->did}}</em></span>
+        <span class="member-custom">客服电话：<em>010-6544-0986</em></span>
+      </div>
+      <div class="member-circle clearfix">
+        <div class="ci1">
+        @foreach($qt->ShopDetails as $k=> $op)
+        <div class="ci7 clearfix" >
+          <span class="gr1"><a href="#"><img src="theme/img/pd/m1.png" width="60" height="60" title="" about=""></a></span>
+          <span class="gr2"><a href="#">{{$op->gname}}</a></span>
+          <span class="gr3">X1</span>
+        </div>
+        @endforeach
+        </div>
+        <div class="ci2">{{$qt->getman}}</div>
+        <div class="ci3"><b>￥{{$qt->total}}</b></div>
+        <div class="ci4"><p>{{$qt->addtime}}</p></div>
+        <div class="ci5"><p>
+
+        @if ($qt->status === 3)
+            待收货
+        @elseif ($qt->status === 4)
+            已收货
+        @endif
+
+        </p><p><a href="#">订单详情</a></p></div>
+
+        @if ($qt->status === 3)
+        <div class="ci5 ci8"><!-- <p>剩余15时20分</p> --> <p>
+        <a href="/ConfirmReceipt?id={{$qt->id}}&status=3" class="member-touch">确认收货</a>
+        </div>
+        @endif
+      </div>
+    </li>
+  @endforeach
+  </ul>
+</div>                  
+</div>
+<!-- 待收货结束 -->
+
+<!-- 待评价开始 -->
+<div class="member-return H-over" style="display:none;">
+  <div class="member-cancel clearfix">
+    <span class="be1">订单信息</span>
+    <span class="be2">收货人</span>
+    <span class="be2">订单金额</span>
+    <span class="be2">订单时间</span>
+    <span class="be2">订单状态</span>
+    <span class="be2">订单操作</span>
+  </div>
+<div class="member-sheet clearfix">
+  <ul>
+  @foreach($ggs as $qt)
+    <li>
+      <div class="member-minute clearfix">
+        <span>订单号：<em>{{$qt->did}}</em></span>
+        <span class="member-custom">客服电话：<em>010-6544-0986</em></span>
+      </div>
+      <div class="member-circle clearfix">
+        <div class="ci1">
+        @foreach($qt->ShopDetails as $k=> $op)
+        <div class="ci7 clearfix" >
+          <span class="gr1"><a href="#"><img src="theme/img/pd/m1.png" width="60" height="60" title="" about=""></a></span>
+          <span class="gr2"><a href="#">{{$op->gname}}</a></span>
+          <span class="gr3">X1</span>
+        </div>
+        @endforeach
+        </div>
+        <div class="ci2">{{$qt->getman}}</div>
+        <div class="ci3"><b>￥{{$qt->total}}</b></div>
+        <div class="ci4"><p>{{$qt->addtime}}</p></div>
+        <div class="ci5"><p>
+
+        @if ($qt->status === 4)
+            待评价
+        @endif
+        </p><p><a href="#"></a></p></div>
+        <div class="ci5 ci8"><!-- <p>剩余15时20分</p> --> <p>
+        <p><a href="#">评价</a> </p>
+      </div>
+      </div>
+    </li>
+  @endforeach
+  </ul>
+</div> 
+</div>
+<!-- 待评价结束 -->
 </div>
 @endsection
-
-

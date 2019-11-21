@@ -64,7 +64,7 @@
                     <td>{{$data->code}}</td>
                     <td>
                     @if ($data->status === 1)
-                        未发货
+                        待付款
                     @elseif ($data->status === 2)
                         待发货
                     @elseif ($data->status === 3)
