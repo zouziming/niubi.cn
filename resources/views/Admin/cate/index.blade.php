@@ -46,8 +46,10 @@
                        <td>{{$str}}{{$v->name}}</td>
                        <td>{{$v->pid}}</td>
                        <td>{{$v->path}}</td>
-                       <td><a href="/admin/cate/add?id={{$v->id}}">添加子类</a>|<a href="/admin/cate/del?id={{$v->id}}">删除</a>|
-                        <a href="/admin/cate/edit?id={{$v->id}}">编辑</a></td>
+                       <td><a href="/admin/cate/add?id={{$v->id}}">添加子类</a>|<a class="del" data-id="{{$v->id}}" href="javascript:void(0)">删除</a>|
+                        <a href="/admin/cate/edit?id={{$v->id}}">编辑</a>
+                        </td>
+                        
                     </tr>
                @endforeach
             </table>
@@ -57,6 +59,33 @@
 @endsection
 
 @section('script')
+<script type="text/javascript">
+  
+$('.del').click(function(){
+  let _t = this;
+  var id = $(this).data('id')
+  $.ajax({
+    method:'get',
+    url:'/admin/cate/del',
+    data:{
+      _token:'{{csrf_token()}}',
+      id : id,
+    },
+    success:function(res) {
+      // console.dir(res);
+      if (res.code == 0) {
+          // alert(res.msg);
+          $(_t).parent().parent().remove()
+        } else {
+           alert(res.msg);
+        }
+    },
+    
 
+
+
+  })
+})
+</script>
 
 @endsection

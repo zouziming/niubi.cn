@@ -138,7 +138,7 @@ class PowerController extends Controller
             DB::beginTransaction();
             $data=ShopRole::find($request->id);
             // ->shopRoleHasPermission;
-
+            
             $userRole=$data->shopUserHasRole()->first();
             // 判断是否有用户使用该角色
             if ($userRole) {

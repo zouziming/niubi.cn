@@ -87,22 +87,36 @@ class CateController extends Controller
     public function del(Request $request)
     {
         $cate = new \App\Models\Cate;
-       $aa= $cate->where('pid','=',$request->id)->first();
-        dump($aa);
-       // if ($aa) {
-       //     echo "string";
-       // }
-        if ($aa==null) {
-             $del=$cate ->where('id','=',$request->id)
-        ->delete();
-            if ($del) {
-                 echo "<script>alert('删除成功');location.href='/admin/cate/index'</script>";
+        $pid = $cate->where('id', $request->id)->pluck('pid')[0];
+        // dd($pid); 
+       if ($pid == 0) {
+            $res = $cate->where('pid', $request->id)->first();
+            // dd($res);
+            if ($res == null) {
+                $del=$cate ->where('id','=',$request->id)->delete();
+                if ($del) {
+                      return [
+                            'code'=>0,
+                            'msg'=>'你真棒',
+                            ];
+                } else {
+                       return ['msg'=>'删除失败'];
+                }
             } else {
-                echo "<script>alert('删除失败');location.href='/admin/cate/index'</script>";
+                return ['msg'=>'请先删除子类'];
             }
-        } else {
-            echo "<script>alert('请先删除子类');location.href='/admin/cate/index'</script>";
-        }
+       } else {
+            $del=$cate ->where('id', $request->id)->delete();
+            if ($del) {
+                  return [
+                        'code'=>0,
+                        'msg'=>'你真棒',
+                        ];
+            } else {
+                return ['msg'=>'删除失败'];
+            }
+       }
+        
 
      
     }
@@ -123,6 +137,7 @@ class CateController extends Controller
         // dump($request);
         // return '123';
         $edit = $cate->where('id','=',$request->id)->update(['name'=>$request->name]);
+        
         if ($edit) {
              echo "<script>alert('编辑成功');location.href='/admin/cate/index'</script>";
         } else {
