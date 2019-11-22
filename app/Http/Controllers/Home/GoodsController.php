@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\ShopCar;
 use App\ShopCate;
 use App\Goods;
 use App\GoodsSpecs;
@@ -16,6 +17,7 @@ class GoodsController extends Controller
 {
     public function index($id)
 	{
+		// dump(session('userInfo'));
 		$parentcate = ShopCate::where('pid', 0)->get();
 		$goods = Goods::where('id', $id)->get()[0];
 		$cate = ShopCate::where('id', $goods['cid'])->get()[0];
@@ -101,6 +103,41 @@ class GoodsController extends Controller
 			return ['msg'=>'没有搜到这个东西'];
 		} else {
 			return ['code'=>0, 'id'=>$data['id']];
+		}
+	}
+	
+	public function shop(Request $request)
+	{
+		$userinfo = session('userInfo');
+		$status = $request->status;
+		if ($status == 1) {
+			return ['msg'=>'请选好规格,sb'];
+		} elseif ($status == 2) {
+			return ['msg'=>'我没那么多货，sb'];
+		} elseif ($status == 3) {
+			return ['msg'=>'不买就滚！'];
+		} else {
+			if ($userinfo == null) {
+				return ['code'=>0, 'msg'=>'请先去登录'];
+			} else {
+				$price = substr($request->price, 3);
+				$specs = rtrim($request->str, '_');
+				// dump($request->all());
+				$shuju['gid'] = $request->data[0]['id'];
+				$shuju['uid'] = session('userInfo.id');
+				$shuju['goods_name'] = $request->data[0]['name'];
+				$shuju['goods_price'] = $price;
+				$shuju['goods_num'] = $request->num;
+				$shuju['goods_specs'] = $specs;
+				$shuju['goods_img'] = $request->data[0]['pic'];
+
+				$res = ShopCar::create($shuju);
+				if ($res) {
+					return ['code'=>1, 'msg'=>'添加购物车成功'];
+				} else {
+					return ['msg'=>'添加购物车失败'];
+				}
+			}
 		}
 	}
 }

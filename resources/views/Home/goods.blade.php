@@ -69,7 +69,7 @@
                 <a href="#">服装城</a>
             </div>
         </div>
-        <div class="header-cart fr"><a href="#"><img src="/lib/theme1/icon/car.png"></a> <i class="head-amount">99</i></div>
+        <div class="header-cart fr"><a href="/home/shopcar"><img src="/lib/theme/icon/car.png"></a> <i class="head-amount">99</i></div>
         <div class="head-mountain"></div>
     </div>
     <div class="yHeader">
@@ -147,9 +147,9 @@
                                 <div class="pc-version">数量</div>
                                 <div class="pc-adults clearfix">
                                     <div class="pc-adults-p clearfix fl">
-                                        <input type="" id="subnum" placeholder="1">
-                                        <a href="javascript:void(0);" class="amount1"></a>
-                                        <a href="javascript:void(0);" class="amount2"></a>
+                                        <input type="" id="subnum" value="1">
+                                        <a href="javascript:void(0);" class="amount1" style="background: url(/lib/theme/icon/pro_left.png);width: 19px;"></a>
+                                        <a href="javascript:void(0);" class="amount2" style="background: url(/lib/theme/icon/pro_down.png);width: 19px;"></a>
                                     </div>
                                     <div class="fl pc-letter ">件</div>
                                     <div class="fl pc-stock ">库存<em>？？？</em>件</div>
@@ -163,10 +163,12 @@
 								</span>
 							</div>
                         </div>
-                        <div class="pc-emption">
-                            <a href="#">立即购买</a>
-                            <a href="#" class="join">加入购物车</a>
+                        <div class="pc-emption" id="pc-emption-tj">
+                            <a href="javascript:void(0)">立即购买</a>
+                            <a href="javascript:void(0)" class="join">加入购物车</a>
+							
                         </div>
+						
                     </div>
                 </div>
             </div>
@@ -471,7 +473,7 @@
 		
 		    $('.amount1').click(function(){
 		        var num_input = $("#subnum");
-		        var buy_num = Number(num_input.val())+1;
+		        var buy_num = Number(num_input.val())+1 > $('.pc-stock em').html() ? $('.pc-stock em').html() : Number(num_input.val())+1;
 		        num_input.val(buy_num);
 		    });
 			
@@ -548,7 +550,7 @@
 				$(this).addClass('cur');
 			}
 			attrs = $('.pc-size').find('a.attr.cur')
-			console.dir(attrs)
+			// console.dir(attrs)
 			for (var i = 0; i < attrs.length; i++) {
 				sb += $(attrs[i]).html()+'_'
 			}
@@ -573,15 +575,7 @@
 		})
 	</script>
 	<script>
-		$('.pc-emption a').click(function(){
-			if ($('.pc-stock em').html() == '？？？') {
-				layer.msg('请选好规格,sb');
-			}
-			
-			if ($('#subnum').val() > $('.pc-stock em').html()) {
-				layer.msg('我没那么多货，sb');
-			}
-		})
+		
 		$('.zheer').click(function(){
 			layer.msg('滚');
 		})
@@ -666,6 +660,56 @@
 				}
 			})
 		});
+	</script>
+	<script>
+		$('#pc-emption-tj').on('click', 'a', function(){
+			var status
+			if ($('.pc-stock em').html() == '？？？') {
+				status = 1
+			} else {
+				if ($('#subnum').val() > $('.pc-stock em').html()) {
+					status = 2
+				}
+				if ($('#subnum').val() < 1) {
+					status = 3
+				}
+			}
+			
+			var data = [];
+			var str = '';
+			var price = $('.pc-rate strong').html()
+			var num = $('#subnum').val()
+			data.push({!! $data !!});
+			$('.pc-adults a.cur').each(function(){
+				str += $(this).html()+'_'
+			})
+			console.dir(str);
+			$.ajax({
+				url: '/home/goods/shop',
+				method: 'post',
+				data: {
+					_token : '{{ csrf_token() }}',
+					data : data,
+					num : num,
+					str : str,
+					price : price,
+					status : status
+				},
+				success:function(res){
+					if (res.code == 0) {
+						layer.msg(res.msg)
+					} else if (res.code == 1) {
+						layer.msg(res.msg)
+						if (!$('.pc-product-t').hasClass('sb')) {
+							$('.pc-product-t').addClass('sb');
+							$('.pc-product-t').append('<span class="fr" style="position:relative;top:10px"><a href="/home">继续购物</a> &nbsp;<a href="/home/shopcar" style="font-size: 20px;">进入购物车</a></span>')
+						}
+					} else {
+						layer.msg(res.msg)
+					}
+				}
+			})
+		})
 	</script>
 </body>
 </html>

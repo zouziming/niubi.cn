@@ -20,12 +20,13 @@
                 <span>
                 <a href="/home/login">[登录]</a>
                 </span>
+				<span>&nbsp;<a href="/home/register">[注册]</a></span>
                 @else
                 <span>欢迎您：</span>
                 <a style="color:violet">{{ session('userInfo.username') }}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</a>
                 <a href="/home/logout" style="color:red">退出&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</a>
                 @endempty
-                <span>&nbsp;<a href="/home/register">[注册]</a></span>
+                
                <span class="topRight">
                 <a href="/home/user/secure">账户安全</a>&nbsp;| 
                     <a href="order.html">我的订单</a>&nbsp;|

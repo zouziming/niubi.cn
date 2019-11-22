@@ -28,6 +28,7 @@ class IndexController extends Controller
 	
 	public function index(Request $request)
 	{
+		dump(session('userInfo'));
 		$cate = ShopCate::where('pid', 0)->get();
 		foreach ($cate as $k=>$v) {
 			$data[$k]['fu'] = $v;
