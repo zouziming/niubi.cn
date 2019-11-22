@@ -174,7 +174,13 @@
     </div>
     <div class="containers clearfix" style="margin-top:20px;">
         <div class="fl">
-            
+            <div class="pc-menu-in">
+				<h2>店内搜索</h2>
+				<form>
+					<p>关键词:<input type="text" class="pc-input1"></p>
+					<p><a href="javascript:void(0)">搜索</a> </p>
+				</form>
+			</div>
             <div class="menu_list" id="firstpane">
                 <h2>店内分类</h2>
 				@foreach($allcatedata as $v)
@@ -428,7 +434,6 @@
 	<script type="text/javascript" src="/lib/theme/js/index.js"></script>
 	<script type="text/javascript" src="/lib/theme/js/js-tab.js"></script>
 	<script src="/lib/viewer/js/viewer-jquery.min.js"></script>
-
 	<script src="/lib/layer/layer.js"></script>
 	<script>
          $(function(){
@@ -642,6 +647,25 @@
 			});
 		});
 	</script>
-	
+	<script>
+		$('.pc-menu-in').on('click', 'a', function(){
+			var name = $(this.parentElement.parentElement).children().eq(0).children().eq(0).val()
+			$.ajax({
+				url: '/home/goods/search',
+				method: 'post',
+				data: {
+					_token : '{{ csrf_token() }}',
+					name : name,
+				},
+				success:function(res){
+					if (res.code == 0) {
+						location.href = '/home/cate/'+res.id
+					} else {
+						layer.msg(res.msg)
+					}
+				}
+			})
+		});
+	</script>
 </body>
 </html>

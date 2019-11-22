@@ -339,6 +339,7 @@ Route::group(['prefix' => '/home'], function(){
 	Route::post('/goods/collection', 'Home\GoodsController@collection');
 	Route::post('/goods/share', 'Home\GoodsController@share');
 	Route::post('/clicknum', 'Home\GoodsController@clicknum');
+	Route::post('goods/search', 'Home\GoodsController@search');
 	
 	Route::get('/cate/{id}', 'Home\CateController@cate');
 	Route::post('/sorts', 'Home\CateController@sorts');
