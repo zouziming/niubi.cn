@@ -80,7 +80,7 @@
 	<div class="containers">
 		<div class="pc-nav-item">
 			@if(count($catename) == 2)
-				<a href="/home/cate/{{$catename[0]['id']}}">{{$catename[0]['name']}}</a> &gt; 
+				<a  href="/home/cate/{{$catename[0]['id']}}">{{$catename[0]['name']}}</a> &gt; 
 				<a href="/home/cate/{{$catename[1]['id']}}">{{$catename[1]['name']}}</a>
 			@else
 				<a href="/home/cate/{{$catename[0]['id']}}">{{$catename[0]['name']}}</a> &gt; 
@@ -111,7 +111,7 @@
             <dl class="pc-term-dl clearfix">
                 <dt>品牌：</dt>
 				@foreach($pin as $v)
-					<dd class="selected" style="width:50px;"><a href="/home/cate/{{$v['id']}}">{{$v['name']}}</a></dd>
+					<dd class="selected" style="width:50px;margin-left: 50px "><a href="/home/cate/{{$v['id']}}">{{$v['name']}}</a></dd>
 				@endforeach
             </dl>
 

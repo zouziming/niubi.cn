@@ -346,3 +346,24 @@ Route::group(['prefix' => '/home'], function(){
 });
 
 
+// 购物车
+	Route::post('/home/shopping','Home\TrolleyController@shopping');
+
+
+// 添加收货地址页面
+	Route::get('/home/addressIndex','Home\UserController@addressIndex');
+
+// 添加收货地址
+	Route::post('/home/addressIndex','Home\UserController@address');
+
+// 修改收货地址页面
+	Route::get('/home/addressEdit','Home\UserController@addressEditIndex');
+	
+// 修改收货地址
+	Route::post('/home/addressEdit','Home\UserController@addressEdit');
+
+// 删除收货地址
+	Route::get('/home/ressDel','Home\UserController@delRess');
+
+// 修改默认地址
+	Route::get('/home/editDefault','Home\UserController@editDefault');
