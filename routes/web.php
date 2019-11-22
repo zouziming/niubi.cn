@@ -346,12 +346,15 @@ Route::group(['prefix' => '/home'], function(){
 	Route::post('/sorts', 'Home\CateController@sorts');
 	Route::post('/cate/search', 'Home\CateController@search');
 	
-	Route::get('/shopcar','Home\TrolleyController@shopcar');
-	Route::post('/shopcar/jian','Home\TrolleyController@jian');
-	Route::post('/shopcar/jia','Home\TrolleyController@jia');
-	Route::post('/shopcar/ipt','Home\TrolleyController@ipt');
-	Route::post('/shopcar/del','Home\TrolleyController@del');
-	Route::post('/shopcar/alldel','Home\TrolleyController@alldel');
+	Route::get('/shopcar', 'Home\TrolleyController@shopcar');
+	Route::post('/shopcar/jian', 'Home\TrolleyController@jian');
+	Route::post('/shopcar/jia', 'Home\TrolleyController@jia');
+	Route::post('/shopcar/ipt', 'Home\TrolleyController@ipt');
+	Route::post('/shopcar/del', 'Home\TrolleyController@del');
+	Route::post('/shopcar/alldel', 'Home\TrolleyController@alldel');
+	Route::post('/shopcar/btn', 'Home\TrolleyController@btn');
+	Route::get('/shopcar/pay', 'Home\TrolleyController@pay');
+
 });
 
 

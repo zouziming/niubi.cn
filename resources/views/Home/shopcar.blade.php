@@ -55,7 +55,7 @@
 		<section class="user-center inner clearfix">
 			<div class="user-content__box clearfix bgf">
 				<div class="title">购物车</div>
-				<form action="udai_shopcart_pay.html" class="shopcart-form__box">
+				<form onsubmit="return false" class="shopcart-form__box">
 					<table class="table table-bordered">
 						<thead>
 							<tr>
@@ -70,7 +70,7 @@
 							@foreach($data as $v)
 							<tr>
 								<th scope="row">
-									<label class="checked-label"><input type="checkbox" class="xuan"><i></i>
+									<label class="checked-label"><input type="checkbox" class="xuan" data-id="{{$v['id']}}"><i></i>
 										<div class="img" height="180"><img src="{{$v['goods_img']}}" alt="" class="cover"></div>
 									</label>
 								</th>
@@ -252,13 +252,15 @@
 			var nums = 0;
 			var prices = 0;
 			$('input.xuan:checked').each(function(){
+
 				nums += Number($(this.parentElement.parentElement.parentElement).children().eq(3).children().eq(0).children().eq(1).val());
 		
-				prices += Number($(this.parentElement.parentElement.parentElement).children().eq(3).children().eq(0).children().eq(1).val()) * Number($(this.parentElement.parentElement.parentElement).children().eq(2).children().eq(0).html());
+				prices += Number($(this.parentElement.parentElement.parentElement).children().eq(3).children().eq(0).children().eq(1).val()) * Number($(this.parentElement.parentElement.parentElement).children().eq(2).children().eq(0).html() * 100);
 			})
+			// console.dir(prices / 100)
 			// console.dir(nums)
 			$('#pull-right-n span.fz23').html(nums)
-			$('#pull-right-n span.fz24').html(prices)
+			$('#pull-right-n span.fz24').html(prices /100)
 		}
 				
 		$(document).ready(function(){
@@ -379,6 +381,31 @@
 		
 		$('.checked-label').on('click', 'input.xuan', function(){
 			total()
+		})
+		
+		$('.btn').click(function(){
+			var uid = {{session('userInfo.id')}}
+			var id = [];
+			$('input.xuan:checked').each(function(){
+				id.push($(this).data('id'))
+			})
+			$.ajax({
+				url: '/home/shopcar/btn',
+				method: 'post',
+				data: {
+					_token : '{{ csrf_token() }}',
+					uid : uid,
+					id : id,
+				},
+				success:function(res){
+					if (res.code == 0) {
+						// console.dir(id)
+						location.href = '/home/shopcar/pay'
+					} else {
+						layer.msg(res.msg)
+					}
+				}
+			})
 		})
 	</script>
 </body>

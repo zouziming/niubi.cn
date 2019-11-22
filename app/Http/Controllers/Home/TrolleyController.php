@@ -11,7 +11,7 @@ class TrolleyController extends Controller
     public function shopcar(Request $request)
 	{
 		$userinfo = session('userInfo');
-		$data = ShopCar::where('uid', session('userInfo.id'))->get();
+		$data = ShopCar::where('uid', session('userInfo.id'))->where('is_buy', 0)->get();
 		foreach ($data as $k=>$v) {
 			$data[$k]['goods_specs'] = explode('_', $v['goods_specs']);
 		}
@@ -61,5 +61,31 @@ class TrolleyController extends Controller
 		} else {
 			return ['code'=>1, 'msg'=>'清空购物车失败'];
 		}
+	}
+	
+	public function btn(Request $request)
+	{
+		$res = ShopCar::where('uid', $request->uid)->first();
+		// dump($res);
+		if ($res == null) {
+			return ['code'=>1, 'msg'=>'什么东西都没有，提交个鬼'];
+		}
+		if ($request->id == null) {
+			return ['code'=>2, 'msg'=>'你TM倒是选啊'];
+		} else {
+			foreach ($request->id as $v) {
+				ShopCar::where('id', $v)->update(['is_buy'=>1]);
+			}
+			return ['code'=>0];
+		}
+	}
+	
+	public function pay(Request $request)
+	{
+		$data = ShopCar::where('uid', session('userInfo.id'))->where('is_buy', 1)->get();
+		foreach ($data as $k=>$v) {
+			$data[$k]['goods_specs'] = explode('_', $v['goods_specs']);
+		}
+		return view('Home.shopcarpay')->with('data', $data);
 	}
 }
