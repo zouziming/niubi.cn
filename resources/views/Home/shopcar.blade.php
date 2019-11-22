@@ -30,15 +30,17 @@
 				<span>&nbsp;<a href="/home/register">[注册]</a></span>
 				@else
 				<span>欢迎您：</span>
-				<a style="color:violet">{{ session('userInfo.username') }}&nbsp;&nbsp;&nbsp;&nbsp;</a>
-				<a href="/home/logout" style="color:red">退出&nbsp;&nbsp;&nbsp;&nbsp;</a>
+				<a style="color:violet;text-decoration: none;">{{ session('userInfo.username') }}&nbsp;&nbsp;&nbsp;&nbsp;</a>
+				<a href="/home/logout" style="color:red;text-decoration: none;">退出&nbsp;&nbsp;&nbsp;&nbsp;</a>
 				@endempty
 			</div>
 			<div class="pull-right">
-
-				<a href="udai_welcome.html">我的U袋</a>
-				<a href="udai_order.html">我的订单</a>
+				@empty(!SESSION('userInfo'))
+				<a href="/home/collection">我的收藏</a>
+				<a href="/home/shopcar">我的购物车</a>
+				<a href="javascript:void(0)">我的订单</a>
 				<a href="udai_integral.html">积分平台</a>
+				@endempty
 			</div>
 		</div>
 	</div>

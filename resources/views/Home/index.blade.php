@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">  
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>17商城</title>
+        <title>sb商城</title>
         <link type="text/css" href="/lib/theme/css/css.css" rel="stylesheet" />
         <script type="text/javascript" src="/lib/theme/js/jquery.js"></script>
         <script type="text/javascript" src="/lib/theme/js/js.js"></script>
@@ -25,13 +25,13 @@
                 <span>欢迎您：</span>
                 <a style="color:violet">{{ session('userInfo.username') }}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</a>
                 <a href="/home/logout" style="color:red">退出&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</a>
-                @endempty
-                
-               <span class="topRight">
+				<span class="topRight">
                 <a href="/home/user/secure">账户安全</a>&nbsp;| 
                     <a href="order.html">我的订单</a>&nbsp;|
-                    <a href="login.html">会员中心</a>&nbsp;|
-                    <a href="contact.html">联系我们</a></span>
+                    <a href="/home/collection">我的收藏</a>&nbsp;|
+                    <a href="contact.html">联系我们</a>
+				</span>
+                @endempty
             </div>
             <!--top/-->
             <div class="lsg">
@@ -351,9 +351,8 @@
                     <a href="order.html">我的订单</a>&nbsp;|&nbsp;
                     <a href="new.html">新闻动态</a>&nbsp;|&nbsp;
                     <a href="login.html">会员中心</a>&nbsp;|&nbsp;
-                    <a href="help.htmll">帮助中心</a></p>
-                <p>版权所有：上海17实业有限公司 版权所有 Copyright 2010-2015 沪ICP备00000000号
-                    <a href="http://www.mycodes.net/" target="_blank">源码之家</a></p>
+                    <a href="help.htmll">帮助中心</a>
+				</p>
             </div>
             <!--footer/--></div>
         <!--mianCont/-->

@@ -9,4 +9,5 @@ class ShopDetail extends Model
     //
     protected $table = 'shop_detail';
     public $timestamps = false;
+	protected $guarded = [];
 }

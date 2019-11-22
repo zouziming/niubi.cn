@@ -2,6 +2,7 @@
 <html lang="zh-cmn-Hans">
 <head>
 	<meta charset="UTF-8">
+	<link rel="shortcut icon" href="favicon.ico">
 	<link rel="stylesheet" href="/lib/shopcar/css/iconfont.css">
 	<link rel="stylesheet" href="/lib/shopcar/css/global.css">
 	<link rel="stylesheet" href="/lib/shopcar/css/bootstrap.min.css">
@@ -48,106 +49,73 @@
 		<div class="top-user">
 			<div class="inner">
 				<a class="logo" href="/home"><img src="/lib/shopcar/images/icons/logo.jpg" alt="U袋网" class="cover"></a>
-				<div class="title">购物车</div>
+				<div class="title">个人中心</div>
 			</div>
 		</div>
 	</div>
 	<div class="content clearfix bgf5">
 		<section class="user-center inner clearfix">
-			<div class="user-content__box clearfix bgf">
-				<div class="title">购物车-确认支付 </div>
-				<div class="shop-title">收货地址</div>
-				<form onsubmit="return false" class="shopcart-form__box">
-					<div class="addr-radio">
-						@foreach($address as $v)
-							@if($v['status'] == 1)
-							<div class="radio-line radio-box active" data-id="{{$v['id']}}">
-								<label class="radio-label ep" title="{{$v['add_id']}} {{$v['address']}} （{{$v['consignee']}} 收） {{$v['phone']}}">
-									<input name="addr" checked value="0" autocomplete="off" type="radio"><i class="iconfont icon-radio"></i>
-									{{$v['add_id']}}
-									{{$v['address']}}
-									（{{$v['consignee']}} 收） {{$v['phone']}}
-								</label>
-								
-								<a href="javascript:;" class="default">默认地址</a>
-								<a href="/home/addressEdit?id={{$v['id']}}" class="edit">修改</a>
+			<div class="pull-left bgf">
+				<a href="udai_welcome.html" class="title">U袋欢迎页</a>
+				<dl class="user-center__nav">
+					<dt>帐户信息</dt>
+					<a href="udai_setting.html"><dd>个人资料</dd></a>
+					<a href="udai_treasurer.html"><dd>资金管理</dd></a>
+					<a href="udai_integral.html"><dd>积分平台</dd></a>
+					<a href="udai_address.html"><dd>收货地址</dd></a>
+					<a href="udai_coupon.html"><dd>我的优惠券</dd></a>
+					<a href="udai_paypwd_modify.html"><dd>修改支付密码</dd></a>
+					<a href="udai_pwd_modify.html"><dd>修改登录密码</dd></a>
+				</dl>
+				<dl class="user-center__nav">
+					<dt>订单中心</dt>
+					<a href="udai_order.html"><dd>我的订单</dd></a>
+					<a href="udai_collection.html"><dd class="active">我的收藏</dd></a>
+					<a href="udai_refund.html"><dd>退款/退货</dd></a>
+				</dl>
+				<dl class="user-center__nav">
+					<dt>服务中心</dt>
+					<a href="udai_mail_query.html"><dd>物流查询</dd></a>
+					<a href=""><dd>数据自助下载</dd></a>
+					<a href="temp_article/udai_article1.html"><dd>售后服务</dd></a>
+					<a href="temp_article/udai_article2.html"><dd>配送服务</dd></a>
+					<a href="temp_article/udai_article3.html"><dd>用户协议</dd></a>
+					<a href="temp_article/udai_article4.html"><dd>常见问题</dd></a>
+				</dl>
+				<dl class="user-center__nav">
+					<dt>新手上路</dt>
+					<a href="temp_article/udai_article5.html"><dd>如何成为代理商</dd></a>
+					<a href="temp_article/udai_article6.html"><dd>代销商上架教程</dd></a>
+					<a href="temp_article/udai_article7.html"><dd>分销商常见问题</dd></a>
+					<a href="temp_article/udai_article8.html"><dd>付款账户</dd></a>
+				</dl>
+				<dl class="user-center__nav">
+					<dt>U袋网</dt>
+					<a href="temp_article/udai_article10.html"><dd>企业简介</dd></a>
+					<a href="temp_article/udai_article11.html"><dd>加入U袋</dd></a>
+					<a href="temp_article/udai_article12.html"><dd>隐私说明</dd></a>
+				</dl>
+			</div>
+			<div class="pull-right">
+				<div class="user-content__box clearfix bgf">
+					<div class="title">我的收藏</div>
+					<div class="collection-list__area clearfix">
+						@foreach($data as $v)
+						<div class="item-card">
+							<a href="/home/goods/{{$v['gid']}}" class="photo" style="text-decoration: none;">
+								<img src="{{$v['goods']['pic']}}" alt="{{$v['goods']['name']}}" class="cover">
+								<div class="name">{{$v['goods']['name']}}</div>
+							</a>
+							<div class="middle">
+								<div class="sale"><a href="javascript:void(0)" data-id="{{$v['goods']['id']}}">取消收藏</a></div>
 							</div>
-							@endif
-						@endforeach
-						@foreach($address as $v)
-							@if($v['status'] == 2)
-							<div class="radio-line radio-box" data-id="{{$v['id']}}">
-								<label class="radio-label ep" title="{{$v['add_id']}} {{$v['address']}} （{{$v['consignee']}} 收） {{$v['phone']}}">
-									<input name="addr" value="0" autocomplete="off" type="radio"><i class="iconfont icon-radio"></i>
-									{{$v['add_id']}}
-									{{$v['address']}}
-									（{{$v['consignee']}} 收） {{$v['phone']}}
-								</label>
-								<a href="/home/addressEdit?id={{$v['id']}}" class="edit">修改</a>
-							</div>
-							@endif
+						</div>
 						@endforeach
 					</div>
-					<div class="add_addr"><a href="/home/addressIndex">添加新地址</a></div>
-					<div class="shop-title">确认订单</div>
-					<div class="shop-order__detail">
-						<table class="table">
-							<thead>
-								<tr>
-									<th width="120"></th>
-									<th width="300">商品信息</th>
-									<th width="150">单价</th>
-									<th width="200">数量</th>
-									<th width="200">运费</th>
-									<th width="80">总价</th>
-								</tr>
-							</thead>
-							<tbody>
-								@foreach($data as $v)
-								<tr class="datas" data-id="{{$v['id']}}">
-									<th scope="row">
-										<a href="/home/goods/{{$v['gid']}}">
-											<div class="img"><img src="{{$v['goods_img']}}" alt="" class="cover"></div>
-										</a>
-									</th>
-									<td>
-										<div class="name ep3">{{$v['goods_name']}}</div>
-										<div class="type c9">规格：
-										@foreach($v['goods_specs'] as $vv)
-											{{$vv}} &nbsp;
-										@endforeach
-										</div>
-									</td>
-									<td>¥{{$v['goods_price']}}</td>
-									<td>{{$v['goods_num']}}</td>
-									<td>¥0.0</td>
-									<td>¥<span class="prices">{{$v['goods_price'] * $v['goods_num']}}</span></td>
-								</tr>
-								@endforeach
-							</tbody>
-						</table>
+					<div class="page text-right clearfix">
+						
 					</div>
-					<div class="shop-cart__info clearfix">
-						<div class="pull-left text-left">
-							<div class="info-line text-nowrap">购买时间：<span class="c6">{{date('Y-m-d H:i:s', time()+31130)}}</span></div>
-							<div class="info-line text-nowrap">交易类型：<span class="c6">担保交易</span></div>
-							<div class="info-line text-nowrap">交易号：<span class="c6">1001001830267490496</span></div>
-						</div>
-						<div class="pull-right text-right">
-							
-							
-							<div class="info-line">优惠活动：<span class="c6">无</span></div>
-							<div class="info-line">运费：<span class="c6">¥0.00</span></div>
-							<div class="info-line"><span class="favour-value">已优惠 ¥0.0</span>合计：<b class="fz18 cr">¥<span id="price"></span></b></div>
-							<div class="info-line fz12 c9">（可获 <span class="c6">20</span> 积分）</div>
-						</div>
-					</div>
-					
-					<div class="user-form-group shopcart-submit">
-						<button type="submit" class="btn">继续支付</button>
-					</div>
-					
-				</form>
+				</div>
 			</div>
 		</section>
 	</div>
@@ -242,60 +210,29 @@
 			<!-- 版权 -->
 			<p class="copyright">
 				© 2005-2017 U袋网 版权所有，并保留所有权利<br>
-				ICP备案证书号：闽ICP备16015525号-2
+				ICP备案证书号：闽ICP备16015525号
 			</p>
 		</div>
 	</div>
-	
 	<script>
-		$('#coupon').bind('change',function() {
-			console.log($(this).val());
-		})
-	
-		$(document).ready(function(){
-			$(this).on('change','input',function() {
-				$(this).parents('.radio-box').addClass('active').siblings().removeClass('active');
-			})
-		});
-	
 		$(document).ready(function(){ $('.to-top').toTop({position:false}) });
 	</script>
 	<script>
-		$(document).ready(function(){
-			var price = 0
-			$('.prices').each(function(){
-				price += Number($(this).html())
-			})
-			$('#price').html(price)
-			$('.fz17').html(price)
-		})
-		
-		$('.btn').click(function(){
-			var address = $('.active').data('id');
-			var total = $('#price').html();
-			var detail = [];
-			// console.dir($('.datas'))
-			// console.dir(total)
-			$('.datas').each(function(index, item){
-				detail.push($(item).data('id'))
-
-			})
-			// console.dir(detail)
+		$('.sale').on('click', 'a', function(){
+			// console.dir($(this))
+			var _this = this
+			var id = $(this).data('id')
 			$.ajax({
-				url: '/home/shopcar/orders',
+				url: '/home/goods/collection',
 				method: 'post',
 				data: {
 					_token : '{{ csrf_token() }}',
-					address : address,
-					total : total,
-					detail : detail,
+					id : id,
 				},
 				success:function(res){
 					if (res.code == 0) {
+						$(_this.parentElement.parentElement.parentElement).remove()
 						layer.msg(res.msg)
-						setTimeout(function(){
-							location.href = '/home/shopcar/pyjy?id='+res.oid
-						}, 2000);
 					} else {
 						layer.msg(res.msg)
 					}

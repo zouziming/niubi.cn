@@ -23,6 +23,7 @@ class GoodsController extends Controller
 		$cate = ShopCate::where('id', $goods['cid'])->get()[0];
 		$pcate = ShopCate::where('id', $cate['pid'])->get()[0];
 		$specs = GoodsSpecs::where('goods_id', $id)->get();
+		// dump($goods);
 		foreach ($specs as $v) {
 			$price[] = $v['goods_price'];
 		}
@@ -51,9 +52,14 @@ class GoodsController extends Controller
 			$allcatedata[$k]['er'] = ShopCate::where('pid', $v['id'])->get();
 		}
 		
-		// dump($pcate);
-		// dd($allcatedata);
+		// if (session('userInfo.id')) {
+		// 	$shopcarnum = count(ShopCar::where('uid', session('userInfo.id'))->where('is_buy', 0)->get());
+		// 	$collstatus = ShopCollection::where('uid', session('userInfo.id'))->where('gid', $goods['id'])->first();
+		// }
 		
+		// dump(session('userInfo.id'));
+		// dump($goods['id']);
+		// dump($collstatus);
 		return view('Home.goods')->with(['data'=>$goods, 'cate'=>$cate, 'pcate'=>$pcate, 'prices'=>$prices, 'comment'=>$comment, 'specs'=>$specs, 'allattr'=>$allattr, 'allcatedata'=>$allcatedata, 'parcate'=>$parentcate]);
 	}
 	
@@ -61,7 +67,7 @@ class GoodsController extends Controller
 	{
 		$specs = $request->specs;
 		$specs = rtrim($specs, '_');
-		$data = GoodsSpecs::where('goods_specs', $specs)->first();
+		$data = GoodsSpecs::where('goods_specs', $specs)->where('goods_id', $request->id)->first();
 		// dump($data);
 		if ($data != null) {
 			return [
@@ -79,9 +85,30 @@ class GoodsController extends Controller
 	
 	public function collection(Request $request)
 	{
-		// $id = $request->id;
-		// $res = ShopCollection::where('')
-		return ['code'=>0, 'msg'=>'功能还没开放'];
+		$gid = $request->id;
+		// dd($gid);
+		$is_coll = ShopCollection::where('uid', session('userInfo.id'))->where('gid', $gid)->first();
+
+		if ($is_coll == null) {
+			$collect['uid'] = session('userInfo.id');
+			$collect['gid'] = $gid;
+			$collect['status'] = 1;
+			$collect['addtime'] = date('Y-m-d H:i:s', time());
+			$res = ShopCollection::create($collect);
+			return ['code'=>0, 'msg'=>'收藏成功'];
+		} else {
+			if ($is_coll['status'] == 1) {
+				$res = ShopCollection::where('id', $is_coll['id'])->update(['status'=>0]);
+				return ['code'=>0, 'msg'=>'取消收藏成功'];
+			} else {
+				$res = ShopCollection::where('id', $is_coll['id'])->update(['status'=>1]);
+				return ['code'=>0, 'msg'=>'收藏成功'];
+			}
+		}
+		
+
+		return ['code'=>1, 'msg'=>'收藏失败'];
+		
 	}
 	
 	public function share(Request $request)
@@ -130,12 +157,22 @@ class GoodsController extends Controller
 				$shuju['goods_num'] = $request->num;
 				$shuju['goods_specs'] = $specs;
 				$shuju['goods_img'] = $request->data[0]['pic'];
-
-				$res = ShopCar::create($shuju);
-				if ($res) {
-					return ['code'=>1, 'msg'=>'添加购物车成功'];
+				if ($request->button == 1) {
+					$shuju['is_buy'] = 1;
+					$res = ShopCar::create($shuju);
+					if ($res) {
+						return ['code'=>1, 'msg'=>'购买成功，请滚去结账'];
+					} else {
+						return ['msg'=>'购买失败'];
+					}
 				} else {
-					return ['msg'=>'添加购物车失败'];
+					$shuju['is_buy'] = 0;
+					$res = ShopCar::create($shuju);
+					if ($res) {
+						return ['code'=>2, 'msg'=>'添加购物车成功'];
+					} else {
+						return ['msg'=>'添加购物车失败'];
+					}
 				}
 			}
 		}

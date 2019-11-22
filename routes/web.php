@@ -353,13 +353,14 @@ Route::group(['prefix' => '/home'], function(){
 	Route::post('/shopcar/del', 'Home\TrolleyController@del');
 	Route::post('/shopcar/alldel', 'Home\TrolleyController@alldel');
 	Route::post('/shopcar/btn', 'Home\TrolleyController@btn');
+	
 	Route::get('/shopcar/pay', 'Home\TrolleyController@pay');
-
+	Route::post('/shopcar/orders', 'Home\TrolleyController@orders');
+	Route::get('/shopcar/pyjy', 'Home\TrolleyController@pyjy');
+	
+	Route::get('/collection', 'Home\CollectionController@index');
 });
 
-
-// 购物车
-	Route::post('/home/shopping','Home\TrolleyController@shopping');
 
 
 // 添加收货地址页面
@@ -370,7 +371,7 @@ Route::group(['prefix' => '/home'], function(){
 
 // 修改收货地址页面
 	Route::get('/home/addressEdit','Home\UserController@addressEditIndex');
-	
+
 // 修改收货地址
 	Route::post('/home/addressEdit','Home\UserController@addressEdit');
 
