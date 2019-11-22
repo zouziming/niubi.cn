@@ -84,7 +84,7 @@ class OrdersController extends Controller
      public function refund()
     {
             // 从数据库获取表的全部的数据
-        $tk = \App\ShopOrder::whereBetween('status2', [1,3])->paginate(5);
+        $tk = \App\ShopOrder::whereBetween('status2', [1,4])->paginate(5);
         return view('Admin.Orders.refund',[
             'datas'=>$tk
         ]);
@@ -102,7 +102,7 @@ class OrdersController extends Controller
         ->where('getman','like','%'.$request->getman.'%')
         ->where('address','like','%'.$request->address.'%')
         ->where('phone','like','%'.$request->phone.'%')
-        ->whereBetween('status2', [1,3])
+        ->whereBetween('status2', [1,4])
         // ->where($kongg)
         ->paginate(5);
         return view('Admin.Orders.refund',[

@@ -53,7 +53,18 @@
         @endforeach
         </div>
         <div class="ci2">{{$qt->getman}}</div>
-        <div class="ci3"><b>￥{{$qt->total}}</b></div>
+        <div class="ci3">
+        <?php
+          $num=0;
+        ?>
+        @foreach($qt->ShopDetails as $op)
+        @php
+          $num+=$op->price;
+        @endphp
+        <b>￥{{$op->price}}<br></b>
+        @endforeach
+        </div>
+
         <div class="ci4"><p>{{$qt->addtime}}</p></div>
         <div class="ci5"><p>
         @if ($qt->status === 1)
@@ -64,11 +75,14 @@
             已发货
         @elseif ($qt->status === 4)
             已收货
+        @elseif ($qt->status === 6)
+            已取消
         @endif
-        </p><p><a href="#">订单详情</a></p></div>
+        </p><p><a href="/OrdersDetails">订单详情</a></p>
+        </div>
         <div class="ci5 ci8"><!-- <p>剩余15时20分</p> --> <p>
         @if ($qt->status === 1)
-        <a href="/OrdersSubmit?id={{$qt->id}}&status=2" class="member-touch">立即支付</a> </p> <p><a href="#">取消订单</a> </p>
+        <a style="margin:40px 15px" href="/OrdersSubmit?id={{$qt->id}}&status=2" class="member-touch">立即支付</a> </p>
         @endif
       </div>
     </li>

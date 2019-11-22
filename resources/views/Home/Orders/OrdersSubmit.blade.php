@@ -113,7 +113,7 @@
             </div>
             <div class="pc-line"></div>
             <div class="pc-order-text">
-                <p>收货地址：{{$zf->address}}<br>收货人：{{$zf->getman}} {{$zf->phone}}</p>
+                <p>收货地址：{{$zf->address}}<br>收货人：{{$zf->getman}}<br>手机号码：{{$zf->phone}}</p>
             </div>
         </div>
     </div>

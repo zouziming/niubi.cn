@@ -106,3 +106,12 @@ Route::get('/', function () {
 /*-----------------------------------------------------------------------------------*/
 // 前台退货页面
     Route::get('/RetreatGoods','Home\OrdersController@retreat_goods');
+
+// 前台订单详情页面
+    Route::get('/OrdersDetails','Home\OrdersController@orders_details');
+
+// 申请退款页面
+    Route::get('/tuikuanz','Home\OrdersController@tkks');
+ 
+// 显示退换货页面
+    Route::get('/ReturnRefunding','Home\OrdersController@return_refunding');

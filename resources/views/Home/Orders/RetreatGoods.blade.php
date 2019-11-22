@@ -6,7 +6,7 @@
 
 <div class="member-right fr">
     <div class="member-head">
-        <div class="member-heels fl"><h2>退货申请</h2></div>
+        <div class="member-heels fl"><h2>退款申请</h2></div>
         <div class="member-backs member-icons fr"><a href="#">搜索</a></div>
         <div class="member-about fr"><input type="text" placeholder="商品名称/商品编号/订单编号"></div>
     </div>
@@ -47,7 +47,8 @@
                         <th style="width:20%">图片</th>
                         <th style="width:30%">商品名</th>
                         <th style="width:20%">商品数量</th>
-                        <th style="width:30%">　　　操作</th>
+                        <th style="width:20%">商品单价</th>
+                        <th style="width:10%">　　　操作</th>
                       </tr>
                       @foreach($rg->ShopDetails as $jq)
                       <tr>
@@ -60,10 +61,30 @@
                         <td>
                           <span class="gr3">X1</span>
                         </td>
+                        <td>{{$jq->price}}</td>
                         <td>
-                        <div class="member-apply clearfix">
-                          <div class="ap2 fl"><a href="#">查看订单</a> </div>
-                          <div class="ap3 fl"><a style="width:87px;" href="#">申请退款</a> </div>
+                            @if ($rg->status2 === 2)
+                            <div class="member-apply clearfix">
+                          <div class="ap3 fl"><a style="width:87px;" href="/tuikuanz?id={{$rg->id}}&status2=4">申请退款</a> </div>
+                            @endif
+                        </td>
+                        <td>
+                            @if ($rg->status2 === 4)
+                            <div class="member-apply clearfix">
+                          <div class="ap3 fl"><a style="width:87px;">申请退款中</a> </div>
+                            @endif
+                          </td>
+                        <td>
+                            @if ($rg->status2 === 1)
+                            <div class="member-apply clearfix">
+                          <div class="ap3 fl"><a style="width:87px;">已退款</a> </div>
+                            @endif
+                        </td>
+                        <td>
+                            @if ($rg->status2 === 3)
+                            <div class="member-apply clearfix">
+                          <div class="ap3 fl"><a style="width:87px;">拒绝退款</a> </div>
+                            @endif
                         </td>
                         </div>
                       </tr>

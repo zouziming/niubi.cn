@@ -65,4 +65,40 @@ class OrdersController extends Controller
         ]);
     }
 
+    // 前台退货页面
+    public function orders_details()
+    {
+        $thh = \App\ShopOrder::where('id',1)->get();
+        return view('Home.Orders.OrdersDetails',[
+            'thhs'=>$thh
+        ]);
+    }
+
+   // 订单详情的取消订单
+   public function cancel_orders(Request $request)
+   {
+        $qx = \App\ShopOrder::where('id','=',$request->id)->update(['status'=>$request->status]);
+        if ($qx) {
+            echo "<script>alert('取消订单成功~~~');location.href='ShowOrders'</script>";
+        } else {
+            echo "<script>alert('取消订单失败~~~');location.href='ShowOrders'</script>";
+        }
+   }
+
+   // 退款页面
+   public function tkks(Request $request)
+   {
+       $tkp = \App\ShopOrder::where('id','=',$request->id)->update(['status2'=>$request->status2]);
+        if ($tkp) {
+            echo "<script>alert('申请退款成功~~~');location.href='RetreatGoods'</script>";
+        } else {
+            echo "<script>alert('申请退款失败~~~');location.href='RetreatGoods'</script>";
+        }
+   }
+
+   public function return_refunding()
+   {
+        // $rr = \App\ShopOrder::where('id',1)->get();
+        return view('Home.Orders.ReturnRefunding');
+   }
 }

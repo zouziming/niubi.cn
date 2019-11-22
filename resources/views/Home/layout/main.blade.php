@@ -15,6 +15,8 @@
     <link rel="stylesheet" type="text/css" href="theme/css/base.css">
     <link rel="stylesheet" type="text/css" href="theme/css/member.css">
     <script type="text/javascript" src="theme/js/jquery.js"></script>
+    <script type="text/javascript" src="/layer/layer.js"></script>
+
      <script>
          $(function(){
 
@@ -115,8 +117,8 @@
                 </dl>
                 <dl>
                     <dt>客户服务</dt>
-                    <dd><a href="/RetreatGoods">退货申请</a></dd>
-                    <dd><a href="#">退货/退款记录</a></dd>
+                    <dd><a href="/RetreatGoods">退款申请</a></dd>
+                    <dd><a href="/ReturnRefunding">退货/退款记录</a></dd>
                 </dl>
                 <dl>
                     <dt>我的消息</dt>

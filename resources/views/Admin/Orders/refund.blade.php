@@ -55,6 +55,8 @@
                         待处理
                     @elseif ($data->status2 === 3)
                         已拒绝
+                    @elseif ($data->status2 === 4)
+                        申请退款
                     @endif
                     </td>
                     <td>
