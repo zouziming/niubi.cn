@@ -75,7 +75,7 @@ class SpecsController extends Controller
 		if (count(array_unique($res1)) <= 1) {
 			echo "<script>alert('请先设置好子规格');window.history.back(-1);</script>";die;	
 		}
-		dump($attr_list);
+		// dump($attr_list);
 		foreach ($attr_list as $v) {
 			foreach ($attr_list as $j) {
 				$a = AttributeValue::where('attr_value', $v)->get()[0];
@@ -115,46 +115,39 @@ class SpecsController extends Controller
 	
 	public function addsetprice(Request $request)
 	{
-		$data = $request->data;
+		$data = $request->datas;
 
-		if ($data[3] == null || $data[4] == null) {
-			$res = [
-				'code' => 1,
-				'msg' => '服务器繁忙,添加失败',
-		    ];
-			return $res;
+		foreach ($data as $v) {
+			if (strpos($v[3], '.')) {
+				$price = explode('.', $v[3]);
+				$price = $price[0].'.'.substr($price[1], 0, 2);
+			} else {
+				$price = $v[3];
+			}
+			
+			if (strpos($v[4], '.')) {
+				$stock = explode('.', $v[4]);
+				$stock = $stock[0];			
+			} else {
+				$stock = $v[4];
+			}
+			
+			$specs['goods_id'] = $v[0];
+			$specs['gkey'] = $v[1];
+			$specs['goods_specs'] = $v[2];
+			$specs['goods_price'] = $price;
+			$specs['goods_stock'] = $stock;
+			$res = GoodsSpecs::create($specs);
+			if ($res) {
+				$res = ['code' => 0,];
+			} else {
+				$res = [
+					'code' => 1,
+					'msg'=>'服务器繁忙，添加失败！',
+				];
+			}
 		}
 		
-		if (strpos($data[3], '.')) {
-			$price = explode('.', $data[3]);
-			$price = $price[0].'.'.substr($price[1], 0, 2);
-		} else {
-			$price = $data[3];
-		}
-		
-		if (strpos($data[4], '.')) {
-			$stock = explode('.', $data[4]);
-			$stock = $stock[0];			
-		} else {
-			$stock = $data[4];
-		}
-		
-		$specs['goods_id'] = $data[0];
-		$specs['gkey'] = $data[1];
-		$specs['goods_specs'] = $data[2];
-		$specs['goods_price'] = $price;
-		$specs['goods_stock'] = $stock;
-		$res = GoodsSpecs::create($specs);
-		if ($res) {
-		    $res = [
-				'code' => 0,
-		    ];
-		} else {
-		    $res = [
-		        'code' => 1,
-				'msg'=>'服务器繁忙，添加失败！',
-		    ];
-		}
 		return $res;
 	}
 	

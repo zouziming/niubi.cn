@@ -1,7 +1,7 @@
 @extends('Admin.layout.main')
 
 @section('css')
-<link rel="stylesheet" href="{{asset('css/app.css')}}">
+<!-- <link rel="stylesheet" href="{{asset('css/app.css')}}"> -->
 @endsection
 
 
@@ -83,16 +83,16 @@
 			@endif
 			
 			@if($v->status == 1)
-				<td class="center" ids="{{$v->id}}"><img class="jia"  src="/lib/images/yes.gif"/></td>
+				<td class="center online" ids="{{$v->id}}"><img class="jia"  src="/lib/images/yes.gif"/></td>
 			@else
-				<td class="center" ids="{{$v->id}}"><img class="jia" src="/lib/images/no.gif"/></td>
+				<td class="center online" ids="{{$v->id}}"><img class="jia" src="/lib/images/no.gif"/></td>
 			@endif
 			
-			<td class="center">
-				<a href="/admin/goods/edit/{{$v->id}}" title="编辑"><img width="40px;" src="/lib/images/icon_edit.gif"/></a>
-				<a href="/admin/goods/gorecycle/{{$v->id}}" title="删除"><img width="40px;" src="/lib/images/icon_drop.gif"/></a>
-				<a href="/admin/specs/{{$v->id}}" title="规格" ><img width="40px;" src="/lib/images/icon_view.gif"/></a>
-				<a href="/admin/specs/goods/{{$v->id}}" title="设置商品价格" ><img width="40px;" src="/lib/images/icon_title.gif"/></a>
+			<td class="center btns" data-id="{{$v->id}}">
+				<a href="javascript:void(0)" title="编辑"><img width="40px;" src="/lib/images/icon_edit.gif"/></a>
+				<a href="javascript:void(0)" title="删除"><img width="40px;" src="/lib/images/icon_drop.gif"/></a>
+				<a href="javascript:void(0)" title="规格" ><img width="40px;" src="/lib/images/icon_view.gif"/></a>
+				<a href="javascript:void(0)" title="设置商品价格" ><img width="40px;" src="/lib/images/icon_title.gif"/></a>
 			</td>
 		</tr>
 		@endforeach
@@ -166,6 +166,37 @@
 					} else if (res.code != 0) {
 						layer.msg('修改状态失败!');
 					}
+				}	
+			});
+		})
+	</script>
+	<script>
+		$('.btns').on('click', 'a', function(){
+			var data = $('.online img').attr('src');
+			var id = $(this.parentElement).data('id');
+			var src = $(this).children().eq(0).attr('src')
+			$.ajax({
+				method:'post',
+				url:'/admin/goods/online',
+				data:{
+					_token : '{{ csrf_token() }}',
+					data : data,
+				},
+				success: function(res){
+					if (res.code == 0) {
+						layer.msg('请先下架商品再来修改商品');
+					} else {
+						if (src == '/lib/images/icon_edit.gif') {
+							location.href = "/admin/goods/edit/"+id
+						} else if (src == '/lib/images/icon_drop.gif') {
+							location.href = "/admin/goods/gorecycle/"+id
+						} else if (src == '/lib/images/icon_view.gif') {
+							location.href = "/admin/specs/"+id
+						} else if (src == '/lib/images/icon_title.gif') {
+							location.href = "/admin/specs/goods/"+id
+						}
+					}
+					 
 				}	
 			});
 		})

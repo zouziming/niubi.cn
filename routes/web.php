@@ -114,6 +114,8 @@ Route::group(['prefix' => '/admin'], function(){
 	Route::get('/goods/gorecycle/{id}', 'Admin\GoodsController@gorecycle');
 	Route::get('/goods/backrecycle/{id}', 'Admin\GoodsController@backrecycle');
 	
+	Route::post('/goods/online', 'Admin\GoodsController@isonline');
+	
 	//规格属性
 	Route::get('/goods/attr', 'Admin\AttrController@attr');
 	

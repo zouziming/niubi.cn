@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\ShopUsers;
+use App\ShopUserinfo;
 use App\Goods;
 use App\Comment;
 use Illuminate\Http\Request;
@@ -15,7 +15,7 @@ class CommentController extends Controller
 		$data = Comment::orderBy('id', 'desc')->paginate(3);
 		$res = '1';
 		foreach ($data as $v) {
-			$v['uid'] = ShopUsers::where('id', $v['uid'])->pluck('username')[0];
+			$v['uid'] = ShopUserinfo::where('id', $v['uid'])->pluck('username')[0];
 			$v['gid'] = Goods::where('id', $v['gid'])->pluck('name')[0];
 		}
 		
@@ -66,7 +66,7 @@ class CommentController extends Controller
 				$gid = Goods::where('name', 'like', '%'.$goods.'%')->pluck('id')[0];
 				$data = Comment::where('gid', $gid)->paginate(1)->appends($request->all());
 				foreach ($data as $v) {
-					$v['uid'] = ShopUsers::where('id', $v['uid'])->pluck('username')[0];
+					$v['uid'] = ShopUserinfo::where('id', $v['uid'])->pluck('username')[0];
 					$v['gid'] = Goods::where('id', $v['gid'])->pluck('name')[0];
 				}
 				return view('Admin.comment.index')->with(["data"=>$data, 'res'=>$res]);
@@ -79,11 +79,11 @@ class CommentController extends Controller
 		
 		if ($request->goods == null) {
 			$name = $request->all()['name'];
-			if (ShopUsers::where('username', 'like', '%'.$name.'%')->first() != null) {
-				$uid = ShopUsers::where('username', 'like', '%'.$name.'%')->pluck('id')[0];
+			if (ShopUserinfo::where('username', 'like', '%'.$name.'%')->first() != null) {
+				$uid = ShopUserinfo::where('username', 'like', '%'.$name.'%')->pluck('id')[0];
 				$data = Comment::where('uid', $uid)->paginate(1)->appends($request->all());
 				foreach ($data as $v) {
-					$v['uid'] = ShopUsers::where('id', $v['uid'])->pluck('username')[0];
+					$v['uid'] = ShopUserinfo::where('id', $v['uid'])->pluck('username')[0];
 					$v['gid'] = Goods::where('id', $v['gid'])->pluck('name')[0];
 				}
 				return view('Admin.comment.index')->with(["data"=>$data, 'res'=>$res]);
@@ -97,12 +97,12 @@ class CommentController extends Controller
 		if ($request->name != null && $request->goods != null) {
 			$goods = $request->all()['goods'];
 			$name = $request->all()['name'];
-			if (Goods::where('name', 'like', '%'.$goods.'%')->first() != null && ShopUsers::where('username', 'like', '%'.$name.'%')->first() != null) {
+			if (Goods::where('name', 'like', '%'.$goods.'%')->first() != null && ShopUserinfo::where('username', 'like', '%'.$name.'%')->first() != null) {
 				$gid = Goods::where('name', 'like', '%'.$goods.'%')->pluck('id')[0];
-				$uid = ShopUsers::where('username', 'like', '%'.$name.'%')->pluck('id')[0];
+				$uid = ShopUserinfo::where('username', 'like', '%'.$name.'%')->pluck('id')[0];
 				$data = Comment::where('uid', $uid)->where('gid', $gid)->paginate(1)->appends($request->all());
 				foreach ($data as $v) {
-					$v['uid'] = ShopUsers::where('id', $v['uid'])->pluck('username')[0];
+					$v['uid'] = ShopUserinfo::where('id', $v['uid'])->pluck('username')[0];
 					$v['gid'] = Goods::where('id', $v['gid'])->pluck('name')[0];
 				}
 				return view('Admin.comment.index')->with(["data"=>$data, 'res'=>$res]);

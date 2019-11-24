@@ -227,4 +227,11 @@ class GoodsController extends Controller
 		}
 		return $res;
 	}
+	
+	public function isonline(Request $request)
+	{
+		if($request->data != '/lib/images/no.gif') {
+			return ['code'=>0];
+		}
+	}
 }

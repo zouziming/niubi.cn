@@ -64,7 +64,9 @@
 					</td>
 					<td class="center">{{$v['addtime']}}</td>
 					<td class="center">
-						<a href="javascript:void(0)" title="回复" style="text-decoration:none;" class="reply" ids="{{$v['id']}}">回复</a>
+						@if($v['reply'] == null)
+							<a href="javascript:void(0)" title="回复" style="text-decoration:none;" class="reply" ids="{{$v['id']}}">回复</a>
+						@endif
 						<a href="/admin/comment/del/{{$v['id']}}" title="删除" style="text-decoration:none;">删除</a>
 					</td>
 				</tr>

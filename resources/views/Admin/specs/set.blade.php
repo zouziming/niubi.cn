@@ -4,7 +4,8 @@
 <div class="wrap">
 	<div class="page-title">
 		<span class="modular fl"><i></i><em>编辑对应规格的价格</em></span>
-		<span class="fr"><a href="javascript:void(0)"><input type="submit" value="返回" class="tdBtn fan"/></a></span>
+		<span class="fr"><a href="/admin/goods"><input type="submit" value="返回" class="tdBtn fan"/></a></span>
+		<span class="fr"><a href="javascript:void(0)"><input type="submit" value="添加" class="tdBtn adds"/></a></span>
 		
 	</div>
 
@@ -61,6 +62,60 @@
 
 @section('script')
 <script>
+	$('.adds').click(function(){
+		var ele = this.parentElement.parentElement.parentElement.parentElement;
+		var ipts = $(ele).find('input.textBox');
+		var pan = 0;
+		// console.dir($(ipts[1]).val());
+		count = ipts.length
+		for (var i = 0; i < count; i++) {
+			if (i % 3 != 0) {
+				if ($(ipts[i]).val() != '') {
+					pan += 1;
+				}
+			}
+		}
+
+		if (pan != count/3*2) {
+			layer.msg('请把东西写完再添加，宝贝');	
+		} else {
+			var datas = [];
+			var n = 0;
+			var counts = $(ipts.length / 3)[0]
+
+			for (var j = 0; j < counts; j++) {
+				var data = [];
+				data.push({{$gid}});
+				data.push($($(ipts)[0+n]).attr('keys'));
+				data.push($($(ipts)[0+n]).val());
+				data.push($($(ipts)[1+n]).val());
+				data.push($($(ipts)[2+n]).val());
+				n += 3
+				datas.push(data)
+			}
+			
+			$.ajax({
+				method:'post',
+				url:'/admin/specs/addgoodsspecs',
+				data:{
+					_token : '{{ csrf_token() }}',
+					datas : datas,
+				},
+				success: function(res){
+					if (res.code == 0) {
+						layer.msg('添加成功!');
+					} else if (res.code != 0) {
+						layer.msg(res.msg);
+					}
+				}	
+			});
+		}
+		
+		
+	})
+	
+	
+	
 	$('.add').click(function(){
 		var ele = this.parentElement.parentElement.parentElement.parentElement;
 		// var count = ele.childElementCount;
@@ -143,27 +198,6 @@
 				}
 			}	
 		});
-	});
-	
-	$('.fan').click(function(){
-		var ele = this.parentElement.parentElement.parentElement.parentElement;
-		var ipts = $(ele).find('input.textBox');
-		var pan = 0;
-		// console.dir($(ipts[3]).val());
-		count = ipts.length
-		for (var i = 0; i < count; i++) {
-			if (i % 3 != 0) {
-				if ($(ipts[i]).val() == null || $(ipts[i]).val() == '') {
-					pan += 1;
-				}
-			}
-		}
-		// console.dir(pan)
-		if (pan == 0 || pan == count/3*2) {
-			location.href = '/admin/goods'
-		} else {
-			layer.msg('宝贝请先写完再走好吗');
-		}
 	});
 	
 </script>
