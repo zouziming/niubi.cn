@@ -16,5 +16,4 @@ class ShopOrder extends Model
 
     }
     
-    
 }

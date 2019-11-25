@@ -35,7 +35,7 @@
   <ul>
   @foreach($qts as $qt)
   <?php
-  // dd($qt->ShopDetails);
+  dd($qt->ShopDetails);
   ?>
     <li>
       <div class="member-minute clearfix">

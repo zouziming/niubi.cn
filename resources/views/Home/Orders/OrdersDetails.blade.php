@@ -17,7 +17,6 @@
             <ul>
                 <li class="clearfix">
                     @if ($th->status === 1)
-                        
                     <div class="default fl" style="margin-left:10px -50px"><a href="/OrdersSubmit?id={{$th->id}}&status">立即付款</a> </div>
                     <div class="default fl" style="margin-left:10px -50px"><a href="/CancelOrders?id={{$th->id}}&status=6">取消订单</a> </div>
                     @endif

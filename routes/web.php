@@ -110,8 +110,14 @@ Route::get('/', function () {
 // 前台订单详情页面
     Route::get('/OrdersDetails','Home\OrdersController@orders_details');
 
-// 申请退款页面
+// 前台取消订单
+    Route::get('/CancelOrders','Home\OrdersController@cancel_orders');
+
+// 申请退款
     Route::get('/tuikuanz','Home\OrdersController@tkks');
  
 // 显示退换货页面
     Route::get('/ReturnRefunding','Home\OrdersController@return_refunding');
+
+// 申请退货
+    Route::get('/tuihuo','Home\OrdersController@retreat_money');

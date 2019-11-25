@@ -96,9 +96,28 @@ class OrdersController extends Controller
         }
    }
 
+
+   // 退货/退款显示页面
    public function return_refunding()
    {
-        // $rr = \App\ShopOrder::where('id',1)->get();
-        return view('Home.Orders.ReturnRefunding');
+        $rr = \App\ShopOrder::where('uid','1')->get();
+        // foreach ($rr as $key => $value) {
+        //     dump($value->ShopDetails);
+        // }
+        return view('Home.Orders.ReturnRefunding',[
+                'rrs'=>$rr
+        ]);
+   }
+
+   // 申请退货
+   public function retreat_money(Request $request)
+   {
+     $thl = \App\ShopDetail::where('oid','=',$request->id)->update(['status'=>$request->status]);
+        if ($thl) {
+            echo "<script>alert('申请退货成功~~~');location.href='ReturnRefunding'</script>";
+        } else {
+            echo "<script>alert('申请退货失败~~~');location.href='ReturnRefunding'</script>";
+        }
    }
 }
+
