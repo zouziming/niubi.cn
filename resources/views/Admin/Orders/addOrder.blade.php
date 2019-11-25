@@ -18,7 +18,7 @@
 
         <div class="control-group">
             <label class="label label-primary">订单编号</label>
-            <div class="controls"><input class="input_from" type="text" name="uid" ><p class="help-block"></p></div>
+            <div class="controls"><input class="input_from" type="text" name="did" ><p class="help-block"></p></div>
         </div>
         <div class="control-group">
             <label class="label label-primary">收货人</label>

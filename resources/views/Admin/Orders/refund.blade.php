@@ -41,7 +41,7 @@
                 @foreach($datas as $data)              
                 <tr>
                     <td>{{$data->id}}</td>
-                    <td>{{$data->uid}}</td>
+                    <td>{{$data->did}}</td>
                     <td>{{$data->username}}</td>
                     <td>{{$data->getman}}</td>
                     <td>{{$data->phone}}</td>
@@ -55,6 +55,8 @@
                         待处理
                     @elseif ($data->status2 === 3)
                         已拒绝
+                    @elseif ($data->status2 === 4)
+                        申请退款
                     @endif
                     </td>
                     <td>

@@ -282,13 +282,13 @@ Route::group(['prefix'=>'/admin','middleware' => ['power']],function() {
 
 // 订单退款搜索功能 
     Route::post('/refund', 'Admin\OrdersController@refund_seek');
-/*-----------------------------------------------------------------------------*/
+
 // 退换单
     Route::get('/returnExchange', 'Admin\OrdersController@return_exchange');
 
 // 订单退换搜索功能 
     Route::post('/returnExchange', 'Admin\OrdersController@ReturnExchangeSeek');
-/*-----------------------------------------------------------------------------*/
+
 // 发货单
     Route::get('/deliverGoods', 'Admin\OrdersController@DeliverGoods');
 
@@ -326,8 +326,9 @@ Route::group(['prefix'=>'/admin','middleware' => ['power']],function() {
     Route::post('/tuihuan','Admin\OrdersController@TuiHuans');
 
 // 订单退换删除功能
-    Route::get('/dels','Admin\OrdersController@del');
-   
+    Route::get('/dels','Admin\OrdersController@del');   
+
+
 
 
 Route::group(['prefix' => '/home'], function(){
@@ -379,3 +380,34 @@ Route::group(['prefix' => '/home'], function(){
 
 // 修改默认地址
 	Route::get('/home/editDefault','Home\UserController@editDefault');
+
+/*----------------------------------------------------------------------------------*/
+// 订单：前台我的订单显示
+    Route::get('/ShowOrders','Home\OrdersController@show_orders');
+
+//  修改支付状态
+    Route::get('/xgzt','Home\OrdersController@xg');
+
+// 订单提交成功页面
+    Route::get('/OrdersSubmit','Home\OrdersController@orders_submit');
+
+// 确认收货
+    Route::get('/ConfirmReceipt','Home\OrdersController@confirm_receipt');
+/*-----------------------------------------------------------------------------------*/
+// 前台退货页面
+    Route::get('/RetreatGoods','Home\OrdersController@retreat_goods');
+
+// 前台订单详情页面
+    Route::get('/OrdersDetails','Home\OrdersController@orders_details');
+
+// 前台取消订单
+    Route::get('/CancelOrders','Home\OrdersController@cancel_orders');
+
+// 申请退款
+    Route::get('/tuikuanz','Home\OrdersController@tkks');
+ 
+// 显示退换货页面
+    Route::get('/ReturnRefunding','Home\OrdersController@return_refunding');
+
+// 申请退货
+    Route::get('/tuihuo','Home\OrdersController@retreat_money');
