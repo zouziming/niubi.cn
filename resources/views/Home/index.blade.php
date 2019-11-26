@@ -373,7 +373,5 @@
 		});
 	</script>	
 	</body>
-
-
 </html>
 

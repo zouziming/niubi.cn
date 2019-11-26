@@ -82,9 +82,21 @@ Route::group(['prefix' => '/home', 'middleware' => ['users.login']], function(){
 Route::get('/home/login', 'Home\LoginController@show');
 Route::post('/home/login', 'Home\LoginController@login');
 
-// 前台注册
+/**
+ *  前台注册
+ */
+// 手机号
 Route::get('/home/register', 'Home\RegisterController@show');
 Route::post('/home/register', 'Home\RegisterController@register');
+Route::post('/home/doregister', 'Home\RegisterController@doregister');
+
+// 密码
+Route::get('/home/enroll', 'Home\RegisterController@reveal');
+Route::post('/home/enroll', 'Home\RegisterController@enroll');
+
+
+
+
 
 // 个人中心
 Route::get('/home/user/secure', 'Home\UserController@secure');
@@ -92,6 +104,9 @@ Route::get('/home/user/mycenter', 'Home\UserController@mycenter');
 
 // 个人资料修改
 Route::post('/home/user/mycenter', 'Home\UserController@edit');
+// 修改头像
+Route::get('/home/user/picture', 'Home\UserController@pic');
+Route::post('/home/user/picture', 'Home\UserController@picture');
 // 修改密码
 Route::get('/home/user/password', 'Home\UserController@show');
 Route::post('/home/user/password', 'Home\UserController@password');

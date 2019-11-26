@@ -22,45 +22,39 @@
         </a>
         <b></b>
     </div>
-
 </div>
 <div id="content">
   <div class="login-wrap">
     <div class="w">
         <div class="login-form">
             <div class="login-tab login-tab-l">
-                <a href="javascript:;">扫码登录</a>
+                <a href="javascript:;">手机号登录</a>
             </div>
             <div class="login-tab login-tab-r">
                 <a href="javascript:;">账号登录</a>
             </div>
+
+            <!-- 账号登录 -->
             <div class="login-box" style="visibility: visible; display:block">
               <div class="mt tab-h"></div>
               <div class="msg-wrap"></div>
               <div class="mc">
                 <div class="form">
 
-                    @if(count($errors) > 0)
-                        <div>
-                            <ul>
-                                @foreach($errors->all() as $e)
-                                <li style="color:red;font-size:15px">{{ $e }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
                     <form action="" method="post">
+                        <div style="color:red;">{{$errors->first('username')}}</div>
                         <div class="item item-fore1 item-error">
                             <label for="loginname" class="login-label name-label"></label>
-                            <input type="text" name="username" value="{{ old('username') }}"  class="itxt" placeholder="用户名/已验证手机">
+                            <input type="text" name="username" value="{{ old('username') }}"  class="itxt" placeholder="用户名">
                         </div>
                         <!-- 密码输入框fore2 -->
+                        <div style="color:red;">{{$errors->first('password')}}</div>
                         <div class="item item-fore2" style="visibility: visible">
                             <label class="login-label pwd-label" for="nloginpwd"></label>
                             <input type="password" name="password" class="itxt itxt-error"  placeholder="密码">
                         </div>
                         <!-- 图片验证码开始 fore3-->
+                        <div style="color:red;">{{$errors->first('captcha')}}</div>
                         <div id="o-authcode" class="item item-vcode item-fore3">
                             <input type="text" name="captcha" id="captcha" placeholder="验证码" class="itxt itxt02" tabindex="3" style="width:176px">
                             <img src="{{captcha_src('flat')}}" style="width:106px;height:32px;background:#fff;border:1px solid #ccc" class="captcha" onclick="this.src='/captcha/flat?'+Math.random();">
@@ -75,42 +69,41 @@
                 </div>
               </div>
             </div>
+
+            <!-- 手机号登录 -->
             <div class="qrcode-login">
+                <div class="mt tab-h"></div>
+                <div class="msg-wrap"></div>
                 <div class="mc">
-                    <div class="qrcode-error-2016">
-                        <div class="qrcode-error-mask"></div>
-                        <p class="err-cont">服务器出错</p>
-                        <a href="javascript:void(0)" class="refresh-btn">刷新</a>
-                    </div>
-                    <div class="qrcode-main">
-
-                        <div class="qrcode-img" style="">
-                            <img src="/lib/theme/login/code.png" alt="">
-                            <div class="qrcode-error-02 hide" id="J-qrcodeerror" style="display: none;">
-                                <a href="#none">
-                                    <span class="error-icon"></span>
-                                    <div class="txt">
-                                       网络开小差咯
-                                       <span class="ml10">刷新二维码</span>
-                                     </div>
-                                </a>
-                            </div>
+                <div class="form">
+                    @if(count($errors) > 0)
+                        <div>
+                            <ul>
+                                @foreach($errors->all() as $e)
+                                <li style="color:red;font-size:15px">{{ $e }}</li>
+                                @endforeach
+                            </ul>
                         </div>
+                    @endif
 
-                        <div class="qrcode-help" style="display: none;"></div>
-                    </div>
-
-                    <div class="qrcode-panel">
-                        <ul>
-                            <li class="fore1">
-                                <span>打开</span>
-                                <a href="">
-                                    <span class="red">手机歪秀购物 </span>
-                                </a>
-                            </li>
-                            <li>扫一扫登录</li>
-                        </ul>
-                    </div>
+                    <form action="" method="post">
+                        <div class="login-input" style="margin-top:40px;">
+                            <label style="width:75px;">手机号：</label>
+                            <input type="text" class="list-iphone" id="phone" name="phone" placeholder="" style="width:187px">
+                            <!-- <a class="obtain" id="getCodeBtn">获取短信验证码</a> -->
+                        </div>
+                            
+                        <div class="login-input">
+                            <label style="width:75px;">验证码：</label>
+                            <input type="text" class="list-notes" id="message" name="code" placeholder="" style="width:187px;">
+                            <br><br><br>
+                            <a href="#" class="obtain" id="gain" style="margin-left: 85px;">获取短信验证码</a>
+                        </div>
+                        <div class="login-button" style="padding-left:0px;padding-top:0px;">
+                            <button style="border:0px"><a>登录</a></button>
+                        </div>
+                    </form>
+                </div>
                 </div>
             </div>
 
@@ -126,6 +119,7 @@
                 </ul>
             </div>
         </div>
+
     </div>
     <div class="login-banner" style="background-color: #ea4949">
         <div class="w">
@@ -161,9 +155,8 @@
         </div>
     </div>
 </div>
-
+<script type="text/javascript" src="/lib/js/jquery-1.12.4.min.js"></script>
 <script>
-    //alert($)
     $(".login-tab-r").click(function(){
         $(".login-box").css({"display":"block","visibility":"visible"});
         $(".qrcode-login").css({"display":"none"})
@@ -173,6 +166,33 @@
         $(".qrcode-login").css({"display":"block","visibility":"visible"})
     });
 </script>
+<script>
+    $('#gain').click(function() {
+        var phone = $('input[name=phone]').val();
+        $.ajax({
+            type: 'post',
+            url: '/home/register',
+            data: {
+                phone:phone,
+                '_token':'{{csrf_token()}}',
+            },
+            success: function(res) {
+                if (res.code == 0) {
+                    alert('请输入手机号！')
+                }
+                if (res.code == 1) {
+                    alert('验证码已发送！')
+                }
+                if (res.code == 2) {
+                    alert('验证码发送失败！')
+                }
+            },
+            error:function(err){
+                console.log(err);
+            }
+        })
+        return false;
+    });
+</script>
 </body>
-
 </html>

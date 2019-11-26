@@ -61,4 +61,30 @@ class LoginController extends Controller
             echo "<script>alert('密码错误！');location.href='/home/login'</script>";
         }
     }
+
+
+    public function logincode(Request $request)
+    {
+        if (empty($request->phone)) {
+            return [
+                'code' => 0,
+            ];
+        } else {
+            include public_path('lib/CCP/Demo/SendTemplateSMS.php');
+            $checkcode = rand(1000,9999);
+            session(['checkcode' => $checkcode]);
+
+            $phone = $request->phone;
+            $res = sendTemplateSMS($phone,[$checkcode,'1'],1);
+            if ($res) {
+                return [
+                    'code' => 1,
+                ];
+            } else {
+                return [
+                    'code' => 2,
+                ];
+            }
+        }
+    }
 }

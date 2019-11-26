@@ -57,7 +57,7 @@
                 </td>
                 <td>{{$user->phone}}</td>
                 <td>
-                    <img src="/storage/{{$user->pic}}" style="width:100px;height:100px;border:1px solid #ccc">
+                    <img src="/storage/{{$user->pic}}" style="width:100px;height:100px;border:1px solid #ccc"></img>
                 </td>
                 <td>{{$user->email}}</td>
                 <td>

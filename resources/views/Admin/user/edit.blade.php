@@ -10,8 +10,8 @@
 </div>
 <div class="div_from_aoto" style="width: 500px;">
 
-    <div class="alert alert-danger" id="errors" style="display: none" role="alert">
-    </div>
+    <!-- div class="alert alert-danger" id="errors" style="display: none" role="alert">
+    </div> -->
 
     <form action="/admin/user/doedit" method="post">
         {{ csrf_field() }}
@@ -19,21 +19,24 @@
         <div class="control-group">
             <label class="laber_from">用户名</label>
             <div class="controls">
-            <input class="input_from" placeholder=" 请输入用户名" name="username" type="text" value="{{ $user->username }}">
+            <input class="input_from" placeholder=" 请输入用户名" name="username" type="text" value="{{ $user->username }}">&nbsp;
+                <span style="color:red">{{$errors->first('username')}}</span>
             <p class="help-block"></p>
             </div>
         </div>
         <div class="control-group">
             <label class="laber_from">邮箱</label>
             <div class="controls">
-            <input class="input_from" placeholder=" 请输入邮箱" name="email" type="email" value="{{ $user->email }}">
+            <input class="input_from" placeholder=" 请输入邮箱" name="email" type="email" value="{{ $user->email }}">&nbsp;
+                <span style="color:red">{{$errors->first('email')}}</span>
             <p class="help-block"></p>
             </div>
         </div>
         <div class="control-group">
             <label class="laber_from">手机号</label>
             <div class="controls">
-            <input class="input_from" placeholder=" 请输入手机号" name="phone" value="{{ $user->phone }}" type="text">
+            <input class="input_from" placeholder=" 请输入手机号" name="phone" value="{{ $user->phone }}" type="text">&nbsp;
+                <span style="color:red">{{$errors->first('phone')}}</span>
             <p class="help-block"></p>
             </div>
         </div>

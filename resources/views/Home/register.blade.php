@@ -1,30 +1,6 @@
-<!doctype html>
-<html>
- <head>
-    <meta charset="UTF-8">
-    <meta name="Generator" content="EditPlus®">
-    <meta name="Author" content="">
-    <meta name="Keywords" content="">
-    <meta name="Description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE"> 
-    <meta name="renderer" content="webkit">
-    <title>用户注册</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/lib/theme/icon/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="/lib/theme/css/base.css">
-    <link rel="stylesheet" type="text/css" href="/lib/theme/css/login.css">
- </head>
- <body>
+@extends('Home.layout.zhuce')
 
-<!--- header begin-->
-<header id="pc-header">
-    <div class="login-header" style="padding-bottom:0">
-        <div><h1><a href="/home"><img src="/lib/theme/icon/logo.png"></a></h1></div>
-    </div>
-</header>
-<!-- header End -->
-
-
-
+@section('content')
 <section id="login-content">
     <div class="login-centre">
         <div class="login-switch clearfix">
@@ -33,86 +9,121 @@
         <div class="login-back">
             <div class="H-over">
                 
-                @if(count($errors) > 0)
-                <div class="alert alert-danger" role="alert">
-                    <ul>
-                        @foreach($errors->all() as $e)
-                        <li>{{ $e }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif
 
-                <form action="/home/register" method="post">
-                {{ csrf_field() }}
-                    <div class="login-input">
-                        <label><i class="heart">*</i>用户名：</label>
-                        <input type="text" class="list-input1" id="username" name="username" placeholder="">
-                    </div>
-                    <div class="login-input">
-                        <label><i class="heart">*</i>请设置密码：</label>
-                        <input type="password" class="list-input" id="password" name="password" placeholder="">
-                    </div>
-                    <div class="login-input">
-                        <label><i class="heart">*</i>请确认密码：</label>
-                        <input type="password" class="list-input" id="password1" name="password_confirmation" placeholder="">
-                    </div>
+                <form action="/home/doregister" method="post">
+                    {{ csrf_field() }}
                     <div class="login-input">
                         <label><i class="heart">*</i>手机号：</label>
-                        <input type="text" class="list-iphone" id="iphone" name="phone" placeholder="">
-                        <a href="#" class="obtain">获取短信验证码</a>
+                        <input type="text" class="list-iphone" id="phone" name="phone" placeholder="">
+                        <a class="obtain" id="gain">获取短信验证码</a>
+                        <!-- <input type="button" class="obtain" value="获取短信验证码" id="getCodeBtn" /> -->
+                        <div style="margin-top:12px;color:red;font-size:16px">{{$errors->first('phone')}}</div>
+                        
                     </div>
                     <div class="login-input">
                         <label><i class="heart">*</i>短信验证码：</label>
-                        <input type="text" class="list-notes" id="message" name="verification_key" placeholder="">
+                        <input type="text" class="list-notes" name="checkcode" placeholder="">
+                        <div style="margin-top:12px;color:red;font-size:16px">{{$errors->first('checkcode')}}</div>
                     </div>
+    
+
+                    <div class="login-input">
+                        <label><i class="heart">*</i>用户名：</label>
+                        <input type="text" class="list-input1" id="username" name="username" placeholder="" style="width: 380px;">
+                        <div style="margin-top:12px;color:red;font-size:16px">{{$errors->first('username')}}</div>
+                    </div>
+                    <div class="login-input">
+                        <label><i class="heart">*</i>请设置密码：</label>
+                        <input type="password" class="list-input" id="password" name="password" style="width: 380px;">
+                        <div style="margin-top:12px;color:red;font-size:16px">{{$errors->first('password')}}</div>
+                    </div>
+                    <div class="login-input">
+                        <label><i class="heart">*</i>请确认密码：</label>
+                        <input type="password" class="list-input" name="password_confirmation" style="width: 380px;">
+                        <div style="margin-top:12px;color:red;font-size:16px">{{$errors->first('password_confirmation')}}</div>
+                    </div>
+
+
                     <div class="item-ifo">
                         <input type="checkbox" onClick="agreeonProtocol();" id="readme" checked="checked" class="checkbox">
                         <label for="protocol">我已阅读并同意<a id="protocol" class="blue" href="#">《悦商城用户协议》</a></label>
                         <span class="clr"></span>
                     </div>
                     <div class="login-button">
-                        <button style="border:0px"><a>立即注册</a></button>
+                        <button id="btn" style="border:0px"><a>立即注册</a></button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </section>
+@endsection
 
-<!--- footer begin-->
-<footer id="footer">
-    <div class="containers">
-        <div class="w" style="padding-top:30px">
-            <div id="footer-2013">
-                <div class="links">
-                    <a href="">关于我们</a>
-                    |
-                    <a href="">联系我们</a>
-                    |
-                    <a href="">人才招聘</a>
-                    |
-                    <a href="">商家入驻</a>
-                    |
-                    <a href="">广告服务</a>
-                    |
-                    <a href="">手机京东</a>
-                    |
-                    <a href="">友情链接</a>
-                    |
-                    <a href="">销售联盟</a>
-                    |
-                    <a href="">English site</a>
-                </div>
-                <div style="padding-left:10px">
-                    <p style="padding-top:10px; padding-bottom:10px; color:#999">网络文化经营许可证：浙网文[2013]0268-027号| 增值电信业务经营许可证：浙B2-20080224-1</p>
-                    <p style="padding-bottom:10px; color:#999">信息网络传播视听节目许可证：1109364号 | 互联网违法和不良信息举报电话:0571-81683755</p>
-                </div>
-            </div>
-        </div>
+@section('script')
+<script type="text/javascript" src="/lib/js/jquery-1.12.4.min.js"></script>
+<script>
+    $('#gain').click(function() {
+        var phone = $('input[name=phone]').val();
+        $.ajax({
+            type: 'post',
+            url: '/home/register',
+            data: {
+                phone:phone,
+                '_token':'{{csrf_token()}}',
+            },
+            success: function(res) {
+                if (res.code == 0) {
+                    alert('请输入手机号！')
+                }
+                if (res.code == 1) {
+                    alert('验证码已发送！')
+                }
+                if (res.code == 2) {
+                    alert('验证码发送失败！')
+                }
+            },
+            error:function(err){
+                console.log(err);
+            }
+        })
+        return false;
+    });
+</script>
+<script>
+    // $('#btn').click(function() {
+    //     var phone = $('input[name=phone]').val();
+    //     var checkcode = $('input[name=checkcode]').val();
+    //     var username = $('input[name=username]').val();
+    //     var password = $('input[name=password]').val();
+    //     var password_confirmation = $('input[name=password_confirmation]').val();
+    //     $.ajax({
+    //         type: 'post',
+    //         url: '/home/doregister',
+    //         data: {
+    //             phone:phone,
+    //             checkcode:checkcode,
+    //             username:username,
+    //             password:password,
+    //             password_confirmation:password_confirmation;
+    //             '_token':'{{csrf_token()}}',
+    //         },
+    //         success: function(res) {
+    //             if (res.code == 0) {
+    //                 alert('验证码不对，请输入正确的验证码！');
+    //                 location.href = "/home/register"
+    //             } 
+    //             if (res.code == 1) {
+    //                 alert('注册成功，请登录！');
+    //                 location.href = "/home/login"
+    //             }  
+    //         },
+    //         error:function(err){
+    //             console.log(err);
+    //             // alert(err.responseJSON.errors.phone[0])
+    //             // alert(err.responseJSON.errors.checkcode[0])
+    //         }
 
-    </div>
-</footer>
-<!-- footer End -->
-</body>
-</html>
+    //     })
+    // });
+</script>
+@endsection

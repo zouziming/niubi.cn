@@ -47,13 +47,6 @@
             </li>
 
             <li class="childUlLi">
-                <a href="#" target="menuFrame"> <i class="glyph-icon icon-reorder"></i>角色管理</a>
-                <ul style="display: none;">
-                    <li><a target="main" href="http://www.baidu.com"><i class="glyph-icon icon-chevron-right"></i>修改密码</a></li>
-                    <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>帮助</a></li>
-                </ul>
-            </li>
-            <li class="childUlLi">
                 <a href="#"> <i class="glyph-icon  glyph-icon icon-reorder"></i>商品管理</a>
                 <ul style="display: none;">
                     <li><a href="/admin/goods"><i class="glyph-icon icon-chevron-right"></i>商品列表</a></li>
@@ -142,8 +135,8 @@
     <script src="/lib/js/jquery.js"></script>
     <script src="/lib/js/tendina.js"></script>
     <script src="/lib/js/common.js"></script>
-	<script src="/lib/js/public.js"></script>
-	<script src="/lib/layer/layer.js"></script>
+    <script src="/lib/js/public.js"></script>
+    <script src="/lib/layer/layer.js"></script>
     @yield('script')
 </body>
 </html>
