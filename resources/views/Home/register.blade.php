@@ -15,8 +15,8 @@
                     <div class="login-input">
                         <label><i class="heart">*</i>手机号：</label>
                         <input type="text" class="list-iphone" id="phone" name="phone" placeholder="">
-                        <a class="obtain" id="gain">获取短信验证码</a>
-                        <!-- <input type="button" class="obtain" value="获取短信验证码" id="getCodeBtn" /> -->
+                        <!-- <a class="obtain" id="gain">获取短信验证码</a> -->
+                        <input type="button" id="gain" class="obtain" value="免费获取验证码" onclick="settime(this)" /> 
                         <div style="margin-top:12px;color:red;font-size:16px">{{$errors->first('phone')}}</div>
                         
                     </div>
@@ -76,9 +76,12 @@
                     alert('请输入手机号！')
                 }
                 if (res.code == 1) {
-                    alert('验证码已发送！')
+                    alert('请输入正确的手机号！')
                 }
                 if (res.code == 2) {
+                    alert('验证码已发送！')
+                }
+                if (res.code == 3) {
                     alert('验证码发送失败！')
                 }
             },
@@ -89,41 +92,22 @@
         return false;
     });
 </script>
-<script>
-    // $('#btn').click(function() {
-    //     var phone = $('input[name=phone]').val();
-    //     var checkcode = $('input[name=checkcode]').val();
-    //     var username = $('input[name=username]').val();
-    //     var password = $('input[name=password]').val();
-    //     var password_confirmation = $('input[name=password_confirmation]').val();
-    //     $.ajax({
-    //         type: 'post',
-    //         url: '/home/doregister',
-    //         data: {
-    //             phone:phone,
-    //             checkcode:checkcode,
-    //             username:username,
-    //             password:password,
-    //             password_confirmation:password_confirmation;
-    //             '_token':'{{csrf_token()}}',
-    //         },
-    //         success: function(res) {
-    //             if (res.code == 0) {
-    //                 alert('验证码不对，请输入正确的验证码！');
-    //                 location.href = "/home/register"
-    //             } 
-    //             if (res.code == 1) {
-    //                 alert('注册成功，请登录！');
-    //                 location.href = "/home/login"
-    //             }  
-    //         },
-    //         error:function(err){
-    //             console.log(err);
-    //             // alert(err.responseJSON.errors.phone[0])
-    //             // alert(err.responseJSON.errors.checkcode[0])
-    //         }
-
-    //     })
-    // });
-</script>
+<script> 
+    var countdown = 60; 
+    function settime(val) { 
+    if (countdown == 0) { 
+            val.removeAttribute("disabled");  
+            val.value="免费获取验证码"; 
+            countdown = 60; 
+            return;
+        } else { 
+            val.setAttribute("disabled", true); 
+            val.value="重新发送(" + countdown + ")"; 
+            countdown--; 
+        } 
+        setTimeout(function() { 
+            settime(val) 
+        },1000) 
+    } 
+</script> 
 @endsection

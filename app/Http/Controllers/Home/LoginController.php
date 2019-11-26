@@ -38,6 +38,12 @@ class LoginController extends Controller
         // 验证身份
         $userInfo = \App\ShopUserinfo::where('username', '=', $request->username)
             ->first();
+
+        if ($userInfo['status'] != 1) {
+            echo "<script>alert('您的账号已被封，请联系管理员：13416341860');location.href='/home/login'</script>";
+            exit;
+        }
+
         // 验证密码
         if (Hash::check($request->password, $userInfo->password)) {
             
@@ -63,28 +69,75 @@ class LoginController extends Controller
     }
 
 
+    // 显示手机登录页面
+    public function showphone()
+    {
+        return view('Home.logincode');
+    }
+
+    // 发送手机验证码
     public function logincode(Request $request)
     {
         if (empty($request->phone)) {
-            return [
-                'code' => 0,
-            ];
+            return ['code' => 0];
         } else {
-            include public_path('lib/CCP/Demo/SendTemplateSMS.php');
-            $checkcode = rand(1000,9999);
-            session(['checkcode' => $checkcode]);
-
-            $phone = $request->phone;
-            $res = sendTemplateSMS($phone,[$checkcode,'1'],1);
-            if ($res) {
-                return [
-                    'code' => 1,
-                ];
+            if (!preg_match('/^1[345789][0-9]{9}$/', $request->phone)) {
+                return ['code' => 1];
             } else {
-                return [
-                    'code' => 2,
-                ];
+                include public_path('lib/CCP/Demo/SendTemplateSMS.php');
+                $checkcode = rand(1000,9999);
+                session(['checkcode' => $checkcode]);
+
+                $phone = $request->phone;
+                $res = sendTemplateSMS($phone,[$checkcode,'1'],1);
+                if ($res) {
+                    return ['code' => 2];
+                } else {
+                    return ['code' => 3];
+                }
             }
+        }
+    }
+
+    // 手机号登录
+    public function dologincode(Request $request)
+    {
+        // dd(session('checkcode'));
+        $this->validate($request, [
+            'phone'=>'required|regex:/^1[345789][0-9]{9}$/',
+            'checkcode'=>'required',
+        ],[
+            'phone.required' => '请输入手机号', 
+            'phone.regex' => '手机号格式不对', 
+            'checkcode.required' => '请输入验证码',
+        ]);
+
+        $userInfo = \App\ShopUserinfo::where('phone', '=', $request->phone)->first();
+
+        if ($userInfo['status'] != 1) {
+            echo "<script>alert('您的账号已被封，请联系管理员：13416341860');location.href='/home/login'</script>";
+            exit;
+        }
+
+        if (session('checkcode') == $request->checkcode) {
+            
+            // 保存登录状态
+            session([
+                'isLogin' => true,
+                'userInfo' => [
+                    'id' => $userInfo->id,
+                    'username' => $userInfo->username,
+                    'sex' => $userInfo->sex,
+                    'phone' => $userInfo->phone,
+                    'pic' => $userInfo->pic,
+                    'email' => $userInfo->email,
+                    'status' => $userInfo->status,
+                    'addtime' => $userInfo->addtime
+                ]
+            ]);
+            return redirect('/home');
+        } else {
+            echo "<script>alert('验证码不正确！');location.href='/home/logincode'</script>";
         }
     }
 }

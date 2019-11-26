@@ -82,10 +82,16 @@ Route::group(['prefix' => '/home', 'middleware' => ['users.login']], function(){
 Route::get('/home/login', 'Home\LoginController@show');
 Route::post('/home/login', 'Home\LoginController@login');
 
+// 手机号登录
+Route::get('/home/logincode', 'Home\LoginController@showphone');
+Route::post('/home/logincode', 'Home\LoginController@logincode');
+Route::post('/home/dologincode', 'Home\LoginController@dologincode');
+
+
 /**
  *  前台注册
  */
-// 手机号
+// 手机号注册
 Route::get('/home/register', 'Home\RegisterController@show');
 Route::post('/home/register', 'Home\RegisterController@register');
 Route::post('/home/doregister', 'Home\RegisterController@doregister');
