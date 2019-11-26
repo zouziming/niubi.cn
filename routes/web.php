@@ -363,8 +363,17 @@ Route::group(['prefix' => '/home'], function(){
 	Route::post('/shopcar/orders', 'Home\TrolleyController@orders');
 	Route::get('/shopcar/pyjy', 'Home\TrolleyController@pyjy');
 	Route::post('/pay/pyjy', 'Home\TrolleyController@paypyjy');
+	Route::get('/pay/return', 'Home\TrolleyController@returnurl');
+	Route::post('/pay/notify', 'Home\TrolleyController@notifyurl');
 	
 	Route::get('/collection', 'Home\CollectionController@index');
+	
+	Route::get('/orders/detail/{id}', 'Home\OrdersController@details');
+	Route::post('/order/annulla', 'Home\OrdersController@annullaorder');
+	Route::post('/order/merci', 'Home\OrdersController@merciorder');
+	Route::get('/order/edit/{id}', 'Home\OrdersController@editorder');
+	Route::post('/order/edit/{id}', 'Home\OrdersController@checkeditorder');
+	Route::get('/order/commit', 'Home\OrdersController@commit');
 });
 
 
@@ -389,7 +398,7 @@ Route::group(['prefix' => '/home'], function(){
 
 /*----------------------------------------------------------------------------------*/
 // 订单：前台我的订单显示
-    Route::get('/ShowOrders','Home\OrdersController@show_orders');
+    Route::get('/ShowOrders', 'Home\OrdersController@show_orders');
 
 //  修改支付状态
     Route::get('/xgzt','Home\OrdersController@xg');
@@ -403,8 +412,6 @@ Route::group(['prefix' => '/home'], function(){
 // 前台退货页面
     Route::get('/RetreatGoods','Home\OrdersController@retreat_goods');
 
-// 前台订单详情页面
-    Route::get('/OrdersDetails','Home\OrdersController@orders_details');
 
 // 前台取消订单
     Route::get('/CancelOrders','Home\OrdersController@cancel_orders');

@@ -11,11 +11,18 @@
     <meta content="歪秀购物, 购物, 大家电, 手机" name="keywords">
     <meta content="歪秀购物，购物商城。" name="description">
     <title>@yield('title')</title>
-    <link rel="shortcut icon" type="image/x-icon" href="theme/icon/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="theme/css/base.css">
-    <link rel="stylesheet" type="text/css" href="theme/css/member.css">
-    <script type="text/javascript" src="theme/js/jquery.js"></script>
-    <script type="text/javascript" src="/layer/layer.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="/lib/theme/icon/favicon.ico">
+	<link rel="stylesheet" href="/lib/libs/layui/css/layui.css">
+	<link rel="stylesheet" href="/lib/libs/layui/css/modules/layer/default/layer.css">
+	<link rel="stylesheet" href="/lib/libs/xadmin.css">
+    <link rel="stylesheet" type="text/css" href="/lib/theme/css/base.css">
+    <link rel="stylesheet" type="text/css" href="/lib/theme/css/member.css">
+	
+    <script type="text/javascript" src="/lib/libs/jquery.min.js"></script>
+    <script type="text/javascript" src="/lib/libs/xadmin.js"></script>
+    <script type="text/javascript" src="/lib/libs/layui/layui.js"></script>
+    <script type="text/javascript" src="/lib/layer/form.js"></script>
+    <script type="text/javascript" src="/lib/libs/layui/lay/modules/layer.js"></script>
 
      <script>
          $(function(){
@@ -68,8 +75,8 @@
             </ul>
         </div>
     </div>
-    <div class="container clearfix">
-        <div class="header-logo fl"><h1><a href="#"><img src="theme/icon/logo.png"></a> </h1></div>
+    <div class="container clearfix" style="background: #fff;">
+        <div class="header-logo fl"><h1><a href="/home"><img src="/lib/theme/icon/logo.png"></a> </h1></div>
         <div class="member-title fl"><h2></h2></div>
         <div class="head-form fl">
             <form class="clearfix">
@@ -86,7 +93,7 @@
                 <a href="#">服装城</a>
             </div>
         </div>
-        <div class="header-cart fr"><a href="#"><img src="theme/icon/car.png"></a> <i class="head-amount">99</i></div>
+        <div class="header-cart fr"><a href="/home/shopcar"><img src="/lib/theme/icon/car.png"></a> <i class="head-amount"></i></div>
     </div>
 </header>
 <!-- header End -->
@@ -97,15 +104,7 @@
 <section id="member">
     <div class="member-center clearfix">
         <div class="member-left fl">
-            <div class="member-apart clearfix">
-                <div class="fl"><a href="#"><img src="theme/img/bg/mem.png"></a></div>
-                <div class="fl">
-                    <p>用户名：</p>
-                    <p><a href="#">亚里士多德</a></p>
-                    <p>搜悦号：</p>
-                    <p>389323080</p>
-                </div>
-            </div>
+            
             <div class="member-lists">
                 <dl>
                     <dt>我的商城</dt>
@@ -142,7 +141,7 @@
     <div class="time-lists aui-footer-pd clearfix">
         <div class="aui-footer-list clearfix">
             <h4>
-                <span><img src="theme/icon/icon-d1.png"></span>
+                <span><img src="/lib/theme/icon/icon-d1.png"></span>
                 <em>消费者权益</em>
             </h4>
             <ul>
@@ -155,7 +154,7 @@
         </div>
         <div class="aui-footer-list clearfix">
             <h4>
-                <span><img src="theme/icon/icon-d2.png"></span>
+                <span><img src="/lib/theme/icon/icon-d2.png"></span>
                 <em>新手上路</em>
             </h4>
             <ul>
@@ -167,7 +166,7 @@
         </div>
         <div class="aui-footer-list clearfix">
             <h4>
-                <span><img src="theme/icon/icon-d3.png"></span>
+                <span><img src="/lib/theme/icon/icon-d3.png"></span>
                 <em>保障正品</em>
             </h4>
             <ul>
@@ -179,7 +178,7 @@
         </div>
         <div class="aui-footer-list clearfix">
             <h4>
-                <span><img src="theme/icon/icon-d1.png"></span>
+                <span><img src="/lib/theme/icon/icon-d1.png"></span>
                 <em>消费者权益</em>
             </h4>
             <ul>
