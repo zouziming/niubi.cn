@@ -21,15 +21,26 @@
     <div class="BHeader">
         <div class="yNavIndex">
             <ul class="BHeaderl">
-                <li><a href="#">登录</a> </li>
-                <li class="headerul">|</li>
+				@empty(SESSION('userInfo'))
+				<span>您好！欢迎来到17商城 请</span>
+				<span>
+				<a href="/home/login">[登录]</a>
+				</span>
+				<span>&nbsp;<a href="/home/register">[注册]</a></span>
+				@else
+				<span>欢迎您：</span>
+				<a style="color:violet;text-decoration: none;">{{ session('userInfo.username') }}&nbsp;&nbsp;&nbsp;&nbsp;</a>
+				<a href="/home/logout" style="color:red;text-decoration: none;">退出&nbsp;&nbsp;&nbsp;&nbsp;</a>
+				<li class="headerul">|</li>
                 <li><a href="#">订单查询</a> </li>
                 <li class="headerul">|</li>
-                <li><a href="#">我的收藏</a> </li>
+                <li><a href="/home/collection">我的收藏</a> </li>
                 <li class="headerul">|</li>
                 <li><a href="#">我的商城</a> </li>
                 <li class="headerul">|</li>
                 <li><a href="#" class="M-iphone">手机悦商城</a> </li>
+				<li class="headerul">|</li>
+				@endempty
             </ul>
         </div>
     </div>
@@ -53,7 +64,7 @@
             </div>
         </div>
 
-        <div class="header-cart fr"><a href="#"><img src="/lib/theme/icon/car.png"></a> <i class="head-amount">99</i></div>
+        <div class="header-cart fr"><a href="/home/shopcar"><img src="/lib/theme/icon/car.png"></a> <i class="head-amount">??</i></div>
 
         <div class="head-mountain"></div>
     </div>
@@ -162,7 +173,7 @@
                     <p class="head-futi clearfix"><span class="fl">好评度：100% </span> <span class="fr">{{$v['buynum']}}人购买</span></p>
                     <p class="clearfix">
 						<span class="label-default fl">抢购</span>
-						<a href="javascript:void(0)" class="fr pc-search-c">收藏</a>
+						<a href="javascript:void(0)" class="fr pc-search-c" data-id="{{$v['id']}}">收藏</a>
 					</p>
                 </li>
 				@endforeach
@@ -285,15 +296,6 @@
 	<script type="text/javascript" src="/lib/theme/js/jquery.js"></script>
 	<script src="/lib/layer/layer.js"></script>
 	<script>
-		// $('.pc-search-c').click(function(){
-		// 	console.dir($(this).css('background-color'))
-		// 	console.dir($(this).css('color'))
-		// 	if ($(this).css('background-color') == 'rgb(225, 37, 36)') {
-		// 		$(this).css('background-color', 'rgb(225, 37, 36)');
-		// 		$(this).css('color', 'rgb(255, 255, 255)');
-		// 	}
-			
-		// });
 		$('.pc-search-e').on('click', 'a', function(){
 			$('.pc-search-e').children().removeClass('cur')
 			$(this).addClass('cur')
@@ -364,6 +366,25 @@
 		
 		$('.pc-with').on('click', 'a', function(){
 			layer.msg('怎么可能有这些东西，我们是正规网站')
+		})
+		
+		$('.pc-search-c').click(function(){
+			var id = $(this).data('id')
+			$.ajax({
+				url: '/home/goods/collection',
+				method: 'post',
+				data: {
+					_token : '{{ csrf_token() }}',
+					id : id
+				},
+				success:function(res){
+					if (res.code == 0) {
+						layer.msg(res.msg)
+					} else {
+						layer.msg(res.msg)
+					}
+				}
+			})
 		})
 	</script>
 </body>

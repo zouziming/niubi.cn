@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\ShopCardetail;
+use App\ShopCarorder;
+use App\ShopAddres;
 use App\ShopCar;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,6 +15,8 @@ class TrolleyController extends Controller
 	{
 		$userinfo = session('userInfo');
 		$data = ShopCar::where('uid', session('userInfo.id'))->where('is_buy', 0)->get();
+		// dump($data);
+		
 		foreach ($data as $k=>$v) {
 			$data[$k]['goods_specs'] = explode('_', $v['goods_specs']);
 		}
@@ -82,10 +87,62 @@ class TrolleyController extends Controller
 	
 	public function pay(Request $request)
 	{
+		$address = ShopAddres::where('uid', session('userInfo.id'))->get();
 		$data = ShopCar::where('uid', session('userInfo.id'))->where('is_buy', 1)->get();
 		foreach ($data as $k=>$v) {
 			$data[$k]['goods_specs'] = explode('_', $v['goods_specs']);
 		}
-		return view('Home.shopcarpay')->with('data', $data);
+		// dump($data);
+		return view('Home.shopcarpay')->with(['data'=>$data, 'address'=>$address]);
+	}
+	
+	public function orders(Request $request)
+	{
+		$address = ShopAddres::where('id', $request->address)->get();
+		// dd($address);
+		$addr['getman'] = $address[0]['consignee'];
+		$addr['phone'] = $address[0]['phone'];
+		$addr['address'] = $address[0]['add_id'].' '.$address[0]['address'];
+		$addr['total'] = $request->total;
+		$addr['uid'] = session('userInfo.id');
+		$addr['addtime'] = date('Y-m-d H:i:s', time());
+		$addr['code'] = '000000';
+		$addr['status'] = 1;
+		$oid = ShopCarorder::insertGetId($addr);
+		// dd($oid);
+		$onum = time().$oid;
+		// dd($onum);
+		ShopCarorder::where('id', $oid)->update(['order_num'=>$onum]);
+		foreach ($request->detail as $v) {
+			$car = ShopCar::where('id', $v)->get();
+			$details['oid'] = $oid;
+			$details['gid'] = $car[0]['gid'];
+			$details['gname'] = $car[0]['goods_name'];
+			$details['num'] = $car[0]['goods_num'];
+			$details['pic'] = $car[0]['goods_img'];
+			$details['price'] = $car[0]['goods_price'];
+			$details['specs'] = $car[0]['goods_specs'];
+			// dump($details);
+			$res = ShopCardetail::create($details);
+		}
+		
+		if ($res) {
+			ShopCar::whereIn('id', $request->detail)->delete();
+			return ['code'=>0, 'msg'=>'提交订单成功', 'oid'=>$oid];
+		} else {
+			return ['msg'=>'提交订单失败'];
+		}
+	}
+	
+	public function pyjy(Request $request)
+	{
+		$data = ShopCarorder::where('id', $request->id)->get();
+		// dump($data);
+		return view('Home.pay')->with('data', $data);
+	}
+	
+	public function paypyjy(Request $request)
+	{
+		require_once "../storage/pay/pagepay/pagepay.php";
 	}
 }

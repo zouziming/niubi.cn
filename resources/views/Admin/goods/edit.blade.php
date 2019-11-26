@@ -100,7 +100,7 @@
                 <td style="text-align:right;"></td>
                 <td>
                     <input type="submit" value="修改商品" class="tdBtn" />
-					<a href="/admin/goods"><input type="submit" value="返回" class="tdBtn"/></a>
+					<a href="javascript:void(0)"><input type="submit" value="返回" class="tdBtn fan"/></a>
 				</td>
             </tr>
         </table>
@@ -126,5 +126,6 @@
 	      jQuery(".mlr5").attr("src",evt.target.result)
 	    }
 	  }
+	  
 </script>
 @endsection

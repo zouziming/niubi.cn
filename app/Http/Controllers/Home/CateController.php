@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Home;
 
-
+use App\ShopCar;
 use App\Goods;
 use App\GoodsSpecs;
 use App\AttributeKey;
@@ -44,8 +44,9 @@ class CateController extends Controller
 			$pin = ShopCate::where('id', $id)->get();
 		}
 		
+		$shopcarnum = count(ShopCar::where('uid', session('userInfo.id'))->where('is_buy', 0)->get());
 		// dump($cate);
-		return view('Home.cate',['cate'=>$cate, 'top'=>$top, 'goods'=>$goods, 'cid'=>$id, 'catename'=>$catename, 'pin'=>$pin]);
+		return view('Home.cate',['cate'=>$cate, 'top'=>$top, 'goods'=>$goods, 'cid'=>$id, 'catename'=>$catename, 'pin'=>$pin, 'shopnum'=>$shopcarnum]);
 	}
 	
 	public function sorts(Request $request)
@@ -132,7 +133,7 @@ class CateController extends Controller
 	}
 	
 	public function search(Request $request)
-	{	
+	{
 		$name = $request->data;
 		$cid = $request->cid;
 		$pid = ShopCate::where('id', $cid)->pluck('pid')[0];

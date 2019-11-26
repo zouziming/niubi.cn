@@ -114,6 +114,8 @@ Route::group(['prefix' => '/admin'], function(){
 	Route::get('/goods/gorecycle/{id}', 'Admin\GoodsController@gorecycle');
 	Route::get('/goods/backrecycle/{id}', 'Admin\GoodsController@backrecycle');
 	
+	Route::post('/goods/online', 'Admin\GoodsController@isonline');
+	
 	//规格属性
 	Route::get('/goods/attr', 'Admin\AttrController@attr');
 	
@@ -134,7 +136,9 @@ Route::group(['prefix' => '/admin'], function(){
 	Route::get('/allattr/editson/{id}', 'Admin\AttrController@editson');
 	Route::post('/allattr/editson', 'Admin\AttrController@checkeditson');
 	
-	Route::get('/allattr/delson/{id}', 'Admin\AttrController@delson');
+	Route::post('/allattr/delson', 'Admin\AttrController@delson');
+	
+	Route::post('/hasson', 'Admin\AttrController@hasson');
 	
 	//规格与商品
 	Route::get('/specs/{id}', 'Admin\SpecsController@index');
@@ -354,13 +358,15 @@ Route::group(['prefix' => '/home'], function(){
 	Route::post('/shopcar/del', 'Home\TrolleyController@del');
 	Route::post('/shopcar/alldel', 'Home\TrolleyController@alldel');
 	Route::post('/shopcar/btn', 'Home\TrolleyController@btn');
+	
 	Route::get('/shopcar/pay', 'Home\TrolleyController@pay');
-
+	Route::post('/shopcar/orders', 'Home\TrolleyController@orders');
+	Route::get('/shopcar/pyjy', 'Home\TrolleyController@pyjy');
+	Route::post('/pay/pyjy', 'Home\TrolleyController@paypyjy');
+	
+	Route::get('/collection', 'Home\CollectionController@index');
 });
 
-
-// 购物车
-	Route::post('/home/shopping','Home\TrolleyController@shopping');
 
 
 // 添加收货地址页面
@@ -371,7 +377,7 @@ Route::group(['prefix' => '/home'], function(){
 
 // 修改收货地址页面
 	Route::get('/home/addressEdit','Home\UserController@addressEditIndex');
-	
+
 // 修改收货地址
 	Route::post('/home/addressEdit','Home\UserController@addressEdit');
 

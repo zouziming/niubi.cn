@@ -22,6 +22,7 @@ class AttrController extends Controller
 			$result[$k][] = $v->posts;
 			$result[$k][] = $v;
 		}
+		
     	return view('Admin.attr.show')->with('result', $result);
     }
     
@@ -170,11 +171,11 @@ class AttrController extends Controller
 			}
 		}
 		
-		// dump($result);
+		// dd($result[3]['key']);
 		return view('Admin.attr.showson')->with('result', $result);
 	}
 	
-	public function editson($id)
+	public function editson(Request $request, $id)
 	{
 		$key = AttributeKey::where('cate_id', $id)->get();
 		
@@ -209,11 +210,14 @@ class AttrController extends Controller
 		return $res;
 	}
 	
-	public function delson($id)
+	public function delson(Request $request)
 	{
+		$id = $request->id;
 		$soncid = ShopCate::where('pid', $id)->pluck('id');
+		// dd($soncid);
 		foreach ($soncid as $v) {
 			$gid[] = Goods::where('cid', $v)->pluck('id');
+			Goods::where('cid', $v)->update(['status'=>0]);
 		}
 		foreach ($gid[0] as $v) {
 			GoodsSpecs::where('goods_id', $v)->delete();
@@ -222,7 +226,18 @@ class AttrController extends Controller
 		$keyid = AttributeKey::where('cate_id', $id)->pluck('id');
 		$res = AttributeValue::whereIn('attr_id', $keyid)->delete();
 		if ($res) {
-			return redirect("admin/allattr");
+			return ['code'=>0, 'msg'=>'删除成功'];
+		} else {
+			return ['code'=>1, 'msg'=>'删除失败'];
+		}
+	}
+	
+	public function hasson(Request $request)
+	{
+		$attrid = $request->attr[0]['id'];
+		$data = AttributeValue::where('attr_id', $attrid)->first();
+		if ($data == null) {
+			return ['code'=>0, 'msg'=>'请先添加子属性'];
 		}
 	}
 }

@@ -13,6 +13,7 @@
 	<script src="/lib/shopcar/js/swiper.min.js" charset="UTF-8"></script>
 	<script src="/lib/shopcar/js/global.js" charset="UTF-8"></script>
 	<script src="/lib/shopcar/js/jquery.DJMask.2.1.1.js" charset="UTF-8"></script>
+	<script src="/lib/layer/layer.js"></script>
 	<title>U袋网</title>
 </head>
 <body>
@@ -20,16 +21,25 @@
 	<div class="tab-header">
 		<div class="inner">
 			<div class="pull-left">
-				<div class="pull-left">嗨，欢迎来到<span class="cr">U袋网</span></div>
-				<a href="agent_level.html">网店代销</a>
-				<a href="temp_article/udai_article4.html">帮助中心</a>
+				@empty(SESSION('userInfo'))
+				<span>您好！欢迎来到17商城 请</span>
+				<span>
+				<a href="/home/login">[登录]</a>
+				</span>
+				<span>&nbsp;<a href="/home/register">[注册]</a></span>
+				@else
+				<span>欢迎您：</span>
+				<a style="color:violet;text-decoration: none;">{{ session('userInfo.username') }}&nbsp;&nbsp;&nbsp;&nbsp;</a>
+				<a href="/home/logout" style="color:red;text-decoration: none;">退出&nbsp;&nbsp;&nbsp;&nbsp;</a>
+				@endempty
 			</div>
 			<div class="pull-right">
-				<a href="login.html"><span class="cr">登录</span></a>
-				<a href="login.html?p=register">注册</a>
-				<a href="udai_welcome.html">我的U袋</a>
-				<a href="udai_order.html">我的订单</a>
+				@empty(!SESSION('userInfo'))
+				<a href="/home/collection">我的收藏</a>
+				<a href="/home/shopcar">我的购物车</a>
+				<a href="javascript:void(0)">我的订单</a>
 				<a href="udai_integral.html">积分平台</a>
+				@endempty
 			</div>
 		</div>
 	</div>
@@ -37,7 +47,7 @@
 	<div class="bgf5 clearfix">
 		<div class="top-user">
 			<div class="inner">
-				<a class="logo" href="index.html"><img src="/lib/shopcar/images/icons/logo.jpg" alt="U袋网" class="cover"></a>
+				<a class="logo" href="/home"><img src="/lib/shopcar/images/icons/logo.jpg" alt="U袋网" class="cover"></a>
 				<div class="title">购物车</div>
 			</div>
 		</div>
@@ -47,50 +57,38 @@
 			<div class="user-content__box clearfix bgf">
 				<div class="title">购物车-确认支付 </div>
 				<div class="shop-title">收货地址</div>
-				<form action="" class="shopcart-form__box">
+				<form onsubmit="return false" class="shopcart-form__box">
 					<div class="addr-radio">
-						<div class="radio-line radio-box active">
-							<label class="radio-label ep" title="福建省 福州市 鼓楼区 温泉街道 五四路159号世界金龙大厦20层B北 福州rpg.blue网络 （喵喵喵 收） 153****9999">
-								<input name="addr" checked="" value="0" autocomplete="off" type="radio"><i class="iconfont icon-radio"></i>
-								福建省 福州市 鼓楼区 温泉街道
-								五四路159号世界金龙大厦20层B北 福州rpg.blue网络
-								（喵喵喵 收） 153****9999
-							</label>
-							<a href="javascript:;" class="default">默认地址</a>
-							<a href="udai_address_edit.html" class="edit">修改</a>
-						</div>
-						<div class="radio-line radio-box">
-							<label class="radio-label ep" title="福建省 福州市 鼓楼区 温泉街道 五四路159号世界金龙大厦20层B北 福州rpg.blue网络 （taroxd 收） 153****9999">
-								<input name="addr" value="1" autocomplete="off" type="radio"><i class="iconfont icon-radio"></i>
-								福建省 福州市 鼓楼区 温泉街道
-								五四路159号世界金龙大厦20层B北 福州rpg.blue网络
-								（taroxd 收） 153****9999
-							</label>
-							<a href="" class="default">设为默认地址</a>
-							<a href="udai_address_edit.html" class="edit">修改</a>
-						</div>
-						<div class="radio-line radio-box">
-							<label class="radio-label ep" title="福建省 福州市 鼓楼区 温泉街道 五四路159号世界金龙大厦20层B北 福州rpg.blue网络 （喵污喵⑤ 收） 153****9999">
-								<input name="addr" value="2" autocomplete="off" type="radio"><i class="iconfont icon-radio"></i>
-								福建省 福州市 鼓楼区 温泉街道
-								五四路159号世界金龙大厦20层B北 福州rpg.blue网络
-								（喵污喵⑤ 收） 153****9999
-							</label>
-							<a href="" class="default">设为默认地址</a>
-							<a href="udai_address_edit.html" class="edit">修改</a>
-						</div>
-						<div class="radio-line radio-box">
-							<label class="radio-label ep" title="福建省 福州市 鼓楼区 温泉街道 五四路159号世界金龙大厦20层B北 福州rpg.blue网络 （浴巾打码女 收） 153****9999">
-								<input name="addr" value="2" autocomplete="off" type="radio"><i class="iconfont icon-radio"></i>
-								福建省 福州市 鼓楼区 温泉街道
-								五四路159号世界金龙大厦20层B北 福州rpg.blue网络
-								（浴巾打码女 收） 153****9999
-							</label>
-							<a href="" class="default">设为默认地址</a>
-							<a href="udai_address_edit.html" class="edit">修改</a>
-						</div>
+						@foreach($address as $v)
+							@if($v['status'] == 1)
+							<div class="radio-line radio-box active" data-id="{{$v['id']}}">
+								<label class="radio-label ep" title="{{$v['add_id']}} {{$v['address']}} （{{$v['consignee']}} 收） {{$v['phone']}}">
+									<input name="addr" checked value="0" autocomplete="off" type="radio"><i class="iconfont icon-radio"></i>
+									{{$v['add_id']}}
+									{{$v['address']}}
+									（{{$v['consignee']}} 收） {{$v['phone']}}
+								</label>
+								
+								<a href="javascript:;" class="default">默认地址</a>
+								<a href="/home/addressEdit?id={{$v['id']}}" class="edit">修改</a>
+							</div>
+							@endif
+						@endforeach
+						@foreach($address as $v)
+							@if($v['status'] == 2)
+							<div class="radio-line radio-box" data-id="{{$v['id']}}">
+								<label class="radio-label ep" title="{{$v['add_id']}} {{$v['address']}} （{{$v['consignee']}} 收） {{$v['phone']}}">
+									<input name="addr" value="0" autocomplete="off" type="radio"><i class="iconfont icon-radio"></i>
+									{{$v['add_id']}}
+									{{$v['address']}}
+									（{{$v['consignee']}} 收） {{$v['phone']}}
+								</label>
+								<a href="/home/addressEdit?id={{$v['id']}}" class="edit">修改</a>
+							</div>
+							@endif
+						@endforeach
 					</div>
-					<div class="add_addr"><a href="udai_address.html">添加新地址</a></div>
+					<div class="add_addr"><a href="/home/addressIndex">添加新地址</a></div>
 					<div class="shop-title">确认订单</div>
 					<div class="shop-order__detail">
 						<table class="table">
@@ -106,9 +104,9 @@
 							</thead>
 							<tbody>
 								@foreach($data as $v)
-								<tr>
+								<tr class="datas" data-id="{{$v['id']}}">
 									<th scope="row">
-										<a href="item_show.html">
+										<a href="/home/goods/{{$v['gid']}}">
 											<div class="img"><img src="{{$v['goods_img']}}" alt="" class="cover"></div>
 										</a>
 									</th>
@@ -140,34 +138,11 @@
 							
 							<div class="info-line">优惠活动：<span class="c6">无</span></div>
 							<div class="info-line">运费：<span class="c6">¥0.00</span></div>
-							<div class="info-line"><span class="favour-value">已优惠 ¥2.0</span>合计：<b class="fz18 cr">¥<span id="price"></span></b></div>
+							<div class="info-line"><span class="favour-value">已优惠 ¥0.0</span>合计：<b class="fz18 cr">¥<span id="price"></span></b></div>
 							<div class="info-line fz12 c9">（可获 <span class="c6">20</span> 积分）</div>
 						</div>
 					</div>
-					<div class="shop-title">确认订单</div>
-					<div class="pay-mode__box">
-						<div class="radio-line radio-box">
-							<label class="radio-label ep">
-								<input name="pay-mode" value="1" autocomplete="off" type="radio"><i class="iconfont icon-radio"></i>
-								<span class="fz16">余额支付</span><span class="fz14">（可用余额：¥88.0）</span>
-							</label>
-							<div class="pay-value">支付<b class="fz16 cr">18.00</b>元</div>
-						</div>
-						<div class="radio-line radio-box">
-							<label class="radio-label ep">
-								<input name="pay-mode" value="2" autocomplete="off" type="radio"><i class="iconfont icon-radio"></i>
-								<img src="/lib/shopcar/images/icons/alipay.png" alt="支付宝支付">
-							</label>
-							<div class="pay-value">支付<b class="fz16 cr">18.00</b>元</div>
-						</div>
-						<div class="radio-line radio-box">
-							<label class="radio-label ep">
-								<input name="pay-mode" value="3" autocomplete="off" type="radio"><i class="iconfont icon-radio"></i>
-								<img src="/lib/shopcar/images/icons/paywechat.png" alt="微信支付">
-							</label>
-							<div class="pay-value">支付<b class="fz16 cr">18.00</b>元</div>
-						</div>
-					</div>
+					
 					<div class="user-form-group shopcart-submit">
 						<button type="submit" class="btn">继续支付</button>
 					</div>
@@ -276,15 +251,13 @@
 		$('#coupon').bind('change',function() {
 			console.log($(this).val());
 		})
-	</script>
-	<script>
+	
 		$(document).ready(function(){
 			$(this).on('change','input',function() {
 				$(this).parents('.radio-box').addClass('active').siblings().removeClass('active');
 			})
 		});
-	</script>
-	<script>
+	
 		$(document).ready(function(){ $('.to-top').toTop({position:false}) });
 	</script>
 	<script>
@@ -294,6 +267,40 @@
 				price += Number($(this).html())
 			})
 			$('#price').html(price)
+			$('.fz17').html(price)
+		})
+		
+		$('.btn').click(function(){
+			var address = $('.active').data('id');
+			var total = $('#price').html();
+			var detail = [];
+			// console.dir($('.datas'))
+			// console.dir(total)
+			$('.datas').each(function(index, item){
+				detail.push($(item).data('id'))
+
+			})
+			// console.dir(detail)
+			$.ajax({
+				url: '/home/shopcar/orders',
+				method: 'post',
+				data: {
+					_token : '{{ csrf_token() }}',
+					address : address,
+					total : total,
+					detail : detail,
+				},
+				success:function(res){
+					if (res.code == 0) {
+						layer.msg(res.msg)
+						setTimeout(function(){
+							location.href = '/home/shopcar/pyjy?id='+res.oid
+						}, 1000);
+					} else {
+						layer.msg(res.msg)
+					}
+				}
+			})
 		})
 	</script>
 </body>

@@ -33,21 +33,24 @@
     <div class="BHeader">
         <div class="yNavIndex">
             <ul class="BHeaderl">
-                <li><a href="#">登录</a> </li>
-                <li class="headerul">|</li>
+				@empty(SESSION('userInfo'))
+				<span>您好！欢迎来到17商城 请</span>
+				<span>
+				<a href="/home/login">[登录]</a>
+				</span>
+				<span>&nbsp;<a href="/home/register">[注册]</a></span>
+				@else
+				<span>欢迎您：</span>
+				<a style="color:violet;text-decoration: none;">{{ session('userInfo.username') }}&nbsp;&nbsp;&nbsp;&nbsp;</a>
+				<a href="/home/logout" style="color:red;text-decoration: none;">退出&nbsp;&nbsp;&nbsp;&nbsp;</a>
+				<li class="headerul">|</li>
                 <li><a href="#">订单查询</a> </li>
                 <li class="headerul">|</li>
-                <li><a href="#">我的收藏</a> </li>
-                <li class="headerul">|</li>
-                <li id="pc-nav" class="menu"><a href="#" class="tit">我的商城</a>
-                    <div class="subnav">
-                        <a href="#">我的山城</a>
-                        <a href="#">我的山城</a>
-                        <a href="#">我的山城</a>
-                    </div>
-                </li>
+                <li><a href="/home/collection">我的收藏</a> </li>
                 <li class="headerul">|</li>
                 <li><a href="#" class="M-iphone">手机悦商城</a> </li>
+				<li class="headerul">|</li>
+				@endempty
             </ul>
         </div>
     </div>
@@ -69,7 +72,7 @@
                 <a href="#">服装城</a>
             </div>
         </div>
-        <div class="header-cart fr"><a href="/home/shopcar"><img src="/lib/theme/icon/car.png"></a> <i class="head-amount">99</i></div>
+        <div class="header-cart fr"><a href="/home/shopcar"><img src="/lib/theme/icon/car.png"></a> <i class="head-amount">??</i></div>
         <div class="head-mountain"></div>
     </div>
     <div class="yHeader">
@@ -101,7 +104,7 @@
                     <div class="pc-product-h">
 						
 						
-						<div id="small" class="pc-product-top">
+						<div id="small" class="pc-product-top" data-id="{{$data['id']}}">
 							<img data-original="{{$data['pic']}}" src="{{$data['pic']}}"  width="418" height="418">
 						</div>
 						<div id="big">
@@ -122,10 +125,10 @@
                         <div class="pc-name-info">
                             <h1>{{$data['name']}}</h1>
                             <p class="clearfix pc-rate"><strong>￥{{$prices[1]}}~￥{{$prices[0]}}</strong> <span><em>限时抢购</em></span></p>
-                            <p>由<a href="#" class="reds">sb官方旗舰店</a> 负责发货，并提供售后服务。</p>
+                            <p>由<a href="javascript:void(0)" class="reds">sb官方旗舰店</a> 负责发货，并提供售后服务。</p>
                         </div>
                         <div class="pc-dashed clearfix">
-                            <span>累计销量：<em class="reds">3988</em> 件</span><b>|</b><span>累计评价：<em class="reds">{{count($comment)}}</em></span>
+                            <span>累计销量：<em class="reds">{{$data['buynum']}}</em> 件</span><b>|</b><span>累计评价：<em class="reds">{{count($comment)}}</em></span>
                         </div>
                         <div class="pc-size">
 							
@@ -542,7 +545,7 @@
 			var ul = this.parentElement.parentElement;
 			var attrs;
 			var sb = '';
-			
+			var id = $('#small').data('id')
 			if ($(this).hasClass('cur')) {
 				$(ul).find('a').removeClass("cur");
 			} else {
@@ -561,6 +564,7 @@
 				data: {
 					_token : '{{ csrf_token() }}',
 					specs : sb,
+					id : id,
 				},
 				success:function(res){
 					if (res.code == 0) {
@@ -594,7 +598,7 @@
 					if (res.code == 0) {
 						layer.msg(res.msg)
 					} else {
-						layer.msg('收藏失败')
+						layer.msg(res.msg)
 					}
 				}
 			})
@@ -664,17 +668,22 @@
 	<script>
 		$('#pc-emption-tj').on('click', 'a', function(){
 			var status
+			var button
 			if ($('.pc-stock em').html() == '？？？') {
 				status = 1
 			} else {
-				if ($('#subnum').val() > $('.pc-stock em').html()) {
+				if (Number($('#subnum').val()) > Number($('.pc-stock em').html())) {
 					status = 2
 				}
-				if ($('#subnum').val() < 1) {
+				if (Number($('#subnum').val()) < 1) {
 					status = 3
 				}
 			}
-			
+			if ($(this).hasClass('join')) {
+				button = 2
+			} else {
+				button = 1
+			}
 			var data = [];
 			var str = '';
 			var price = $('.pc-rate strong').html()
@@ -683,7 +692,7 @@
 			$('.pc-adults a.cur').each(function(){
 				str += $(this).html()+'_'
 			})
-			console.dir(str);
+			// console.dir(str);
 			$.ajax({
 				url: '/home/goods/shop',
 				method: 'post',
@@ -693,12 +702,18 @@
 					num : num,
 					str : str,
 					price : price,
-					status : status
+					status : status,
+					button : button,
 				},
 				success:function(res){
 					if (res.code == 0) {
 						layer.msg(res.msg)
 					} else if (res.code == 1) {
+						layer.msg(res.msg)
+						setTimeout(function(){
+							location.href = '/home/shopcar/pay'
+						}, 1500)
+					} else if (res.code == 2) {
 						layer.msg(res.msg)
 						if (!$('.pc-product-t').hasClass('sb')) {
 							$('.pc-product-t').addClass('sb');
