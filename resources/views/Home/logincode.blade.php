@@ -32,40 +32,34 @@
                 <a href="/home/login">账号登录</a>
             </div>
 
-            <!-- 账号登录 -->
-            <div class="login-box" style="visibility: visible; display:block">
-              <div class="mt tab-h"></div>
-              <div class="msg-wrap"></div>
-              <div class="mc">
+            <!-- 手机号登录 -->
+            <div class="qrcode-login" style="visibility: visible; display:block">
+                <div class="mt tab-h"></div>
+                <div class="msg-wrap"></div>
+                <div class="mc">
                 <div class="form">
 
-                    <form action="" method="post">
-                        <div style="color:red;">{{$errors->first('username')}}</div>
-                        <div class="item item-fore1 item-error">
-                            <label for="loginname" class="login-label name-label"></label>
-                            <input type="text" name="username" value="{{ old('username') }}"  class="itxt" placeholder="用户名">
+                    <form action="/home/dologincode" method="post">
+                        <div class="login-input" style="margin-top:40px;">
+                            <label style="width:75px;">手机号：</label>
+                            <input type="text" class="list-iphone" id="phone" name="phone" placeholder="" style="width:187px">
                         </div>
-                        <!-- 密码输入框fore2 -->
-                        <div style="color:red;">{{$errors->first('password')}}</div>
-                        <div class="item item-fore2" style="visibility: visible">
-                            <label class="login-label pwd-label" for="nloginpwd"></label>
-                            <input type="password" name="password" class="itxt itxt-error"  placeholder="密码">
+                            
+                        <div class="login-input">
+                            <label style="width:75px;">验证码：</label>
+                            <input type="text" class="list-notes" id="message" name="checkcode" placeholder="" style="width:187px;">
+                            <br><br><br>
+                            <!-- <a class="obtain" id="gain" style="margin-left: 85px;" onclick="settime(this)">获取短信验证码</a> -->
+                            <input type="button" style="margin-left: 85px;" id="gain" class="obtain" value="免费获取验证码" onclick="settime(this)" /> 
                         </div>
-                        <!-- 图片验证码开始 fore3-->
-                        <div style="color:red;">{{$errors->first('captcha')}}</div>
-                        <div id="o-authcode" class="item item-vcode item-fore3">
-                            <input type="text" name="captcha" id="captcha" placeholder="验证码" class="itxt itxt02" tabindex="3" style="width:176px">
-                            <img src="{{captcha_src('flat')}}" style="width:106px;height:32px;background:#fff;border:1px solid #ccc" class="captcha" onclick="this.src='/captcha/flat?'+Math.random();">
-                        </div>
-                        <div class="item item-fore5">
-                            <div class="login-btn">
-                                <input type="submit" class="btn-img btn-entry" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
-                                {{ csrf_field() }}
-                            </div>
+
+                        <div class="login-button" style="padding-left:0px;padding-top:0px;">
+                            <button id="btn" style="border:0px"><a>登录</a></button>
+                            {{ csrf_field() }}
                         </div>
                     </form>
                 </div>
-              </div>
+                </div>
             </div>
 
             <div class="coagent" id="kbCoagent">
@@ -116,5 +110,54 @@
         </div>
     </div>
 </div>
+<script src="/lib/js/jquery-1.12.4.min.js"></script>
+<script>
+    $('#gain').click(function() {
+        var phone = $('input[name=phone]').val();
+        $.ajax({
+            type: 'post',
+            url: '/home/logincode',
+            data: {
+                phone:phone,
+                '_token':'{{csrf_token()}}',
+            },
+            success: function(res) {
+                if (res.code == 0) {
+                    alert('请输入手机号！')
+                }
+                if (res.code == 1) {
+                    alert('请输入正确的手机号！')
+                }
+                if (res.code == 2) {
+                    alert('验证码已发送！')
+                }
+                if (res.code == 3) {
+                    alert('验证码发送失败！')
+                }
+            },
+            error:function(err){
+                console.log(err);
+            }
+        })
+    });
+</script>
+<script> 
+    var countdown = 60; 
+    function settime(val) { 
+    if (countdown == 0) { 
+            val.removeAttribute("disabled");  
+            val.value="免费获取验证码"; 
+            countdown = 60; 
+            return;
+        } else { 
+            val.setAttribute("disabled", true); 
+            val.value="重新发送(" + countdown + ")"; 
+            countdown--; 
+        } 
+        setTimeout(function() { 
+            settime(val) 
+        },1000) 
+    } 
+</script> 
 </body>
 </html>

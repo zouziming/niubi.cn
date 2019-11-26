@@ -30,20 +30,24 @@ class RegisterController extends Controller
                 'code' => 0,
             ];
         } else {
-            include public_path('lib/CCP/Demo/SendTemplateSMS.php');
-            $checkcode = rand(1000,9999);
-            session(['checkcode' => $checkcode]);
-
-            $phone = $request->phone;
-            $res = sendTemplateSMS($phone,[$checkcode,'1'],1);
-            if ($res) {
-                return [
-                    'code' => 1,
-                ];
+            if (!preg_match('/^1[345789][0-9]{9}$/', $request->phone)) {
+                return ['code' => 1];
             } else {
-                return [
-                    'code' => 2,
-                ];
+                include public_path('lib/CCP/Demo/SendTemplateSMS.php');
+                $checkcode = rand(1000,9999);
+                session(['checkcode' => $checkcode]);
+
+                $phone = $request->phone;
+                $res = sendTemplateSMS($phone,[$checkcode,'1'],1);
+                if ($res) {
+                    return [
+                        'code' => 2,
+                    ];
+                } else {
+                    return [
+                        'code' => 3,
+                    ];
+                }
             }
         }
     }
