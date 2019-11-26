@@ -10,7 +10,7 @@
 </div>
 <div class="div_from_aoto" style="width: 500px;">
 
-    <div class="alert alert-danger" id="errors" style="display: none" role="alert">
+    <div class="alert alert-danger" id="errors" style="display: none;width: 300px;margin-left: 50px;" role="alert">
     </div>
 
     <form action="" method="POST">
@@ -25,7 +25,7 @@
         </div>
         <div class="control-group">
             <label class="laber_from">确认密码</label>
-            <div class="controls"><input class="input_from" placeholder=" 请输确认密码" name="password2" type="password"><p class="help-block"></p></div>
+            <div class="controls"><input class="input_from" placeholder=" 请输确认密码" name="password_confirmation" type="password"><p class="help-block"></p></div>
         </div>
 
         <div class="control-group">
@@ -45,8 +45,8 @@
             <div class="controls">
                 <select name="sex" class="input_select">
                     <option value="1">男</option>
-                    <option value="2">女</option>
-                    <option value="3">保密</option> 
+                    <option value="0">女</option>
+                    <option value="2">保密</option> 
                 </select>
             </div>
         </div>
@@ -75,7 +75,7 @@
 
         var username = $('input[name=username]').val();
         var password = $('input[name=password]').val();
-        var password2 = $('input[name=password2]').val();
+        var password_confirmation = $('input[name=password_confirmation]').val();
         var file = $('input[name=pic]').get(0).files[0];
         var email = $('input[name=email]').val();
         var phone = $('input[name=phone]').val();
@@ -85,7 +85,7 @@
         var fd = new FormData();
         fd.append('username', username);
         fd.append('password', password);
-        fd.append('password2', password2);
+        fd.append('password_confirmation', password_confirmation);
         fd.append('pic', file);
         fd.append('email', email);
         fd.append('phone', phone);

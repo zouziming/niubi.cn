@@ -62,6 +62,8 @@
     <script src="/lib/js/jquery.js"></script>
     <script src="/lib/js/tendina.js"></script>
     <script src="/lib/js/common.js"></script>
+    <script src="/lib/js/public.js"></script>
+    <script src="/lib/layer/layer.js"></script>
     @yield('script')
 </body>
 </html>

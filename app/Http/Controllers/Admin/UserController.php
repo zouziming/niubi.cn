@@ -34,17 +34,25 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'username' => 'required|max:255',
-            'password' => 'required',
-            'password2' => 'required',
-            'pic' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
-            'sex' => 'required',
-            'status' => 'required',
+            'username' => 'required|max:255|min:2',
+            'password'=>'required|alpha_num|min:6|confirmed',
+            'email' => 'required|email',
+            'phone' => 'required|regex:/^1[345789][0-9]{9}$/',
         ],[
             'username.required' => '用户名不能为空',
             'username.max' => '用户名过长',
+            'username.min' => '用户名不能少于2个字符',
+
+            'password.required' => '新密码不能为空',
+            'password.alpha_num' => '新密码只能是字母数字',
+            'password.min' => '新密码不能少于6个字符',
+            'password.confirmed' => '两次密码不一致',
+
+            'email.required' => '邮箱不能为空',
+            'email.email' => '邮箱规则不合法',
+            'phone.required' => '手机号不能为空',
+            'phone.regex' => '手机格式不对',
+
         ]);
         $data = [];
         $data['username'] = $request->username;
@@ -76,6 +84,9 @@ class UserController extends Controller
     // 删除数据
     public function del($id)
     {
+        if ($res) {
+            return redirect("admin/index");
+        }
         $res = \App\ShopUserinfo::where('id', '=', $id)->delete();
         if ($res) {
             return [
@@ -106,6 +117,20 @@ class UserController extends Controller
     // 修改数据
     public function doedit(Request $request)
     {
+        $this->validate($request, [
+            'username' => 'required|max:255',
+            'email' => 'required',
+            'phone' => 'required',
+            'sex' => 'required',
+        ],[
+            'username.required' => '用户名不能为空',
+            'username.max' => '用户名过长',
+
+            'email.required' => '邮箱不能为空',
+            'phone.required' => '手机号不能为空',
+
+        ]);
+
         $res = \App\ShopUserinfo::where('id', '=', $request->id)
                 ->update([
                     'username' => $request->username,
@@ -152,5 +177,8 @@ class UserController extends Controller
             'users' => $users,
         ]);
     }
+
+
+    // 修改头像
     
 }
