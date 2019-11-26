@@ -24,7 +24,7 @@
 		<tr>
 			<td style="text-align:right;"></td>
 			<td>
-				<a href="/admin/goods" class="fr"><input type="submit" value="返回" class="tdBtn"/></a>
+				<a href="javascript:void(0)" class="fr"><input type="submit" value="返回" class="tdBtn"/></a>
 				<a href="javascript:void(0)" id="submit" style="display: none;"><input type="submit" value="保存" class="tdBtns"/></a>
 			</td>
 		</tr>
@@ -91,5 +91,9 @@
 	$('.list-style').on('click', '.val', function(){
 		$('#submit').css('display','inline');
 	});
+	
+	$('.tdBtn').click(function(){
+		history.back(-1)
+	})
 </script>
 @endsection

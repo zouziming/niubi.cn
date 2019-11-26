@@ -672,10 +672,10 @@
 			if ($('.pc-stock em').html() == '？？？') {
 				status = 1
 			} else {
-				if ($('#subnum').val() > $('.pc-stock em').html()) {
+				if (Number($('#subnum').val()) > Number($('.pc-stock em').html())) {
 					status = 2
 				}
-				if ($('#subnum').val() < 1) {
+				if (Number($('#subnum').val()) < 1) {
 					status = 3
 				}
 			}

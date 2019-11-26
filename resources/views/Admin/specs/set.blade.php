@@ -4,7 +4,7 @@
 <div class="wrap">
 	<div class="page-title">
 		<span class="modular fl"><i></i><em>编辑对应规格的价格</em></span>
-		<span class="fr"><a href="/admin/goods"><input type="submit" value="返回" class="tdBtn fan"/></a></span>
+		<span class="fr"><a href="javascript:void(0)"><input type="submit" value="返回" class="tdBtn fan"/></a></span>
 		<span class="fr"><a href="javascript:void(0)"><input type="submit" value="添加" class="tdBtn adds"/></a></span>
 		
 	</div>
@@ -33,7 +33,7 @@
 					<input type="number" class="textBox center val"  value="" style="height:60px;width:350px;"/>
 				</td>
 				<td style="position: relative;" class="attr center">
-					<span><a href="javascript:void(0)"><input type="submit" value="添加" class="tdBtn add"/></a></span>
+					<span><a href="javascript:void(0)"><input disabled type="submit" value="^_^" class="tdBtn"/></a></span>
 				</td>
 			</tr>
 			@endforeach
@@ -115,39 +115,6 @@
 	})
 	
 	
-	
-	$('.add').click(function(){
-		var ele = this.parentElement.parentElement.parentElement.parentElement;
-		// var count = ele.childElementCount;
-		var data = [];
-		
-		// console.dir($(ele).children().eq(0).children().eq(0).attr('keys'));
-		data.push({{$gid}});
-		data.push($(ele).children().eq(0).children().eq(0).attr('keys'));
-		data.push($(ele).children().eq(0).children().eq(0).val());
-		data.push($(ele).children().eq(1).children().eq(0).val());
-		data.push($(ele).children().eq(2).children().eq(0).val());
-		
-		// console.dir(data)
-		
-		
-		$.ajax({
-			method:'post',
-			url:'/admin/specs/addgoodsspecs',
-			data:{
-				_token : '{{ csrf_token() }}',
-				data : data,
-			},
-			success: function(res){
-				if (res.code == 0) {
-					layer.msg('添加成功!');
-				} else if (res.code != 0) {
-					layer.msg(res.msg);
-				}
-			}	
-		});
-	});
-	
 	$('.edit').click(function(){
 		var ele = this.parentElement.parentElement.parentElement.parentElement;
 		// var count = ele.childElementCount;
@@ -200,5 +167,8 @@
 		});
 	});
 	
+	$('.fan').click(function(){
+		history.back(-1)
+	})
 </script>
 @endsection

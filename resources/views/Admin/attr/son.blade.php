@@ -29,7 +29,7 @@
 		@endforeach
 		<tr>
 			<td style="text-align:right;"></td>
-			<td><a href="/admin/allattr"><input type="submit" value="保存" class="tdBtn"/></a></td>
+			<td><a href="/admin/allattr"><input type="submit" value="返回" class="tdBtn"/></a></td>
 		</tr>
 	</table>
 </div>

@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 
 class LunboController extends Controller
 {
-    public function index()
+    public function index(Request $request)
 	{
 		$data = ShopLunbo::orderBy('id', 'desc')->get();
 		return view('Admin.lunbo.index')->with(['data'=>$data]);
@@ -56,8 +56,9 @@ class LunboController extends Controller
 		}
 	}
 	
-	public function edit($id)
+	public function edit(Request $request, $id)
 	{
+		$request->session()->flash('url', $request->server('HTTP_REFERER'));
 		$data = ShopLunbo::where('id', $id)->get();
 		return view('Admin.lunbo.edit')->with('data', $data[0]);
 	}
@@ -97,7 +98,7 @@ class LunboController extends Controller
 		
 		$res = ShopLunbo::where('id', $request->id)->update($data);
 		if ($res) {
-			return redirect("admin/lunbo");
+			return redirect($request->session()->get('url'));
 		}
 	}
 	

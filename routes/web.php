@@ -136,7 +136,9 @@ Route::group(['prefix' => '/admin'], function(){
 	Route::get('/allattr/editson/{id}', 'Admin\AttrController@editson');
 	Route::post('/allattr/editson', 'Admin\AttrController@checkeditson');
 	
-	Route::get('/allattr/delson/{id}', 'Admin\AttrController@delson');
+	Route::post('/allattr/delson', 'Admin\AttrController@delson');
+	
+	Route::post('/hasson', 'Admin\AttrController@hasson');
 	
 	//规格与商品
 	Route::get('/specs/{id}', 'Admin\SpecsController@index');
@@ -359,6 +361,7 @@ Route::group(['prefix' => '/home'], function(){
 	Route::get('/shopcar/pay', 'Home\TrolleyController@pay');
 	Route::post('/shopcar/orders', 'Home\TrolleyController@orders');
 	Route::get('/shopcar/pyjy', 'Home\TrolleyController@pyjy');
+	Route::post('/pay/pyjy', 'Home\TrolleyController@paypyjy');
 	
 	Route::get('/collection', 'Home\CollectionController@index');
 });

@@ -73,7 +73,7 @@
 							<tr>
 								<th scope="row">
 									<label class="checked-label"><input type="checkbox" class="xuan" data-id="{{$v['id']}}"><i></i>
-										<div class="img" height="180"><img src="{{$v['goods_img']}}" alt="" class="cover"></div>
+										<div class="img"><img src="{{$v['goods_img']}}" alt="" class="cover" style="height: 185px;"></div>
 									</label>
 								</th>
 								<td style="padding-bottom: 8px; position: relative;">
@@ -291,9 +291,9 @@
 		})
 		
 		$('.jia').click(function(){
-			var num = ($(this.parentElement).children().eq(1).val())+1
+			var num = Number($(this.parentElement).children().eq(1).val())+1
 			var id = $(this).data('id')
-			// console.dir(id)
+			// console.dir(num)
 			$.ajax({
 				url: '/home/shopcar/jia',
 				method: 'post',

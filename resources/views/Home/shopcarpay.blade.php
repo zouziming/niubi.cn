@@ -295,7 +295,7 @@
 						layer.msg(res.msg)
 						setTimeout(function(){
 							location.href = '/home/shopcar/pyjy?id='+res.oid
-						}, 2000);
+						}, 1000);
 					} else {
 						layer.msg(res.msg)
 					}

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\GoodsSpecs;
 use App\ShopCate;
 use App\Goods;
 use Illuminate\Http\Request;
@@ -95,6 +96,9 @@ class GoodsController extends Controller
 	
 	public function edit(Request $request, $id)
 	{	
+		// dump($request->server());
+		
+		$request->session()->flash('url', $request->server('HTTP_REFERER'));
 		// dump($page);
 		$catedata = ShopCate::get();
 		
@@ -160,7 +164,7 @@ class GoodsController extends Controller
 		// dump($data);
 		$res = Goods::where('id', $id)->update($data);
 		if ($res) {
-			return redirect("admin/goods");
+			return redirect($request->session()->get('url'));
 		}
 	}
 	
@@ -206,7 +210,7 @@ class GoodsController extends Controller
 		
 		$name = $request->all()['name'];
 		$res = Goods::where('name','like','%'.$name.'%')->first();
-		$data = Goods::where('name','like','%'.$name.'%')->paginate(1)->appends($request->all());
+		$data = Goods::where('name','like','%'.$name.'%')->where('is_recycle', 0)->paginate(1)->appends($request->all());
 
 		return view('Admin.goods.index')->with(["data"=>$data, 'res'=>$res]);
 	}
@@ -214,18 +218,24 @@ class GoodsController extends Controller
 	public function changestatus(Request $request)
 	{
 		$change = $request->all();
-		// dump($change);
+		$specs = GoodsSpecs::where('goods_id', $request->id)->first();
+		
+		if ($specs == null) {
+			return ['code'=>1, 'msg'=>'请先把规格设置好'];
+		}
+		
+		// dd($change);
 		$res = Goods::where('id', $change['id'])->update(['status'=>$change['status']]);
 		if ($res) {
-		    $res = [
+			return [
 		        'code' => 0,
 		    ];
 		} else {
-		    $res = [
+			return [
 		        'code' => 1,
+				'msg' => '状态修改失败'
 		    ];
 		}
-		return $res;
 	}
 	
 	public function isonline(Request $request)

@@ -144,14 +144,14 @@
 		$('.jia').click(function(){
 			var pan
 			var id = $(this.parentElement).attr('ids');
+			var _this = this;
 			// console.dir($(this).attr('src'))
-			if ($(this).attr('src') == '/lib/images/yes.gif') {
-				$(this).attr('src', '/lib/images/no.gif')
+			if ($(_this).attr('src') == '/lib/images/yes.gif') {
 				pan = 0;
 			} else {
-				$(this).attr('src', '/lib/images/yes.gif')
 				pan = 1;
 			}
+			
 			$.ajax({
 				method:'post',
 				url:'/admin/goods/status',
@@ -162,9 +162,14 @@
 				},
 				success: function(res){
 					if (res.code == 0) {
+						if ($(_this).attr('src') == '/lib/images/yes.gif') {
+							$(_this).attr('src', '/lib/images/no.gif')
+						} else {
+							$(_this).attr('src', '/lib/images/yes.gif')
+						}
 						layer.msg('修改状态成功!');
-					} else if (res.code != 0) {
-						layer.msg('修改状态失败!');
+					} else {
+						layer.msg(res.msg);
 					}
 				}	
 			});
@@ -172,9 +177,10 @@
 	</script>
 	<script>
 		$('.btns').on('click', 'a', function(){
-			var data = $('.online img').attr('src');
+			var data = $(this.parentElement.parentElement).children().eq(8).children().eq(0).attr('src');
 			var id = $(this.parentElement).data('id');
 			var src = $(this).children().eq(0).attr('src')
+			// console.dir(data)
 			$.ajax({
 				method:'post',
 				url:'/admin/goods/online',

@@ -38,8 +38,9 @@ class LinkController extends Controller
 		}
 	}
 	
-	public function edit($id)
+	public function edit(Request $request, $id)
 	{
+		$request->session()->flash('url', $request->server('HTTP_REFERER'));
 		$data = ShopLink::where('id', $id)->get();
 		return view('Admin.link.edit')->with('data', $data[0]);
 	}
@@ -59,7 +60,7 @@ class LinkController extends Controller
 		$res = ShopLink::where('id', $request->id)->update($data);
 		
 		if ($res) {
-			return redirect("admin/link");
+			return redirect($request->session()->get('url'));
 		}
 	}
 	

@@ -37,7 +37,6 @@
                           $('.userinfo').html(decodeURIComponent(uname).substring(0,11));
                       }
               })
-
           </script>
 
       </div>
@@ -117,16 +116,57 @@
                 <h3>订单提交成功，请您尽快付款！</h3>
 
                 <p class="succ-p">
-					订单号：&nbsp;&nbsp;{{time().$data[0]['id']}}&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;付款金额（元）：&nbsp;&nbsp;<b>{{$data[0]['total']}}</b>&nbsp;<b>元</b>
+					订单号：&nbsp;&nbsp;{{$data[0]['order_num']}}&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;付款金额（元）：&nbsp;&nbsp;<b>{{$data[0]['total']}}</b>&nbsp;<b>元</b>
 				</p>
                 <div class="succ-tip">
-                    请您在&nbsp;&nbsp;<b>2019-11-23</b>&nbsp;完成支付，否则订单将自动取消
+                    请您在&nbsp;&nbsp;<b>24小时内</b>&nbsp;完成支付，否则订单将自动取消
                 </div>
             </div>
             <div class="ddxq-xiaq">
 				<a href="http://192.168.5.75/index.php/Home/Order/order_detail/id/1518.html">订单详情<i></i></a>
 			</div>
-            <form action="http://192.168.5.75/index.php/Home/Payment/getCode.html" method="post" name="cart4_form" id="cart4_form">
+			
+			
+			<!-- <form name=alipayment action="../storage/pay/pagepay/pagepay.php" method=post target="_blank">
+			            <div id="body1" class="show" name="divcontent">
+			                <dl class="content">
+			                    <dt>商户订单号：</dt>
+			                    <dd>
+			                        <input id="WIDout_trade_no" name="WIDout_trade_no" value="" />
+			                    </dd>
+			                    <hr class="one_line">
+			                    <dt>订单名称：</dt>
+			                    <dd>
+			                        <input id="WIDsubject" name="WIDsubject" value="" />
+			                    </dd>
+			                    <hr class="one_line">
+			                    <dt>付款金额：</dt>
+			                    <dd>
+			                        <input id="WIDtotal_amount" name="WIDtotal_amount" value="" />
+			                    </dd>
+			                    <hr class="one_line">
+			                    <dt>商品描述：</dt>
+			                    <dd>
+			                        <input id="WIDbody" name="WIDbody" value="" />
+			                    </dd>
+			                    <hr class="one_line">
+			                    <dt></dt>
+			                    <dd id="btn-dd">
+			                        <span class="new-btn-login-sp">
+			                            <button class="new-btn-login" type="submit" style="text-align:center;">付 款</button>
+			                        </span>
+			                        <span class="note-help">如果您点击“付款”按钮，即表示您同意该次的执行操作。</span>
+			                    </dd>
+			                </dl>
+			            </div>
+					</form> -->
+					
+            <form action="/home/pay/pyjy" method="post" name="alipayment" id="cart4_form" target="_blank">
+				{{ csrf_field() }}
+				<input type="hidden" id="WIDout_trade_no" name="WIDout_trade_no" value="{{$data[0]['order_num']}}" />
+				<input type="hidden" id="WIDsubject" name="WIDsubject" value="{{$data[0]['getman']}}" />
+				<input type="hidden" id="WIDtotal_amount" name="WIDtotal_amount" value="{{$data[0]['total']}}" />
+				<input type="hidden" id="WIDbody" name="WIDbody" value="" />
                 <div class="orde-sjyy">
                     <h3 class="titls">选择支付方式</h3>
 
@@ -139,58 +179,27 @@
                                     </div>
                                     <div class="po-re dsfzf-ee">
                                         <ul>
-                                            <li>
-                                                <div class="payment-area">
-                                                    <input type="radio" id="input-ALIPAY-1" value="pay_code=cod" class="radio vam" name="pay_radio">
-                                                    <label for="">
-                                                        <img src="/lib/pyjy/logo.jpg" width="40" height="40" onclick="change_pay(this);">到货付款
-                                                    </label>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="payment-area">
-                                                    <input type="radio" id="input-ALIPAY-1" value="pay_code=tenpay" class="radio vam" name="pay_radio">
-                                                    <label for="">
-                                                        <img src="/lib/pyjy/logo(1).jpg" width="40" height="40" onclick="change_pay(this);">PC端财付通
-                                                    </label>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="payment-area">
-                                                    <input type="radio" id="input-ALIPAY-1" value="pay_code=unionpay" class="radio vam" name="pay_radio">
-                                                    <label for="">
-                                                        <img src="/lib/pyjy/logo(2).jpg" width="40" height="40" onclick="change_pay(this);">银联在线支付
-                                                    </label>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="payment-area">
-                                                    <input type="radio" id="input-ALIPAY-1" value="pay_code=weixin" class="radio vam" name="pay_radio">
-                                                    <label for="">
-                                                        <img src="/lib/pyjy/logo(3).jpg" width="40" height="40" onclick="change_pay(this);">微信支付(PC&amp;微商城)
-                                                    </label>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="payment-area">
-                                                    <input type="radio" id="input-ALIPAY-1" value="pay_code=newalipay" class="radio vam" name="pay_radio">
-                                                    <label for="">
-                                                        <img src="/lib/pyjy/logo(4).jpg" width="40" height="40" onclick="change_pay(this);">新PC&amp;APP端支付宝
-                                                    </label>
-                                                </div>
-                                            </li>
+										<li>
+											<div class="payment-area">
+												<input type="radio" id="input-ALIPAY-1" value="pay_code=newalipay" class="radio vam" name="pay_radio">
+												<label for="">
+													<img src="/lib/pyjy/logo(4).jpg" width="40" height="40" onclick="change_pay(this);">支付宝
+												</label>
+											</div>
+										</li>
                                         </ul>
                                     </div>
                                 </div>
                             </dd>
                         </dl>
                         <div class="order-payment-action-area">
-                            <a class="button-style-5 button-confirm-payment" href="javascript:void(0);" onclick="$(&#39;#cart4_form&#39;).submit();">确认支付方式</a>
+							<button class="new-btn-login button-style-5 button-confirm-payment" type="submit" style="text-align:center;">付 款</button>
+                            <!-- <a class="button-style-5 button-confirm-payment" href="javascript:void(0);">确认支付方式</a> -->
                         </div>
                     </div>
                 </div>
-                <input type="hidden" name="master_order_sn" value="">
-                <input type="hidden" name="order_id" value="1518">
+                <!-- <input type="hidden" name="master_order_sn" value="">
+                <input type="hidden" name="order_id" value="1518"> -->
             </form>
         </div>
     </div>
@@ -198,7 +207,7 @@
 
 
 <!--微信扫一扫支付对话框  -->
-<div id="wchatQrcodeDlg" class="g-cartpay-dlg" style="display: none;" data-show="">
+<!-- <div id="wchatQrcodeDlg" class="g-cartpay-dlg" style="display: none;" data-show="">
     <div class="g-cartpay-content">
         <div class="g-h"><span class="u-close"></span></div>
         <div class="g-c">
@@ -214,7 +223,7 @@
         </div>
     </div>
     <div class="u-mask"></div>
-</div>
+</div> -->
 <!--微信扫一扫支付对话框 / -->
 <div id="addCardNewBind"></div>
 <!--footer-s-->
@@ -277,14 +286,8 @@
             <!--<a href="javascript:void (0);">联系我们</a><span>|</span>-->
             <!---->
         </div>
-        <p>Copyright © 2016-2025 TPshop开源商城 版权所有 保留一切权利 备案号:<a href="http://www.miitbeian.gov.cn/">粤ICP备123456号</a></p>
-        <p class="mod_copyright_auth">
-            <a class="mod_copyright_auth_ico mod_copyright_auth_ico_1" href="http://192.168.5.75/index.php?m=Home&amp;c=Cart&amp;a=cart4&amp;order_sn=201911221438562359" target="_blank">经营性网站备案中心</a>
-            <a class="mod_copyright_auth_ico mod_copyright_auth_ico_2" href="http://192.168.5.75/index.php?m=Home&amp;c=Cart&amp;a=cart4&amp;order_sn=201911221438562359" target="_blank">可信网站信用评估</a>
-            <a class="mod_copyright_auth_ico mod_copyright_auth_ico_3" href="http://192.168.5.75/index.php?m=Home&amp;c=Cart&amp;a=cart4&amp;order_sn=201911221438562359" target="_blank">网络警察提醒你</a>
-            <a class="mod_copyright_auth_ico mod_copyright_auth_ico_4" href="http://192.168.5.75/index.php?m=Home&amp;c=Cart&amp;a=cart4&amp;order_sn=201911221438562359" target="_blank">诚信网站</a>
-            <a class="mod_copyright_auth_ico mod_copyright_auth_ico_5" href="http://192.168.5.75/index.php?m=Home&amp;c=Cart&amp;a=cart4&amp;order_sn=201911221438562359" target="_blank">中国互联网举报中心</a>
-        </p>
+        <p>Copyright © 2016-2025 TPshop开源商城 版权所有 备案号:<a href="http://www.miitbeian.gov.cn/">粤ICP备123456号</a></p>
+
     </div>
 </div>
 <style>
@@ -351,8 +354,14 @@
     }
 </script>
 
+<script>
+	$('.button-confirm-payment').click(function(){
+		if ($('.vam:checked').val() == 'pay_code=cod') {
+			layer.msg('暂时没有这个功能，用支付宝吧')
+		}
+	})
+</script>
 
-<input type="file" id="" name="file" style="display: none;"><div data-v-cef78672="" class="container_selected_area" style="cursor: url(&quot;chrome-extension://ialiedlpfknneamnbemcgmaboleiccdd/assets/images/cursor-imagen.svg&quot;) 9 9, crosshair;"><div data-v-cef78672="" class="area"></div></div>
 
 </body>
 </html>
