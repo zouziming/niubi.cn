@@ -106,6 +106,7 @@ class UserController extends Controller
             'area'=>$request->area
                         ]);
         // dump($ist);
+
         // dd($request->all());
 	        if ($ist) {
 	            return ['code'=>0,'msg'=>'添加成功'];

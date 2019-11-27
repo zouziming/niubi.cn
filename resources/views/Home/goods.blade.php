@@ -44,7 +44,7 @@
 				<a style="color:violet;text-decoration: none;">{{ session('userInfo.username') }}&nbsp;&nbsp;&nbsp;&nbsp;</a>
 				<a href="/home/logout" style="color:red;text-decoration: none;">退出&nbsp;&nbsp;&nbsp;&nbsp;</a>
 				<li class="headerul">|</li>
-                <li><a href="#">订单查询</a> </li>
+                <li><a href="/ShowOrders">订单查询</a> </li>
                 <li class="headerul">|</li>
                 <li><a href="/home/collection">我的收藏</a> </li>
                 <li class="headerul">|</li>
@@ -439,7 +439,7 @@
 	<script type="text/javascript" src="/lib/theme/js/index.js"></script>
 	<script type="text/javascript" src="/lib/theme/js/js-tab.js"></script>
 	<script src="/lib/viewer/js/viewer-jquery.min.js"></script>
-	<script src="/lib/layer/layer.js"></script>
+	<script src="/layer/layer.js"></script>
 	<script>
          $(function(){
              $(".yScrollListInList1 ul").css({width:$(".yScrollListInList1 ul li").length*(160+84)+"px"});

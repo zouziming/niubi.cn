@@ -137,6 +137,7 @@ class GoodsController extends Controller
 	{
 		$userinfo = session('userInfo');
 		$status = $request->status;
+		// dd($request->all());
 		if ($status == 1) {
 			return ['msg'=>'请选好规格,sb'];
 		} elseif ($status == 2) {
@@ -147,7 +148,7 @@ class GoodsController extends Controller
 			if ($userinfo == null) {
 				return ['code'=>0, 'msg'=>'请先去登录'];
 			} else {
-				$price = substr($request->price, 3);
+				$price = GoodsSpecs::where('goods_id', $request->data[0]['id'])->where('goods_specs', rtrim($request->str, '_'))->pluck('goods_price')[0];
 				$specs = rtrim($request->str, '_');
 				// dump($request->all());
 				$shuju['gid'] = $request->data[0]['id'];

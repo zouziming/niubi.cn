@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/lib/css/add.css" />
     <link rel="stylesheet" href="/lib/css/bootstrap.css" />
 	<link href="/lib/style/adminStyle.css" rel="stylesheet" type="text/css" />
-
+	
     @yield('css')
 </head>
 <body>
@@ -60,11 +60,8 @@
             <li class="childUlLi">
                 <a href="#" target="_self"> <i class="glyph-icon icon-reorder"></i>订单管理</a>
                 <ul>
-                    <li><a href="/admin/seeks" target="_top"><i class="glyph-icon icon-chevron-right"></i>订单列表</a></li>
-                    <li><a href="/admin/addOrder" target="_self"><i class="glyph-icon icon-chevron-right"></i>添加订单</a></li>
-                    <li><a href="/admin/deliverGoods" target="_self"><i class="glyph-icon icon-chevron-right"></i>发货单</a></li>
-                    <li><a href="/admin/refund" target="_self"><i class="glyph-icon icon-chevron-right"></i>退款单</a></li>
-                    <li><a href="/admin/returnExchange" target="_self"><i class="glyph-icon icon-chevron-right"></i>退换单</a></li>
+                    <li><a href="/seeks" target="_top"><i class="glyph-icon icon-chevron-right"></i>订单列表</a></li>
+                    <li><a href="/admin/order/refund" target="_self"><i class="glyph-icon icon-chevron-right"></i>退货列表</a></li>
                 </ul>
             </li>
             <li class="childUlLi">
@@ -118,7 +115,6 @@
         <p>Copyright © 2014 - XXXX科技</p>
     </div>
     <!-- 尾部结束 -->
-
     <script src="/lib/js/jquery.js"></script>
     <script src="/lib/js/tendina.js"></script>
     <script src="/lib/js/common.js"></script>

@@ -21,16 +21,25 @@
 	<div class="tab-header">
 		<div class="inner">
 			<div class="pull-left">
-				<div class="pull-left">嗨，欢迎来到<span class="cr">U袋网</span></div>
-				<a href="agent_level.html">网店代销</a>
-				<a href="temp_article/udai_article4.html">帮助中心</a>
+				@empty(SESSION('userInfo'))
+				<span>您好！欢迎来到17商城 请</span>
+				<span>
+				<a href="/home/login">[登录]</a>
+				</span>
+				<span>&nbsp;<a href="/home/register">[注册]</a></span>
+				@else
+				<span>欢迎您：</span>
+				<a style="color:violet;text-decoration: none;">{{ session('userInfo.username') }}&nbsp;&nbsp;&nbsp;&nbsp;</a>
+				<a href="/home/logout" style="color:red;text-decoration: none;">退出&nbsp;&nbsp;&nbsp;&nbsp;</a>
+				@endempty
 			</div>
 			<div class="pull-right">
-				<a href="login.html"><span class="cr">登录</span></a>
-				<a href="login.html?p=register">注册</a>
-				<a href="udai_welcome.html">我的U袋</a>
-				<a href="udai_order.html">我的订单</a>
+				@empty(!SESSION('userInfo'))
+				<a href="/home/collection">我的收藏</a>
+				<a href="/home/shopcar">我的购物车</a>
+				<a href="/ShowOrders">我的订单</a>
 				<a href="udai_integral.html">积分平台</a>
+				@endempty
 			</div>
 		</div>
 	</div>

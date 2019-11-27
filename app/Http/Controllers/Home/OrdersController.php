@@ -4,120 +4,154 @@ namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\ShopOrder;
+use App\ShopCardetail;
+use App\ShopCarorder;
+use App\ShopAddres;
+use App\ShopCar;
+use App\Comment;
 
 class OrdersController extends Controller
 {
     // 订单：前台我的订单显示
-    public function  show_orders()
+    public function  show_orders(Request $request)
     {
-        // $qt = \App\ShopOrder::where('uid','=',4560)->get();
-        // $qt->goods = \App\ShopOrder::find(1)->ShopDetails()->get();
-        $qq = \App\ShopOrder::where('uid','1')->get();
-        $ss = \App\ShopOrder::where('uid','1')->where('status',1)->get();
-        $dd = \App\ShopOrder::where('uid','1')->where('status',2)->get();
-        $ff = \App\ShopOrder::where('uid','1')->where('status',3)->get();
-        $gg = \App\ShopOrder::where('uid','1')->where('status',4)->get();
-        return view('Home.Orders.ShowOrders',[
-                'qts'=>$qq,'sss'=>$ss,'dds'=>$dd,'ffs'=>$ff,'ggs'=>$gg
-            ]);
+		$uid = session('userInfo.id');
+		// dd($uid);
+
+        $data = ShopCarorder::where('uid', $uid)->whereNotIn('status', [5])->where('refund', 1)->get();
+        $weizhifu = ShopCarorder::where('uid', $uid)->where('status', 1)->get();
+        $daifahuo = ShopCarorder::where('uid', $uid)->where('status', 2)->get();
+        $daishouhuo = ShopCarorder::where('uid', $uid)->where('status', 3)->get();
+        $daipingjia = ShopCarorder::where('uid', $uid)->whereIn('status', [4, 6])->where('refund', 1)->get();
+
+        return view('Home.Orders.ShowOrders',['data'=>$data, 'data1'=>$weizhifu, 'data2'=>$daifahuo,'data3'=>$daishouhuo,'data4'=>$daipingjia]);
     }
+	
+	public function details(Request $request, $id)
+	{
+		// dump($id);
+		$detail = ShopCardetail::where('oid', $id)->get();
+		$order = ShopCarorder::where('id', $id)->get();
+		foreach ($detail as $v) {
+			$arr = explode('_', $v['specs']);
+			$v['specs'] = implode(' ', $arr);
+		}
+		// dump($detail);
+		return view('Home.Orders.OrdersDetails')->with(['detail'=>$detail, 'order'=>$order]);
+	}
 
-    // 显示成功提交订单页面
-    public function orders_submit(Request $request)
-    {
-        $ddzf = \App\ShopOrder::where('id','=',$request->id)->get();
-        return view('Home.Orders.OrdersSubmit',[
-            'zfs'=>$ddzf
-        ]);
-    }
+	public function annullaorder(Request $request)
+	{
+		$res = ShopCarorder::where('id', $request->id)->update(['status'=>5]);
+		if ($res) {
+			return ['code'=>0, 'msg'=>'取消订单成功'];
+		} else {
+			return ['code'=>1, 'msg'=>'取消订单失败'];
+		}
+	}
+	
+	public function merciorder(Request $request)
+	{
+		// dd($request->all());
+		$res = ShopCarorder::where('id', $request->id)->update(['status'=>4]);
+		if ($res && $request->pan == 1) {
+			return ['code'=>0, 'msg'=>'确认收货成功'];
+		} elseif ($res && $request->pan == 2) {
+			return ['code'=>1, 'msg'=>'确认收货成功'];
+		} else {
+			return ['msg'=>'确认收货失败'];
+		}
+		
+	}
+	
+	public function editorder($id)
+	{
+		$data = ShopCarorder::where('id', $id)->first();
+		// dump($data);
+		return view('Home.Orders.EditOrder')->with('data', $data);
+	}
+	
+	public function checkeditorder(Request $request, $id)
+	{
+		$this->validate($request, [
+		    'getman' => 'required',
+		    'phone' => ['regex:/^1[3456789]\d{9}$/', 'required', 'numeric'],
+		    'code' => ['regex:/\d{6}/', 'required', 'numeric'],
+		], [
+		    'required' => ':attribute 必须填写',
+			'numeric'   => ':attribute 必须为数字',
+		], [
+		    'getman' => '收件人',
+		    'phone' => '手机',
+		    'code' => '邮编',
+		]);
+		$data = $request->all();
+		
+		unset($data['_token']);
+		// dump($data);
+		$res = ShopCarorder::where('id', $id)->update($data);
+		
+		return redirect('/ShowOrders');
+		
+	}
+	
+    public function commit(Request $request)
+	{
+		// dump($request->all());
+		$data['did'] = $request->did;
+		$data['gid'] = $request->gid;
+		$data['content'] = $request->content;
+		$data['uid'] = $request->session()->get('userInfo.id');
+		$data['addtime'] = date('Y-m-d H:i:s', time());
+		// dd($data);
+		
+		$res = Comment::create($data);
+		if ($res) {
+			ShopCardetail::where('id', $request->did)->update(['status'=>2]);
+			return ['code'=>0, 'msg'=>'添加评论成功'];
+		} else {
+			return ['code'=>1, 'msg'=>'评论失败'];
+		}
+	}
+	
+	public function selectcommit(Request $request)
+	{
+		// dump($request->id);
+		$data = Comment::where('did', $request->id)->first();
+		// dump($data);
+		return ['data'=>$data];
+	}
+	
+	public function refundapply(Request $request)
+	{
+		$refund = ShopCarorder::where('id', $request->id)->pluck('refund')[0];
+		if ($refund == 2) {
+			return ['code'=>0, 'msg'=>'你tm已经申请过了'];
+		}
+		$res = ShopCarorder::where('id', $request->id)->update(['refund'=>2]);
+		if ($res) {
+			return ['code'=>0, 'msg'=>'申请退款成功，请等待商家同意'];
+		} else {
+			return ['code'=>1, 'msg'=>'申请退款失败'];
+		}
+	}
+	
+	public function refundlists()
+	{
+		$apply = ShopCarorder::where('refund', 2)->get();
+		$complete = ShopCarorder::where('refund', 3)->get();
 
-
-    // 支付成功后改变状态否则支付失败
-    public function xg(Request $request)
-    {
-        // 修改支付状态
-        $zf = \App\ShopOrder::where('id','=',$request->id)->update(['status'=>$request->status]);
-        if ($zf) {
-            echo "<script>alert('支付成功~~~');location.href='ShowOrders'</script>";
-        } else {
-            echo "<script>alert('支付失败~~~');location.href='ShowOrders'</script>";
-        }
-    }
-
-    // 前台点击确认收货时更改状态为4(已收货)
-    public function confirm_receipt(Request $request)
-    {
-        $qr = \App\ShopOrder::where('id','=',$request->id)->update(['status'=>$request->status=4]);
-        if ($qr) {
-            echo "<script>alert('收货成功~~~');location.href='ShowOrders'</script>";
-        } else {
-            echo "<script>alert('收货失败~~~');location.href='ShowOrders'</script>";
-        }
-    }
-
-    // 前台退货页面
-    public function retreat_goods()
-    {
-        $rg = \App\ShopOrder::where('uid','1')->get();
-        return view('Home.Orders.RetreatGoods',[
-            'rgs'=>$rg
-        ]);
-    }
-
-    // 前台退货页面
-    public function orders_details()
-    {
-        $thh = \App\ShopOrder::where('id',1)->get();
-        return view('Home.Orders.OrdersDetails',[
-            'thhs'=>$thh
-        ]);
-    }
-
-   // 订单详情的取消订单
-   public function cancel_orders(Request $request)
-   {
-        $qx = \App\ShopOrder::where('id','=',$request->id)->update(['status'=>$request->status]);
-        if ($qx) {
-            echo "<script>alert('取消订单成功~~~');location.href='ShowOrders'</script>";
-        } else {
-            echo "<script>alert('取消订单失败~~~');location.href='ShowOrders'</script>";
-        }
-   }
-
-   // 退款页面
-   public function tkks(Request $request)
-   {
-       $tkp = \App\ShopOrder::where('id','=',$request->id)->update(['status2'=>$request->status2]);
-        if ($tkp) {
-            echo "<script>alert('申请退款成功~~~');location.href='RetreatGoods'</script>";
-        } else {
-            echo "<script>alert('申请退款失败~~~');location.href='RetreatGoods'</script>";
-        }
-   }
-
-
-   // 退货/退款显示页面
-   public function return_refunding()
-   {
-        $rr = \App\ShopOrder::where('uid','1')->get();
-        // foreach ($rr as $key => $value) {
-        //     dump($value->ShopDetails);
-        // }
-        return view('Home.Orders.ReturnRefunding',[
-                'rrs'=>$rr
-        ]);
-   }
-
-   // 申请退货
-   public function retreat_money(Request $request)
-   {
-     $thl = \App\ShopDetail::where('oid','=',$request->id)->update(['status'=>$request->status]);
-        if ($thl) {
-            echo "<script>alert('申请退货成功~~~');location.href='ReturnRefunding'</script>";
-        } else {
-            echo "<script>alert('申请退货失败~~~');location.href='ReturnRefunding'</script>";
-        }
-   }
+		return view('Home.Orders.refundlist')->with(['apply'=>$apply, 'complete'=>$complete]);
+	}
+	
+	public function refundcancel(Request $request)
+	{
+		$id = $request->id;
+		$res = ShopCarorder::where('id', $id)->update(['refund'=>1]);
+		if ($res) {
+			return ['code'=>0, 'msg'=>'取消退款成功'];
+		} else {
+			return ['code'=>1, 'msg'=>'取消退款失败'];
+		}
+	}
 }
-

@@ -153,8 +153,17 @@ Route::group(['prefix' => '/admin', 'middleware' => ['user.login']], function(){
 	Route::get('/lunbo/edit/{id}', 'Admin\LunboController@edit');
 	Route::post('/lunbo/edit', 'Admin\LunboController@checkedit');
 	
-	Route::get('lunbo/del/{id}', 'Admin\LunboController@del');
-// });
+	Route::get('/lunbo/del/{id}', 'Admin\LunboController@del');
+	
+	//订单
+	Route::post('/order/fahuo', 'Admin\OrdersController@fahuo');
+	Route::get('/order/refund', 'Admin\OrdersController@refundlist');
+	Route::post('/refund/refuse', 'Admin\OrdersController@refundrefuse');	
+	Route::get('/refund/agree/{id}', 'Admin\OrdersController@refundagree');
+	Route::post('/pagepay/refund', 'Admin\OrdersController@refundpagepay');	
+
+
+
 // 分类
 // Route::group(['prefix'=>'/admin','middleware' => ['power']],function() {
 
@@ -212,7 +221,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['user.login']], function(){
 	Route::get('/power/userRole/edit/index','Admin\PowerController@userRoleEdit');
 	// 修改管理员
 	// Route::post('/power/userRole/edit/index','Admin\PowerController@editUserRole');
-// });
+
 
 // 显示订单功能
     Route::get('/seeks', 'Admin\OrdersController@show_orders');
@@ -220,73 +229,8 @@ Route::group(['prefix' => '/admin', 'middleware' => ['user.login']], function(){
 // 显示订单详情
     Route::get('/details', 'Admin\OrdersController@orders_detail');
 
-// 显示修改订单
-    Route::get('/amend', 'Admin\OrdersController@amend_orders');
-
-// 显示提交修改订单
-    Route::post('/amend', 'Admin\OrdersController@orders_detailq');
-
-// 获取数据库表里的全部数据
-    Route::get('/gainAll', 'Admin\OrdersController@gainAll');
-
-// 添加订单功能
-    Route::get('/datas', 'Admin\OrdersController@show_data');
-
 // 订单管理搜索
     Route::post('/seeks', 'Admin\OrdersController@seek');
-
-// 退款单
-    Route::get('/refund', 'Admin\OrdersController@refund');
-
-// 订单退款搜索功能 
-    Route::post('/refund', 'Admin\OrdersController@refund_seek');
-
-// 退换单
-    Route::get('/returnExchange', 'Admin\OrdersController@return_exchange');
-
-// 订单退换搜索功能 
-    Route::post('/returnExchange', 'Admin\OrdersController@ReturnExchangeSeek');
-
-// 发货单
-    Route::get('/deliverGoods', 'Admin\OrdersController@DeliverGoods');
-
-// 订单发货搜索功能 
-    Route::post('/deliverGoods', 'Admin\OrdersController@DeliverGoodsSeek');
-
-// 订单确认发货功能
-    Route::get('/OrdersShipments', 'Admin\OrdersController@orders_shipments');
-
-// 订单已发货功能
-    Route::get('/shippeds', 'Admin\OrdersController@shipped');
-
-// 发货成功后修改发货单的状态
-    Route::get('/editStatus', 'Admin\OrdersController@edit_status');
-
-// 显示添加订单
-    Route::get('/addOrder', 'Admin\OrdersController@show_order');
-
-// 添加订单
-    Route::post('/addOrder', 'Admin\OrdersController@add_order');
-
-// 订单退款详情 
-    Route::get('/RefundParticulars', 'Admin\OrdersController@refund_particulars');
-
-// 订单同意退款 
-    Route::get('/ConsentRefund', 'Admin\OrdersController@refund_status');
-
-// 订单拒绝退款  
-    Route::get('/RefuseRefund','Admin\OrdersController@refuse_refund');
-
-// 订单退换货详情  
-    Route::get('/tuihuan','Admin\OrdersController@retreat_exchange');
-
-// 订单退换审核提交
-    Route::post('/tuihuan','Admin\OrdersController@TuiHuans');
-
-// 订单退换删除功能
-    Route::get('/dels','Admin\OrdersController@del');   
-
-
 });
 
     // 后台登录
@@ -295,10 +239,6 @@ Route::post('/admin/login', 'Admin\LoginController@login');
 
 // 后台搜索功能
 Route::get('/search', 'Admin\UserController@search');
-
-
-
-
 
 
 
@@ -348,9 +288,10 @@ Route::get('/home/user/password', 'Home\UserController@show');
 Route::post('/home/user/password', 'Home\UserController@password');
 
     // 前台首页
-    Route::get('/','Home\IndexController@index');
+    // Route::get('/','Home\IndexController@index');
     // 分类页面
-    Route::get('/cate','Home\CateController@cate');
+    // Route::get('/cate','Home\CateController@cate');
+
 
 Route::group(['prefix' => '/home'], function(){
 	
@@ -380,8 +321,21 @@ Route::group(['prefix' => '/home'], function(){
 	Route::post('/shopcar/orders', 'Home\TrolleyController@orders');
 	Route::get('/shopcar/pyjy', 'Home\TrolleyController@pyjy');
 	Route::post('/pay/pyjy', 'Home\TrolleyController@paypyjy');
+	Route::get('/pay/return', 'Home\TrolleyController@returnurl');
 	
 	Route::get('/collection', 'Home\CollectionController@index');
+	
+	Route::get('/orders/detail/{id}', 'Home\OrdersController@details');
+	Route::post('/order/annulla', 'Home\OrdersController@annullaorder');
+	Route::post('/order/merci', 'Home\OrdersController@merciorder');
+	Route::get('/order/edit/{id}', 'Home\OrdersController@editorder');
+	Route::post('/order/edit/{id}', 'Home\OrdersController@checkeditorder');
+	Route::post('/order/commit', 'Home\OrdersController@commit');
+	Route::post('/order/seecommit', 'Home\OrdersController@selectcommit');
+	
+	Route::post('/refund/apply','Home\OrdersController@refundapply');
+	Route::post('/refund/cancel','Home\OrdersController@refundcancel');
+	Route::get('/refund/list','Home\OrdersController@refundlists');
 });
 
 
@@ -406,25 +360,12 @@ Route::group(['prefix' => '/home'], function(){
 
 /*----------------------------------------------------------------------------------*/
 // 订单：前台我的订单显示
-    Route::get('/ShowOrders','Home\OrdersController@show_orders');
-
-//  修改支付状态
-    Route::get('/xgzt','Home\OrdersController@xg');
-
-// 订单提交成功页面
-    Route::get('/OrdersSubmit','Home\OrdersController@orders_submit');
-
-// 确认收货
-    Route::get('/ConfirmReceipt','Home\OrdersController@confirm_receipt');
+    Route::get('/ShowOrders', 'Home\OrdersController@show_orders');
+	
 /*-----------------------------------------------------------------------------------*/
 // 前台退货页面
-    Route::get('/RetreatGoods','Home\OrdersController@retreat_goods');
+    Route::get('/retreat','Home\OrdersController@retreat_goods');
 
-// 前台订单详情页面
-    Route::get('/OrdersDetails','Home\OrdersController@orders_details');
-
-// 前台取消订单
-    Route::get('/CancelOrders','Home\OrdersController@cancel_orders');
 
 // 申请退款
     Route::get('/tuikuanz','Home\OrdersController@tkks');

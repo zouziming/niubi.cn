@@ -5,8 +5,6 @@
 @section('body')
 <div class="member-head">
   <div class="member-heels fl"><h2>订单列表</h2></div>
-  <div class="member-backs member-icons fr"><a href="#">搜索</a></div>
-  <div class="member-about fr"><input type="text" placeholder="商品名称/商品编号/订单编号"></div>
 </div>
 
 <div class="member-whole clearfix">
@@ -23,68 +21,64 @@
 <div class="member-border">
   <div class="member-return H-over">
     <div class="member-cancel clearfix">
-      <span class="be1">订单信息</span>
-      <span class="be2">收货人</span>
-      <span class="be2">订单金额</span>
-      <span class="be2">订单时间</span>
+      <span class="be2" style="width: 300px;">收货人</span>
+      <span class="be2" style="width: 180px;">订单金额</span>
+      <span class="be2" style="width: 220px;">订单时间</span>
       <span class="be2">订单状态</span>
-      <span class="be2">订单操作</span>
+      <span class="be2" style="width: 150px;">订单操作</span>
     </div>
 
 <div class="member-sheet clearfix">
   <ul>
-  @foreach($qts as $qt)
-  <?php
-  dd($qt->ShopDetails);
-  ?>
+  @foreach($data as $v)
     <li>
-      <div class="member-minute clearfix">
-        <span>订单号：<em>{{$qt->did}}</em></span>
-        <span class="member-custom">客服电话：<em>010-6544-0986</em></span>
-      </div>
-      <div class="member-circle clearfix">
-        <div class="ci1">
-        @foreach($qt->ShopDetails as $op)
-        <div class="ci7 clearfix" >
-          <span class="gr1"><a href="#"><img src="theme/img/pd/m1.png" width="60" height="60" title="" about=""></a></span>
-          <span class="gr2"><a href="#">{{$op->gname}}</a></span>
-          <span class="gr3">X1</span>
-        </div>
-        @endforeach
-        </div>
-        <div class="ci2">{{$qt->getman}}</div>
-        <div class="ci3">
-        <?php
-          $num=0;
-        ?>
-        @foreach($qt->ShopDetails as $op)
-        @php
-          $num+=$op->price;
-        @endphp
-        <b>￥{{$op->price}}<br></b>
-        @endforeach
-        </div>
+		<div class="member-minute clearfix">
+			<span>订单号：<em>{{$v['order_num']}}</em></span>
+		</div>
+		<div class="member-circle clearfix">
+			<div class="ci2" style="width: 300px;">{{$v->getman}}</div>
+			<div class="ci3" style="width: 180px;">
+				<b>￥{{$v['total']}}<br></b>
+			</div>
 
-        <div class="ci4"><p>{{$qt->addtime}}</p></div>
-        <div class="ci5"><p>
-        @if ($qt->status === 1)
-            待付款
-        @elseif ($qt->status === 2)
-            已付款
-        @elseif ($qt->status === 3)
-            已发货
-        @elseif ($qt->status === 4)
-            已收货
-        @elseif ($qt->status === 6)
-            已取消
-        @endif
-        </p><p><a href="/OrdersDetails">订单详情</a></p>
-        </div>
-        <div class="ci5 ci8"><!-- <p>剩余15时20分</p> --> <p>
-        @if ($qt->status === 1)
-        <a style="margin:40px 15px" href="/OrdersSubmit?id={{$qt->id}}&status=2" class="member-touch">立即支付</a> </p>
-        @endif
-      </div>
+			<div class="ci4" style="width: 220px;"><p>{{$v['addtime']}}</p></div>
+			<div class="ci5">
+				<p>
+					@if ($v->status == 1)
+						等待付款
+					@elseif ($v->status == 2)
+						等待商家发货
+					@elseif ($v->status == 3)
+						等待收货
+					@elseif ($v->status == 4)
+						等待评价
+					@endif
+				</p>
+				<p><a href="/home/orders/detail/{{$v['id']}}">订单详情</a></p>
+			</div>
+			<div class="ci5 ci8" style="width: 150px;position: relative;">
+			@if ($v->status == 1)
+				<p>
+					<a style="position:absolute;left:17px;top:64px;" href="/home/shopcar/pyjy?id={{$v['id']}}" class="member-touch">立即支付</a>
+					<a href="javascript:void(0)" class="annulla" data-id="{{$v['id']}}">取消订单</a>
+					<a href="/home/order/edit/{{$v['id']}}" class="edits">修改订单</a>
+				</p>
+			@elseif ($v->status == 2)
+				<p>
+					<a style="position:absolute;left:17px;top:64px;" href="javascript:void(0)" class="member-touch tixing">提醒发货</a>
+					<a href="javascript:void(0)" class="annulla" data-id="{{$v['id']}}">取消订单</a>
+					<a href="/home/order/edit/{{$v['id']}}" class="edits">修改订单</a>
+				</p>
+			@elseif ($v->status == 3)
+				<p><a style="position:absolute;left:17px;top:64px;" href="javascript:void(0)" class="member-touch queren" data-pan="1" data-id="{{$v['id']}}">确认收货</a></p>
+			@elseif ($v->status == 4)
+				<p>
+					<a style="position:absolute;left:17px;top:64px;" href="javascript:void(0)" class="member-touch">评价商品</a>
+					<a href="javascript:void(0)" class="refund" data-id="{{$v['id']}}">申请退货</a>
+				</p>
+			@endif
+		  </div>
+		</div>
     </li>
   @endforeach
   </ul>
@@ -95,104 +89,83 @@
 <!-- 待付款开始 -->
 <div class="member-return H-over" style="display:none;">
   <div class="member-cancel clearfix">
-    <span class="be1">订单信息</span>
-    <span class="be2">收货人</span>
-    <span class="be2">订单金额</span>
-    <span class="be2">订单时间</span>
+    <span class="be2" style="width: 300px;">收货人</span>
+    <span class="be2" style="width: 180px;">订单金额</span>
+    <span class="be2" style="width: 220px;">订单时间</span>
     <span class="be2">订单状态</span>
-    <span class="be2">订单操作</span>
+    <span class="be2" style="width: 150px;">订单操作</span>
   </div>
 
 <div class="member-sheet clearfix">
   <ul>
-  @foreach($sss as $qt)
-  <?php
-  // dd($qt->ShopDetails);
-  ?>
+  @foreach($data1 as $v)
     <li>
       <div class="member-minute clearfix">
-        <span>订单号：<em>{{$qt->did}}</em></span>
-        <span class="member-custom">客服电话：<em>010-6544-0986</em></span>
+        <span>订单号：<em>{{$v['order_num']}}</em></span>
       </div>
       <div class="member-circle clearfix">
-        <div class="ci1">
-        @foreach($qt->ShopDetails as $k=> $op)
-        <div class="ci7 clearfix" >
-          <span class="gr1"><a href="#"><img src="theme/img/pd/m1.png" width="60" height="60" title="" about=""></a></span>
-          <span class="gr2"><a href="#">{{$op->gname}}</a></span>
-          <span class="gr3">X1</span>
+        <div class="ci2" style="width: 300px;">{{$v->getman}}</div>
+        <div class="ci3" style="width: 180px;">
+			<b>￥{{$v->total}}</b>
+		</div>
+        <div class="ci4" style="width: 220px;">
+			<p>{{$v->addtime}}</p>
+		</div>
+        <div class="ci5">
+			<p>待付款</p>
+			<p><a href="/home/orders/detail/{{$v['id']}}">订单详情</a></p>
+		</div>
+        <div class="ci5 ci8" style="width: 150px;position: relative;">
+			<p><a style="position:absolute;left:17px;top:70px;" href="/home/shopcar/pyjy?id={{$v['id']}}" class="member-touch">立即支付</a></p>
+			<p>
+				<a href="/home/order/annulla/{{$v['id']}}" class="annulla" data-id="{{$v['id']}}">取消订单</a>
+				<a href="/home/order/edit/{{$v['id']}}" class="edits">修改订单</a>
+			</p>
         </div>
-        @endforeach
-        </div>
-        <div class="ci2">{{$qt->getman}}</div>
-        <div class="ci3"><b>￥{{$qt->total}}</b></div>
-        <div class="ci4"><p>{{$qt->addtime}}</p></div>
-        <div class="ci5"><p>
-        @if ($qt->status === 1)
-            待付款
-        @elseif ($qt->status === 2)
-            已付款
-        @endif
-
-        </p><p><a href="#">订单详情</a></p></div>
-        @if ($qt->status === 1)
-        <div class="ci5 ci8"><!-- <p>剩余15时20分</p> --> <p>
-        <a href="/OrdersSubmit?id={{$qt->id}}&status=2" class="member-touch">立即支付</a>
-         </p> <p><a href="#">取消订单</a> </p>
-        </div>
-        @endif
       </div>
     </li>
   @endforeach
   </ul>
 </div>
-<!-- 待付款结束 -->
-
 </div>
+<!-- 待付款结束 -->
 
 <!-- 待发货开始 -->
 <div class="member-return H-over" style="display:none;">
   <div class="member-cancel clearfix">
-    <span class="be1">订单信息</span>
-    <span class="be2">收货人</span>
-    <span class="be2">订单金额</span>
-    <span class="be2">订单时间</span>
+    <span class="be2" style="width: 300px;">收货人</span>
+    <span class="be2" style="width: 180px;">订单金额</span>
+    <span class="be2" style="width: 220px;">订单时间</span>
     <span class="be2">订单状态</span>
-    <span class="be2">订单操作</span>
+    <span class="be2" style="width: 150px;">订单操作</span>
   </div>
 <div class="member-sheet clearfix">
   <ul>
-  @foreach($dds as $qt)
-  <?php
-  // dd($qt->ShopDetails);
-  ?>
+  @foreach($data2 as $v)
     <li>
       <div class="member-minute clearfix">
-        <span>订单号：<em>{{$qt->did}}</em></span>
-        <span class="member-custom">客服电话：<em>010-6544-0986</em></span>
+        <span>订单号：<em>{{$v->order_num}}</em></span>
       </div>
       <div class="member-circle clearfix">
-        <div class="ci1">
-        @foreach($qt->ShopDetails as $k=> $op)
-        <div class="ci7 clearfix" >
-          <span class="gr1"><a href="#"><img src="theme/img/pd/m1.png" width="60" height="60" title="" about=""></a></span>
-          <span class="gr2"><a href="#">{{$op->gname}}</a></span>
-          <span class="gr3">X1</span>
-        </div>
-        @endforeach
-        </div>
-        <div class="ci2">{{$qt->getman}}</div>
-        <div class="ci3"><b>￥{{$qt->total}}</b></div> 
-        <div class="ci4"><p>{{$qt->addtime}}</p></div>
-        <div class="ci5"><p>
-        @if ($qt->status === 2)
-            待发货
-        @elseif ($qt->status === 3)
-            已发货
-        @endif
-
-        </p><p><a href="#">订单详情</a></p></div>
-
+        <div class="ci2" style="width: 300px;">{{$v->getman}}</div>
+        <div class="ci3" style="width: 180px;">
+			<b>￥{{$v->total}}</b>
+		</div> 
+        <div class="ci4" style="width: 220px;">
+			<p>{{$v->addtime}}</p>
+		</div>
+        <div class="ci5">
+			<p>待发货</p>
+			<p><a href="/home/orders/detail/{{$v['id']}}">订单详情</a></p>
+		</div>
+		<div class="ci5 ci8" style="width: 150px;position: relative;">
+			<p>
+				<a style="position:absolute;left:17px;top:70px;" href="javascript:void(0)" class="member-touch tixing">提醒发货</a>
+				<a href="javascript:void(0)" class="annulla" data-id="{{$v['id']}}">取消订单</a>
+				<a href="/home/order/edit/{{$v['id']}}" class="edits">修改订单</a>
+			</p>
+		</div>
+		
     </li>
   @endforeach
   </ul>
@@ -204,49 +177,32 @@
 <!-- 待收货开始 -->
 <div class="member-return H-over" style="display:none;">
   <div class="member-cancel clearfix">
-    <span class="be1">订单信息</span>
-    <span class="be2">收货人</span>
-    <span class="be2">订单金额</span>
-    <span class="be2">订单时间</span>
+    <span class="be2" style="width: 300px;">收货人</span>
+    <span class="be2" style="width: 180px;">订单金额</span>
+    <span class="be2" style="width: 220px;">订单时间</span>
     <span class="be2">订单状态</span>
-    <span class="be2">订单操作</span>
+    <span class="be2" style="width: 150px;">订单操作</span>
   </div>
 <div class="member-sheet clearfix">
   <ul>
-  @foreach($ffs as $qt)
+  @foreach($data3 as $v)
     <li>
-      <div class="member-minute clearfix">
-        <span>订单号：<em>{{$qt->did}}</em></span>
-        <span class="member-custom">客服电话：<em>010-6544-0986</em></span>
-      </div>
-      <div class="member-circle clearfix">
-        <div class="ci1">
-        @foreach($qt->ShopDetails as $k=> $op)
-        <div class="ci7 clearfix" >
-          <span class="gr1"><a href="#"><img src="theme/img/pd/m1.png" width="60" height="60" title="" about=""></a></span>
-          <span class="gr2"><a href="#">{{$op->gname}}</a></span>
-          <span class="gr3">X1</span>
+		<div class="member-minute clearfix">
+			<span>订单号：<em>{{$v->order_num}}</em></span>
+		</div>
+		<div class="member-circle clearfix">
+        <div class="ci2" style="width: 300px;">{{$v->getman}}</div>
+        <div class="ci3" style="width: 180px;"><b>￥{{$v->total}}</b></div>
+        <div class="ci4" style="width: 220px;"><p>{{$v->addtime}}</p></div>
+        <div class="ci5">
+			<p>待收货</p>
+			<p><a href="/home/orders/detail/{{$v['id']}}">订单详情</a></p>
+		</div>
+        <div class="ci5 ci8" style="width: 150px;position: relative;">
+			<p>
+				<a style="position:absolute;left:17px;top:64px;" href="javascript:void(0)" class="member-touch queren" data-pan="2" data-id="{{$v['id']}}">确认收货</a>
+			</p>
         </div>
-        @endforeach
-        </div>
-        <div class="ci2">{{$qt->getman}}</div>
-        <div class="ci3"><b>￥{{$qt->total}}</b></div>
-        <div class="ci4"><p>{{$qt->addtime}}</p></div>
-        <div class="ci5"><p>
-
-        @if ($qt->status === 3)
-            待收货
-        @elseif ($qt->status === 4)
-            已收货
-        @endif
-
-        </p><p><a href="#">订单详情</a></p></div>
-
-        @if ($qt->status === 3)
-        <div class="ci5 ci8"><!-- <p>剩余15时20分</p> --> <p>
-        <a href="/ConfirmReceipt?id={{$qt->id}}&status=3" class="member-touch">确认收货</a>
-        </div>
-        @endif
       </div>
     </li>
   @endforeach
@@ -258,49 +214,122 @@
 <!-- 待评价开始 -->
 <div class="member-return H-over" style="display:none;">
   <div class="member-cancel clearfix">
-    <span class="be1">订单信息</span>
-    <span class="be2">收货人</span>
-    <span class="be2">订单金额</span>
-    <span class="be2">订单时间</span>
+    <span class="be2" style="width: 300px;">收货人</span>
+    <span class="be2" style="width: 180px;">订单金额</span>
+    <span class="be2" style="width: 220px;">订单时间</span>
     <span class="be2">订单状态</span>
-    <span class="be2">订单操作</span>
+    <span class="be2" style="width: 150px;">订单操作</span>
   </div>
 <div class="member-sheet clearfix">
-  <ul>
-  @foreach($ggs as $qt)
+	<ul>
+	@foreach($data4 as $v)
     <li>
-      <div class="member-minute clearfix">
-        <span>订单号：<em>{{$qt->did}}</em></span>
-        <span class="member-custom">客服电话：<em>010-6544-0986</em></span>
-      </div>
-      <div class="member-circle clearfix">
-        <div class="ci1">
-        @foreach($qt->ShopDetails as $k=> $op)
-        <div class="ci7 clearfix" >
-          <span class="gr1"><a href="#"><img src="theme/img/pd/m1.png" width="60" height="60" title="" about=""></a></span>
-          <span class="gr2"><a href="#">{{$op->gname}}</a></span>
-          <span class="gr3">X1</span>
-        </div>
-        @endforeach
-        </div>
-        <div class="ci2">{{$qt->getman}}</div>
-        <div class="ci3"><b>￥{{$qt->total}}</b></div>
-        <div class="ci4"><p>{{$qt->addtime}}</p></div>
-        <div class="ci5"><p>
-
-        @if ($qt->status === 4)
-            待评价
-        @endif
-        </p><p><a href="#"></a></p></div>
-        <div class="ci5 ci8"><!-- <p>剩余15时20分</p> --> <p>
-        <p><a href="#">评价</a> </p>
-      </div>
-      </div>
+		<div class="member-minute clearfix">
+			<span>订单号：<em>{{$v->order_num}}</em></span>
+		</div>
+		<div class="member-circle clearfix">
+			<div class="ci2" style="width: 300px;">{{$v->getman}}</div>
+			<div class="ci3" style="width: 180px;">
+				<b>￥{{$v->total}}</b>
+			</div>
+			<div class="ci4" style="width: 220px;">
+				<p>{{$v->addtime}}</p>
+			</div>
+			<div class="ci5">
+				<p>待评价</p>
+				
+			</div>
+			<div class="ci5 ci8" style="width: 150px;position: relative;">
+				<p>
+					<a style="position:absolute;left:17px;top:64px;" href="/home/orders/detail/{{$v['id']}}" class="member-touch">评价</a>
+					<a href="javascript:void(0)" class="refund" data-id="{{$v['id']}}">申请退货</a>
+				</p>
+			</div>
+		</div>
     </li>
-  @endforeach
-  </ul>
-</div> 
+	@endforeach
+	</ul>
 </div>
+</div>
+
 <!-- 待评价结束 -->
-</div>
+
+@endsection
+
+@section('script')
+<script>
+	$('.annulla').click(function(){
+		var id = $(this).data('id');
+		var _this = this
+		$.ajax({
+			url: '/home/order/annulla',
+			method: 'post',
+			data: {
+				_token : '{{ csrf_token() }}',
+				id : id,
+			},
+			success:function(res){
+				if (res.code == 0) {
+					$(_this.parentElement.parentElement.parentElement.parentElement).remove()
+					layer.msg(res.msg)
+					// location.href = '/home/shopcar/pay'
+				} else {
+					layer.msg(res.msg)
+				}
+			}
+		})
+	})
+	
+	$('.tixing').click(function(){
+		layer.msg('以提醒商家，请耐心等待')
+	})
+	
+	$('.queren').click(function(){
+		var id = $(this).data('id');
+		var _this = this.parentElement.parentElement.parentElement
+		var pan = $(this).data('pan');
+		// console.dir($(_this))
+		$.ajax({
+			url: '/home/order/merci',
+			method: 'post',
+			data: {
+				_token : '{{ csrf_token() }}',
+				id : id,
+				pan : pan,
+			},
+			success:function(res){
+				if (res.code == 0) {
+					$(_this).children().eq(3).children().eq(0).html('等待评价')
+					$(_this).children().eq(4).children().eq(0).html('<a style="position:absolute;left:17px;top:64px;" href="javascript:void(0)" class="member-touch">评价商品</a>')
+					layer.msg(res.msg)
+				} else if (res.code == 1) {
+					$(_this.parentElement).remove()
+					layer.msg(res.msg)
+				} else {
+					layer.msg(res.msg)
+				}
+			}
+		})
+	})
+	
+	$('.refund').click(function(){
+		var id = $(this).data('id')
+		// console.dir(id)
+		$.ajax({
+			url: '/home/refund/apply',
+			method: 'post',
+			data: {
+				_token : '{{ csrf_token() }}',
+				id : id,
+			},
+			success:function(res){
+				if (res.code == 0) {
+					layer.msg(res.msg)
+				} else {
+					layer.msg(res.msg)
+				}
+			}
+		})
+	})
+</script>
 @endsection
