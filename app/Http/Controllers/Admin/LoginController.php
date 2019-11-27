@@ -53,7 +53,7 @@ class LoginController extends Controller
                     'username' => $userInfo->username,
                     'sex' => $userInfo->sex,
                     'phone' => $userInfo->phone,
-                    // 'pic' => $userInfo->pic,
+                    'pic' => $userInfo->pic,
                     'email' => $userInfo->email,
                     'status' => $userInfo->status,
                     'addtime' => $userInfo->addtime
@@ -63,6 +63,7 @@ class LoginController extends Controller
             return redirect('/admin');
         } else {
             echo "<script>alert('密码错误！');location.href='/admin/login'</script>";
+            // return back()->withInput();
         }
     }
 
