@@ -52,7 +52,7 @@
 					<a href="udai_setting.html"><dd>个人资料</dd></a>
 					<a href="udai_treasurer.html"><dd>资金管理</dd></a>
 					<a href="udai_integral.html"><dd>积分平台</dd></a>
-					<a href="udai_address.html"><dd class="active">收货地址</dd></a>
+					<a href="/home/addressIndex"><dd class="active">收货地址</dd></a>
 					<a href="udai_coupon.html"><dd>我的优惠券</dd></a>
 					<a href="udai_paypwd_modify.html"><dd>修改支付密码</dd></a>
 					<a href="udai_pwd_modify.html"><dd>修改登录密码</dd></a>
@@ -89,7 +89,7 @@
 			<div class="pull-right">
 				<div class="user-content__box clearfix bgf">
 					<div class="title">账户信息-添加收货地址</div>
-					<form action="/home/addressIndex" method="post" class="user-addr__form form-horizontal" role="form">
+					<form onsubmit="return false" class="user-addr__form form-horizontal" role="form">
 						{{csrf_field()}}
 						<p class="fz18 cr">添加收货地址<span class="c6" style="margin-left: 20px">电话号码、手机号码选填一项，其余均为必填项</span></p>
 						<div class="form-group">
@@ -132,7 +132,7 @@
 						</div>
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-6">
-								<button type="submit" class="but">保存</button>
+								<button type="submit" id="btn" class="but">保存</button>
 							</div>
 						</div>
 						<script src="/lib/site/js/jquery.citys.js"></script>
@@ -204,10 +204,10 @@
 							<!-- <div class="tdf1">350111</div> -->
 							<div class="tdf1">{{$v->phone}}</div>
 							<div class="tdf1 order">
-								<a href="/home/addressEdit?id={{$v->id}}">修改</a><a href="/home/ressDel?id={{$v->id}}">删除</a>
+								<a href="/home/addressEdit?id={{$v->id}}">修改</a><a href="javascript:void(0)" class="del" data-id="{{$v->id}}">删除</a>
 							</div>
 							<div class="tdf1">
-								<a href="/home/editDefault?id={{$v->id}}" class="default 
+								<a data-id="{{$v->id}}" href="javascript:void(0)" class="default 
 
 								@if($v->status==1)
 								active
@@ -319,6 +319,96 @@
 			</p>
 		</div>
 	</div>
-	
+	<script type="text/javascript">
+		//删除地址
+		$('.del').click(function(){
+			let _t=this;
+			// console.dir($(_t).parent().parent());
+			var id= $(this).data('id');
+			console.dir(id);
+			$.ajax({
+				method:'get',
+				url:'/home/ressDel',
+				data:{
+					id:id,
+				},
+			success:function(res) {
+				if (res.code==0) {
+					$(_t).parent().parent().remove();
+				} else {
+					alert(res.msg);
+				}
+			}
+			})
+		})
+
+		$('#btn').click(function(){
+			var consignee = $('#name').val();
+			var province=$('select[name="province"]').val();
+			var city=$('select[name="city"]').val();
+			var area=$('select[name="area"]').val();
+			var address=$('#details').val();
+			var phone=$('#mobile').val();
+			var status='';
+			if ($('input[name="status"]')[0].checked) {
+				var status = 1;
+				// console.dir(123);
+			}
+
+			$.ajax({
+				method:'post',
+				url:'/home/addressIndex',
+				data:{
+					_token:'{{csrf_token()}}',
+					consignee:consignee,
+					province:province,
+					city:city,
+					area:area,
+					address:address,
+					phone:phone,
+					status:status,					
+				},
+				success:function(res) {
+					console.dir(res);
+					if (res.code==0) {
+						console.dir(res.msg);
+						location.reload();
+					} else {
+						alert(res.msg);
+					}
+				}
+			})
+
+		})
+
+		$('a.default').click(function(){
+			var id =$(this).data('id');
+			let _t=this;
+			let tt=$(this).parent().parent()[0];
+			$.ajax({
+				method:'get',
+				url:'/home/editDefault',
+				data:{
+					id:id,
+				},
+				success:function(res){
+					if (res.code==0) {
+						// 删除class
+						$('a.active').removeClass('active');
+						// 添加class
+						$(_t).addClass('active');
+						// 移动节点
+						$('a.default').parent().parent()[0].before(tt);
+					} else {
+						console.log(res.msg);
+					}
+				},
+				error:function(err)
+				{
+					console.dir(err);
+				}
+			})
+		})
+	</script>
 </body>
 </html>

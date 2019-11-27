@@ -35,21 +35,25 @@ class CateController extends Controller
         if (empty($request->id)) {
             $map[]=['id','like','%'.$request->id.'%'];
         };
-        //  if (empty($request->id)) {
-        //    $map[]=$request->id;
-        // };
-        // dump($map);
-        // return '123';
+        // dd($map);
+        $name='';
+        $id='';
+        $name=$request->name;
+        $id=$request->id;
         $cate =new \App\Models\Cate;
        $data= $cate->where($map)
                    ->orderByRaw('concat(path, id) ASC')
-                   ->paginate(4);
-       return view('/Admin/cate/index',['cate'=>$data]);
+                   ->paginate(5);
+                   // dd($data);
+         $data->withPath('/admin/cate/index'.'?name='.$name.'&id='.$id);
+        // dd($data[0]);
+       return view('/Admin/cate/index',['cate'=>$data,'name'=>$name,'id'=>$id]);
     }
 
 
     public function add(Request $request)
     {
+
         $cate =new \App\Models\Cate;
 
         $res=$cate->where('id','=',$request->id)->first();
@@ -64,6 +68,15 @@ class CateController extends Controller
 
     public function store(Request $request)
     {   
+                $this->validate($request, [
+            
+            'name'=>'required',
+        ],[
+            'required'=>':attribute 必须要填写',
+        ],[
+            'name'=>'分类名',
+        ]);
+        
         $cate =new \App\Models\Cate;
     	$data['name']=$request->name;
     	$data['pid']=$request->pid;
@@ -124,24 +137,29 @@ class CateController extends Controller
     // 分类编辑页面
     public function edit(Request $request)
     {
+
+        
+
+        // dd($request->server('HTTP_REFERER'));
         $cate = new \App\Models\Cate;
         $data=$cate->where('id','=',$request->id)->first();
         // dump($data);
-         return view('/Admin/cate/edit',['edit'=>$data]);
+         return view('/Admin/cate/edit',['edit'=>$data,'page'=>$request->server('HTTP_REFERER')]);
     }
 
     // 编辑分类
     public function cateEdit(Request $request)
-    {
-        $cate = new \App\Models\Cate;
-        // dump($request);
-        // return '123';
-        $edit = $cate->where('id','=',$request->id)->update(['name'=>$request->name]);
-        
+    {       
+        $cate = new \App\Models\Cate;     
+        $edit = $cate->where('id','=',$request->id)->update(['name'=>$request->name]);        
         if ($edit) {
-             echo "<script>alert('编辑成功');location.href='/admin/cate/index'</script>";
+             // echo "<script>alert('编辑成功');location.href=".$request->page."</script>";
+            return redirect($request->page);
         } else {
-             echo "<script>alert('编辑失败');location.href='/admin/cate/index'</script>";
+             // echo "<script>alert('编辑失败');location.href='/admin/cate/index'</script>";
+           return back()->withErrors(['编辑失败']);
+            // return redirect($request->page);
+
         }
     }
 }

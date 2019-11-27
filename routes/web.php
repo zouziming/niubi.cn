@@ -367,3 +367,9 @@ Route::group(['prefix' => '/home'], function(){
 
 // 修改默认地址
 	Route::get('/home/editDefault','Home\UserController@editDefault');
+
+// 键盘按下出现搜索
+	Route::get('/home/get','Home\IndexController@get');
+
+// 搜索
+	Route::get('/home/search','Home\IndexController@search');

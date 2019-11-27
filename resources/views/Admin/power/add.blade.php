@@ -10,6 +10,15 @@
         <span>添加权限</span>
 
     </div>
+    @if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <form action="/admin/power/add" method="post">
 	 {{ csrf_field() }}
   <div class="form-group">

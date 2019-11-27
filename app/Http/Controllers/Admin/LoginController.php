@@ -53,7 +53,7 @@ class LoginController extends Controller
                     'username' => $userInfo->username,
                     'sex' => $userInfo->sex,
                     'phone' => $userInfo->phone,
-                    'pic' => $userInfo->pic,
+                    // 'pic' => $userInfo->pic,
                     'email' => $userInfo->email,
                     'status' => $userInfo->status,
                     'addtime' => $userInfo->addtime

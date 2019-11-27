@@ -14,7 +14,32 @@
 	<link rel="stylesheet" type="text/css" href="/lib/theme/css/home.css">
 	<script type="text/javascript" src="/lib/theme/js/jquery.js"></script>
 
+    <style type="text/css">
+         .list-groupa{
+                    position:absolute;
+                    top:57px;
 
+                    /*height:20px;*/
+                     z-index:99999;
+
+                    background: #fff;
+                }
+                .list-group-item {
+                    /*height: 30px;*/
+                    /*padding: 10px;*/
+                    /*margin-top:10px;*/
+                    /*left: 5px;*/
+                }
+                .dv{
+                    background: #fff;
+                    /*height: 30px;*/
+
+                    width:464px;
+                    /*left: 10px;*/
+                    padding-left:10px;
+                    margin-top: 5px;
+                }
+    </style>
  </head>
  <body>
 
@@ -42,8 +67,13 @@
         <div class="head-form fl">
             <form class="clearfix">
                 <input type="text" class="search-text" accesskey="" id="key" autocomplete="off"  placeholder="手机模型">
-                <button class="button" onClick="search('key');return false;">搜索</button>
+                <button class="button sub" onClick="search('key');return false;">搜索</button>
             </form>
+            <div>
+                 <ul class="list-groupa" id="searchList" ></ul>
+            </div>
+                
+           
             <div class="words-text clearfix">
                 <a href="#" class="red">1元秒爆</a>
                 <a href="#">低至五折</a>
@@ -356,6 +386,72 @@
 				}
 			})
 		})
+
+
+         $('.sub').click(function(){
+            var _vv=$('#key').val();
+            console.dir(_vv);
+
+            $.ajax({
+                type:'get',
+                url:'/home/search',
+                data:{
+                    name:_vv,
+                },
+                success:function(res){
+                    // console.dir(res);
+                    if (res) {
+                        location.href="/home/cate/"+res.id;
+                    } else {
+                        alert('搜不到结果');
+                    }
+                }
+            })
+            return false;
+        })
+
+
+         //打字出现搜索
+          var timer=undefined;
+        var _sl = $('#searchList');
+        $('#key').keyup(function(){
+            // console.dir(123);
+            var _v=this.value;
+            // if (_v=='') {
+            //     _sl.html('');
+            //     return false;
+            // }
+            if (_v=='') {
+                _sl.html('');
+                return false;
+            }
+            clearTimeout(timer);
+            timer=setTimeout(function() {
+
+            $.ajax({
+                type:'get',
+                url:'/home/get',
+                data:{
+                    name:_v
+                },
+                success:function(res)
+                {
+                    _sl.html('');
+                    if (res.length==0) {
+                        //没有数据的情况
+                        _sl.hide();
+                    } else {
+                        // 有数据的情况下
+                        _sl.show();
+                        for (var i = 0; i < res.length ; i++) {
+                         $('<a href="/home/cate/'+res[i].id+'" class="list-group-item "></a>').html('<h4 class="dv">'+res[i].name+'</h4>').appendTo(_sl);   
+                        }
+                    }
+                }
+            });
+            },200)
+
+        });
 	</script>
 </body>
 </html>

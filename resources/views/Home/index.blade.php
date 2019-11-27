@@ -10,6 +10,23 @@
         <script type="text/javascript">$(function() {
                 $("#kinMaxShow").kinMaxShow();
             });</script>
+            <style type="text/css">
+                .list-group{
+                    /*height:20px;*/
+                     z-index:99999;
+                    position:relative;
+                    background: #fff;
+                }
+                .list-group-item {
+                    /*height: 30px;*/
+                    padding: 10px;
+                    /*margin-top:10px;*/
+                    /*left: 5px;*/
+                }
+                .dv{
+                    padding-left:10px;
+                }
+            </style>
     </head>
     
     <body>
@@ -40,8 +57,8 @@
                 </h1>
                 <form action="#" method="get" class="subBox">
                     <div class="subBoxDiv">
-                        <input type="text" class="subLeft" />
-                        <input type="image" src="/lib/image/subimg.png" width="63" height="34" class="sub" />
+                        <input type="text" id="ipt" class="subLeft" />
+                        <button class="sub">submit</button>
                         <div class="hotWord">热门搜索：
                             <a href="proinfo.html">冷饮杯</a>&nbsp;
                             <a href="proinfo.html">热饮杯</a>&nbsp;
@@ -50,6 +67,7 @@
                             <a href="proinfo.html">纸巾</a>&nbsp;
                             <a href="proinfo.html">纸杯</a>&nbsp;</div>
                         <!--hotWord/--></div>
+                        <div class="list-group" id="searchList" ></div>
                     <!--subBoxDiv/--></form>
                 <!--subBox/-->
                 <div class="gouwuche">
@@ -371,6 +389,70 @@
 				
 			})
 		});
+
+        var timer=undefined;
+        var _sl = $('#searchList');
+        $('#ipt').keyup(function(){
+            // console.dir(123);
+            var _v=this.value;
+            // if (_v=='') {
+            //     _sl.html('');
+            //     return false;
+            // }
+            if (_v=='') {
+                _sl.html('');
+                return false;
+            }
+            clearTimeout(timer);
+            timer=setTimeout(function() {
+
+            $.ajax({
+                type:'get',
+                url:'/home/get',
+                data:{
+                    name:_v
+                },
+                success:function(res)
+                {
+                    _sl.html('');
+                    if (res.length==0) {
+                        //没有数据的情况
+                        _sl.hide();
+                    } else {
+                        // 有数据的情况下
+                        _sl.show();
+                        for (var i = 0; i < res.length ; i++) {
+                         $('<a href="/home/cate/'+res[i].id+'" class="list-group-item "></a>').html('<div class="dv">'+res[i].name+'</div>').appendTo(_sl);   
+                        }
+                    }
+                }
+            });
+            },200)
+
+        });
+
+            // console.dir(123);
+        $('.sub').click(function(){
+            var _vv=$('#ipt').val();
+            console.dir(_vv);
+
+            $.ajax({
+                type:'get',
+                url:'/home/search',
+                data:{
+                    name:_vv,
+                },
+                success:function(res){
+                    // console.dir(res);
+                    if (res) {
+                        location.href="/home/cate/"+res.id;
+                    } else {
+                        alert('搜不到结果');
+                    }
+                }
+            })
+            return false;
+        })
 	</script>	
 	</body>
 
