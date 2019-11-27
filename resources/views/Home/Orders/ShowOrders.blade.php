@@ -5,8 +5,6 @@
 @section('body')
 <div class="member-head">
   <div class="member-heels fl"><h2>订单列表</h2></div>
-  <div class="member-backs member-icons fr"><a href="#">搜索</a></div>
-  <div class="member-about fr"><input type="text" placeholder="商品名称/商品编号/订单编号"></div>
 </div>
 
 <div class="member-whole clearfix">
@@ -74,7 +72,10 @@
 			@elseif ($v->status == 3)
 				<p><a style="position:absolute;left:17px;top:64px;" href="javascript:void(0)" class="member-touch queren" data-pan="1" data-id="{{$v['id']}}">确认收货</a></p>
 			@elseif ($v->status == 4)
-				<p><a style="position:absolute;left:17px;top:64px;" href="javascript:void(0)" class="member-touch">评价商品</a></p>
+				<p>
+					<a style="position:absolute;left:17px;top:64px;" href="javascript:void(0)" class="member-touch">评价商品</a>
+					<a href="javascript:void(0)" class="refund" data-id="{{$v['id']}}">申请退货</a>
+				</p>
 			@endif
 		  </div>
 		</div>
@@ -116,8 +117,10 @@
 		</div>
         <div class="ci5 ci8" style="width: 150px;position: relative;">
 			<p><a style="position:absolute;left:17px;top:70px;" href="/home/shopcar/pyjy?id={{$v['id']}}" class="member-touch">立即支付</a></p>
-			<p><a href="/home/order/annulla/{{$v['id']}}" class="annulla" data-id="{{$v['id']}}">取消订单</a></p>
-			<a href="/home/order/edit/{{$v['id']}}" class="edits">修改订单</a>
+			<p>
+				<a href="/home/order/annulla/{{$v['id']}}" class="annulla" data-id="{{$v['id']}}">取消订单</a>
+				<a href="/home/order/edit/{{$v['id']}}" class="edits">修改订单</a>
+			</p>
         </div>
       </div>
     </li>
@@ -237,8 +240,10 @@
 				
 			</div>
 			<div class="ci5 ci8" style="width: 150px;position: relative;">
-				<!-- <p><a href="/home/orders/detail/{{$v['id']}}">评价</a></p> -->
-				<p><a style="position:absolute;left:17px;top:64px;" href="/home/orders/detail/{{$v['id']}}" class="member-touch">评价</a></p>
+				<p>
+					<a style="position:absolute;left:17px;top:64px;" href="/home/orders/detail/{{$v['id']}}" class="member-touch">评价</a>
+					<a href="javascript:void(0)" class="refund" data-id="{{$v['id']}}">申请退货</a>
+				</p>
 			</div>
 		</div>
     </li>
@@ -283,7 +288,7 @@
 		var id = $(this).data('id');
 		var _this = this.parentElement.parentElement.parentElement
 		var pan = $(this).data('pan');
-		console.dir($(_this))
+		// console.dir($(_this))
 		$.ajax({
 			url: '/home/order/merci',
 			method: 'post',
@@ -307,13 +312,24 @@
 		})
 	})
 	
-	// layui.use(['layer'],function(){
-	// 	var layer = layui.layer;
-		
-	// });
-	
-	// layer.alert('成功',{icon:6}, function(index){  
-	// 	layer.closeAll();
-	// });
+	$('.refund').click(function(){
+		var id = $(this).data('id')
+		// console.dir(id)
+		$.ajax({
+			url: '/home/refund/apply',
+			method: 'post',
+			data: {
+				_token : '{{ csrf_token() }}',
+				id : id,
+			},
+			success:function(res){
+				if (res.code == 0) {
+					layer.msg(res.msg)
+				} else {
+					layer.msg(res.msg)
+				}
+			}
+		})
+	})
 </script>
 @endsection

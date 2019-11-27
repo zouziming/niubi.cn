@@ -2,7 +2,7 @@
 <html lang="zh-cmn-Hans">
 <head>
 	<meta charset="UTF-8">
-	<link rel="shortcut icon" href="favicon.ico">
+	<!-- <link rel="shortcut icon" href="favicon.ico"> -->
 	<link rel="stylesheet" href="/lib/shopcar/css/iconfont.css">
 	<link rel="stylesheet" href="/lib/shopcar/css/global.css">
 	<link rel="stylesheet" href="/lib/shopcar/css/bootstrap.min.css">
@@ -14,6 +14,7 @@
 	<script src="/lib/shopcar/js/swiper.min.js" charset="UTF-8"></script>
 	<script src="/lib/shopcar/js/global.js" charset="UTF-8"></script>
 	<script src="/lib/shopcar/js/jquery.DJMask.2.1.1.js" charset="UTF-8"></script>
+	<script src="/layer/layer.js"></script>
 	<title>U袋网</title>
 </head>
 <body>
@@ -164,6 +165,7 @@
 						</div>
 						<div class="order-item__list">
 							@foreach($detail as $v)
+
 							<div class="item">
 								<div class="tdf3">
 									<a href="item_show.html">
@@ -182,12 +184,13 @@
 									<div class="ep2">快递<br>¥0.00</div>
 								</div>
 								<div class="tdf1">
-									<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+									@if($v['status'] == 1)
+									<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal{{$v['id']}}">
 										评价
 									</button>
 									<!-- 添加模态框 -->
-									    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-									        <div class="modal-dialog">
+									    <div class="modal fade" id="myModal{{$v['id']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									        <div class="modal-dialog" style="width:1100px">
 									            <div class="modal-content">
 									                <div class="modal-header">
 													<button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="bi">
@@ -199,21 +202,54 @@
 									                </div>
 									                <div class="modal-body">
 									                    <div class="form-group" style="margin-top: 20px;">
-									                    <label for="firstname" class="col-sm-2 control-label" style="margin-top:5px;width:120px;">内容：</label>
-									                    <input id="content" type="text" class="form-control" placeholder="评论" style="width:75%;">
+															<label for="firstname" class="col-sm-2 control-label" style="margin-top:5px;width:120px;">内容：</label>
+															<input type="text" class="form-control" placeholder="评论" style="width:85%;">
+															<input type="hidden" value="{{$v['id']}}" />
+															<input type="hidden" value="{{$v['gid']}}" />
 									                    </div>
 									                    <div class="form-group">
 									                        <div id="errors" style="display:none;text-align:center;color:red;" role="alert"></div>
 									                    </div>
 									                </div>
 									                <div class="modal-footer">
-									                    <button type="button" class="btn btn-default" data-dismiss="modal" id="guan">关闭
-									                    </button>
-									                    <button type="button" class="btn btn-primary" id="bton">提交更改</button>
+									                    <button type="button" class="btn btn-primary guan" data-dismiss="modal" id="guan">提交评论</button>
 									                </div>
 									            </div>
 									        </div>
 									    </div>
+										@else
+										<a data-id="{{$v['id']}}" class="see" data-toggle="modal" data-target="#myModal{{$v['id']}}">查看评论</a>
+										<div class="modal fade" id="myModal{{$v['id']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+										    <div class="modal-dialog" style="width:1100px">
+										        <div class="modal-content">
+										            <div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="bi">
+														&times;
+													</button>
+													<h4 class="modal-title" id="myModalLabel">
+														查看评论
+													</h4>
+										            </div>
+										            <div class="modal-body">
+										                <div class="form-group" style="margin-top: 20px;">
+															<label for="firstname" class="col-sm-2 control-label" style="margin-top:5px;width:120px;">内容：</label>
+															<input readonly type="text" class="form-control ping" style="width:85%;" value="">
+										                </div>
+														<div class="form-group" style="margin-top: 20px;">
+															<label for="firstname" class="col-sm-2 control-label" style="margin-top:5px;width:120px;">回复：</label>
+															<input readonly type="text" class="form-control reply" style="width:85%;" value="">
+														</div>
+										                <div class="form-group">
+										                    <div id="errors" style="display:none;text-align:center;color:red;" role="alert"></div>
+										                </div>
+										            </div>
+										            <div class="modal-footer">
+										                <button type="button" class="btn btn-primary fan" data-dismiss="modal" id="fan">返回</button>
+										            </div>
+										        </div>
+										    </div>
+										</div>
+										@endif
 								</div>
 							</div>
 							@endforeach
@@ -311,27 +347,50 @@
 				<a href="temp_article/udai_article8.html"><dd>付款账户</dd></a>
 			</dl>
 		</div>
-		<div class="copy-box clearfix">
-			<ul class="copy-links">
-				<a href="agent_level.html"><li>网店代销</li></a>
-				<a href="class_room.html"><li>U袋学堂</li></a>
-				<a href="udai_about.html"><li>联系我们</li></a>
-				<a href="temp_article/udai_article10.html"><li>企业简介</li></a>
-				<a href="temp_article/udai_article5.html"><li>新手上路</li></a>
-			</ul>
-			<!-- 版权 -->
-			<p class="copyright">
-				© 2005-2017 U袋网 版权所有，并保留所有权利<br>
-				ICP备案证书号：闽ICP备16015525号-2
-			</p>
-		</div>
 	</div>
 	
 	<script>
-		$('#bton').click(function(){
-			var content = $('#content').val()
-			console.dir(content)
-			// var gid = 
+		
+		$('.guan').click(function(){
+			var content = $(this.parentElement.parentElement).children().eq(1).children().eq(0).children().eq(1).val()
+			var did = $(this.parentElement.parentElement).children().eq(1).children().eq(0).children().eq(2).val()
+			var gid = $(this.parentElement.parentElement).children().eq(1).children().eq(0).children().eq(3).val()
+			var btn = $(this.parentElement.parentElement.parentElement.parentElement.parentElement).children().eq(0)
+			$.ajax({
+				url: '/home/order/commit',
+				method: 'post',
+				data: {
+					_token : '{{ csrf_token() }}',
+					content : content,
+					did : did,
+					gid : gid,
+				},
+				success:function(res){
+					if (res.code == 0) {
+						btn.remove()
+						layer.msg(res.msg)
+					} else {
+						layer.msg(res.msg)
+					}
+				}
+			})
+		})
+		
+		$('.see').click(function(){
+			var id = $(this).data('id')
+			var _this = this
+			$.ajax({
+				url: '/home/order/seecommit',
+				method: 'post',
+				data: {
+					_token : '{{ csrf_token() }}',
+					id : id,
+				},
+				success:function(res){
+					$(_this).next().find("input.ping").val(res.data.content)
+					$(_this).next().find("input.reply").val(res.data.reply)
+				}
+			})
 		})
 	</script>
 </body>

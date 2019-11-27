@@ -8,65 +8,80 @@
     <span class="label label-primary"><span>订单退款</span></span>
 
 </div>
-    <form class="form-inline" method="post" action="/refund">
-        {{ csrf_field() }}
-        <div class="form-group">
-                <label for="exampleInputName2"><span class="label label-primary">订单编号:</span></label>
-                    <input name="id" type="text" class="form-control" id="exampleInputName2" placeholder="按订单编号" style="width:150px">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputName2"><span class="label label-primary">收货人:</span></label>
-                    <input name="getman" type="text" class="form-control" id="exampleInputName2" placeholder="按收货人找" style="width:130px">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputName2"><span class="label label-primary">联系电话:</span></label>
-                    <input name="phone" type="text" class="form-control" id="exampleInputName2" placeholder="按联系电话找" style="width:130px">
-            </div>
-            <button type="submit" class="btn btn-default">搜索</button>
-        </form>
 <div class="col-md-12">
         <div class="content">
             <table class="table table-hover" style="font-size:10px">
                 <tr>
                     <th>ID</th>
-                    <th>订单编号</th>
                     <th>用户名</th>
                     <th>收货人</th>
-                    <th>联系电话</th>
+                    <th>手机号</th>
+                    <th>收货地址</th>
                     <th>订单总价</th>
-                    <th>处理状态</th>
                     <th>下单时间</th>
+                    <th>邮政编码</th>
                     <th>操作</th>
                 </tr>
-                @foreach($datas as $data)              
+                @foreach($data as $v)              
                 <tr>
-                    <td>{{$data->id}}</td>
-                    <td>{{$data->did}}</td>
-                    <td>{{$data->username}}</td>
-                    <td>{{$data->getman}}</td>
-                    <td>{{$data->phone}}</td>
-                    <td>{{$data->address}}</td>
-                    <td>{{$data->total}}</td>
-                    <td>{{$data->addtime}}</td>
+                    <td>{{$v->id}}</td>
+                    <td>{{$v->uid}}</td>
+                    <td>{{$v->getman}}</td>
+                    <td>{{$v->phone}}</td>
+                    <td>{{$v->address}}</td>
+                    <td>{{$v->total}}</td>
+                    <td>{{$v->addtime}}</td>
+                    <td>{{$v->code}}</td>
                     <td>
-                    @if ($data->status2 === 1)
-                        已退款
-                    @elseif ($data->status2 === 2)
-                        待处理
-                    @elseif ($data->status2 === 3)
-                        已拒绝
-                    @elseif ($data->status2 === 4)
-                        申请退款
-                    @endif
-                    </td>
-                    <td>
-                        <span class="label label-warning"><a href="RefundParticulars?id={{$data->id}}">查看</a></span>
+                        <span class="label label-warning">
+							<a style="text-decoration: none;" href="/details?id={{$v->id}}">查看</a>
+						</span>
+						&nbsp;
+						@if($v['refund'] == 2)
+                        <span class="label label-success">
+							<a  class="agree" style="text-decoration: none;" href="/admin/refund/agree/{{$v['id']}}">同意</a>
+						</span>
+                        <span class="label label-danger">
+							<a data-id="{{$v['id']}}" class="refuse" style="text-decoration: none;" href="javascript:void(0)">拒绝</a>
+						</span>
+						@elseif($v['refund'] == 3)
+						<span class="label label-success">同意</span>
+						@elseif($v['refund'] == 4)
+						<span class="label label-danger">拒绝</span>
+						@endif
                     </td>
                 </tr>
                 @endforeach
             </table>
-            {{ $datas->links() }}
         </div>
 </div>
 @endsection
 
+@section('script')
+<script>
+	$('.refuse').click(function(){
+		var id = $(this).data('id')
+		var _this = this.parentElement.parentElement
+		
+		$.ajax({
+			method:'post',
+			url:'/admin/refund/refuse',
+			data:{
+				_token : '{{ csrf_token() }}',
+				id : id,
+			},
+			success: function(res){
+				if (res.code == 0) {
+					$(_this).children().eq(1).remove()
+					$(_this).children().eq(1).remove()
+					$(_this).append('<span class="label label-danger">拒绝</span>')
+					layer.msg(res.msg);
+				} else if (res.code != 0) {
+					layer.msg(res.msg);
+				}
+			}	
+		});
+	})
+	
+</script>
+@endsection

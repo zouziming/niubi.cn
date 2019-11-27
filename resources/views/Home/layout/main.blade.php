@@ -12,14 +12,14 @@
     <meta content="歪秀购物，购物商城。" name="description">
     <title>@yield('title')</title>
     <link rel="shortcut icon" type="image/x-icon" href="/lib/theme/icon/favicon.ico">
-	<link rel="stylesheet" href="/lib/libs/layui/css/layui.css">
+	<!-- <link rel="stylesheet" href="/lib/libs/layui/css/layui.css"> -->
 	<link rel="stylesheet" href="/lib/libs/layui/css/modules/layer/default/layer.css">
-	<link rel="stylesheet" href="/lib/libs/xadmin.css">
+	<!-- <link rel="stylesheet" href="/lib/libs/xadmin.css"> -->
     <link rel="stylesheet" type="text/css" href="/lib/theme/css/base.css">
     <link rel="stylesheet" type="text/css" href="/lib/theme/css/member.css">
 	
     <script type="text/javascript" src="/lib/libs/jquery.min.js"></script>
-    <script type="text/javascript" src="/lib/libs/xadmin.js"></script>
+    <!-- <script type="text/javascript" src="/lib/libs/xadmin.js"></script> -->
     <script type="text/javascript" src="/lib/libs/layui/layui.js"></script>
     <script type="text/javascript" src="/lib/layer/form.js"></script>
     <script type="text/javascript" src="/lib/libs/layui/lay/modules/layer.js"></script>
@@ -57,21 +57,24 @@
     <div class="BHeader">
         <div class="yNavIndex">
             <ul class="BHeaderl">
-                <li><a href="#">登录</a> </li>
+                @empty(SESSION('userInfo'))
+                <span>您好！欢迎来到17商城 请</span>
+                <span>
+                <a href="/home/login">[登录]</a>
+                </span>
+                <span>&nbsp;<a href="/home/register">[注册]</a></span>
+                @else
+                <span>欢迎您：</span>
+                <a style="color:violet;text-decoration: none;">{{ session('userInfo.username') }}&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                <a href="/home/logout" style="color:red;text-decoration: none;">退出&nbsp;&nbsp;&nbsp;&nbsp;</a>
                 <li class="headerul">|</li>
-                <li><a href="#">订单查询</a> </li>
+                <li><a href="/ShowOrders">订单查询</a> </li>
                 <li class="headerul">|</li>
-                <li><a href="#">我的收藏</a> </li>
-                <li class="headerul">|</li>
-                <li id="pc-nav" class="menu"><a href="#" class="tit">我的商城</a>
-                    <div class="subnav">
-                        <a href="#">我的山城</a>
-                        <a href="#">我的山城</a>
-                        <a href="#">我的山城</a>
-                    </div>
-                </li>
+                <li><a href="/home/collection">我的收藏</a> </li>
                 <li class="headerul">|</li>
                 <li><a href="#" class="M-iphone">手机悦商城</a> </li>
+                <li class="headerul">|</li>
+                @endempty
             </ul>
         </div>
     </div>
@@ -109,15 +112,14 @@
                 <dl>
                     <dt>我的商城</dt>
                     <dd class="cur"><a href="/ShowOrders">我的订单</a></dd>
-                    <dd><a href="#">我的收藏</a></dd>
+                    <dd><a href="/home/collection">我的收藏</a></dd>
                     <dd><a href="#">账户安全</a></dd>
                     <dd><a href="#">我的评价</a></dd>
-                    <dd><a href="#">地址管理</a></dd>
+                    <dd><a href="/home/addressIndex">地址管理</a></dd>
                 </dl>
                 <dl>
                     <dt>客户服务</dt>
-                    <dd><a href="/RetreatGoods">退款申请</a></dd>
-                    <dd><a href="/ReturnRefunding">退货/退款记录</a></dd>
+                    <dd><a href="/home/refund/list">退款申请</a></dd>
                 </dl>
                 <dl>
                     <dt>我的消息</dt>

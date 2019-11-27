@@ -85,9 +85,9 @@ class UserController extends Controller
     public function addressIndex(Request $request)
     {
         $session=$request->session()->get('userInfo');
-        dump($session);
+        // dump($session);
         $user=ShopAddres::where('uid',$session['id'])->orderBy('status')->get();
-        dump($user);
+        // dump($user);
        return view('Home/user/udai',['data'=>$user]);
     }
 
@@ -117,7 +117,7 @@ class UserController extends Controller
             'city'=>$request->city,
             'area'=>$request->area
                         ]);
-        dump($ist);
+        // dump($ist);
         // dd($request->all());
     }
 

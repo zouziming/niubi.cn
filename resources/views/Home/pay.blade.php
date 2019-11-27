@@ -55,7 +55,7 @@
 		  <a href="/home/logout" style="color:red;text-decoration: none;">退出&nbsp;&nbsp;&nbsp;&nbsp;</a>
 		  @endempty
 
-          <li><a target="_blank" href="javascript:void(0)">我的订单</a></li>
+          <li><a target="_blank" href="/ShowOrders">我的订单</a></li>
           <li class="spacer"></li>
           <li><a target="_blank" href="javascript:void(0)">我的浏览</a></li>
           <li class="spacer"></li>
@@ -158,8 +158,7 @@
                             </dd>
                         </dl>
                         <div class="order-payment-action-area">
-							<button class="new-btn-login button-style-5 button-confirm-payment" type="submit" style="text-align:center;">付 款</button>
-                            <!-- <a class="button-style-5 button-confirm-payment" href="javascript:void(0);">确认支付方式</a> -->
+							<button data-id="{{$data[0]['id']}}" class="new-btn-login button-style-5 button-confirm-payment" type="submit" style="text-align:center;">付 款</button>
                         </div>
                     </div>
                 </div>
@@ -228,9 +227,6 @@
 	</div>
     <div class="mod_copyright p">
         <div class="grid-top">
-                        <!--<a href="javascript:void (0);">关于我们</a><span>|</span>-->
-            <!--<a href="javascript:void (0);">联系我们</a><span>|</span>-->
-            <!---->
         </div>
         <p>Copyright © 2016-2025 TPshop开源商城 版权所有 备案号:<a href="http://www.miitbeian.gov.cn/">粤ICP备123456号</a></p>
 
@@ -299,15 +295,6 @@
         $(obj).parent().siblings('input[name="pay_radio"]').trigger('click');
     }
 </script>
-
-<script>
-	$('.button-confirm-payment').click(function(){
-		if ($('.vam:checked').val() == 'pay_code=cod') {
-			layer.msg('暂时没有这个功能，用支付宝吧')
-		}
-	})
-</script>
-
 
 </body>
 </html>

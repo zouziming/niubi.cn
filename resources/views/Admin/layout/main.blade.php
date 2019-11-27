@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/lib/css/add.css" />
     <link rel="stylesheet" href="/lib/css/bootstrap.css" />
 	<link href="/lib/style/adminStyle.css" rel="stylesheet" type="text/css" />
-
+	
     @yield('css')
 </head>
 <body>
@@ -68,25 +68,9 @@
                 <a href="#" target="_self"> <i class="glyph-icon icon-reorder"></i>订单管理</a>
                 <ul>
                     <li><a href="/seeks" target="_top"><i class="glyph-icon icon-chevron-right"></i>订单列表</a></li>
-                    <li><a href="/addOrder" target="_self"><i class="glyph-icon icon-chevron-right"></i>添加订单</a></li>
-                    <li><a href="/deliverGoods" target="_self"><i class="glyph-icon icon-chevron-right"></i>发货单</a></li>
-                    <li><a href="/refund" target="_self"><i class="glyph-icon icon-chevron-right"></i>退款单</a></li>
-                    <li><a href="/returnExchange" target="_self"><i class="glyph-icon icon-chevron-right"></i>退换单</a></li>
+                    <li><a href="/admin/order/refund" target="_self"><i class="glyph-icon icon-chevron-right"></i>退货列表</a></li>
                 </ul>
             </li>
-
-			<li class="childUlLi">
-			    <a href="#"> <i class="glyph-icon icon-reorder"></i>友链管理</a>
-			    <ul style="display: none;">
-			        <li><a href="/admin/link"><i class="glyph-icon icon-chevron-right"></i>友链列表</a></li>
-			    </ul>
-			</li>
-			<li class="childUlLi">
-			    <a href="#"> <i class="glyph-icon icon-reorder"></i>轮播管理</a>
-			    <ul style="display: none;">
-			        <li><a href="/admin/lunbo"><i class="glyph-icon icon-chevron-right"></i>轮播列表</a></li>
-			    </ul>
-			</li>
             <li class="childUlLi">
                 <a href="#"> <i class="glyph-icon icon-reorder"></i>友链管理</a>
                 <ul style="display: none;">
@@ -138,7 +122,6 @@
         <p>Copyright © 2014 - XXXX科技</p>
     </div>
     <!-- 尾部结束 -->
-
     <script src="/lib/js/jquery.js"></script>
     <script src="/lib/js/tendina.js"></script>
     <script src="/lib/js/common.js"></script>

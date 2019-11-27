@@ -6,6 +6,8 @@
 </head>
 <?php
 
+use App\ShopCarorder;
+
 require_once dirname(dirname(__FILE__)).'/config.php';
 require_once dirname(__FILE__).'/service/AlipayTradeService.php';
 require_once dirname(__FILE__).'/buildermodel/AlipayTradeRefundContentBuilder.php';
@@ -42,7 +44,16 @@ require_once dirname(__FILE__).'/buildermodel/AlipayTradeRefundContentBuilder.ph
 	 * @return $response 支付宝返回的信息
 	 */
 	$response = $aop->Refund($RequestBuilder);
-	var_dump($response);;
+	
+	// var_dump($response);
+	// var_dump($res);
+	if ($response->code == "10000") {
+		$res = ShopCarorder::where('order_num', $response->out_trade_no)->where('trade_no', $response->trade_no)->where('total', $response->refund_fee)->update(['refund'=>3]);
+
+		echo '退款成功';
+	} else {
+		echo '退款失败';
+	}
 ?>
 </body>
 </html>

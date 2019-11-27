@@ -155,21 +155,8 @@ class TrolleyController extends Controller
 	
 	public function returnurl(Request $request)
 	{
-		/* *
-		 * 功能：支付宝页面跳转同步通知页面
-		 * 版本：2.0
-		 * 修改日期：2017-05-01
-		 * 说明：
-		 * 以下代码只是为了方便商户测试而提供的样例代码，商户可以根据自己网站的需要，按照技术文档编写,并非一定要使用该代码。
-		
-		 *************************页面功能说明*************************
-		 * 该页面可在本机电脑测试
-		 * 可放入HTML等美化页面的代码、商户业务逻辑程序代码
-		 */
-		
 		require_once base_path("/storage/pay/config.php");
 		require_once base_path('/storage/pay/pagepay/service/AlipayTradeService.php');
-		
 		
 		$arr=$_GET;
 		$alipaySevice = new \AlipayTradeService($config); 
@@ -225,18 +212,6 @@ class TrolleyController extends Controller
 	
 	public function notifyurl()
 	{
-		/* *
-		 * 功能：支付宝服务器异步通知页面
-		 * 版本：2.0
-		 * 修改日期：2017-05-01
-		 * 说明：
-		 * 以下代码只是为了方便商户测试而提供的样例代码，商户可以根据自己网站的需要，按照技术文档编写,并非一定要使用该代码。
-		
-		 *************************页面功能说明*************************
-		 * 创建该页面文件时，请留心该页面文件中无任何HTML代码及空格。
-		 * 该页面不能在本机电脑测试，请到服务器上做测试。请确保外部可以访问该页面。
-		 * 如果没有收到该页面返回的 success 信息，支付宝会在24小时内按一定的时间策略重发通知
-		 */
 		
 		require_once base_path('/storage/pay/config.php');
 		require_once base_path('/storage/pay/pagepay/service/AlipayTradeService.php');
@@ -252,8 +227,8 @@ class TrolleyController extends Controller
 		3、校验通知中的seller_id（或者seller_email) 是否为out_trade_no这笔单据的对应的操作方（有的时候，一个商户可能有多个seller_id/seller_email）
 		4、验证app_id是否为该商户本身。
 		*/
-		echo '<pre>';
-		var_dump($_GET);
+	
+
 		if($result) {//验证成功
 			/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			//请在这里加上商户的业务逻辑程序代
@@ -273,6 +248,9 @@ class TrolleyController extends Controller
 		
 			//交易状态
 			$trade_status = $_POST['trade_status'];
+			
+			//交易金额
+			$total_amount = $_POST['total_amount'];
 		
 		
 		    if($_POST['trade_status'] == 'TRADE_FINISHED') {
@@ -284,6 +262,17 @@ class TrolleyController extends Controller
 						
 				//注意：
 				//退款日期超过可退款期限后（如三个月可退款），支付宝系统发送该交易状态通知
+				$data = ShopCarorder::where('order_num', $out_trade_no)->where('total', $total_amount)->first();
+				
+				if ($data != null) {
+					$res1=ShopCarorder::where('order_num', $out_trade_no)->where('total', $total_amount)->update(['status'=>2]);
+					$res2=ShopCarorder::where('order_num', $out_trade_no)->where('total', $total_amount)->update(['trade_no'=>$trade_no]);
+				}
+				if ($res1 && $res2) {
+					echo '<b>付款成功</b>';
+				} else {
+					echo '<b>付款失败</b>';
+				}
 		    }
 		    else if ($_POST['trade_status'] == 'TRADE_SUCCESS') {
 				//判断该笔订单是否在商户网站中已经做过处理
@@ -292,6 +281,17 @@ class TrolleyController extends Controller
 					//如果有做过处理，不执行商户的业务程序			
 				//注意：
 				//付款完成后，支付宝系统发送该交易状态通知
+				$data = ShopCarorder::where('order_num', $out_trade_no)->where('total', $total_amount)->first();
+				
+				if ($data != null) {
+					$res1=ShopCarorder::where('order_num', $out_trade_no)->where('total', $total_amount)->update(['status'=>2]);
+					$res2=ShopCarorder::where('order_num', $out_trade_no)->where('total', $total_amount)->update(['trade_no'=>$trade_no]);
+				}
+				if ($res1 && $res2) {
+					echo '<b>付款成功</b>';
+				} else {
+					echo '<b>付款失败</b>';
+				}
 		    }
 			//——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
 			echo "success";	//请不要修改或删除

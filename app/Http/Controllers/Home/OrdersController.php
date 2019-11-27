@@ -18,11 +18,11 @@ class OrdersController extends Controller
 		$uid = session('userInfo.id');
 		// dd($uid);
 
-        $data = ShopCarorder::where('uid', $uid)->whereNotIn('status', [5])->get();
+        $data = ShopCarorder::where('uid', $uid)->whereNotIn('status', [5])->where('refund', 1)->get();
         $weizhifu = ShopCarorder::where('uid', $uid)->where('status', 1)->get();
         $daifahuo = ShopCarorder::where('uid', $uid)->where('status', 2)->get();
         $daishouhuo = ShopCarorder::where('uid', $uid)->where('status', 3)->get();
-        $daipingjia = ShopCarorder::where('uid', $uid)->whereIn('status', [4, 6])->get();
+        $daipingjia = ShopCarorder::where('uid', $uid)->whereIn('status', [4, 6])->where('refund', 1)->get();
 
         return view('Home.Orders.ShowOrders',['data'=>$data, 'data1'=>$weizhifu, 'data2'=>$daifahuo,'data3'=>$daishouhuo,'data4'=>$daipingjia]);
     }
@@ -37,7 +37,6 @@ class OrdersController extends Controller
 			$v['specs'] = implode(' ', $arr);
 		}
 		// dump($detail);
-		
 		return view('Home.Orders.OrdersDetails')->with(['detail'=>$detail, 'order'=>$order]);
 	}
 
@@ -98,8 +97,61 @@ class OrdersController extends Controller
 	
     public function commit(Request $request)
 	{
+		// dump($request->all());
+		$data['did'] = $request->did;
+		$data['gid'] = $request->gid;
+		$data['content'] = $request->content;
+		$data['uid'] = $request->session()->get('userInfo.id');
+		$data['addtime'] = date('Y-m-d H:i:s', time());
+		// dd($data);
 		
-		return view('Home.Orders.commit');
+		$res = Comment::create($data);
+		if ($res) {
+			ShopCardetail::where('id', $request->did)->update(['status'=>2]);
+			return ['code'=>0, 'msg'=>'添加评论成功'];
+		} else {
+			return ['code'=>1, 'msg'=>'评论失败'];
+		}
+	}
+	
+	public function selectcommit(Request $request)
+	{
+		// dump($request->id);
+		$data = Comment::where('did', $request->id)->first();
+		// dump($data);
+		return ['data'=>$data];
+	}
+	
+	public function refundapply(Request $request)
+	{
+		$refund = ShopCarorder::where('id', $request->id)->pluck('refund')[0];
+		if ($refund == 2) {
+			return ['code'=>0, 'msg'=>'你tm已经申请过了'];
+		}
+		$res = ShopCarorder::where('id', $request->id)->update(['refund'=>2]);
+		if ($res) {
+			return ['code'=>0, 'msg'=>'申请退款成功，请等待商家同意'];
+		} else {
+			return ['code'=>1, 'msg'=>'申请退款失败'];
+		}
+	}
+	
+	public function refundlists()
+	{
+		$apply = ShopCarorder::where('refund', 2)->get();
+		$complete = ShopCarorder::where('refund', 3)->get();
+
+		return view('Home.Orders.refundlist')->with(['apply'=>$apply, 'complete'=>$complete]);
+	}
+	
+	public function refundcancel(Request $request)
+	{
+		$id = $request->id;
+		$res = ShopCarorder::where('id', $id)->update(['refund'=>1]);
+		if ($res) {
+			return ['code'=>0, 'msg'=>'取消退款成功'];
+		} else {
+			return ['code'=>1, 'msg'=>'取消退款失败'];
+		}
 	}
 }
-
