@@ -63,6 +63,9 @@ class LoginController extends Controller
             return redirect('/admin');
         } else {
             echo "<script>alert('密码错误！');location.href='/admin/login'</script>";
+
+            // return back()->withInput();
+
         }
     }
 
