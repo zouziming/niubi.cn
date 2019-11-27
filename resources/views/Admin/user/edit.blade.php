@@ -10,8 +10,6 @@
 </div>
 <div class="div_from_aoto" style="width: 500px;">
 
-    <!-- div class="alert alert-danger" id="errors" style="display: none" role="alert">
-    </div> -->
 
     <form action="/admin/user/doedit" method="post">
         {{ csrf_field() }}

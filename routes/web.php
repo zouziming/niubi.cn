@@ -34,7 +34,13 @@ Route::group(['prefix' => '/admin', 'middleware' => ['user.login']], function(){
     // 后台登录
 Route::get('/admin/login', 'Admin\LoginController@show');
 Route::post('/admin/login', 'Admin\LoginController@login');
-    
+   
+// 修改个人信息
+Route::post('/admin/index', 'Admin\IndexController@info');
+// 修改头像
+Route::get('/admin/headpic', 'Admin\IndexController@headpic');
+Route::post('/admin/headpic', 'Admin\IndexController@editheadpic');
+
 // 修改密码
 Route::get('/admin/pwd', 'Admin\IndexController@pwd');
 Route::post('/admin/editpwd', 'Admin\IndexController@editpwd');
