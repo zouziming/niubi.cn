@@ -43,7 +43,6 @@
                 <a style="color:violet">{{ session('userInfo.username') }}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</a>
                 <a href="/home/logout" style="color:red">退出&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</a>
 				<span class="topRight">
-                <a href="/home/user/secure">账户安全</a>&nbsp;| 
                     <a href="order.html">我的订单</a>&nbsp;|
                     <a href="/home/collection">我的收藏</a>&nbsp;|
                     <a href="contact.html">联系我们</a>
@@ -53,13 +52,13 @@
             <!--top/-->
             <div class="lsg">
                 <h1 class="logo">
-                    <a href="index.html">
+                    <a href="/home">
                         <img src="/lib/image/logo.png" width="217" height="90" /></a>
                 </h1>
                 <form action="#" method="get" class="subBox">
                     <div class="subBoxDiv">
                         <input type="text" id="ipt" class="subLeft" />
-                        <button class="sub">submit</button>
+                        <button class="sub">搜索</button>
                         <div class="hotWord">热门搜索：
                             <a href="proinfo.html">冷饮杯</a>&nbsp;
                             <a href="proinfo.html">热饮杯</a>&nbsp;
@@ -80,7 +79,7 @@
                         <img src="/lib/image/youjian.jpg" width="5" height="8" /></div>
                     <!--gouCar/-->
                     <div class="myChunlv">
-                        <a href="/home/user/secure">
+                        <a href="home/user/mycenter">
                             <img src="/lib/image/mychunlv.jpg" width="112" height="34" /></a>
                     </div>
                     <!--myChunlv/--></div>
@@ -107,11 +106,11 @@
                 <div class="pntRight">
                     <ul class="nav">
                         <li class="navCur">
-                            <a href="index.html">商城首页</a></li>
+                            <a href="/home">商城首页</a></li>
                         <li>
                             <a href="product.html">促销中心</a></li>
                         <li>
-                            <a href="login.html">会员中心</a></li>
+                            <a href="home/user/mycenter">会员中心</a></li>
                         <li>
                             <a href="help.html">帮助中心</a></li>
                         <div class="clears"></div>
@@ -339,11 +338,11 @@
                     <h4>会员服务</h4>
                     <ul class="inHeList">
                         <li>
-                            <a href="reg.html">会员注册</a></li>
+                            <a href="/home/register">会员注册</a></li>
                         <li>
-                            <a href="login.html">会员登录</a></li>
+                            <a href="/home/login">会员登录</a></li>
                         <li>
-                            <a href="order.html">购物车</a></li>
+                            <a href="/home/order">购物车</a></li>
                         <li>
                             <a href="order.html">我的订单</a></li>
                         <div class="clears"></div>

@@ -121,7 +121,6 @@
                     <dd><a href="#">我的订单</a></dd>
                     <dd><a href="#">我的收藏</a></dd>
                     <dd><a href="/home/user/mycenter">我的信息</a></dd>
-                    <dd><a href="/home/user/secure">账户安全</a></dd>
                     <dd><a href="#">我的评价</a></dd>
                     <dd><a href="#">地址管理</a></dd>
                 </dl>

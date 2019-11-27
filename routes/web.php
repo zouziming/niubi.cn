@@ -287,8 +287,6 @@ Route::group(['prefix' => '/admin', 'middleware' => ['user.login']], function(){
     Route::get('/dels','Admin\OrdersController@del');   
 
 
-
-
 });
 
     // 后台登录
@@ -297,6 +295,8 @@ Route::post('/admin/login', 'Admin\LoginController@login');
 
 // 后台搜索功能
 Route::get('/search', 'Admin\UserController@search');
+
+
 
 
 
@@ -347,21 +347,10 @@ Route::post('/home/user/picture', 'Home\UserController@picture');
 Route::get('/home/user/password', 'Home\UserController@show');
 Route::post('/home/user/password', 'Home\UserController@password');
 
-
-
-
-
-
     // 前台首页
     Route::get('/','Home\IndexController@index');
     // 分类页面
     Route::get('/cate','Home\CateController@cate');
-
-
-
-
-
-
 
 Route::group(['prefix' => '/home'], function(){
 	
@@ -394,7 +383,6 @@ Route::group(['prefix' => '/home'], function(){
 	
 	Route::get('/collection', 'Home\CollectionController@index');
 });
-
 
 
 // 添加收货地址页面
