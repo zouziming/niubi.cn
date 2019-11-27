@@ -73,7 +73,7 @@
         </div>
     </div>
     <div class="container clearfix">
-        <div class="header-logo fl"><h1><a href="#"><img src="/lib/theme/icon/logo.png"></a> </h1></div>
+        <div class="header-logo fl"><h1><a href="/home"><img src="/lib/theme/icon/logo.png"></a> </h1></div>
         <div class="member-title fl"><h2></h2></div>
         <div class="head-form fl">
             <form class="clearfix">
@@ -95,7 +95,7 @@
 </header>
 <!-- header End -->
 
-<div class="containers"><div class="pc-nav-item"><a href="/home">首页</a> &gt; <a href="#">会员中心 </a> &gt; <a href="#">商城快讯</a></div></div>
+<div class="containers"><div class="pc-nav-item"><a href="/home">首页</a> &gt; <a href="#">会员中心 </a></div></div>
 
 <!-- 商城快讯 begin -->
 <section id="member">
@@ -213,10 +213,6 @@
             <ul>
                 <li><a href="#">退货退款流程</a> </li>
                 <li><a href="#">服务中心 </a> </li>
-                <li><a href="#">服务中心</a> </li>
-                <li><a href="#"> 更多特色服务 </a> </li>
-                <li><a href="#"> 更多特色服务 </a> </li>
-                <li><a href="#"> 更多特色服务 </a> </li>
                 <li><a href="#"> 更多特色服务 </a> </li>
             </ul>
         </div>
@@ -224,10 +220,6 @@
             <h4>帮助中心</h4>
             <ul>
                 <li><a href="#">退货退款流程</a> </li>
-                <li><a href="#">退货退款流程</a> </li>
-                <li><a href="#">退货退款流程</a> </li>
-                <li><a href="#">退货退款流程</a> </li>
-                <li><a href="#">服务中心 </a> </li>
                 <li><a href="#">服务中心</a> </li>
                 <li><a href="#"> 更多特色服务 </a> </li>
             </ul>
@@ -236,11 +228,7 @@
             <h4>新手指导</h4>
             <ul>
                 <li><a href="#">退货退款流程</a> </li>
-                <li><a href="#">退货退款流程</a> </li>
                 <li><a href="#">服务中心 </a> </li>
-                <li><a href="#">服务中心</a> </li>
-                <li><a href="#">服务中心</a> </li>
-                <li><a href="#"> 更多特色服务 </a> </li>
                 <li><a href="#"> 更多特色服务 </a> </li>
             </ul>
         </div>
