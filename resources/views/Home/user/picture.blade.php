@@ -16,8 +16,11 @@
     <form class="am-form " action="/home/user/picture" method="post" id="form">
         {{ csrf_field() }}
         <input type="hidden" name="id" value="{{ session('userInfo.id') }}">
-        
+        @if(session('userInfo.pic') == true)
+        <img id="img" style="width:200px;height:200px;" src="/storage/{{ session('userInfo.pic') }}" />
+        @else
         <img id="img" style="width:200px;height:200px;" src="/lib/img/do.jpg" />
+        @endif
         <div class="am-form-group">
             <label for="user-phone" class="am-form-label">选择图片</label>
             <div class="am-form-content">

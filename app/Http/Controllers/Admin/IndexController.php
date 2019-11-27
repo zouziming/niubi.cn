@@ -17,6 +17,7 @@ class IndexController extends Controller
         return view('Admin.index');
     }
 
+
     // 退出登录
     public function logout()
     {
@@ -26,8 +27,10 @@ class IndexController extends Controller
     }
 
 
-
-    // 修改密码
+    /**
+     * 修改个人资料
+     */
+    // 显示修改密码页面
     public function pwd(Request $request)
     {
         $id = $request->all('id');
@@ -37,6 +40,8 @@ class IndexController extends Controller
             'user' => $user
         ]);
     }
+
+    // 修改密码
     public function editpwd(Request $request)
     {
         $this->validate($request, [
@@ -68,4 +73,64 @@ class IndexController extends Controller
             echo "<script>alert('原密码错误');location.href='/admin'</script>";
         }
     }
+
+    // 修改个人信息
+    public function info(Request $request)
+    {
+        // dd($request->id);
+        $this->validate($request, [
+            'username' => 'min:2',
+            'email' => 'email',
+            'phone' => 'regex:/^1[345789][0-9]{9}$/',
+        ],[
+            'username.min' => '用户名最少2个字符',
+            'email.email' => '邮箱规则不合法',
+            'phone.regex' => '手机格式不对',
+        ]);
+
+        $res = \App\ShopUserinfo::where('id', '=', $request->id)
+                ->update([
+                    'username' => $request->username,
+                    'phone' => $request->phone,
+                    'email' => $request->email,
+                    'sex' => $request->sex,
+                ]);
+        if ($res) {
+            return [
+                'code' => 0,
+            ];
+        } else {
+            return [
+                'code' => 1,
+            ];
+        }
+    }
+
+    // 显示修改头像页面
+    public function headpic()
+    {
+        return view('Admin.headpic');
+    }
+
+    // 修改头像
+    public function editheadpic(Request $request)
+    {
+        // dd($request->id);
+        $data = $request->pic->store('touxiang', 'public');
+
+        $res = \App\ShopUserinfo::where('id', '=', $request->id)
+            ->update(['pic' => $data]);
+        if ($res) {
+            return [
+                'code' => 0, 
+                'msg' => '修改成功'
+            ];
+        } else {
+            return response()->json([
+                'code' => 1,
+                'msg' => '修改失败',
+            ]);
+        }
+    }
+
 }
