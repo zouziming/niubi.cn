@@ -8,7 +8,7 @@
     <span class="label label-primary"><span>订单退换</span></span>
 
 </div>
-    <form class="form-inline" method="post" action="/returnExchange">
+    <form class="form-inline" method="post" action="/admin/returnExchange">
         {{ csrf_field() }}
         <div class="form-group">
                 <label for="exampleInputName2"><span class="label label-primary">订单编号:</span></label>

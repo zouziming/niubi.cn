@@ -60,11 +60,11 @@
             <li class="childUlLi">
                 <a href="#" target="_self"> <i class="glyph-icon icon-reorder"></i>订单管理</a>
                 <ul>
-                    <li><a href="/seeks" target="_top"><i class="glyph-icon icon-chevron-right"></i>订单列表</a></li>
-                    <li><a href="/addOrder" target="_self"><i class="glyph-icon icon-chevron-right"></i>添加订单</a></li>
-                    <li><a href="/deliverGoods" target="_self"><i class="glyph-icon icon-chevron-right"></i>发货单</a></li>
-                    <li><a href="/refund" target="_self"><i class="glyph-icon icon-chevron-right"></i>退款单</a></li>
-                    <li><a href="/returnExchange" target="_self"><i class="glyph-icon icon-chevron-right"></i>退换单</a></li>
+                    <li><a href="/admin/seeks" target="_top"><i class="glyph-icon icon-chevron-right"></i>订单列表</a></li>
+                    <li><a href="/admin/addOrder" target="_self"><i class="glyph-icon icon-chevron-right"></i>添加订单</a></li>
+                    <li><a href="/admin/deliverGoods" target="_self"><i class="glyph-icon icon-chevron-right"></i>发货单</a></li>
+                    <li><a href="/admin/refund" target="_self"><i class="glyph-icon icon-chevron-right"></i>退款单</a></li>
+                    <li><a href="/admin/returnExchange" target="_self"><i class="glyph-icon icon-chevron-right"></i>退换单</a></li>
                 </ul>
             </li>
             <li class="childUlLi">

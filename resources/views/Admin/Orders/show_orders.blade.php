@@ -7,7 +7,7 @@
 <span class="label label-default">订单列表</span>
 
 </div>
-<form class="form-inline" method="post" action="/seeks">
+<form class="form-inline" method="post" action="/admin/seeks">
     {{ csrf_field() }}
         <div class="form-group">
                 <label for="exampleInputName2"><span class="label label-primary">商品ID:</span></label>

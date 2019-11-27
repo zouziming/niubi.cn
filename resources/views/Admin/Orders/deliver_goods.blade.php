@@ -8,7 +8,7 @@
     <span class="label label-primary"><span>发货列表</span></span>
 
 </div>
-    <form class="form-inline" method="post" action="/deliverGoods">
+    <form class="form-inline" method="post" action="/admin/deliverGoods">
         {{ csrf_field() }}
         <div class="form-group">
                 <label for="exampleInputName2"><span class="label label-primary">订单编号:</span></label>

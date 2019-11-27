@@ -8,7 +8,7 @@
     <span class="label label-primary"><span>订单退款</span></span>
 
 </div>
-    <form class="form-inline" method="post" action="/refund">
+    <form class="form-inline" method="post" action="/admin/refund">
         {{ csrf_field() }}
         <div class="form-group">
                 <label for="exampleInputName2"><span class="label label-primary">订单编号:</span></label>

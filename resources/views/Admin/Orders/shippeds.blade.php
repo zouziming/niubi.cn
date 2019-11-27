@@ -9,7 +9,7 @@
     </div>
         <div class="col-md-12">
         <div class="content">
-        <form action="/shippeds" method="post">
+        <form action="/admin/shippeds" method="post">
         {{ csrf_field() }}
             <table class="table table-hover">
                 <tr>

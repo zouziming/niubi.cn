@@ -214,79 +214,6 @@ Route::group(['prefix' => '/admin', 'middleware' => ['user.login']], function(){
 	// Route::post('/power/userRole/edit/index','Admin\PowerController@editUserRole');
 // });
 
-
-
-});
-
-    // 后台登录
-Route::get('/admin/login', 'Admin\LoginController@show');
-Route::post('/admin/login', 'Admin\LoginController@login');
-
-// 后台搜索功能
-Route::get('/search', 'Admin\UserController@search');
-
-
-
-
-
-/**
- * 前台路由
- */
-// 前台首页
-Route::group(['prefix' => '/home', 'middleware' => ['users.login']], function(){
-    Route::get('/', 'Home\IndexController@index');
-
-    // 前台退出
-    Route::get('/logout', 'Home\IndexController@logout');
-});
-// 前台登录
-Route::get('/home/login', 'Home\LoginController@show');
-Route::post('/home/login', 'Home\LoginController@login');
-
-// 手机号登录
-Route::get('/home/logincode', 'Home\LoginController@showphone');
-Route::post('/home/logincode', 'Home\LoginController@logincode');
-Route::post('/home/dologincode', 'Home\LoginController@dologincode');
-
-
-/**
- *  前台注册
- */
-// 手机号注册
-Route::get('/home/register', 'Home\RegisterController@show');
-Route::post('/home/register', 'Home\RegisterController@register');
-Route::post('/home/doregister', 'Home\RegisterController@doregister');
-
-// 密码
-Route::get('/home/enroll', 'Home\RegisterController@reveal');
-Route::post('/home/enroll', 'Home\RegisterController@enroll');
-
-// 个人中心
-Route::get('/home/user/secure', 'Home\UserController@secure');
-Route::get('/home/user/mycenter', 'Home\UserController@mycenter');
-
-// 个人资料修改
-Route::post('/home/user/mycenter', 'Home\UserController@edit');
-// 修改头像
-Route::get('/home/user/picture', 'Home\UserController@pic');
-Route::post('/home/user/picture', 'Home\UserController@picture');
-// 修改密码
-Route::get('/home/user/password', 'Home\UserController@show');
-Route::post('/home/user/password', 'Home\UserController@password');
-
-
-
-
-
-
-	// 前台首页
-	Route::get('/','Home\IndexController@index');
-	// 分类页面
-	Route::get('/cate','Home\CateController@cate');
-//后台操作
-// Route::group(['prefix' => '/admin', 'middleware' => ['user.login', 'user.power']], function(){
-
-
 // 显示订单功能
     Route::get('/seeks', 'Admin\OrdersController@show_orders');
 
@@ -358,6 +285,80 @@ Route::post('/home/user/password', 'Home\UserController@password');
 
 // 订单退换删除功能
     Route::get('/dels','Admin\OrdersController@del');   
+
+
+
+
+});
+
+    // 后台登录
+Route::get('/admin/login', 'Admin\LoginController@show');
+Route::post('/admin/login', 'Admin\LoginController@login');
+
+// 后台搜索功能
+Route::get('/search', 'Admin\UserController@search');
+
+
+
+
+
+/**
+ * 前台路由
+ */
+// 前台首页
+Route::group(['prefix' => '/home', 'middleware' => ['users.login']], function(){
+    Route::get('/', 'Home\IndexController@index');
+
+    // 前台退出
+    Route::get('/logout', 'Home\IndexController@logout');
+});
+// 前台登录
+Route::get('/home/login', 'Home\LoginController@show');
+Route::post('/home/login', 'Home\LoginController@login');
+
+// 手机号登录
+Route::get('/home/logincode', 'Home\LoginController@showphone');
+Route::post('/home/logincode', 'Home\LoginController@logincode');
+Route::post('/home/dologincode', 'Home\LoginController@dologincode');
+
+
+/**
+ *  前台注册
+ */
+// 手机号注册
+Route::get('/home/register', 'Home\RegisterController@show');
+Route::post('/home/register', 'Home\RegisterController@register');
+Route::post('/home/doregister', 'Home\RegisterController@doregister');
+
+// 密码
+Route::get('/home/enroll', 'Home\RegisterController@reveal');
+Route::post('/home/enroll', 'Home\RegisterController@enroll');
+
+// 个人中心
+Route::get('/home/user/secure', 'Home\UserController@secure');
+Route::get('/home/user/mycenter', 'Home\UserController@mycenter');
+
+// 个人资料修改
+Route::post('/home/user/mycenter', 'Home\UserController@edit');
+// 修改头像
+Route::get('/home/user/picture', 'Home\UserController@pic');
+Route::post('/home/user/picture', 'Home\UserController@picture');
+// 修改密码
+Route::get('/home/user/password', 'Home\UserController@show');
+Route::post('/home/user/password', 'Home\UserController@password');
+
+
+
+
+
+
+    // 前台首页
+    Route::get('/','Home\IndexController@index');
+    // 分类页面
+    Route::get('/cate','Home\CateController@cate');
+
+
+
 
 
 
