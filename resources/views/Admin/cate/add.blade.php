@@ -9,7 +9,17 @@
     
     <span>添加用户</span>
 </div>
+ @if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <div class="div_from_aoto" style="width: 500px;">
+    
     <form action="/admin/cate/add" method="post">
         {{ csrf_field() }}
         <input type="hidden" name="pid" value="{{$data ? $data->id : 0}}">

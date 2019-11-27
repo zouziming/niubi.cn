@@ -65,5 +65,29 @@ class IndexController extends Controller
 		
 		return view('Home.index')->with(['data'=>$data, 'tui'=>$tui, 'hot'=>$hot, 'lunbo'=>$lunbo]);
 	}
+
+	// 键盘按下搜索
+	public function get(Request $request)
+	{	
+		if (!empty($request->name)) {
+			$str[]=['name','like','%'.$request->name.'%'];
+		}
+		$res=ShopCate::where($str)
+					->take(8)
+					->get();
+		return $res;
+
+	}
+
+	// 搜索
+	public function search(Request $request) 
+	{
+		if (!empty($request->name)) {
+			$str[]=['name','like','%'.$request->name.'%'];
+		}
+		$res=ShopCate::where($str)
+				->first();
+			return $res;
+	}
 }
 

@@ -23,7 +23,7 @@
                 <tr  style="font-size:10px">
                 	<td>{{$v->id}}</td>
                 	<td>{{$v->name}}</td>
-                	<td><a href="/admin/power/role/del?id={{$v->id}}">删除</a>|<a href="/admin/power/role/edit?id={{$v->id}}">编辑</a></td>
+                	<td><a class="del" data-id="{{ $v->id }}" href="javascript:void(0)">删除</a>|<a href="/admin/power/role/edit?id={{$v->id}}">编辑</a></td>
                 </tr>
                	@endforeach
               
@@ -32,4 +32,33 @@
         </div>
          <button type="button" class="btn btn-default"><a href="/admin/power/role/add">添加角色</a></button>
     </div>
+@endsection
+
+@section('script')
+    <script type="text/javascript">
+        $('.del').click(function(){
+            var r=confirm("按下按钮");
+            var _t=this;
+            var id=$(this).data('id');
+            if (r==true) {
+                
+                $.ajax({
+                    type:'get',
+                    url:'/admin/power/role/del',
+                    data:{
+                        id:id,
+                    },
+                    success:function(res)
+                    {
+                        if (res.code==0) {
+                            // alert(res.msg);
+                            $(_t).parent().parent().remove()
+                        } else {
+                            alert(res.msg);
+                        }
+                    }
+                })
+            }
+        })
+    </script>
 @endsection

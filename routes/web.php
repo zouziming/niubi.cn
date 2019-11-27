@@ -408,6 +408,7 @@ Route::group(['prefix' => '/home'], function(){
 // 修改默认地址
 	Route::get('/home/editDefault','Home\UserController@editDefault');
 
+
 /*----------------------------------------------------------------------------------*/
 // 订单：前台我的订单显示
     Route::get('/ShowOrders','Home\OrdersController@show_orders');
@@ -438,3 +439,10 @@ Route::group(['prefix' => '/home'], function(){
 
 // 申请退货
     Route::get('/tuihuo','Home\OrdersController@retreat_money');
+
+// 键盘按下出现搜索
+	Route::get('/home/get','Home\IndexController@get');
+
+// 搜索
+	Route::get('/home/search','Home\IndexController@search');
+

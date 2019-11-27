@@ -8,11 +8,11 @@
 
    <form class="form-search" action="/admin/cate/index" placeholder="" method="get">
      {{ csrf_field() }}
-            搜索商品：
+            搜索分类：
   <div class="form-group">
-  <input type="text" name="name" value="" class="input-medium search-query" placeholder="按分类名搜索">
-  <input type="text" name="id" value="" class="input-medium search-query" placeholder="按id搜索">
-<button type="submit" class="btn">搜索</button>
+  <input type="text" name="name" value="{{$name}}" class="input-medium search-query" placeholder="按分类名搜索">
+  <input type="text" name="id" value="{{$id}}" class="input-medium search-query" placeholder="按id搜索">
+<button type="submit" class="btn">搜索</button>　<button id="bon" class="btn">清空</button>
   </div> 
     </form>
 
@@ -34,7 +34,11 @@
                     <th>path路径</th>
                     <th>操作</th>
                 </tr>
-               
+               @if($cate[0]==null)
+               <tr>
+                 <td colspan="5">没有结果</td>
+               </tr>
+                @else
                 @foreach($cate as $v)  
                 @php
                    $num = substr_count($v->path, ',');
@@ -52,6 +56,9 @@
                         
                     </tr>
                @endforeach
+              
+               
+               @endif
             </table>
             {{ $cate->links() }}
         </div>
@@ -62,6 +69,9 @@
 <script type="text/javascript">
   
 $('.del').click(function(){
+  var r=confirm('确定删除吗');
+  if (r==true) {
+
   let _t = this;
   var id = $(this).data('id')
   $.ajax({
@@ -80,11 +90,17 @@ $('.del').click(function(){
            alert(res.msg);
         }
     },
-    
-
-
-
   })
+  }
+})
+
+var ipt=$('.input-medium ');
+$('#bon').click(function(){
+ for (var i = 0; i < ipt.length;i++) {
+    ipt[i].value
+    ='';
+ }
+ return false;
 })
 </script>
 

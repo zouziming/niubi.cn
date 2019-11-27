@@ -67,15 +67,16 @@ class UserController extends Controller
     public function addressIndex(Request $request)
     {
         $session=$request->session()->get('userInfo');
-        dump($session);
+        // dump($session);
         $user=ShopAddres::where('uid',$session['id'])->orderBy('status')->get();
-        dump($user);
+        // dump($user);
        return view('Home/user/udai',['data'=>$user]);
     }
 
     // 添加收货地址
     public function address(Request $request)
     {   
+        // dd($request->all());
         $session=$request->session()->get('userInfo');
         $status=[];
         // dd(empty($request->status));
@@ -86,8 +87,13 @@ class UserController extends Controller
         if ($request->status==1) {
             ShopAddres::where('uid',$session['id'])->update(['status'=>2]);
         }
-            // dd($status);
-        // dd($request->all());
+
+        if ($request->address==null || $request->address==null || $request->phone == null) {
+
+           return ['msg'=>'添加失败，有输入框为空']; 
+        } 
+        	$check = '/^(1(([35789][0-9])|(47)))\d{8}$/';
+        if (preg_match($check, $request->phone)) {
         $ist=ShopAddres::insert(
             ['uid'=>$session['id'],
             'address'=>$request->address,
@@ -99,17 +105,34 @@ class UserController extends Controller
             'city'=>$request->city,
             'area'=>$request->area
                         ]);
-        dump($ist);
+        // dump($ist);
+        // dd($request->all());
+	        if ($ist) {
+	            return ['code'=>0,'msg'=>'添加成功'];
+	        } else {
+	            return ['msg'=>'添加失败'];
+	        }
+        } else {
+        	return ['msg'=>'手机号码格式不对'];
+        	
+        }
+
+
+
+            // dd($request->address);
         // dd($request->all());
     }
 
     // 修改收货地址页面
     public function addressEditIndex(Request $request)
     {
+        $address=ShopAddres::where('id',$request->id)->first();
+        if ($address==null) {
+            return redirect('/home/addressIndex');
+        }
          $session=$request->session()->get('userInfo');
         // dump($session);
         $user=ShopAddres::where('uid',$session['id'])->orderBy('status')->get();
-        $address=ShopAddres::where('id',$request->id)->first();
 
         return view('/Home/user/addressEdit',['data'=>$user,'id'=>$request->id,'edit'=>$address]);
     }
@@ -138,11 +161,18 @@ class UserController extends Controller
     public function delRess(Request $request)
     {
         $user=ShopAddres::where('id',$request->id)->delete();
+        // if ($user) {
+        //      return redirect('/home/addressIndex');
+        // } else {
+        //       echo "<script>alert('删除失败');location.href='/home/addressIndex'</script>";
+        // }
+
         if ($user) {
-             return redirect('/home/addressIndex');
+            return ['code'=>0,'msg'=>'删除成功'];
         } else {
-              echo "<script>alert('删除失败');location.href='/home/addressIndex'</script>";
+            return ['msg'=>’];
         }
+
     }
 
     public function editDefault(Request $request)
@@ -151,11 +181,17 @@ class UserController extends Controller
         ShopAddres::where('uid',$session['id'])->update(['status'=>2]);
        $edit= ShopAddres::where('id',$request->id)->update(['status'=>1]);
         // dd($request->all());
+       // if ($edit) {
+       //      return redirect('/home/addressIndex');
+       //          } else {
+       //              echo "<script>alert('修改失败');location.href='/home/addressIndex'</script>";
+       // }
+
+
        if ($edit) {
-           # code...
-            return redirect('/home/addressIndex');
-                } else {
-                    echo "<script>alert('修改失败');location.href='/home/addressIndex'</script>";
+           return ['code'=>0,'msg'=>'成功'];
+       } else {
+            return ['code'=>1,'msg'=>'失败'];
        }
     }
 

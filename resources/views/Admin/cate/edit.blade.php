@@ -10,8 +10,20 @@
 </div>
     <!-- {{$edit->id}} -->
 <div class="div_from_aoto" style="width: 500px;">
+    <div class="form-group">
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul style="color:red;">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+            </ul>
+        </div>
+    @endif
+</div>
     <form action="/admin/cate/edit" method="post">
         {{ csrf_field() }}
+        <input type="hidden" name="page" value="{{$page}}">
         <input type="hidden" name="id" value="{{$edit->id}}">
         <div class="control-group">
             <label class="laber_from">分类名</label>

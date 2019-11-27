@@ -52,7 +52,7 @@
 					<a href="udai_setting.html"><dd>个人资料</dd></a>
 					<a href="udai_treasurer.html"><dd>资金管理</dd></a>
 					<a href="udai_integral.html"><dd>积分平台</dd></a>
-					<a href="udai_address.html"><dd class="active">收货地址</dd></a>
+					<a href="/home/addressIndex"><dd class="active">收货地址</dd></a>
 					<a href="udai_coupon.html"><dd>我的优惠券</dd></a>
 					<a href="udai_paypwd_modify.html"><dd>修改支付密码</dd></a>
 					<a href="udai_pwd_modify.html"><dd>修改登录密码</dd></a>
@@ -202,10 +202,10 @@
 							<!-- <div class="tdf1">350111</div> -->
 							<div class="tdf1">{{$v->phone}}</div>
 							<div class="tdf1 order">
-								<a href="/home/addressEdit?id={{$v->id}}">修改</a><a href="/home/ressDel?id={{$v->id}}">删除</a>
+								<a href="/home/addressEdit?id={{$v->id}}">修改</a><a data-id="{{$v->id}}" class="del" href="javascript:void(0)">删除</a>
 							</div>
 							<div class="tdf1">
-								<a href="/home/editDefault?id={{$v->id}}" class="default 
+								<a data-id="{{$v->id}}" href="javascript:void(0)"  class="default 
 
 								@if($v->status==1)
 								active
@@ -317,5 +317,57 @@
 			</p>
 		</div>
 	</div>
+	<script type="text/javascript">
+		//删除地址
+		$('.del').click(function(){
+			let _t=this;
+			// console.dir($(_t).parent().parent());
+			var id= $(this).data('id');
+			console.dir(id);
+			$.ajax({
+				method:'get',
+				url:'/home/ressDel',
+				data:{
+					id:id,
+				},
+			success:function(res) {
+				if (res.code==0) {
+					$(_t).parent().parent().remove();
+				} else {
+					alert(res.msg);
+				}
+			}
+			})
+		})
+
+		$('a.default').click(function(){
+			var id =$(this).data('id');
+			let _t=this;
+			let tt=$(this).parent().parent()[0];
+			$.ajax({
+				method:'get',
+				url:'/home/editDefault',
+				data:{
+					id:id,
+				},
+				success:function(res){
+					if (res.code==0) {
+						// 删除class
+						$('a.active').removeClass('active');
+						// 添加class
+						$(_t).addClass('active');
+						// 移动节点
+						$('a.default').parent().parent()[0].before(tt);
+					} else {
+						console.log(res.msg);
+					}
+				},
+				error:function(err)
+				{
+					console.dir(err);
+				}
+			})
+		})
+	</script>
 </body>
 </html>
