@@ -1,27 +1,6 @@
 <!doctype html>
 <html>
  <head>
-
-	<meta charset="UTF-8">
-	<meta name="Generator" content="EditPlus®">
-	<meta name="Author" content="">
-	<meta name="Keywords" content="">
-	<meta name="Description" content="">
-	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE"> 
-	<meta name="renderer" content="webkit">
-	<title>sb购物</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/lib/theme/icon/favicon.ico">
-	<link rel="stylesheet" type="text/css" href="/lib/theme/css/base.css">
-	<link rel="stylesheet" type="text/css" href="/lib/theme/css/home.css">
-
-	<script type="text/javascript" src="/lib/theme/js/jquery.js"></script>
-	<script type="text/javascript" src="/lib/theme/js/index.js"></script>
-	<script type="text/javascript" src="/lib/theme/js/js-tab.js"></script>
-	<script type="text/javascript" src="/lib/theme/js/MSClass.js"></script>
-	<script type="text/javascript" src="/lib/theme/js/jcarousellite.js"></script>
-	<script type="text/javascript" src="/lib/theme/js/top.js"></script>
-
-
   <meta charset="UTF-8">
   <meta name="Generator" content="EditPlus®">
   <meta name="Author" content="">
@@ -38,7 +17,6 @@
     <link href="/lib/theme/css/infstyle.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="/lib/theme/css/style.css"/>       
     <script type="text/javascript" src="/lib/theme/js/jquery.js"></script>
-
     <script type="text/javascript">
          (function(a){
              a.fn.hoverClass=function(b){
@@ -67,7 +45,6 @@
     <div class="BHeader">
         <div class="yNavIndex">
             <ul class="BHeaderl">
-
                 @empty(SESSION('userInfo'))
                 <li style="float:left">亲：</li>
                 <li style="float:left">
@@ -103,7 +80,6 @@
                 <input type="text" class="search-text" accesskey="" id="key" autocomplete="off"  placeholder="洗衣机">
                 <button class="button" onClick="search('key');return false;">搜索</button>
             </form>
-
             <div class="words-text clearfix">
                 <a href="#" class="red">1元秒爆</a>
                 <a href="#">低至五折</a>
@@ -116,31 +92,8 @@
         </div>
         <div class="header-cart fr"><a href="#"><img src="/lib/theme/icon/car.png"></a> <i class="head-amount">99</i></div>
     </div>
-
-    <div class="yHeader">
-
-        <div class="yNavIndex" style="position: relative;">
-            <div class="pullDown">
-            <h2 class="pullDownTitle">
-                全部商品分类
-            </h2>
-			
-            <ul class="pullDownList">
-                @foreach($data as $v)
-
-                <li class="menulihover">
-                    <i class="listi1"></i>
-                    <a href="all-cl.html" target="_blank">家用电器</a>
-                    <span></span>
-                </li>
-
-                @endforeach
-            </ul>
-            <div class="yMenuListCon">
-
 </header>
 <!-- header End -->
-
 
 <div class="containers"><div class="pc-nav-item"><a href="/home">首页</a> &gt; <a href="#">会员中心 </a> &gt; <a href="#">商城快讯</a></div></div>
 
@@ -161,16 +114,7 @@
                     <p>搜悦号：</p>
                     <p>389323080</p>
                 </div>
-
-
             </div>
-
-            <ul class="yMenuIndex" style="position: relative;top:-517px">
-                @foreach($data as $v)
-                <li><a href="" target="_blank">服装城</a></li>
-                @endforeach
-            </ul>
-
             <div class="member-lists">
                 <dl>
                     <dt>我的商城</dt>
@@ -192,24 +136,12 @@
                     <dd><a href="#">帮助中心</a></dd>
                 </dl>
             </div>
-
         </div>
         @yield('content')
         
     </div>
-
-            @show
-</header>
-<!-- header End -->
-
-
-
-@yield('body')
-
-
 </section>
 <!-- 商城快讯 End -->
-
 
 <!--- footer begin-->
 <div class="aui-footer-bot">
@@ -315,12 +247,6 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">banner()</script>
-@yield('script')
-
-
-
 <!-- footer End -->
 @yield('script')
 </body>

@@ -80,7 +80,7 @@
                         <img src="/lib/image/youjian.jpg" width="5" height="8" /></div>
                     <!--gouCar/-->
                     <div class="myChunlv">
-                        <a href="vip.html">
+                        <a href="/home/user/secure">
                             <img src="/lib/image/mychunlv.jpg" width="112" height="34" /></a>
                     </div>
                     <!--myChunlv/--></div>
