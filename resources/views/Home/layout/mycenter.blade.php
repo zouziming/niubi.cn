@@ -87,55 +87,10 @@
         </div>
         <div class="header-cart fr"><a href="/home/shopcar"><img src="/lib/theme/icon/car.png"></a> <i class="head-amount">??</i></div>
     </div>
+ @yield('content')
 </header>
 <!-- header End -->
 
-<div class="containers"><div class="pc-nav-item"><a href="/home">首页</a> &gt; <a href="#">会员中心 </a></div></div>
-
-<!-- 商城快讯 begin -->
-<section id="member">
-    <div class="member-center clearfix">
-        <div class="member-left fl">
-            <div class="member-apart clearfix">
-                <div class="fl"><a>
-                @if($user->pic == true)
-                <img src="/storage/{{ $user->pic }}"></a></div>
-                @else
-                <img src="/lib/img/do.jpg"></a></div>
-                @endif
-                <div class="fl">
-                    <p>用户名：</p>
-                    <p><a style="color:violet">{{ session('userInfo.username') }}</a></p>
-                    <p>搜悦号：</p>
-                    <p>389323080</p>
-                </div>
-            </div>
-            <div class="member-lists">
-                <dl>
-                    <dt>我的商城</dt>
-                    <dd><a href="#">我的订单</a></dd>
-                    <dd><a href="/home/collection">我的收藏</a></dd>
-                    <dd><a href="/home/user/mycenter">我的信息</a></dd>
-                    <dd><a href="#">我的评价</a></dd>
-                    <dd><a href="/home/addressIndex">地址管理</a></dd>
-                </dl>
-                <dl>
-                    <dt>客户服务</dt>
-                    <dd><a href="#">退货申请</a></dd>
-                    <dd><a href="#">退货/退款记录</a></dd>
-                </dl>
-                <dl>
-                    <dt>我的消息</dt>
-                    <dd><a href="#">商城快讯</a></dd>
-                    <dd><a href="#">帮助中心</a></dd>
-                </dl>
-            </div>
-        </div>
-        @yield('content')
-        
-    </div>
-</section>
-<!-- 商城快讯 End -->
 
 <!--- footer begin-->
 <div class="aui-footer-bot">
