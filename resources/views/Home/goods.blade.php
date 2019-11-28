@@ -293,10 +293,10 @@
                                     <p>{{$v['content']}}</p>
                                     <p class="column5">{{$v['addtime']}}</p>
                                 </div>
-                                <div class="column2"><img src="/lib/theme1/icon/star.png"></div>
+                                <div class="column2"><img src="/lib/theme/icon/star.png"></div>
                                 <div class="column3">颜色：屎黄色</div>
                                 <div class="column4">
-                                    <p><img src="/lib/theme1/icon/user.png"></p>
+                                    <p><img src="/lib/theme/icon/user.png"></p>
                                     <p>2014-11-23 22:37 购买</p>
                                 </div>
                             </li>
@@ -311,10 +311,10 @@
 						            <p>{{$v['content']}}</p>
 						            <p class="column5">{{$v['addtime']}}</p>
 						        </div>
-						        <div class="column2"><img src="/lib/theme1/icon/star.png"></div>
+						        <div class="column2"><img src="/lib/theme/icon/star.png"></div>
 						        <div class="column3">颜色：屎黄色</div>
 						        <div class="column4">
-						            <p><img src="/lib/theme1/icon/user.png"></p>
+						            <p><img src="/lib/theme/icon/user.png"></p>
 						            <p>2014-11-23 22:37 购买</p>
 						        </div>
 						    </li>
@@ -333,7 +333,7 @@
     <div class="time-lists aui-footer-pd clearfix">
         <div class="aui-footer-list clearfix">
             <h4>
-                <span><img src="/lib/theme1/icon/icon-d1.png"></span>
+                <span><img src="/lib/theme/icon/icon-d1.png"></span>
                 <em>消费者权益</em>
             </h4>
             <ul>
@@ -346,7 +346,7 @@
         </div>
         <div class="aui-footer-list clearfix">
             <h4>
-                <span><img src="/lib/theme1/icon/icon-d2.png"></span>
+                <span><img src="/lib/theme/icon/icon-d2.png"></span>
                 <em>新手上路</em>
             </h4>
             <ul>
@@ -358,7 +358,7 @@
         </div>
         <div class="aui-footer-list clearfix">
             <h4>
-                <span><img src="/lib/theme1/icon/icon-d3.png"></span>
+                <span><img src="/lib/theme/icon/icon-d3.png"></span>
                 <em>保障正品</em>
             </h4>
             <ul>
@@ -370,7 +370,7 @@
         </div>
         <div class="aui-footer-list clearfix">
             <h4>
-                <span><img src="/lib/theme1/icon/icon-d1.png"></span>
+                <span><img src="/lib/theme/icon/icon-d1.png"></span>
                 <em>消费者权益</em>
             </h4>
             <ul>

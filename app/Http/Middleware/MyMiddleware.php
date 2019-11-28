@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
+use Illuminate\Support\Facades\DB;
 
 use Closure;
 
@@ -17,6 +18,7 @@ class MyMiddleware
     {
          // 获取控制和操作方法的名字
         $action_full = $request->route()->getActionName();
+        // dd($action_full);
         // 切割字符串切成数组
         $action_full_arr=explode('\\',$action_full);
         // dump($action_full_arr);
@@ -33,16 +35,17 @@ class MyMiddleware
         // $action = $action_arr[1];
 
 
-        // $use_id=session('userInfo.id');
+        $user_id=session('userInfo.id');
+        // dd($user_id);
         $power_list=[];
 
         // 通过用户查权限
-        /* $user_power=DB::table('shop_user_has_permissions')
-        ->where('uid',$use_id)
+         $user_power=DB::table('shop_user_has_permissions')
+        ->where('uid',$user_id)
         ->get();
 
         foreach($user_power as $power) {
-            查询出对应的权限详情
+            // 查询出对应的权限详情
             $power_tmp=DB::table('shop_permissions')
             ->where('id',$power->permission_id)
             ->first();
@@ -51,17 +54,17 @@ class MyMiddleware
             //将权限保存到数组中
             $power_list[$name_tmp]=$name_tmp;
         }
-        */
+        	// dump($power_list);
 
 
-        /*
+        
         //  通过角色查询权限
         //  通过id查用户拥有的角色
         $user_roles=DB::table('shop_user_has_roles')
-            ->where('uid',$use_id)
+            ->where('uid',$user_id)
             ->get();
-            dump($user_roles);
-            foreach($user_role as $role) {
+            // dump($user_roles);
+            foreach($user_roles as $role) {
                 //通过角色查角色的权限
             $role_power=DB::table('shop_role_has_permissions')
                 ->where('role_id',$role->role_id)
@@ -78,8 +81,12 @@ class MyMiddleware
                 $power_list[$name_tmp]=$name_tmp;
             }
         }
-        */
         
+        // if (in_array($action_str,$power_list)) {
         return $next($request);
+        // } else {
+        	// return response('权限不足');
+        // }
+        
     }
 }
