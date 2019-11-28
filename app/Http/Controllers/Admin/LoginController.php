@@ -39,9 +39,14 @@ class LoginController extends Controller
         ]);
 
         // 验证身份
-        $users = DB::table('shop_userinfo')
-            ->where('username', '=', $request->username)
+        $users = \App\ShopUserinfo::where('username', '=', $request->username)
             ->first();
+
+        if ($users['status'] != 1) {
+            echo "<script>alert('您的账号已被封，请联系管理员：13416341860');location.href='/admin/login'</script>";
+            exit;
+        }
+
         // 验证密码
         if (Hash::check( $request->password, $users->password)) {
             
