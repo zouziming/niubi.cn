@@ -39,24 +39,24 @@ class LoginController extends Controller
         ]);
 
         // 验证身份
-        $userInfo = DB::table('shop_userinfo')
+        $users = DB::table('shop_userinfo')
             ->where('username', '=', $request->username)
             ->first();
         // 验证密码
-        if (Hash::check( $request->password, $userInfo->password)) {
+        if (Hash::check( $request->password, $users->password)) {
             
             // 保存登录状态
             session([
                 'isLogin' => true,
-                'userInfo' => [
-                    'id' => $userInfo->id,
-                    'username' => $userInfo->username,
-                    'sex' => $userInfo->sex,
-                    'phone' => $userInfo->phone,
-                    'pic' => $userInfo->pic,
-                    'email' => $userInfo->email,
-                    'status' => $userInfo->status,
-                    'addtime' => $userInfo->addtime
+                'users' => [
+                    'id' => $users->id,
+                    'username' => $users->username,
+                    'sex' => $users->sex,
+                    'phone' => $users->phone,
+                    'pic' => $users->pic,
+                    'email' => $users->email,
+                    'status' => $users->status,
+                    'addtime' => $users->addtime
                 ]
             ]);
             // 跳转到后台首页
