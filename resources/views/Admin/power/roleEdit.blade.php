@@ -19,7 +19,7 @@
 
   </table>
   <br><button style="margin-left: 172px" class="btn btn-success">提交</button>
-  <h2>设置权限：</h2>
+  <h2>设置权限：</h2><button id="quanxuan" class="btn btn-success">全选</button>　<button id="quanquxiao" class="btn btn-success">全取消</button>　
   @foreach($qx as $v) 
 
   <label><input style="width:15px" type="checkbox" name="permission_id[]"  value="{{$v->id}}" 
@@ -35,5 +35,21 @@
 @endsection
 
 @section('script')
+  <script type="text/javascript">
+      var ipt = $('input[type="checkbox"]')
+    $('#quanxuan').click(function(){
+      for (var i = 0; i < ipt.length; i++) {
+        ipt[i].checked=true;
+      }
+      return false;
+    })
 
+
+    $('#quanquxiao').click(function(){
+      for (var i = 0; i < ipt.length; i++) {
+        ipt[i].checked=false;
+      }
+      return false;
+    })
+  </script>
 @endsection

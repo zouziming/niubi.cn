@@ -21,9 +21,15 @@ class PowerController extends Controller
     }
 
     public function del(Request $request)
-    {
+    {   
     	$model=new \App\ShopPermission;
-    	// $data
+        $delpower=shopRoleHasPermission::where('permission_id',$request->id)->first();
+        // dd($delpower);
+        if ($delpower) {
+                 echo "<script>alert('有角色拥有改权限，请先删除角色权限');location.href='/admin/power'</script>";
+            
+        } else {
+            
     	$del=$model->where('id','=',$request->id)->delete();
         if ($del) {
             shopRoleHasPermission::where('permission_id',$request->id)
@@ -35,6 +41,8 @@ class PowerController extends Controller
                 echo "<script>alert('删除失败');location.href='/admin/power'</script>";
             }
     }
+        }
+        // $data
 
 
     public function add()
