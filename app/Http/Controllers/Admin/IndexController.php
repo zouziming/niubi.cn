@@ -16,7 +16,7 @@ class IndexController extends Controller
     {
         // $user = \App\ShopUserinfo::where('id', '=', session('userInfo.id'))
                 // ->first();
-        // dd(session('userInfo.id'));,['user' => $user]
+        // dd(session('users.id'));
         return view('Admin.index');
     }
 
