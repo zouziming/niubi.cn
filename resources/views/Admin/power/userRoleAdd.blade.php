@@ -27,7 +27,7 @@
     <input type="text" class="form-control" name="username" placeholder="用户名">
   </div>
   <div class="form-group">
-    <label for="exampleInputEmail1">用户id</label>
+    <label for="exampleInputEmail1">密码</label>
     <input type="password" class="form-control" name="password" placeholder="密码">
   </div>
 

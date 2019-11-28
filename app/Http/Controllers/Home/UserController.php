@@ -141,6 +141,19 @@ class UserController extends Controller
 
     public function addressEdit(Request $request)
             {  
+                $this->validate($request, [
+            'consignee'=>'required',
+            'phone'=>'required | regex:/^1[345789][0-9]{9}$/',
+            'address'=>'required',
+        ],[
+            'required'=>':attribute 不能为空',
+            'regex'=>'手机号格式不对',
+        ],[
+            'address'=>'详细地址',
+            'consignee'=>'收件人',
+            'phone'=>'手机号',
+        ]);
+
                 $user=ShopAddres::where('id',$request->id)->update(['address'=>$request->address,
                 'consignee'=>$request->consignee,
                 'phone'=>$request->phone,
