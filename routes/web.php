@@ -254,6 +254,26 @@ Route::get('/search', 'Admin\UserController@search');
 // 前台首页
 Route::group(['prefix' => '/home', 'middleware' => ['users.login']], function(){
 
+
+// 添加收货地址页面
+	Route::get('/addressIndex','Home\UserController@addressIndex');
+
+// 添加收货地址
+	Route::post('/addressIndex','Home\UserController@address');
+
+// 修改收货地址页面
+	Route::get('/addressEdit','Home\UserController@addressEditIndex');
+
+// 修改收货地址
+	Route::post('/addressEdit','Home\UserController@addressEdit');
+
+// 删除收货地址
+	Route::get('/ressDel','Home\UserController@delRess');
+
+// 修改默认地址
+	Route::get('/editDefault','Home\UserController@editDefault');
+
+
     // 前台退出
     Route::get('/logout', 'Home\IndexController@logout');
 
@@ -345,24 +365,6 @@ Route::group(['prefix' => '/home'], function(){
 	Route::get('/refund/list','Home\OrdersController@refundlists');
 });
 
-
-// 添加收货地址页面
-	Route::get('/home/addressIndex','Home\UserController@addressIndex');
-
-// 添加收货地址
-	Route::post('/home/addressIndex','Home\UserController@address');
-
-// 修改收货地址页面
-	Route::get('/home/addressEdit','Home\UserController@addressEditIndex');
-
-// 修改收货地址
-	Route::post('/home/addressEdit','Home\UserController@addressEdit');
-
-// 删除收货地址
-	Route::get('/home/ressDel','Home\UserController@delRess');
-
-// 修改默认地址
-	Route::get('/home/editDefault','Home\UserController@editDefault');
 
 
 /*----------------------------------------------------------------------------------*/
