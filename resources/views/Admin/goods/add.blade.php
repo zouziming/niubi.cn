@@ -15,7 +15,7 @@
             <tr>
                 <td style="text-align:right;width:15%;">商品名称：</td>
                 <td>
-                    <input type="text" class="textBox length-long" name="name" /></td>
+                    <input type="text" class="textBox length-long" name="name" value="{{ session('data.name') }}" /></td>
             </tr>
             <tr>
                 <td style="text-align:right;">商品分类：</td>
@@ -28,7 +28,11 @@
 								$num = substr_count($v['path'], ',');
 								$str = str_repeat('--', $num-1);
 							?>
-                            <option <?=$num<2?'disabled':''?> value="{{$v->id}}">{{$str.$v->name}}</option>
+                            <option
+							 @if(session('data.cid') == $v->id)
+							 	selected
+							 @endif
+							  <?=$num<2?'disabled':''?> value="{{$v->id}}">{{$str.$v->name}}</option>
 							@endforeach		
                     </select>
                 </td>
@@ -36,24 +40,45 @@
             <tr>
                 <td style="text-align:right;">商品描述：</td>
                 <td>
-                    <input type="text" class="textBox length-long" name="descr" /></td>
+                    <input type="text" class="textBox length-long" name="descr" value="{{ session('data.descr') }}" /></td>
             </tr>
             <tr>
                 <td style="text-align:right;">推荐至：</td>
                 <td>
-                    <input type="checkbox" name="jinpin" id="jingpin" value="1" />
+					
+                    <input type="checkbox" name="jinpin" id="jingpin" value="1"
+					 @if(session('data.jinpin') == 1)
+						checked
+					 @endif
+					 />
                     <label for="jingpin">精品</label>
-                    <input type="checkbox" name="xinpin" id="xinpin" value="1" />
+                    <input type="checkbox" name="xinpin" id="xinpin" value="1"
+					 @if(session('data.xinpin') == 1)
+					 	checked
+					 @endif
+					 />
                     <label for="xinpin">新品</label>
-                    <input type="checkbox" name="rexiao" id="rexiao" value="1" />
+                    <input type="checkbox" name="rexiao" id="rexiao" value="1"
+					 @if(session('data.rexiao') == 1)
+					 	checked
+					 @endif
+					 />
                     <label for="rexiao">热销</label></td>
             </tr>
             <tr>
                 <td style="text-align:right;">是否包邮：</td>
                 <td>
-                    <input type="radio" name="baoyou" id="baoyou" value="1" />
+                    <input type="radio" name="baoyou" id="baoyou" value="1" 
+					@if(session('data.baoyou') == 1)
+						checked
+					@endif
+					/>
                     <label for="baoyou">包邮</label>
-                    <input type="radio" name="baoyou" id="bubaoyou" value="0" />
+                    <input type="radio" name="baoyou" id="bubaoyou" value="0" 
+					 @if(session('data.baoyou') == 0)
+					 	checked
+					 @endif
+					 />
                     <label for="bubaoyou">不包邮</label></td>
             </tr>
             <tr>

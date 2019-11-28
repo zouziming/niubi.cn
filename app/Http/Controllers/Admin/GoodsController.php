@@ -25,7 +25,7 @@ class GoodsController extends Controller
 	
 	public function add()
 	{
-		
+		// dump(session('data'));
 		$catedata = ShopCate::orderByRaw('concat(path, id) ASC')->get();
 		// dump($catedata);
 		return view('Admin.goods.add')->with('cate', $catedata);
@@ -33,6 +33,7 @@ class GoodsController extends Controller
 	
 	public function checkadd(Request $request)
 	{
+		$request->session()->flash('data', $request->all());
 		
 		$this->validate($request, [
 		    'name' => 'required',
