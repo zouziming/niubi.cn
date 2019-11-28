@@ -39,29 +39,29 @@ class LoginController extends Controller
         ]);
 
         // 验证身份
-        $users = \App\ShopUserinfo::where('username', '=', $request->username)
+        $userInfo = \App\ShopUserinfo::where('username', '=', $request->username)
             ->first();
 
-        if ($users['status'] != 1) {
+        if ($userInfo['status'] != 1) {
             echo "<script>alert('您的账号已被封，请联系管理员：13416341860');location.href='/admin/login'</script>";
             exit;
         }
 
         // 验证密码
-        if (Hash::check( $request->password, $users->password)) {
+        if (Hash::check( $request->password, $userInfo->password)) {
             
             // 保存登录状态
             session([
                 'isLogin' => true,
-                'users' => [
-                    'id' => $users->id,
-                    'username' => $users->username,
-                    'sex' => $users->sex,
-                    'phone' => $users->phone,
-                    'pic' => $users->pic,
-                    'email' => $users->email,
-                    'status' => $users->status,
-                    'addtime' => $users->addtime
+                'userInfo' => [
+                    'id' => $userInfo->id,
+                    'username' => $userInfo->username,
+                    'sex' => $userInfo->sex,
+                    'phone' => $userInfo->phone,
+                    'pic' => $userInfo->pic,
+                    'email' => $userInfo->email,
+                    'status' => $userInfo->status,
+                    'addtime' => $userInfo->addtime
                 ]
             ]);
             // 跳转到后台首页
