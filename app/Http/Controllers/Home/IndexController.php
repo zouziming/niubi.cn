@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\ShopLink;
 use App\ShopCar;
 use App\ShopLunbo;
 use App\ShopCate;
@@ -28,7 +29,8 @@ class IndexController extends Controller
 	
 	public function index(Request $request)
 	{
-		dump(session('userInfo'));
+		// dump(session('userInfo'));
+		$link = ShopLink::limit(4)->get();
 		$shopnum = 0;
 		if (session('userInfo.id')) {
 			$shopcar = ShopCar::where('uid', session('userInfo.id'))->get();
@@ -73,7 +75,7 @@ class IndexController extends Controller
 
 		$lunbo = ShopLunbo::limit(5)->orderBy('id', 'desc')->get();
 		
-		return view('Home.index')->with(['data'=>$data, 'tui'=>$tui, 'hot'=>$hot, 'lunbo'=>$lunbo, 'shopnum'=>$shopnum]);
+		return view('Home.index')->with(['data'=>$data, 'tui'=>$tui, 'hot'=>$hot, 'lunbo'=>$lunbo, 'shopnum'=>$shopnum, 'link'=>$link]);
 	}
 
 	// 键盘按下搜索

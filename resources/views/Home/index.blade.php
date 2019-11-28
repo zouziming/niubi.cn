@@ -310,16 +310,13 @@
             
             <div class="inHelp">
                 <div class="inHLeft">
-                    <h4>帮助中心</h4>
+                    <h4>友情链接</h4>
                     <ul class="inHeList">
-                        <li>
-                            <a href="#">购物指南</a></li>
-                        <li>
-                            <a href="#">支付方式</a></li>
-                        <li>
-                            <a href="#">售后服务</a></li>
-                        <li>
-                            <a href="#">企业简介</a></li>
+						@foreach($link as $v)
+						<li>
+							<a href="{{$v['url']}}">{{$v['name']}}</a>
+						</li>
+						@endforeach
                         <div class="clears"></div>
                     </ul>
                     <!--inHeList/--></div>
@@ -334,7 +331,7 @@
                         <li>
                             <a href="/home/shopcar">购物车</a></li>
                         <li>
-                            <a href="#">我的订单</a></li>
+                            <a href="/ShowOrders">我的订单</a></li>
                         <div class="clears"></div>
                     </ul>
                     <!--inHeList/--></div>
