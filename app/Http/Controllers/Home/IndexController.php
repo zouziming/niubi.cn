@@ -28,6 +28,7 @@ class IndexController extends Controller
 	
 	public function index(Request $request)
 	{
+		dump(session('userInfo'));
 		$shopnum = 0;
 		if (session('userInfo.id')) {
 			$shopcar = ShopCar::where('uid', session('userInfo.id'))->get();
