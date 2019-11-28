@@ -14,9 +14,10 @@ class IndexController extends Controller
     // 显示首页
     public function index(Request $request)
     {
-        $user = \App\ShopUserinfo::where('id', '=', session('userInfo.id'))
-                ->first();
-        return view('Admin.index',['user' => $user]);
+        // $user = \App\ShopUserinfo::where('id', '=', session('userInfo.id'))
+                // ->first();
+        // dd(session('userInfo.id'));,['user' => $user]
+        return view('Admin.index');
     }
 
 
@@ -111,10 +112,9 @@ class IndexController extends Controller
     // 显示修改头像页面
     public function headpic()
     {
-        $user = \App\ShopUserinfo::where('id', '=', session('userInfo.id'))
-                ->first();
-        return view('Admin.headpic',['user' => $user]);
-        // return view('Admin.headpic');
+        // $user = \App\ShopUserinfo::where('id', '=', session('userInfo.id'))
+        //         ->first();['user' => $user]
+        return view('Admin.headpic');
     }
 
     // 修改头像
