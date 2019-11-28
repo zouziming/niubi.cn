@@ -12,7 +12,7 @@
         <br>
         <div class="form-group col-md-12">
         @if(session('users.pic') == true)
-        <a href="/admin/headpic"><img src="/storage/{{ session('users.pic') }}" value="" style="width:125px;height:125px" alt="" class="img-circle"></a>
+        <a href="/admin/headpic"><img src="/storage/{{$user->pic}}" value="" style="width:125px;height:125px" alt="" class="img-circle"></a>
         @else
         <a href="/admin/headpic"><img src="/lib/img/do.jpg" value="" style="width:125px;height:125px" alt="" class="img-circle"></a>
         @endif
@@ -21,7 +21,7 @@
             <label for="exampleInputEmail1" style="color:blue">用户名</label>
             <div class="panel panel-default">
               <div class="panel-body" style="padding:8px;height:36px">
-                {{ session('users.username') }}
+                {{$user->username}}
               </div>
             </div>
         </div>
@@ -29,7 +29,7 @@
             <label for="exampleInputEmail1" style="color:blue">手机号</label>
             <div class="panel panel-default">
               <div class="panel-body" style="padding:8px;height:36px">
-                {{ session('users.phone') }}
+                {{$user->phone}}
               </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
             <label for="exampleInputEmail1" style="color:blue">邮箱</label>
             <div class="panel panel-default">
               <div class="panel-body" style="padding:8px;height:36px">
-                {{ session('users.email') }}
+                {{$user->email}}
               </div>
             </div>
         </div>
@@ -45,9 +45,9 @@
             <label for="exampleInputEmail1" style="color:blue">性别</label>
             <div class="panel panel-default">
               <div class="panel-body" style="padding:8px;height:36px">
-                @if (session('users.sex') == 0)
+                @if ($user->sex == 0)
                     女
-                @elseif (session('users.sex') == 1)
+                @elseif ($user->sex == 1)
                     男
                 @else
                     保密
@@ -67,7 +67,7 @@
             <label for="exampleInputEmail1" style="color:blue">注册时间</label>
             <div class="panel panel-default">
               <div class="panel-body" style="padding:8px;height:36px">
-                {{ session('users.addtime') }}
+                {{$user->addtime}}
               </div>
             </div>
         </div>
@@ -102,16 +102,16 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="recipient-name" class="control-label">用户名:</label>
-                    <input type="text" name="username" class="form-control" id="recipient-name" value="{{ session('users.username') }}">
+                    <input type="text" name="username" class="form-control" id="recipient-name" value="{{$user->username}}">
                     {{$errors->first('username')}}
                 </div>
                 <div class="form-group">
                     <label for="recipient-name" class="control-label">手机号:</label>
-                    <input type="text" name="phone" class="form-control" id="recipient-name" value="{{ session('users.phone') }}">
+                    <input type="text" name="phone" class="form-control" id="recipient-name" value="{{$user->phone}}">
                 </div>
                 <div class="form-group">
                     <label for="recipient-name" class="control-label">邮箱:</label>
-                    <input type="text" name="email" class="form-control" id="recipient-name" value="{{ session('users.email') }}">
+                    <input type="text" name="email" class="form-control" id="recipient-name" value="{{$user->email}}">
                 </div>
                 <div class="form-group">
                     <label for="recipient-name" class="control-label">性别:</label>
