@@ -35,7 +35,7 @@ class IndexController extends Controller
     {
         $id = $request->all('id');
         $user = \App\ShopUserinfo::where($id)->first();
-        // dump($user);
+
         return view('Admin.pwd',[
             'user' => $user
         ]);
@@ -77,13 +77,13 @@ class IndexController extends Controller
     // 修改个人信息
     public function info(Request $request)
     {
-        // dd($request->id);
         $this->validate($request, [
-            'username' => 'min:2',
+            'username' => 'min:2|unique:shop_userinfo',
             'email' => 'email',
             'phone' => 'regex:/^1[345789][0-9]{9}$/',
         ],[
             'username.min' => '用户名最少2个字符',
+            'username.unique' => '用户名已存在',
             'email.email' => '邮箱规则不合法',
             'phone.regex' => '手机格式不对',
         ]);
@@ -115,7 +115,7 @@ class IndexController extends Controller
     // 修改头像
     public function editheadpic(Request $request)
     {
-        // dd($request->id);
+
         $data = $request->pic->store('touxiang', 'public');
 
         $res = \App\ShopUserinfo::where('id', '=', $request->id)
