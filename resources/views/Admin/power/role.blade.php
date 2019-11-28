@@ -37,7 +37,7 @@
 @section('script')
     <script type="text/javascript">
         $('.del').click(function(){
-            var r=confirm("按下按钮");
+            var r=confirm("点击删除");
             var _t=this;
             var id=$(this).data('id');
             if (r==true) {
