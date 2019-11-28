@@ -355,6 +355,7 @@ Route::group(['prefix' => '/home'], function(){
 	Route::get('/orders/detail/{id}', 'Home\OrdersController@details');
 	Route::post('/order/annulla', 'Home\OrdersController@annullaorder');
 	Route::post('/order/merci', 'Home\OrdersController@merciorder');
+
 	Route::get('/order/edit/{id}', 'Home\OrdersController@editorder');
 	Route::post('/order/edit/{id}', 'Home\OrdersController@checkeditorder');
 	Route::post('/order/commit', 'Home\OrdersController@commit');
@@ -362,6 +363,7 @@ Route::group(['prefix' => '/home'], function(){
 	
 	Route::post('/refund/apply','Home\OrdersController@refundapply');
 	Route::post('/refund/cancel','Home\OrdersController@refundcancel');
+	// 退货
 	Route::get('/refund/list','Home\OrdersController@refundlists');
 });
 
