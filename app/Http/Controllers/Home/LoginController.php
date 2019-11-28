@@ -102,7 +102,7 @@ class LoginController extends Controller
     // 手机号登录
     public function dologincode(Request $request)
     {
-        // dd(session('checkcode'));
+
         $this->validate($request, [
             'phone'=>'required|regex:/^1[345789][0-9]{9}$/',
             'checkcode'=>'required',

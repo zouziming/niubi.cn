@@ -14,11 +14,10 @@ class UserController extends Controller
     public function show()
     {
         $users = \App\ShopUserinfo::paginate(10);
-        // dd($users);
+
         return view('Admin.user.index', [
             'users' => $users,
         ]);
-
     }
 
 
@@ -34,7 +33,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'username' => 'required|max:255|min:2',
+            'username' => 'required|max:255|min:2|unique:shop_userinfo',
             'password'=>'required|alpha_num|min:6|confirmed',
             'email' => 'required|email',
             'phone' => 'required|regex:/^1[345789][0-9]{9}$/',
@@ -42,6 +41,7 @@ class UserController extends Controller
             'username.required' => '用户名不能为空',
             'username.max' => '用户名过长',
             'username.min' => '用户名不能少于2个字符',
+            'username.unique' => '用户名已存在',
 
             'password.required' => '新密码不能为空',
             'password.alpha_num' => '新密码只能是字母数字',
@@ -118,13 +118,14 @@ class UserController extends Controller
     public function doedit(Request $request)
     {
         $this->validate($request, [
-            'username' => 'required|max:255',
+            'username' => 'required|max:255|unique:shop_userinfo',
             'email' => 'required',
             'phone' => 'required',
             'sex' => 'required',
         ],[
             'username.required' => '用户名不能为空',
             'username.max' => '用户名过长',
+            'username.unique' => '用户名已存在',
 
             'email.required' => '邮箱不能为空',
             'phone.required' => '手机号不能为空',
@@ -177,8 +178,5 @@ class UserController extends Controller
             'users' => $users,
         ]);
     }
-
-
-    // 修改头像
     
 }
