@@ -58,14 +58,9 @@
                 <li class="headerul">|</li>
                 <li><a href="#">订单查询</a> </li>
                 <li class="headerul">|</li>
-                <li><a href="#">我的收藏</a> </li>
+                <li><a href="/home/collection">我的收藏</a> </li>
                 <li class="headerul">|</li>
-                <li id="pc-nav" class="menu"><a href="#" class="tit">我的商城</a>
-                    <div class="subnav">
-                        <a href="#">我的山城</a>
-                        <a href="#">我的山城</a>
-                        <a href="#">我的山城</a>
-                    </div>
+                <li id="pc-nav"><a href="/home" class="tit">我的商城</a>
                 </li>
                 <li class="headerul">|</li>
                 <li><a href="#" class="M-iphone">手机悦商城</a> </li>
@@ -77,8 +72,8 @@
         <div class="member-title fl"><h2></h2></div>
         <div class="head-form fl">
             <form class="clearfix">
-                <input type="text" class="search-text" accesskey="" id="key" autocomplete="off"  placeholder="洗衣机">
-                <button class="button" onClick="search('key');return false;">搜索</button>
+                <input type="text" class="search-text" accesskey="" id="key" autocomplete="off"  placeholder="手机模型">
+                <button class="button sub" onClick="search('key');return false;">搜索</button>
             </form>
             <div class="words-text clearfix">
                 <a href="#" class="red">1元秒爆</a>
@@ -90,7 +85,7 @@
                 <a href="#">服装城</a>
             </div>
         </div>
-        <div class="header-cart fr"><a href="#"><img src="/lib/theme/icon/car.png"></a> <i class="head-amount">99</i></div>
+        <div class="header-cart fr"><a href="/home/shopcar"><img src="/lib/theme/icon/car.png"></a> <i class="head-amount">??</i></div>
     </div>
 </header>
 <!-- header End -->
@@ -119,7 +114,7 @@
                 <dl>
                     <dt>我的商城</dt>
                     <dd><a href="#">我的订单</a></dd>
-                    <dd><a href="#">我的收藏</a></dd>
+                    <dd><a href="/home/collection">我的收藏</a></dd>
                     <dd><a href="/home/user/mycenter">我的信息</a></dd>
                     <dd><a href="#">我的评价</a></dd>
                     <dd><a href="#">地址管理</a></dd>
@@ -131,7 +126,7 @@
                 </dl>
                 <dl>
                     <dt>我的消息</dt>
-                    <dd class="cur"><a href="#">商城快讯</a></dd>
+                    <dd><a href="#">商城快讯</a></dd>
                     <dd><a href="#">帮助中心</a></dd>
                 </dl>
             </div>
@@ -236,5 +231,28 @@
 </div>
 <!-- footer End -->
 @yield('script')
+<script>
+    $('.sub').click(function(){
+            var _vv=$('#key').val();
+            console.dir(_vv);
+
+            $.ajax({
+                type:'get',
+                url:'/home/search',
+                data:{
+                    name:_vv,
+                },
+                success:function(res){
+                    // console.dir(res);
+                    if (res) {
+                        location.href="/home/cate/"+res.id;
+                    } else {
+                        alert('搜不到结果');
+                    }
+                }
+            })
+            return false;
+        })
+</script>
 </body>
 </html>

@@ -43,9 +43,9 @@
                 <a style="color:violet">{{ session('userInfo.username') }}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</a>
                 <a href="/home/logout" style="color:red">退出&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</a>
 				<span class="topRight">
-                    <a href="order.html">我的订单</a>&nbsp;|
+                    <a href="#">我的订单</a>&nbsp;|
                     <a href="/home/collection">我的收藏</a>&nbsp;|
-                    <a href="contact.html">联系我们</a>
+                    <a href="#">联系我们</a>
 				</span>
                 @endempty
             </div>
@@ -60,12 +60,8 @@
                         <input type="text" id="ipt" class="subLeft" />
                         <button class="sub">搜索</button>
                         <div class="hotWord">热门搜索：
-                            <a href="proinfo.html">冷饮杯</a>&nbsp;
-                            <a href="proinfo.html">热饮杯</a>&nbsp;
-                            <a href="proinfo.html">纸杯</a>&nbsp;
-                            <a href="proinfo.html">纸巾</a>&nbsp;
-                            <a href="proinfo.html">纸巾</a>&nbsp;
-                            <a href="proinfo.html">纸杯</a>&nbsp;</div>
+                            <a href="home/goods/12">iPhone XS</a>&nbsp;
+                            <a href="home/goods/16">机械革命</a>&nbsp;</div>
                         <!--hotWord/--></div>
                         <div class="list-group" id="searchList" ></div>
                     <!--subBoxDiv/--></form>
@@ -75,7 +71,7 @@
                         <img src="/lib/image/gouimg.png" width="19" height="20" style="position:relative;top:6px;" />&nbsp;|&nbsp;
                         <strong class="red">0</strong>&nbsp;件&nbsp;|
                         <strong class="red">￥ 0.00</strong>
-                        <a href="order.html">去结算</a>
+                        <a href="/home/shopcar/pay">去结算</a>
                         <img src="/lib/image/youjian.jpg" width="5" height="8" /></div>
                     <!--gouCar/-->
                     <div class="myChunlv">
@@ -108,11 +104,7 @@
                         <li class="navCur">
                             <a href="/home">商城首页</a></li>
                         <li>
-                            <a href="product.html">促销中心</a></li>
-                        <li>
                             <a href="home/user/mycenter">会员中心</a></li>
-                        <li>
-                            <a href="help.html">帮助中心</a></li>
                         <div class="clears"></div>
 					</ul>
                     <!--nav/-->
@@ -323,13 +315,13 @@
                     <h4>帮助中心</h4>
                     <ul class="inHeList">
                         <li>
-                            <a href="help.html">购物指南</a></li>
+                            <a href="#">购物指南</a></li>
                         <li>
-                            <a href="help.html">支付方式</a></li>
+                            <a href="#">支付方式</a></li>
                         <li>
-                            <a href="help.html">售后服务</a></li>
+                            <a href="#">售后服务</a></li>
                         <li>
-                            <a href="about.html">企业简介</a></li>
+                            <a href="#">企业简介</a></li>
                         <div class="clears"></div>
                     </ul>
                     <!--inHeList/--></div>
@@ -342,9 +334,9 @@
                         <li>
                             <a href="/home/login">会员登录</a></li>
                         <li>
-                            <a href="/home/order">购物车</a></li>
+                            <a href="/home/shopcar">购物车</a></li>
                         <li>
-                            <a href="order.html">我的订单</a></li>
+                            <a href="#">我的订单</a></li>
                         <div class="clears"></div>
                     </ul>
                     <!--inHeList/--></div>
@@ -362,13 +354,12 @@
             <!--inHelp/-->
             <div class="footer">
                 <p>
-                    <a href="#">进入17官网</a>&nbsp;|&nbsp;
-                    <a href="index.html">商城首页</a>&nbsp;|&nbsp;
-                    <a href="product.html">促销中心</a>&nbsp;|&nbsp;
-                    <a href="order.html">我的订单</a>&nbsp;|&nbsp;
-                    <a href="new.html">新闻动态</a>&nbsp;|&nbsp;
-                    <a href="login.html">会员中心</a>&nbsp;|&nbsp;
-                    <a href="help.htmll">帮助中心</a>
+                    <a href="#">商城首页</a>&nbsp;|&nbsp;
+                    <a href="#">促销中心</a>&nbsp;|&nbsp;
+                    <a href="#">我的订单</a>&nbsp;|&nbsp;
+                    <a href="#">新闻动态</a>&nbsp;|&nbsp;
+                    <a href="/home/user/mycenter">会员中心</a>&nbsp;|&nbsp;
+                    <a href="#">帮助中心</a>
 				</p>
             </div>
             <!--footer/--></div>
