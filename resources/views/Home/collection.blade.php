@@ -38,7 +38,7 @@
 				@empty(!SESSION('userInfo'))
 				<a href="/home/collection">我的收藏</a>
 				<a href="/home/shopcar">我的购物车</a>
-				<a href="#">我的订单</a>
+				<a href="/ShowOrders">我的订单</a>
 				<!-- <a href="#">积分平台</a> -->
 				@endempty
 			</div>

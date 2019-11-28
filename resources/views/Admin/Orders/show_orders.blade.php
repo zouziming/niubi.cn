@@ -7,12 +7,8 @@
 <span class="label label-default">订单列表</span>
 
 </div>
-<form class="form-inline" method="post" action="/admin/seeks">
-    {{ csrf_field() }}
-        <div class="form-group">
-                <label for="exampleInputName2"><span class="label label-primary">商品ID:</span></label>
-                    <input value="{{Request::input('id')}}" name="id" type="text" class="form-control" id="exampleInputName2" placeholder="按订单编号(ID)" style="width:120px">
-            </div>
+	<form class="form-inline" method="post" action="/admin/seeks">
+		{{ csrf_field() }}
             <div class="form-group">
                 <label for="exampleInputName2"><span class="label label-primary">收货人:</span></label>
                     <input value="{{Request::input('getman')}}" name="getman" type="text" class="form-control" id="exampleInputName2" placeholder="按收货人查找" style="width:130px">
@@ -31,16 +27,15 @@
                         <option value="4">已完成</option>
                         <option value="5">无效订单</option>
                     </select>
-        </div>
-            <button type="submit" class="btn btn-default">搜索</button>
-        </form>
+			</div>
+        <button type="submit" class="btn btn-default">搜索</button>
+	</form>
 
 <div class="col-md-12">
         <div class="content">
             <table class="table table-hover" style="font-size:10px">
                 <tr>
                     <th>ID</th>
-                    <th>用户ID</th>
                     <th>用户名</th>
                     <th>收货人</th>
                     <th>手机号</th>
@@ -51,34 +46,36 @@
                     <th>发货状态</th>
                     <th>操作</th>
                 </tr>
-                @foreach($datas as $data)              
+                @foreach($datas as $v)              
                 <tr>
-                    <td>{{$data->id}}</td>
-                    <td>{{$data->uid}}</td>
-                    <td>{{$data->username}}</td>
-                    <td>{{$data->getman}}</td>
-                    <td>{{$data->phone}}</td>
-                    <td>{{$data->address}}</td>
-                    <td>{{$data->total}}</td>
-                    <td>{{$data->addtime}}</td>
-                    <td>{{$data->code}}</td>
+                    <td>{{$v->id}}</td>
+                    <td>{{$v->uid}}</td>
+                    <td>{{$v->getman}}</td>
+                    <td>{{$v->phone}}</td>
+                    <td>{{$v->address}}</td>
+                    <td>{{$v->total}}</td>
+                    <td>{{$v->addtime}}</td>
+                    <td>{{$v->code}}</td>
                     <td>
-                    @if ($data->status === 1)
+                    @if ($v->status == 1)
                         待付款
-                    @elseif ($data->status === 2)
+                    @elseif ($v->status == 2)
                         待发货
-                    @elseif ($data->status === 3)
+                    @elseif ($v->status == 3)
                         已发货
-                    @elseif ($data->status === 4)
+                    @elseif ($v->status == 4)
                         已完成
-                    @elseif ($data->status === 5)
+                    @elseif ($v->status == 5)
                         无效订单
                     @endif
                     </td>
                     <td>
-                    <span class="label label-warning"><a href="details?id={{$data->id}}">查看详情</a></span>
-                    <span class="label label-success"><a href="amend?id={{$data->id}}">修改订单</a></span>
-                    
+						<span class="label label-warning"><a href="/admin/details?id={{$v->id}}">查看详情</a></span>
+						@if($v['status'] == 2)
+							<span class="label label-success">
+								<a class="fa" data-id="{{$v->id}}" href="javascript:void(0)">发货</a>
+							</span>
+						@endif
                     </td>
                 </tr>
                 @endforeach
@@ -88,3 +85,28 @@
 </div>
 @endsection
 
+@section('script')
+<script>
+	$('.fa').click(function(){
+		var id = $(this).data('id')
+		var _this = this.parentElement
+		$.ajax({
+			method:'post',
+			url:'/admin/order/fahuo',
+			data:{
+				_token : '{{ csrf_token() }}',
+				id : id,
+			},
+			success: function(res){
+				if (res.code == 0) {
+					$(_this.parentElement.parentElement).children().eq(8).html('已发货')
+					$(_this).remove()
+					layer.msg(res.msg);
+				} else if (res.code != 0) {
+					layer.msg(res.msg);
+				}
+			}	
+		});
+	})
+</script>
+@endsection

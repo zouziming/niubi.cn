@@ -43,7 +43,7 @@
                 <a style="color:violet">{{ session('userInfo.username') }}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</a>
                 <a href="/home/logout" style="color:red">退出&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</a>
 				<span class="topRight">
-                    <a href="#">我的订单</a>&nbsp;|
+                    <a href="/ShowOrders">我的订单</a>&nbsp;|
                     <a href="/home/collection">我的收藏</a>&nbsp;|
                     <a href="#">联系我们</a>
 				</span>

@@ -55,7 +55,7 @@
 		  <a href="/home/logout" style="color:red;text-decoration: none;">退出&nbsp;&nbsp;&nbsp;&nbsp;</a>
 		  @endempty
 
-          <li><a target="_blank" href="javascript:void(0)">我的订单</a></li>
+          <li><a target="_blank" href="/ShowOrders">我的订单</a></li>
           <li class="spacer"></li>
           <li><a target="_blank" href="javascript:void(0)">我的浏览</a></li>
           <li class="spacer"></li>
@@ -123,43 +123,8 @@
                 </div>
             </div>
             <div class="ddxq-xiaq">
-				<a href="http://192.168.5.75/index.php/Home/Order/order_detail/id/1518.html">订单详情<i></i></a>
+				<a href="/home/orders/detail/{{$data[0]['id']}}">订单详情<i></i></a>
 			</div>
-			
-			
-			<!-- <form name=alipayment action="../storage/pay/pagepay/pagepay.php" method=post target="_blank">
-			            <div id="body1" class="show" name="divcontent">
-			                <dl class="content">
-			                    <dt>商户订单号：</dt>
-			                    <dd>
-			                        <input id="WIDout_trade_no" name="WIDout_trade_no" value="" />
-			                    </dd>
-			                    <hr class="one_line">
-			                    <dt>订单名称：</dt>
-			                    <dd>
-			                        <input id="WIDsubject" name="WIDsubject" value="" />
-			                    </dd>
-			                    <hr class="one_line">
-			                    <dt>付款金额：</dt>
-			                    <dd>
-			                        <input id="WIDtotal_amount" name="WIDtotal_amount" value="" />
-			                    </dd>
-			                    <hr class="one_line">
-			                    <dt>商品描述：</dt>
-			                    <dd>
-			                        <input id="WIDbody" name="WIDbody" value="" />
-			                    </dd>
-			                    <hr class="one_line">
-			                    <dt></dt>
-			                    <dd id="btn-dd">
-			                        <span class="new-btn-login-sp">
-			                            <button class="new-btn-login" type="submit" style="text-align:center;">付 款</button>
-			                        </span>
-			                        <span class="note-help">如果您点击“付款”按钮，即表示您同意该次的执行操作。</span>
-			                    </dd>
-			                </dl>
-			            </div>
-					</form> -->
 					
             <form action="/home/pay/pyjy" method="post" name="alipayment" id="cart4_form" target="_blank">
 				{{ csrf_field() }}
@@ -193,8 +158,7 @@
                             </dd>
                         </dl>
                         <div class="order-payment-action-area">
-							<button class="new-btn-login button-style-5 button-confirm-payment" type="submit" style="text-align:center;">付 款</button>
-                            <!-- <a class="button-style-5 button-confirm-payment" href="javascript:void(0);">确认支付方式</a> -->
+							<button data-id="{{$data[0]['id']}}" class="new-btn-login button-style-5 button-confirm-payment" type="submit" style="text-align:center;">付 款</button>
                         </div>
                     </div>
                 </div>
@@ -206,25 +170,6 @@
 </div>
 
 
-<!--微信扫一扫支付对话框  -->
-<!-- <div id="wchatQrcodeDlg" class="g-cartpay-dlg" style="display: none;" data-show="">
-    <div class="g-cartpay-content">
-        <div class="g-h"><span class="u-close"></span></div>
-        <div class="g-c">
-            <div class="g-t"> 使用微信支付<span>￥<small class="wx_amount">118</small></span></div>
-            <div class="g-qrcode"><img alt="使用微信支付" src="/lib/pyjy/loading.gif"></div>
-        </div>
-        <div class="g-f fixed"><i class="icon_scan"></i>
-
-            <div class="u-label">
-                <p>请使用微信扫一扫<br>
-                    扫描二维码完成支付</p>
-            </div>
-        </div>
-    </div>
-    <div class="u-mask"></div>
-</div> -->
-<!--微信扫一扫支付对话框 / -->
 <div id="addCardNewBind"></div>
 <!--footer-s-->
 <div class="footer p">
@@ -282,9 +227,6 @@
 	</div>
     <div class="mod_copyright p">
         <div class="grid-top">
-                        <!--<a href="javascript:void (0);">关于我们</a><span>|</span>-->
-            <!--<a href="javascript:void (0);">联系我们</a><span>|</span>-->
-            <!---->
         </div>
         <p>Copyright © 2016-2025 TPshop开源商城 版权所有 备案号:<a href="http://www.miitbeian.gov.cn/">粤ICP备123456号</a></p>
 
@@ -353,15 +295,6 @@
         $(obj).parent().siblings('input[name="pay_radio"]').trigger('click');
     }
 </script>
-
-<script>
-	$('.button-confirm-payment').click(function(){
-		if ($('.vam:checked').val() == 'pay_code=cod') {
-			layer.msg('暂时没有这个功能，用支付宝吧')
-		}
-	})
-</script>
-
 
 </body>
 </html>

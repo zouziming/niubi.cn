@@ -13,7 +13,7 @@
 	<script src="/lib/shopcar/js/swiper.min.js" charset="UTF-8"></script>
 	<script src="/lib/shopcar/js/global.js" charset="UTF-8"></script>
 	<script src="/lib/shopcar/js/jquery.DJMask.2.1.1.js" charset="UTF-8"></script>
-	<script src="/lib/layer/layer.js"></script>
+	<script src="/layer/layer.js"></script>
 	<title>U袋网</title>
 </head>
 <body>

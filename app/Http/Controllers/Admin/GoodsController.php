@@ -15,10 +15,6 @@ class GoodsController extends Controller
 	{
 		$res = '1';
 		$data = Goods::where('is_recycle', 0)->orderBy('id', 'desc')->paginate(3);
-		// dump($data);
-		// $page = $_SERVER['QUERY_STRING'];
-		// $page = explode('=', $page);
-		// $page = $page[1];
 		foreach ($data as $k=>$v) {
 			$v['cid'] = ShopCate::where('id', $v['cid'])->pluck('name')[0];
 		}
