@@ -91,7 +91,9 @@
 			<td class="center btns" data-id="{{$v->id}}">
 				<a href="javascript:void(0)" title="编辑"><img width="40px;" src="/lib/images/icon_edit.gif"/></a>
 				<a href="javascript:void(0)" title="删除"><img width="40px;" src="/lib/images/icon_drop.gif"/></a>
-				<a href="javascript:void(0)" title="规格" ><img width="40px;" src="/lib/images/icon_view.gif"/></a>
+				<a href="javascript:void(0)" title="规格" class="edits" data-id="{{$v['id']}}">
+					<img width="40px;" src="/lib/images/icon_view.gif"/>
+				</a>
 				<a href="javascript:void(0)" title="设置商品价格" ><img width="40px;" src="/lib/images/icon_title.gif"/></a>
 			</td>
 		</tr>
@@ -196,13 +198,29 @@
 							location.href = "/admin/goods/edit/"+id
 						} else if (src == '/lib/images/icon_drop.gif') {
 							location.href = "/admin/goods/gorecycle/"+id
-						} else if (src == '/lib/images/icon_view.gif') {
-							location.href = "/admin/specs/"+id
 						} else if (src == '/lib/images/icon_title.gif') {
 							location.href = "/admin/specs/goods/"+id
 						}
 					}
-					 
+				}	
+			});
+		})
+		
+		$('.edits').click(function(){
+			var id = $(this).data('id')
+			$.ajax({
+				method:'post',
+				url:'/admin/checkhasattr',
+				data:{
+					_token : '{{ csrf_token() }}',
+					id : id,
+				},
+				success: function(res){
+					if (res.code == 0) {
+						layer.msg(res.msg);
+					} else if (res.code == 1) {
+						location.href = "/admin/specs/"+id
+					}
 				}	
 			});
 		})

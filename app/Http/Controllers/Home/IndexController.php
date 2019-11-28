@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\ShopCar;
 use App\ShopLunbo;
 use App\ShopCate;
 use App\Goods;
@@ -11,7 +12,6 @@ use App\AttributeValue;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use App\ShopUsers;
 use App\Models\Cate;
 
 class IndexController extends Controller
@@ -28,6 +28,15 @@ class IndexController extends Controller
 	
 	public function index(Request $request)
 	{
+		$shopnum = 0;
+		if (session('userInfo.id')) {
+			$shopcar = ShopCar::where('uid', session('userInfo.id'))->get();
+			foreach ($shopcar as $v) {
+				
+				$shopnum += $v['goods_num'];
+			}
+		}
+		// dd($shopnum);
 		// dump(session('userInfo'));
 		$cate = ShopCate::where('pid', 0)->get();
 		// dd($cate);
@@ -63,7 +72,7 @@ class IndexController extends Controller
 
 		$lunbo = ShopLunbo::limit(5)->orderBy('id', 'desc')->get();
 		
-		return view('Home.index')->with(['data'=>$data, 'tui'=>$tui, 'hot'=>$hot, 'lunbo'=>$lunbo]);
+		return view('Home.index')->with(['data'=>$data, 'tui'=>$tui, 'hot'=>$hot, 'lunbo'=>$lunbo, 'shopnum'=>$shopnum]);
 	}
 
 	// 键盘按下搜索

@@ -59,21 +59,17 @@
 				<a style="color:violet;text-decoration: none;">{{ session('userInfo.username') }}&nbsp;&nbsp;&nbsp;&nbsp;</a>
 				<a href="/home/logout" style="color:red;text-decoration: none;">退出&nbsp;&nbsp;&nbsp;&nbsp;</a>
 				<li class="headerul">|</li>
-                <li><a href="#">订单查询</a> </li>
+                <li><a href="/ShowOrders">订单查询</a> </li>
                 <li class="headerul">|</li>
                 <li><a href="/home/collection">我的收藏</a> </li>
                 <li class="headerul">|</li>
-                <li><a href="#">我的商城</a> </li>
-                <li class="headerul">|</li>
-                <li><a href="#" class="M-iphone">手机悦商城</a> </li>
-				<li class="headerul">|</li>
 				@endempty
             </ul>
         </div>
     </div>
     <div class="container clearfix">
 
-        <div class="header-logo fl"><h1><a href="/home"><img src="/lib/theme/icon/logo.png"></a> </h1></div>
+        <div class="header-logo fl"><h1><a href="/home"><img src="/lib/images/01.jpg" style="max-width: 400px;max-height: 118px;"></a> </h1></div>
 
         <div class="head-form fl">
             <form class="clearfix">

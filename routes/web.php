@@ -83,6 +83,8 @@ Route::group(['prefix' => '/admin', 'middleware' => ['user.login']], function(){
 	
 	Route::post('/goods/online', 'Admin\GoodsController@isonline');
 	
+	Route::post('/checkhasattr', 'Admin\GoodsController@checkhasattr');
+	
 	//规格属性
 	Route::get('/goods/attr', 'Admin\AttrController@attr');
 	
@@ -288,7 +290,7 @@ Route::get('/home/user/password', 'Home\UserController@show');
 Route::post('/home/user/password', 'Home\UserController@password');
 
     // 前台首页
-    // Route::get('/','Home\IndexController@index');
+    Route::get('/','Home\IndexController@index');
     // 分类页面
     // Route::get('/cate','Home\CateController@cate');
 
@@ -319,6 +321,7 @@ Route::group(['prefix' => '/home'], function(){
 	
 	Route::get('/shopcar/pay', 'Home\TrolleyController@pay');
 	Route::post('/shopcar/orders', 'Home\TrolleyController@orders');
+	Route::post('/shopcar/delorder', 'Home\TrolleyController@delorders');
 	Route::get('/shopcar/pyjy', 'Home\TrolleyController@pyjy');
 	Route::post('/pay/pyjy', 'Home\TrolleyController@paypyjy');
 	Route::get('/pay/return', 'Home\TrolleyController@returnurl');

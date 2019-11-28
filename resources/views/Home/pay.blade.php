@@ -94,7 +94,7 @@
                 <div class="fl">
                     <div class="logo pa-to-36 wi345">
                         <a href="/home">
-							<img src="/lib/pyjy/814d7e9a0eddcf3754f2e8373a50a19c.png" alt="" style="max-width: 240px;max-height: 80px;">
+							<img src="/lib/images/01.jpg" alt="" style="max-width: 400px;max-height: 118px;">
 						</a>
                     </div>
                 </div>
