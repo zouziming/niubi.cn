@@ -16,7 +16,7 @@
     <form class="am-form " action="/home/user/picture" method="post" id="form">
         {{ csrf_field() }}
         <input type="hidden" name="id" value="{{ session('userInfo.id') }}">
-        @if(session('userInfo.pic') == true)
+        @if($user->pic == true)
         <img id="img" style="width:200px;height:200px;" src="/storage/{{$user->pic}}" />
         @else
         <img id="img" style="width:200px;height:200px;" src="/lib/img/do.jpg" />

@@ -14,7 +14,7 @@
         <!-- <form action="/home/user/mycenter" method="post"> -->
             <div class="filePic">
             <a href="/home/user/picture" class="inputPic" name="pic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*"> </a>
-            @if(session('userInfo.pic') == true)
+            @if($user->pic == true)
             <img class="btn am-circle am-img-thumbnail" src="/storage/{{$user->pic}}" id="btn" style="border:1px solid #00CCFF" />
             @else
             <img class="btn am-circle am-img-thumbnail" id="btn" style="border:1px solid #00CCFF" src="/lib/img/do.jpg" alt="" />
