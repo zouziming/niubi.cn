@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Goods;
+use App\GoodsSpecs;
 use App\ShopCardetail;
 use App\ShopCarorder;
 use App\ShopAddres;
@@ -27,6 +29,7 @@ class TrolleyController extends Controller
 	public function jian(Request $request)
 	{
 		$res = ShopCar::where('id', $request->id)->update(['goods_num'=>$request->num]);
+		
 		if ($res) {
 			return ['code'=>0, 'msg'=>'ok'];
 		}
@@ -34,9 +37,18 @@ class TrolleyController extends Controller
 	
 	public function jia(Request $request)
 	{
-		$res = ShopCar::where('id', $request->id)->update(['goods_num'=>$request->num]);
-		if ($res) {
-			return ['code'=>0, 'msg'=>'ok'];
+		$shopcar = ShopCar::where('id', $request->id)->first();
+		// dump($request->num);
+		$num = GoodsSpecs::where('goods_id', $shopcar['gid'])->where('goods_specs', $shopcar['goods_specs'])->pluck('goods_stock')[0];
+		// dump((int)$request->num);
+		// dump($num);
+		if ((int)$request->num > $num) {
+			return ['code'=>1, 'msg'=>'真的没了', 'num'=>$num];
+		} else {
+			$res = ShopCar::where('id', $request->id)->update(['goods_num'=>$request->num]);
+			if ($res) {
+				return ['code'=>0, 'msg'=>'ok'];
+			}
 		}
 	}
 	
@@ -99,7 +111,22 @@ class TrolleyController extends Controller
 	public function orders(Request $request)
 	{
 		$address = ShopAddres::where('id', $request->address)->get();
-		// dd($address);
+		$detail = $request->detail;
+		$shop = [];
+		foreach ($detail as $v) {
+			$zhi = ShopCar::where('id', $v)->first();
+			$shop[$zhi['gid'].','.$zhi['goods_specs']][] = $zhi['goods_num'];
+		}
+		
+		foreach ($shop as $k=>$v) {
+			$arr = explode(',', $k);
+			$stock = GoodsSpecs::where('goods_id', $arr[0])->where('goods_specs', $arr[1])->pluck('goods_stock')[0];
+			if ($stock < array_sum($v)) {
+				return ['msg'=>'购买数量超过库存'];
+			}
+		}
+		
+		// dd($shop);
 		$addr['getman'] = $address[0]['consignee'];
 		$addr['phone'] = $address[0]['phone'];
 		$addr['address'] = $address[0]['add_id'].' '.$address[0]['address'];
@@ -138,6 +165,19 @@ class TrolleyController extends Controller
 			return ['code'=>0, 'msg'=>'提交订单成功', 'oid'=>$oid];
 		} else {
 			return ['msg'=>'提交订单失败'];
+		}
+	}
+	
+	public function delorders(Request $request)
+	{
+		foreach ($request->val as $v) {
+			$id[] = $v['id'];
+		}
+		$res = ShopCar::whereIn('id', $id)->delete();
+		if ($res) {
+			return ['code'=>0, 'msg'=>'订单删除成功'];
+		} else {
+			return ['code'=>1, 'msg'=>'订单删除失败'];
 		}
 	}
 	
@@ -191,6 +231,12 @@ class TrolleyController extends Controller
 			if ($data != null) {
 				$res1=ShopCarorder::where('order_num', $out_trade_no)->where('total', $total_amount)->update(['status'=>2]);
 				$res2=ShopCarorder::where('order_num', $out_trade_no)->where('total', $total_amount)->update(['trade_no'=>$trade_no]);
+				
+				$order = ShopCarorder::where('order_num', $out_trade_no)->where('total', $total_amount)->first();
+				$detail = ShopCardetail::where('oid', $order['id'])->get();
+				foreach ($detail as $v) {
+					Goods::where('id', $v['gid'])->increment('buynum', $v['num']);
+				}
 			}
 			if ($res1 && $res2) {
 				echo '<b>付款成功</b>';
@@ -267,6 +313,11 @@ class TrolleyController extends Controller
 				if ($data != null) {
 					$res1=ShopCarorder::where('order_num', $out_trade_no)->where('total', $total_amount)->update(['status'=>2]);
 					$res2=ShopCarorder::where('order_num', $out_trade_no)->where('total', $total_amount)->update(['trade_no'=>$trade_no]);
+					$order = ShopCarorder::where('order_num', $out_trade_no)->where('total', $total_amount)->first();
+					$detail = ShopCardetail::where('oid', $order['id'])->get();
+					foreach ($detail as $v) {
+						Goods::where('id', $v['gid'])->increment('buynum', $v['num']);
+					}
 				}
 				if ($res1 && $res2) {
 					echo '<b>付款成功</b>';
@@ -286,6 +337,11 @@ class TrolleyController extends Controller
 				if ($data != null) {
 					$res1=ShopCarorder::where('order_num', $out_trade_no)->where('total', $total_amount)->update(['status'=>2]);
 					$res2=ShopCarorder::where('order_num', $out_trade_no)->where('total', $total_amount)->update(['trade_no'=>$trade_no]);
+					$order = ShopCarorder::where('order_num', $out_trade_no)->where('total', $total_amount)->first();
+					$detail = ShopCardetail::where('oid', $order['id'])->get();
+					foreach ($detail as $v) {
+						Goods::where('id', $v['gid'])->increment('buynum', $v['num']);
+					}
 				}
 				if ($res1 && $res2) {
 					echo '<b>付款成功</b>';
