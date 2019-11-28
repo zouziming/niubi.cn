@@ -17,7 +17,7 @@
         {{ csrf_field() }}
         <input type="hidden" name="id" value="{{ session('userInfo.id') }}">
         @if(session('userInfo.pic') == true)
-        <img id="img" style="width:200px;height:200px;" src="/storage/{{ session('userInfo.pic') }}" />
+        <img id="img" style="width:200px;height:200px;" src="/storage/{{$user->pic}}" />
         @else
         <img id="img" style="width:200px;height:200px;" src="/lib/img/do.jpg" />
         @endif

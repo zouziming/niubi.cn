@@ -64,7 +64,8 @@ class LoginController extends Controller
             // 跳转到后台首页
             return redirect('/home');
         } else {
-            echo "<script>alert('密码错误！');location.href='/home/login'</script>";
+            // echo "<script>alert('密码错误！');location.href='/home/login'</script>";
+            return back()->withInput();
         }
     }
 

@@ -15,7 +15,9 @@ class UserController extends Controller
     // 显示个人资料
     public function mycenter()
     {
-        return view('Home.user.mycenter');
+        $user = \App\ShopUserinfo::where('id', '=', session('userInfo.id'))
+                ->first();
+        return view('Home.user.mycenter',['user' => $user]);
     }
     
 
@@ -201,7 +203,7 @@ class UserController extends Controller
     public function edit(Request $request)
     {
         $this->validate($request, [
-            'username' => 'min:2|unique:shop_userinfo',
+            'username' => 'min:2|',
             'email' => 'email',
             'phone' => 'regex:/^1[345789][0-9]{9}$/',
         ],[
@@ -230,7 +232,9 @@ class UserController extends Controller
     // 显示修改头像页面
     public function pic()
     {
-        return view('Home.user.picture');
+        $user = \App\ShopUserinfo::where('id', '=', session('userInfo.id'))
+                ->first();
+        return view('Home.user.picture',['user' => $user]);
     }
     // 修改头像
     public function picture(Request $request)

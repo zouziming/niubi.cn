@@ -8,14 +8,14 @@
     <div class="member-heels fl"><h2>个人信息</h2></div>
 </div>
 <div class="member-border" style="background:url(/lib/img/66.jpg) no-repeat center  0;background-size:100% 100%;">
-<div class="user-info">
+<div class="user-info">l
     <!--头像 -->
     <div class="user-infoPic" style="border-bottom:0px">
         <!-- <form action="/home/user/mycenter" method="post"> -->
             <div class="filePic">
             <a href="/home/user/picture" class="inputPic" name="pic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*"> </a>
             @if(session('userInfo.pic') == true)
-            <img class="btn am-circle am-img-thumbnail" src="/storage/{{ session('userInfo.pic') }}" id="btn" style="border:1px solid #00CCFF" />
+            <img class="btn am-circle am-img-thumbnail" src="/storage/{{$user->pic}}" id="btn" style="border:1px solid #00CCFF" />
             @else
             <img class="btn am-circle am-img-thumbnail" id="btn" style="border:1px solid #00CCFF" src="/lib/img/do.jpg" alt="" />
             @endif
@@ -39,21 +39,21 @@
         <div class="am-form-group">
             <label for="user-name2" class="am-form-label">用户名</label>
             <div class="am-form-content">
-            <input type="text" id="user-name2" name="username" value="{{ session('userInfo.username') }}" style="border:1px solid #00CCFF;height:28px">&nbsp;&nbsp;<span style="color:red">{{$errors->first('username')}}</span>
+            <input type="text" id="user-name2" name="username" value="{{$user->username}}" style="border:1px solid #00CCFF;height:28px">&nbsp;&nbsp;<span style="color:red">{{$errors->first('username')}}</span>
             </div>
         </div>
         <div class="am-form-group">
             <label class="am-form-label">性别</label>
             &nbsp;&nbsp;
-            @if (session('userInfo.sex') == 0)
+            @if ($user->sex == 0)
                 女
-            @elseif (session('userInfo.sex') == 1)
+            @elseif ($user->sex == 1)
                 男
             @else
                 保密
             @endif
             <div class="am-form-content sex" style="margin-left:-20px;padding-top: 3px;">
-            @if(session('userInfo.sex') == 0)
+            @if($user->sex == 0)
             <label class="am-radio-inline">
                 <input type="radio" name="sex" value="1" data-am-ucheck> 男
             </label>
@@ -63,7 +63,7 @@
             <label class="am-radio-inline">
                 <input type="radio" name="sex" value="2" data-am-ucheck> 保密
             </label>
-            @elseif(session('userInfo.sex') == 1)
+            @elseif($user->sex == 1)
             <label class="am-radio-inline">
                 <input type="radio" name="sex" checked value="1" data-am-ucheck> 男
             </label>
@@ -89,19 +89,19 @@
         <div class="am-form-group">
             <label for="user-phone" class="am-form-label">电话</label>
             <div class="am-form-content">
-            <input id="user-phone" name="phone" value="{{ session('userInfo.phone') }}" type="tel" style="border:1px solid #00CCFF;height:28px">&nbsp;&nbsp;<span style="color:red">{{$errors->first('phone')}}</span>
+            <input id="user-phone" name="phone" value="{{$user->phone}}" type="tel" style="border:1px solid #00CCFF;height:28px">&nbsp;&nbsp;<span style="color:red">{{$errors->first('phone')}}</span>
             </div>
         </div>
         <div class="am-form-group">
             <label for="user-email" class="am-form-label">电子邮件</label>
             <div class="am-form-content">
-            <input id="user-email" name="email" value="{{ session('userInfo.email') }}" type="email" style="border:1px solid #00CCFF;height:28px">&nbsp;&nbsp;<span style="color:red">{{$errors->first('email')}}</span>
+            <input id="user-email" name="email" value="{{$user->email}}" type="email" style="border:1px solid #00CCFF;height:28px">&nbsp;&nbsp;<span style="color:red">{{$errors->first('email')}}</span>
             </div>
         </div>
         <div class="am-form-group">
             <label for="user-email" class="am-form-label">注册时间</label>
             <div class="am-form-content">
-            <input id="user-email" value="{{ session('userInfo.addtime') }}" type="text" readonly style="border:1px solid #00CCFF;height:28px">
+            <input id="user-email" value="{{$user->addtime}}" type="text" readonly style="border:1px solid #00CCFF;height:28px">
             </div>
         </div>
         <div class="info-btn">

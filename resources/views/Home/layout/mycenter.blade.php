@@ -99,7 +99,7 @@
             <div class="member-apart clearfix">
                 <div class="fl"><a>
                 @if(session('userInfo.pic') == true)
-                <img src="/storage/{{ session('userInfo.pic') }}"></a></div>
+                <img src="/storage/{{ $user->pic }}"></a></div>
                 @else
                 <img src="/lib/img/do.jpg"></a></div>
                 @endif

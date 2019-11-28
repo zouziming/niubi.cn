@@ -242,15 +242,34 @@ Route::get('/search', 'Admin\UserController@search');
 
 
 
+
+
+
+
+
+
 /**
  * 前台路由
  */
 // 前台首页
 Route::group(['prefix' => '/home', 'middleware' => ['users.login']], function(){
-    Route::get('/', 'Home\IndexController@index');
 
     // 前台退出
     Route::get('/logout', 'Home\IndexController@logout');
+
+	// 个人中心
+	Route::get('/user/secure', 'Home\UserController@secure');
+	Route::get('/user/mycenter', 'Home\UserController@mycenter');
+
+	// 个人资料修改
+	Route::post('/user/mycenter', 'Home\UserController@edit');
+	// 修改头像
+	Route::get('/user/picture', 'Home\UserController@pic');
+	Route::post('/user/picture', 'Home\UserController@picture');
+	// 修改密码
+	Route::get('/user/password', 'Home\UserController@show');
+	Route::post('/user/password', 'Home\UserController@password');
+
 });
 // 前台登录
 Route::get('/home/login', 'Home\LoginController@show');
@@ -274,18 +293,6 @@ Route::post('/home/doregister', 'Home\RegisterController@doregister');
 Route::get('/home/enroll', 'Home\RegisterController@reveal');
 Route::post('/home/enroll', 'Home\RegisterController@enroll');
 
-// 个人中心
-Route::get('/home/user/secure', 'Home\UserController@secure');
-Route::get('/home/user/mycenter', 'Home\UserController@mycenter');
-
-// 个人资料修改
-Route::post('/home/user/mycenter', 'Home\UserController@edit');
-// 修改头像
-Route::get('/home/user/picture', 'Home\UserController@pic');
-Route::post('/home/user/picture', 'Home\UserController@picture');
-// 修改密码
-Route::get('/home/user/password', 'Home\UserController@show');
-Route::post('/home/user/password', 'Home\UserController@password');
 
     // 前台首页
     // Route::get('/','Home\IndexController@index');
