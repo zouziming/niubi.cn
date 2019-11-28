@@ -137,7 +137,7 @@
                                 <a href="/home/goods/{{$v['id']}}" class="clicknum" data-id="{{$v['id']}}">
                                     <img src="{{$v['pic']}}" width="132" height="129" /></a>
                             </dt>
-                            <dd>{{substr($v['name'], 0, 31)}}</dd>
+                            <dd>{{$v['name']}}</dd>
                             <dd class="cheng">￥{{$v['price']}}</dd>
 						</dl>
 						@endforeach
@@ -151,7 +151,7 @@
 								<a href="/home/goods/{{$v['id']}}" class="clicknum" data-id="{{$v['id']}}">
 									<img src="{{$v['pic']}}" width="132" height="129" /></a>
 							</dt>
-							<dd>{{substr($v['name'], 0, 31)}}</dd>
+							<dd>{{$v['name']}}</dd>
 							<dd class="cheng">￥{{$v['price']}}</dd>
 						</dl>
 						@endforeach
@@ -198,7 +198,7 @@
 											<img src="{{$v['pic']}}" width="132" height="129" />
 										</a>
 									</dt>
-									<dd>{{substr($v['name'], 0, 30)}}</dd>
+									<dd>{{substr($v['name'], 0, 29)}}</dd>
 									<dd class="cheng">￥{{$v['price']}}</dd>
 									<dd style="float: right;">点击:{{$v['clicknum']}}</dd>
 								</dl>
@@ -243,7 +243,7 @@
 										<img src="{{$v['pic']}}" width="132" height="129" />
 									</a>
 								</dt>
-								<dd>{{substr($v['name'], 0, 30)}}</dd>
+								<dd>{{substr($v['name'], 0, 29)}}</dd>
 								<dd class="cheng">￥{{$v['price']}}</dd>
 								<dd style="float: right;">点击:{{$v['clicknum']}}</dd>
 							</dl>

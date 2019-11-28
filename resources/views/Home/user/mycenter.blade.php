@@ -16,7 +16,7 @@
             <a href="/home/user/picture" class="inputPic" name="pic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*"> </a>
             @if($user->pic == true)
             <img class="btn am-circle am-img-thumbnail" src="/storage/{{$user->pic}}" id="btn" style="border:1px solid #00CCFF" />
-            @else
+           @else
             <img class="btn am-circle am-img-thumbnail" id="btn" style="border:1px solid #00CCFF" src="/lib/img/do.jpg" alt="" />
             @endif
             </div>
