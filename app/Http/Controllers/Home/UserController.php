@@ -15,7 +15,6 @@ class UserController extends Controller
     // 显示个人资料
     public function mycenter()
     {
-        dd(session('users'));
         $user = \App\ShopUserinfo::where('id', '=', session('userInfo.id'))
                 ->first();
         return view('Home.user.mycenter',['user' => $user]);
