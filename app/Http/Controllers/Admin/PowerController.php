@@ -201,7 +201,7 @@ class PowerController extends Controller
             $qx=ShopPermission::all();
             // dump($qx);
             // dump($delM);
-
+            $arr=[];
             $jsqx=shopRoleHasPermission::where('role_id','=',$request->id)->get();
             foreach ($jsqx as $key => $value) {
                 $arr[]=($value->permission_id);
@@ -224,13 +224,19 @@ class PowerController extends Controller
 
         public function editRole(Request $request)
         {
+
             $role=ShopRole::find($request->role_id);
-            // dump($request->name);exit;
             // 修改name
             $roleName=ShopRole::where('id','=',$request->id)->update(['name'=>$request->name]);
             // dump($roleName);
+            $data['permission_id']=[];
             $aa=$role->shopRoleHasPermission;
             $requests=$request->except('_token');
+        	if ($request->permission_id==null) {
+        		$requests['permission_id']=[];
+
+        	}
+        	// dd($requests);
             foreach ($aa as $key => $value) {
                 $data['permission_id'][]=$value->permission_id;
             }
@@ -239,9 +245,9 @@ class PowerController extends Controller
             
             $privileges = ShopPermission::findMany($requests['permission_id']);//查找选中的权限
          
-         //查找这个角色没有 选中的多选框的权限
-        $addPrivileges = $privileges->diff($my_privileges);
-           foreach ($addPrivileges as $key => $value) {
+        	//查找这个角色没有 选中的多选框的权限
+        	$addPrivileges = $privileges->diff($my_privileges);
+            foreach ($addPrivileges as $key => $value) {
                 $add=shopRoleHasPermission::insert(['role_id' => $request->role_id,'permission_id'=>$value->id]);
                
            }
@@ -256,6 +262,9 @@ class PowerController extends Controller
 
         }
 
+
+
+        // 管理员列表
         public function userRole()
         {
             // $data=shopUserHasRole::all();
@@ -267,11 +276,11 @@ class PowerController extends Controller
            				  // 'shop_roles.id as roleid',
            				  // 'shop_roles.name as rolename',
            	])
-           		->join('shop_users','shop_user_has_roles.uid','=','shop_users.id')
                 ->join('shop_roles','shop_user_has_roles.role_id','=','shop_roles.id')
+           		->join('shop_userinfo','shop_user_has_roles.uid','=','shop_userinfo.id')
            		// ->where('shop_user_has_roles.id','=',$request->id)
                 ->get();
-            // dump($data);
+            dump($data);
             return view('/Admin/power/userRole',['data'=>$data]);
         }
 
@@ -281,7 +290,8 @@ class PowerController extends Controller
         {
 
             $del=shopUserHasRole::where('id','=',$request->id)->delete();
-            if ($del) {
+            $delUser=DB::table('shop_userinfo')->where('id',$request->uid)->delete();
+            if ($del && $delUser) {
              return redirect('/admin/power/userRole')->with('status', '删除成功!');
             } else{
                return redirect('/admin/power/userRole')->with('status', '删除数据失败!');
@@ -315,7 +325,7 @@ class PowerController extends Controller
         ]);
             // dump($request->all());
 
-            $adduser=DB::table('shop_users')->insertGetId(['username'=>$request->username,'password'=>$request->password]);
+            $adduser=DB::table('shop_userinfo')->insertGetId(['username'=>$request->username,'password'=>$request->password]);
             if ($adduser) {
             	$userRole=shopUserHasRole::insert(['uid'=>$adduser,'role_id'=>$request->role_id]);
             	return redirect('/admin/power/userRole');
