@@ -21,7 +21,7 @@ class SpecsController extends Controller
 		$pid = ShopCate::where('id', $cid)->pluck('pid');
 		
 		$key = AttributeKey::where('cate_id', $pid)->get();
-		
+		// dd($key);
 		foreach ($key as $k=>$v) {
 			$value[$k] = AttributeValue::where('attr_id', $v['id'])->get();
 		}

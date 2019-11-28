@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\ShopUserinfo;
 use App\ShopCar;
 use App\ShopCate;
 use App\Goods;
@@ -30,6 +31,10 @@ class GoodsController extends Controller
 		$prices[] = max($price);
 		$prices[] = min($price);
 		$comment = Comment::where('gid', $id)->get();
+		foreach ($comment as $k=>$v) {
+			$comment[$k]['tou'] = ShopUserinfo::where('id', $v['uid'])->pluck('pic')[0];
+		}
+		// dump($comment);
 		$list = $goods['attribute_list'];
 		$attr_list = json_decode($list);
 		foreach ($attr_list as $k=>$v) {

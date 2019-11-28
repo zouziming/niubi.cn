@@ -118,7 +118,7 @@
         <div class="ci5 ci8" style="width: 150px;position: relative;">
 			<p><a style="position:absolute;left:17px;top:70px;" href="/home/shopcar/pyjy?id={{$v['id']}}" class="member-touch">立即支付</a></p>
 			<p>
-				<a href="/home/order/annulla/{{$v['id']}}" class="annulla" data-id="{{$v['id']}}">取消订单</a>
+				<a href="javascript:void(0)" class="annulla" data-id="{{$v['id']}}">取消订单</a>
 				<a href="/home/order/edit/{{$v['id']}}" class="edits">修改订单</a>
 			</p>
         </div>

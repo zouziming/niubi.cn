@@ -37,9 +37,7 @@
 			<div class="pull-right">
 				@empty(!SESSION('userInfo'))
 				<a href="/home/collection">我的收藏</a>
-				<a href="/home/shopcar">我的购物车</a>
 				<a href="/ShowOrders">我的订单</a>
-				<a href="#">积分平台</a>
 				@endempty
 			</div>
 		</div>
@@ -48,7 +46,7 @@
 	<div class="bgf5 clearfix">
 		<div class="top-user">
 			<div class="inner">
-				<a class="logo" href="/home"><img src="/lib/shopcar/images/icons/logo.jpg" alt="U袋网" class="cover"></a>
+				<a class="logo" href="/home"><img src="/lib/images/01.jpg" alt="sb网" class="cover"></a>
 				<div class="title">购物车</div>
 			</div>
 		</div>
@@ -293,7 +291,8 @@
 		$('.jia').click(function(){
 			var num = Number($(this.parentElement).children().eq(1).val())+1
 			var id = $(this).data('id')
-			// console.dir(num)
+			var _this = this
+			// console.dir($(_this.parentElement).children().eq(1))
 			$.ajax({
 				url: '/home/shopcar/jia',
 				method: 'post',
@@ -304,6 +303,10 @@
 				},
 				success:function(res){
 					if (res.code == 0) {
+						layer.msg(res.msg)
+						total()
+					} else if (res.code == 1) {
+						$(_this.parentElement).children().eq(1).val(res.num)
 						layer.msg(res.msg)
 						total()
 					}

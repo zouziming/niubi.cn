@@ -83,6 +83,8 @@ Route::group(['prefix' => '/admin', 'middleware' => ['user.login']], function(){
 	
 	Route::post('/goods/online', 'Admin\GoodsController@isonline');
 	
+	Route::post('/checkhasattr', 'Admin\GoodsController@checkhasattr');
+	
 	//规格属性
 	Route::get('/goods/attr', 'Admin\AttrController@attr');
 	
@@ -289,7 +291,35 @@ Route::group(['prefix' => '/home', 'middleware' => ['users.login']], function(){
 	// 修改密码
 	Route::get('/user/password', 'Home\UserController@show');
 	Route::post('/user/password', 'Home\UserController@password');
+	
+	Route::get('/shopcar', 'Home\TrolleyController@shopcar');
+	Route::post('/shopcar/jian', 'Home\TrolleyController@jian');
+	Route::post('/shopcar/jia', 'Home\TrolleyController@jia');
+	Route::post('/shopcar/ipt', 'Home\TrolleyController@ipt');
+	Route::post('/shopcar/del', 'Home\TrolleyController@del');
+	Route::post('/shopcar/alldel', 'Home\TrolleyController@alldel');
+	Route::post('/shopcar/btn', 'Home\TrolleyController@btn');
 
+	Route::get('/shopcar/pay', 'Home\TrolleyController@pay');
+	Route::post('/shopcar/orders', 'Home\TrolleyController@orders');
+	Route::post('/shopcar/delorder', 'Home\TrolleyController@delorders');
+	Route::get('/shopcar/pyjy', 'Home\TrolleyController@pyjy');
+	Route::post('/pay/pyjy', 'Home\TrolleyController@paypyjy');
+	Route::get('/pay/return', 'Home\TrolleyController@returnurl');
+	
+	Route::get('/collection', 'Home\CollectionController@index');
+	
+	Route::get('/orders/detail/{id}', 'Home\OrdersController@details');
+	Route::post('/order/annulla', 'Home\OrdersController@annullaorder');
+	Route::post('/order/merci', 'Home\OrdersController@merciorder');
+	Route::get('/order/edit/{id}', 'Home\OrdersController@editorder');
+	Route::post('/order/edit/{id}', 'Home\OrdersController@checkeditorder');
+	Route::post('/order/commit', 'Home\OrdersController@commit');
+	Route::post('/order/seecommit', 'Home\OrdersController@selectcommit');
+	
+	Route::post('/refund/apply','Home\OrdersController@refundapply');
+	Route::post('/refund/cancel','Home\OrdersController@refundcancel');
+	Route::get('/refund/list','Home\OrdersController@refundlists');
 });
 // 前台登录
 Route::get('/home/login', 'Home\LoginController@show');
@@ -315,7 +345,7 @@ Route::post('/home/enroll', 'Home\RegisterController@enroll');
 
 
     // 前台首页
-    // Route::get('/','Home\IndexController@index');
+    Route::get('/','Home\IndexController@index');
     // 分类页面
     // Route::get('/cate','Home\CateController@cate');
 
@@ -335,59 +365,31 @@ Route::group(['prefix' => '/home'], function(){
 	Route::get('/cate/{id}', 'Home\CateController@cate');
 	Route::post('/sorts', 'Home\CateController@sorts');
 	Route::post('/cate/search', 'Home\CateController@search');
-	
-	Route::get('/shopcar', 'Home\TrolleyController@shopcar');
-	Route::post('/shopcar/jian', 'Home\TrolleyController@jian');
-	Route::post('/shopcar/jia', 'Home\TrolleyController@jia');
-	Route::post('/shopcar/ipt', 'Home\TrolleyController@ipt');
-	Route::post('/shopcar/del', 'Home\TrolleyController@del');
-	Route::post('/shopcar/alldel', 'Home\TrolleyController@alldel');
-	Route::post('/shopcar/btn', 'Home\TrolleyController@btn');
-	
-	Route::get('/shopcar/pay', 'Home\TrolleyController@pay');
-	Route::post('/shopcar/orders', 'Home\TrolleyController@orders');
-	Route::get('/shopcar/pyjy', 'Home\TrolleyController@pyjy');
-	Route::post('/pay/pyjy', 'Home\TrolleyController@paypyjy');
-	Route::get('/pay/return', 'Home\TrolleyController@returnurl');
-	
-	Route::get('/collection', 'Home\CollectionController@index');
-	
-	Route::get('/orders/detail/{id}', 'Home\OrdersController@details');
-	Route::post('/order/annulla', 'Home\OrdersController@annullaorder');
-	Route::post('/order/merci', 'Home\OrdersController@merciorder');
-	Route::get('/order/edit/{id}', 'Home\OrdersController@editorder');
-	Route::post('/order/edit/{id}', 'Home\OrdersController@checkeditorder');
-	Route::post('/order/commit', 'Home\OrdersController@commit');
-	Route::post('/order/seecommit', 'Home\OrdersController@selectcommit');
-	
-	Route::post('/refund/apply','Home\OrdersController@refundapply');
-	Route::post('/refund/cancel','Home\OrdersController@refundcancel');
-	Route::get('/refund/list','Home\OrdersController@refundlists');
 });
 
 
 
 /*----------------------------------------------------------------------------------*/
 // 订单：前台我的订单显示
-    Route::get('/ShowOrders', 'Home\OrdersController@show_orders');
+    Route::get('/ShowOrders', 'Home\OrdersController@show_orders')->middleware('users.login');
 	
 /*-----------------------------------------------------------------------------------*/
 // 前台退货页面
-    Route::get('/retreat','Home\OrdersController@retreat_goods');
+//     Route::get('/retreat','Home\OrdersController@retreat_goods');
 
 
-// 申请退款
-    Route::get('/tuikuanz','Home\OrdersController@tkks');
+// // 申请退款
+//     Route::get('/tuikuanz','Home\OrdersController@tkks');
  
-// 显示退换货页面
-    Route::get('/ReturnRefunding','Home\OrdersController@return_refunding');
+// // 显示退换货页面
+//     Route::get('/ReturnRefunding','Home\OrdersController@return_refunding');
 
-// 申请退货
-    Route::get('/tuihuo','Home\OrdersController@retreat_money');
+// // 申请退货
+//     Route::get('/tuihuo','Home\OrdersController@retreat_money');
 
-// 键盘按下出现搜索
-	Route::get('/home/get','Home\IndexController@get');
+// // 键盘按下出现搜索
+// 	Route::get('/home/get','Home\IndexController@get');
 
-// 搜索
-	Route::get('/home/search','Home\IndexController@search');
+// // 搜索
+// 	Route::get('/home/search','Home\IndexController@search');
 
