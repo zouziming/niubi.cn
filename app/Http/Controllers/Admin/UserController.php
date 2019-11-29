@@ -117,14 +117,13 @@ class UserController extends Controller
     public function doedit(Request $request)
     {
         $this->validate($request, [
-            'username' => 'required|max:255|unique:shop_userinfo',
+            'username' => 'required|max:255',
             'email' => 'required',
             'phone' => 'required',
             'sex' => 'required',
         ],[
             'username.required' => '用户名不能为空',
             'username.max' => '用户名过长',
-            'username.unique' => '用户名已存在',
 
             'email.required' => '邮箱不能为空',
             'phone.required' => '手机号不能为空',
