@@ -37,6 +37,32 @@
          // });
      </script>
 
+     <style type="text/css">
+          .list-groupa{
+                    position:absolute;
+                    top:57px;
+                    /*height:20px;*/
+                     z-index:99999;
+
+                    background: #fff;
+                }
+                .list-group-item {
+                    /*height: 30px;*/
+                    /*padding: 10px;*/
+                    /*margin-top:10px;*/
+                    /*left: 5px;*/
+                }
+                .dv{
+                    background: #fff;
+                    /*height: 30px;*/
+
+                    width:464px;
+                    /*left: 10px;*/
+                    padding-left:10px;
+                    margin-top: 5px;
+                }
+     </style>
+
  </head>
  <body>
 
@@ -72,8 +98,11 @@
         <div class="member-title fl"><h2></h2></div>
         <div class="head-form fl">
             <form class="clearfix">
-                <input type="text" class="search-text" accesskey="" id="key" autocomplete="off"  placeholder="手机模型">
-                <button class="button sub" onClick="search('key');return false;">搜索</button>
+                <input type="text" class="search-text" accesskey="" id="ipt" autocomplete="off"  placeholder="手机模型">
+                <button class="button sub" id="sub">搜索</button>
+                <div>
+                 <ul class="list-groupa" id="searchList" ></ul>
+                </div>
             </form>
             <div class="words-text clearfix">
                 <a href="#" class="red">1元秒爆</a>
@@ -87,55 +116,9 @@
         </div>
         <div class="header-cart fr"><a href="/home/shopcar"><img src="/lib/theme/icon/car.png"></a> <i class="head-amount">??</i></div>
     </div>
+ @yield('content')
 </header>
 <!-- header End -->
-
-<div class="containers"><div class="pc-nav-item"><a href="/home">首页</a> &gt; <a href="#">会员中心 </a></div></div>
-
-<!-- 商城快讯 begin -->
-<section id="member">
-    <div class="member-center clearfix">
-        <div class="member-left fl">
-            <div class="member-apart clearfix">
-                <div class="fl"><a>
-                @if($user->pic == true)
-                <img src="/storage/{{ $user->pic }}"></a></div>
-                @else
-                <img src="/lib/img/do.jpg"></a></div>
-                @endif
-                <div class="fl">
-                    <p>用户名：</p>
-                    <p><a style="color:violet">{{ session('userInfo.username') }}</a></p>
-                    <p>搜悦号：</p>
-                    <p>389323080</p>
-                </div>
-            </div>
-            <div class="member-lists">
-                <dl>
-                    <dt>我的商城</dt>
-                    <dd><a href="/ShowOrders">我的订单</a></dd>
-                    <dd><a href="/home/collection">我的收藏</a></dd>
-                    <dd><a href="/home/user/mycenter">我的信息</a></dd>
-                    <dd><a href="#">我的评价</a></dd>
-                    <dd><a href="/home/addressIndex">地址管理</a></dd>
-                </dl>
-                <dl>
-                    <dt>客户服务</dt>
-                    <dd><a href="#">退货申请</a></dd>
-                    <dd><a href="#">退货/退款记录</a></dd>
-                </dl>
-                <dl>
-                    <dt>我的消息</dt>
-                    <dd><a href="#">商城快讯</a></dd>
-                    <dd><a href="#">帮助中心</a></dd>
-                </dl>
-            </div>
-        </div>
-        @yield('content')
-        
-    </div>
-</section>
-<!-- 商城快讯 End -->
 
 <!--- footer begin-->
 <div class="aui-footer-bot">
@@ -232,8 +215,50 @@
 <!-- footer End -->
 @yield('script')
 <script>
-    $('.sub').click(function(){
-            var _vv=$('#key').val();
+    var timer=undefined;
+        var _sl = $('#searchList');
+        $('#ipt').keyup(function(){
+            // console.dir(123);
+            var _v=this.value;
+            // if (_v=='') {
+            //     _sl.html('');
+            //     return false;
+            // }
+            if (_v=='') {
+                _sl.html('');
+                return false;
+            }
+            clearTimeout(timer);
+            timer=setTimeout(function() {
+
+            $.ajax({
+                type:'get',
+                url:'/home/get',
+                data:{
+                    name:_v
+                },
+                success:function(res)
+                {
+                    _sl.html('');
+                    if (res.length==0) {
+                        //没有数据的情况
+                        _sl.hide();
+                    } else {
+                        // 有数据的情况下
+                        _sl.show();
+                        for (var i = 0; i < res.length ; i++) {
+                         $('<a href="/home/cate/'+res[i].id+'" class="list-group-item "></a>').html('<div class="dv">'+res[i].name+'</div>').appendTo(_sl);   
+                        }
+                    }
+                }
+            });
+            },200)
+
+        });
+
+            // console.dir(123);
+        $('#sub').click(function(){
+            var _vv=$('#ipt').val();
             console.dir(_vv);
 
             $.ajax({

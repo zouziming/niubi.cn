@@ -7,6 +7,15 @@
   <div class="page-title">
     <span class="modular fl"><i class="user"></i><em>修改角色</em></span>
   </div>
+      @if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <form action="/admin/power/role/edit" method="post">
   {{csrf_field()}}
   <input type="hidden" name="role_id" value="{{$data->id}}">

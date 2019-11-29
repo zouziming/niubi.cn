@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\ShopUserinfo;
+use App\ShopUsers;
 use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
@@ -23,7 +24,7 @@ class LoginController extends Controller
 
         // 表单验证
         $this->validate($request, [
-            'username' => 'required|exists:shop_userinfo|max:255',
+            'username' => 'required|exists:shop_users|max:255',
             'password' => 'required|min:6',
             'captcha' => 'required|captcha',
         ],[
@@ -39,13 +40,13 @@ class LoginController extends Controller
         ]);
 
         // 验证身份
-        $userInfo = \App\ShopUserinfo::where('username', '=', $request->username)
+        $userInfo = \App\ShopUsers::where('username', '=', $request->username)
             ->first();
 
-        if ($userInfo['status'] != 1) {
-            echo "<script>alert('您的账号已被封，请联系管理员：13416341860');location.href='/admin/login'</script>";
-            exit;
-        }
+        // if ($userInfo['status'] != 1) {
+        //     echo "<script>alert('您的账号已被封，请联系管理员：13416341860');location.href='/admin/login'</script>";
+        //     exit;
+        // }
 
         // 验证密码
         if (Hash::check( $request->password, $userInfo->password)) {
@@ -56,12 +57,12 @@ class LoginController extends Controller
                 'userInfo' => [
                     'id' => $userInfo->id,
                     'username' => $userInfo->username,
-                    'sex' => $userInfo->sex,
-                    'phone' => $userInfo->phone,
-                    'pic' => $userInfo->pic,
-                    'email' => $userInfo->email,
-                    'status' => $userInfo->status,
-                    'addtime' => $userInfo->addtime
+                    // 'sex' => $userInfo->sex,
+                    // 'phone' => $userInfo->phone,
+                    // 'pic' => $userInfo->pic,
+                    // 'email' => $userInfo->email,
+                    // 'status' => $userInfo->status,
+                    // 'addtime' => $userInfo->addtime
                 ]
             ]);
             // 跳转到后台首页

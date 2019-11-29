@@ -1,7 +1,9 @@
 @extends('Admin.layout.main')
 @section('title', '首页')
 @section('content')
-<div class="col-md-12" width="100%" height="100%" style="background:url(/lib/img/99.jpg) no-repeat center  0;background-size:100% 100%;"  >
+
+    <h1>欢迎来到后台管理</h1>
+<!-- <div class="col-md-12" width="100%" height="100%" style="background:url(/lib/img/99.jpg) no-repeat center  0;background-size:100% 100%;"  >
 <div class="route_bg">
     <a href="/admin">返回首页</a>
     -
@@ -59,8 +61,8 @@
             <label for="exampleInputEmail1" style="color:blue">权限</label>
             <div class="panel panel-default">
               <div class="panel-body" style="padding:8px;height:36px">
-                <!-- {{ session('userInfo.sex') }} -->无
-              </div>
+                <!-- {{ session('userInfo.sex') }} -->
+   <!--            无</div>
             </div>
         </div>
         <div class="form-group">
@@ -72,7 +74,7 @@
             </div>
         </div>
         <div class="form-group">
-            <!-- <button class="btn btn-info" style="width:120px;">修改</button> -->
+            <button class="btn btn-info" style="width:120px;">修改</button>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">修改资料</button>
         </div>
         <div class="control-group"></div>
@@ -98,7 +100,7 @@
             </div>
             <form>
             <!-- action="/admin/index" method="post" -->
-            <input type="hidden" name="id" value="{{ session('users.id') }}">
+            <!-- <input type="hidden" name="id" value="{{ session('users.id') }}">
             <div class="modal-body">
                 <div class="form-group">
                     <label for="recipient-name" class="control-label">用户名:</label>
@@ -131,7 +133,7 @@
         </div>
     </div>
 </div>
-</div>
+</div> -->
 @endsection
 @section('script')
 <script src="/lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>

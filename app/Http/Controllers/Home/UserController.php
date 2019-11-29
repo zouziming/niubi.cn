@@ -17,6 +17,7 @@ class UserController extends Controller
     {
         $user = \App\ShopUserinfo::where('id', '=', session('userInfo.id'))
                 ->first();
+		// dd(session('userInfo.id'));
         return view('Home.user.mycenter',['user' => $user]);
     }
     
@@ -24,7 +25,9 @@ class UserController extends Controller
     // 显示修改密码页面
     public function show()
     {
-        return view('Home.user.password');
+        $user = \App\ShopUserinfo::where('id', '=', session('userInfo.id'))
+                ->first();
+        return view('Home.user.password',['user' => $user]);
     }
     // 修改密码
     public function password(Request $request)
@@ -219,7 +222,6 @@ class UserController extends Controller
                     'email' => $request->email,
                     'phone' => $request->phone,
                     'sex' => $request->sex,
-                    'pic' => $request->pic,
                 ]);
         if ($res) {
             echo "<script>alert('修改成功');location.href='/home/user/mycenter'</script>";
