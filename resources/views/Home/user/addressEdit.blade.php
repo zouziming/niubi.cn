@@ -39,7 +39,7 @@
 	<div class="bgf5 clearfix">
 		<div class="top-user">
 			<div class="inner">
-				<a class="logo" href="index.html"><img src="/lib/site/images/icons/logo.jpg" alt="U袋网" class="cover"></a>
+				<a class="logo" href="/home"><img src="/lib/site/images/icons/logo.jpg" alt="U袋网" class="cover"></a>
 				<div class="title">个人中心</div>
 			</div>
 		</div>
