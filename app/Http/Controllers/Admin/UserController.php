@@ -86,9 +86,6 @@ class UserController extends Controller
     // 删除数据
     public function del($id)
     {
-        if ($res) {
-            return redirect("admin/index");
-        }
         $res = \App\ShopUserinfo::where('id', '=', $id)->delete();
         if ($res) {
             return [
