@@ -30,7 +30,8 @@ class IndexController extends Controller
 	public function index(Request $request)
 	{
 		// dump(session('userInfo'));
-		$link = ShopLink::limit(4)->get();
+		
+		$link = ShopLink::limit(4)->orderBy('id', 'desc')->get();
 		$shopnum = 0;
 		if (session('userInfo.id')) {
 			$shopcar = ShopCar::where('uid', session('userInfo.id'))->where('is_buy', 0)->get();
