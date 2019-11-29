@@ -388,8 +388,8 @@ Route::group(['prefix' => '/home'], function(){
 //     Route::get('/tuihuo','Home\OrdersController@retreat_money');
 
 // // 键盘按下出现搜索
-// 	Route::get('/home/get','Home\IndexController@get');
+	Route::get('/home/get','Home\IndexController@get');
 
 // // 搜索
-// 	Route::get('/home/search','Home\IndexController@search');
+	Route::get('/home/search','Home\IndexController@search');
 

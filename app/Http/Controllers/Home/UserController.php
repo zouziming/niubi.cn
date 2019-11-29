@@ -17,6 +17,7 @@ class UserController extends Controller
     {
         $user = \App\ShopUserinfo::where('id', '=', session('userInfo.id'))
                 ->first();
+		// dd(session('userInfo.id'));
         return view('Home.user.mycenter',['user' => $user]);
     }
     

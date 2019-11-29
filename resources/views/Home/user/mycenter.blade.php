@@ -3,7 +3,9 @@
 @section('title', '个人信息')
 
 @section('content')
+
 <div class="containers"><div class="pc-nav-item"><a href="/home">首页</a> &gt; <a href="#">会员中心 </a></div></div>
+
 
 <!-- 商城快讯 begin -->
 <section id="member">
