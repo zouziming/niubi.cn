@@ -365,6 +365,36 @@ Route::group(['prefix' => '/home'], function(){
 	Route::get('/cate/{id}', 'Home\CateController@cate');
 	Route::post('/sorts', 'Home\CateController@sorts');
 	Route::post('/cate/search', 'Home\CateController@search');
+	
+	Route::get('/shopcar', 'Home\TrolleyController@shopcar');
+	Route::post('/shopcar/jian', 'Home\TrolleyController@jian');
+	Route::post('/shopcar/jia', 'Home\TrolleyController@jia');
+	Route::post('/shopcar/ipt', 'Home\TrolleyController@ipt');
+	Route::post('/shopcar/del', 'Home\TrolleyController@del');
+	Route::post('/shopcar/alldel', 'Home\TrolleyController@alldel');
+	Route::post('/shopcar/btn', 'Home\TrolleyController@btn');
+	
+	Route::get('/shopcar/pay', 'Home\TrolleyController@pay');
+	Route::post('/shopcar/orders', 'Home\TrolleyController@orders');
+	Route::get('/shopcar/pyjy', 'Home\TrolleyController@pyjy');
+	Route::post('/pay/pyjy', 'Home\TrolleyController@paypyjy');
+	Route::get('/pay/return', 'Home\TrolleyController@returnurl');
+	
+	Route::get('/collection', 'Home\CollectionController@index');
+	
+	Route::get('/orders/detail/{id}', 'Home\OrdersController@details');
+	Route::post('/order/annulla', 'Home\OrdersController@annullaorder');
+	Route::post('/order/merci', 'Home\OrdersController@merciorder');
+
+	Route::get('/order/edit/{id}', 'Home\OrdersController@editorder');
+	Route::post('/order/edit/{id}', 'Home\OrdersController@checkeditorder');
+	Route::post('/order/commit', 'Home\OrdersController@commit');
+	Route::post('/order/seecommit', 'Home\OrdersController@selectcommit');
+	
+	Route::post('/refund/apply','Home\OrdersController@refundapply');
+	Route::post('/refund/cancel','Home\OrdersController@refundcancel');
+	// 退货
+	Route::get('/refund/list','Home\OrdersController@refundlists');
 });
 
 

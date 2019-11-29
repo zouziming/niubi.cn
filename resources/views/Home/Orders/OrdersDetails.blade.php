@@ -59,13 +59,14 @@
 				<a href="udai_welcome.html" class="title">U袋欢迎页</a>
 				<dl class="user-center__nav">
 					<dt>帐户信息</dt>
+
 					<a href="/home/user/mycenter"><dd>个人资料</dd></a>
 					<a href="javascript:void(0)"><dd>资金管理</dd></a>
 					<a href="javascript:void(0)"><dd>积分平台</dd></a>
 					<a href="/home/addressIndex"><dd>收货地址</dd></a>
 					<a href="javascript:void(0)"><dd>我的优惠券</dd></a>
-					<a href="udai_paypwd_modify.html"><dd>修改支付密码</dd></a>
-					<a href="udai_pwd_modify.html"><dd>修改登录密码</dd></a>
+					<a href="javascript:void(0)"><dd>修改支付密码</dd></a>
+					<a href="javascript:void(0)"><dd>修改登录密码</dd></a>
 				</dl>
 				<dl class="user-center__nav">
 					<dt>订单中心</dt>

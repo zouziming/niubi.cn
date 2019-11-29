@@ -120,7 +120,6 @@
 </header>
 <!-- header End -->
 
-
 <!--- footer begin-->
 <div class="aui-footer-bot">
     <div class="time-lists aui-footer-pd clearfix">
