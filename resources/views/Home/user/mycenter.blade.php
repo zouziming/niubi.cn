@@ -28,16 +28,16 @@
             <div class="member-lists">
                 <dl>
                     <dt>我的商城</dt>
-                    <dd><a href="#">我的订单</a></dd>
+                    <dd><a href="/ShowOrders">我的订单</a></dd>
                     <dd><a href="/home/collection">我的收藏</a></dd>
                     <dd><a href="/home/user/mycenter">我的信息</a></dd>
-                    <dd><a href="#">我的评价</a></dd>
+                    <dd><a href="">我的评价</a></dd>
                     <dd><a href="/home/addressIndex">地址管理</a></dd>
                 </dl>
                 <dl>
                     <dt>客户服务</dt>
-                    <dd><a href="#">退货申请</a></dd>
-                    <dd><a href="#">退货/退款记录</a></dd>
+                    <dd><a href="/home/refund/list">退货申请</a></dd>
+                    <dd><a href="/home/refund/list">退货/退款记录</a></dd>
                 </dl>
                 <dl>
                     <dt>我的消息</dt>

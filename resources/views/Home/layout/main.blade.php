@@ -112,7 +112,7 @@
                     <dd class="cur"><a href="/ShowOrders">我的订单</a></dd>
                     <dd><a href="/home/collection">我的收藏</a></dd>
                     <dd><a href="#">账户安全</a></dd>
-                    <dd><a href="#">我的评价</a></dd>
+                    <dd><a href="/home/orders/detail/{{$v['id']}}">我的评价</a></dd>
                     <dd><a href="/home/addressIndex">地址管理</a></dd>
                 </dl>
                 <dl>
