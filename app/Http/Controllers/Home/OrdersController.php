@@ -139,7 +139,7 @@ class OrdersController extends Controller
 	public function refundlists()
 	{
 		$apply = ShopCarorder::where('refund', 2)->get();
-		$complete = ShopCarorder::where('refund', 3)->get();
+		$complete = ShopCarorder::whereIn('refund', [3,4])->get();
 
 		return view('Home.Orders.refundlist')->with(['apply'=>$apply, 'complete'=>$complete]);
 	}

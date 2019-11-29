@@ -74,7 +74,11 @@
 					   
 						<div class="ci4" style="width: 270px;"><p>{{$v['addtime']}}</p></div>
 						<div class="ci5" style="width: 164px;">
+							@if($v['refund'] == 3)
 							<p>商家以同意退货</p>
+							@else
+							<p>商家拒绝退货</p>
+							@endif
 							<p><a href="/home/orders/detail/{{$v['id']}}">订单详情</a></p>
 						</div>
 					</div>
