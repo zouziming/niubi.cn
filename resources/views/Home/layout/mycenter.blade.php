@@ -37,6 +37,32 @@
          // });
      </script>
 
+     <style type="text/css">
+          .list-groupa{
+                    position:absolute;
+                    top:57px;
+                    /*height:20px;*/
+                     z-index:99999;
+
+                    background: #fff;
+                }
+                .list-group-item {
+                    /*height: 30px;*/
+                    /*padding: 10px;*/
+                    /*margin-top:10px;*/
+                    /*left: 5px;*/
+                }
+                .dv{
+                    background: #fff;
+                    /*height: 30px;*/
+
+                    width:464px;
+                    /*left: 10px;*/
+                    padding-left:10px;
+                    margin-top: 5px;
+                }
+     </style>
+
  </head>
  <body>
 
@@ -72,8 +98,11 @@
         <div class="member-title fl"><h2></h2></div>
         <div class="head-form fl">
             <form class="clearfix">
-                <input type="text" class="search-text" accesskey="" id="key" autocomplete="off"  placeholder="手机模型">
-                <button class="button sub" onClick="search('key');return false;">搜索</button>
+                <input type="text" class="search-text" accesskey="" id="ipt" autocomplete="off"  placeholder="手机模型">
+                <button class="button sub" id="sub">搜索</button>
+                <div>
+                 <ul class="list-groupa" id="searchList" ></ul>
+                </div>
             </form>
             <div class="words-text clearfix">
                 <a href="#" class="red">1元秒爆</a>
@@ -187,8 +216,50 @@
 <!-- footer End -->
 @yield('script')
 <script>
-    $('.sub').click(function(){
-            var _vv=$('#key').val();
+    var timer=undefined;
+        var _sl = $('#searchList');
+        $('#ipt').keyup(function(){
+            // console.dir(123);
+            var _v=this.value;
+            // if (_v=='') {
+            //     _sl.html('');
+            //     return false;
+            // }
+            if (_v=='') {
+                _sl.html('');
+                return false;
+            }
+            clearTimeout(timer);
+            timer=setTimeout(function() {
+
+            $.ajax({
+                type:'get',
+                url:'/home/get',
+                data:{
+                    name:_v
+                },
+                success:function(res)
+                {
+                    _sl.html('');
+                    if (res.length==0) {
+                        //没有数据的情况
+                        _sl.hide();
+                    } else {
+                        // 有数据的情况下
+                        _sl.show();
+                        for (var i = 0; i < res.length ; i++) {
+                         $('<a href="/home/cate/'+res[i].id+'" class="list-group-item "></a>').html('<div class="dv">'+res[i].name+'</div>').appendTo(_sl);   
+                        }
+                    }
+                }
+            });
+            },200)
+
+        });
+
+            // console.dir(123);
+        $('#sub').click(function(){
+            var _vv=$('#ipt').val();
             console.dir(_vv);
 
             $.ajax({
