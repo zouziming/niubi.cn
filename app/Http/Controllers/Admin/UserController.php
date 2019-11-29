@@ -118,15 +118,17 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'username' => 'required|max:255',
-            'email' => 'required',
-            'phone' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required|regex:/^1[345789][0-9]{9}$/',
             'sex' => 'required',
         ],[
             'username.required' => '用户名不能为空',
             'username.max' => '用户名过长',
 
             'email.required' => '邮箱不能为空',
+            'email.email' => '邮箱规则不合法',
             'phone.required' => '手机号不能为空',
+            'phone.regex' => '手机格式不对',
 
         ]);
 

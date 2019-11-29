@@ -89,7 +89,8 @@ class OrdersController extends Controller
         ->where('getman','like','%'.$request->getman.'%')
         ->where('address','like','%'.$request->address.'%')
         ->where($kong)
-        ->paginate(5);
+        ->paginate(5)
+        ->appends(['id' => $request->id, 'getman'=> $request->getman, 'address' => $request->address]);
         return view('Admin.Orders.show_orders', ['datas'=>$data]);
     }
 	
