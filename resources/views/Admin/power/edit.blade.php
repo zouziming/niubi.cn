@@ -10,6 +10,15 @@
         <span>修改权限</span>
 
     </div><br>
+     @if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 	<form action="/admin/power/edit/index" method="post">
 	 {{ csrf_field() }}
         <input type="hidden" name="id" value="{{$data->id}}">
