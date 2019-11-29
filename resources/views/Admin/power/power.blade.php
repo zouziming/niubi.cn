@@ -35,8 +35,9 @@
               
             </table>
            
+            {{ $data->links() }}
         </div>
          <button type="button" class="btn btn-default"><a href="/admin/power/add
-         	">添加权限</a></button>
+            ">添加权限</a></button>
     </div>
 @endsection

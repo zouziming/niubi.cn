@@ -10,13 +10,14 @@ use App\ShopPermission;
 use Illuminate\Support\Facades\DB;
 use App\shopUserHasRole;
 use App\ShopUserHaspermission;
+use Illuminate\Support\Facades\Hash;
 
 class PowerController extends Controller
 {
     public function index()
     {
     	$model=new \App\ShopPermission;
-    	$data=$model->get();
+    	$data=$model->paginate(8);
     	return view('Admin/power/power',['data'=>$data]);
     }
 
@@ -92,6 +93,20 @@ class PowerController extends Controller
 
     public function editPower(Request $request)
     {
+           $this->validate($request, [
+        'name' => 'required',
+        'descr' => 'required',
+        'controller'=>'required',
+        'action'=>'required',
+ ],[
+        'required'=>':attribute 不能为空',
+ ],[
+        'name'=>'权限名',
+        'descr'=>'权限描述',
+        'controller'=>'控制器',
+        'action'=>'操作',
+ ]);
+
     	$data['name']=$request->name;
     	$data['descr']=$request->descr;
     	$data['controller']=$request->controller;
@@ -233,6 +248,14 @@ class PowerController extends Controller
         public function editRole(Request $request)
         {
 
+              $this->validate($request, [
+            
+            'name'=>'required',
+        ],[
+            'required'=>':attribute 必须要填写',
+        ],[
+            'name'=>'角色名',
+        ]);
             $role=ShopRole::find($request->role_id);
             // 修改name
             $roleName=ShopRole::where('id','=',$request->id)->update(['name'=>$request->name]);
@@ -285,10 +308,10 @@ class PowerController extends Controller
            				  // 'shop_roles.name as rolename',
            	])
                 ->join('shop_roles','shop_user_has_roles.role_id','=','shop_roles.id')
-           		->join('shop_userinfo','shop_user_has_roles.uid','=','shop_userinfo.id')
+           		->join('shop_users','shop_user_has_roles.uid','=','shop_users.id')
            		// ->where('shop_user_has_roles.id','=',$request->id)
                 ->get();
-            dump($data);
+            // dump($data);
             return view('/Admin/power/userRole',['data'=>$data]);
         }
 
@@ -298,7 +321,7 @@ class PowerController extends Controller
         {
 
             $del=shopUserHasRole::where('id','=',$request->id)->delete();
-            $delUser=DB::table('shop_userinfo')->where('id',$request->uid)->delete();
+            $delUser=DB::table('shop_users')->where('id',$request->uid)->delete();
             if ($del && $delUser) {
              return redirect('/admin/power/userRole')->with('status', '删除成功!');
             } else{
@@ -333,7 +356,10 @@ class PowerController extends Controller
         ]);
             // dump($request->all());
 
-            $adduser=DB::table('shop_userinfo')->insertGetId(['username'=>$request->username,'password'=>$request->password]);
+            $adduser=DB::table('shop_users')->insertGetId([
+                'username'=>$request->username,
+                'password'=> Hash::make($request->password),
+            ]);
             if ($adduser) {
             	$userRole=shopUserHasRole::insert(['uid'=>$adduser,'role_id'=>$request->role_id]);
             	return redirect('/admin/power/userRole');

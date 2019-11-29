@@ -150,6 +150,15 @@ class CateController extends Controller
     // 编辑分类
     public function cateEdit(Request $request)
     {       
+    	  $this->validate($request, [
+            
+            'name'=>'required',
+        ],[
+            'required'=>':attribute 必须要填写',
+        ],[
+            'name'=>'分类名',
+        ]);
+    	
         $cate = new \App\Models\Cate;     
         $edit = $cate->where('id','=',$request->id)->update(['name'=>$request->name]);        
         if ($edit) {
