@@ -33,7 +33,7 @@ class IndexController extends Controller
 		$link = ShopLink::limit(4)->get();
 		$shopnum = 0;
 		if (session('userInfo.id')) {
-			$shopcar = ShopCar::where('uid', session('userInfo.id'))->get();
+			$shopcar = ShopCar::where('uid', session('userInfo.id'))->where('is_buy', 0)->get();
 			foreach ($shopcar as $v) {
 				
 				$shopnum += $v['goods_num'];

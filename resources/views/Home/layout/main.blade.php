@@ -111,8 +111,8 @@
                     <dt>我的商城</dt>
                     <dd class="cur"><a href="/ShowOrders">我的订单</a></dd>
                     <dd><a href="/home/collection">我的收藏</a></dd>
-                    <dd><a href="#">账户安全</a></dd>
-                    <dd><a href="#">我的评价</a></dd>
+                    <dd><a href="javascript:void(0)">账户安全</a></dd>
+                    <dd><a href="javascript:void(0)">我的评价</a></dd>
                     <dd><a href="/home/addressIndex">地址管理</a></dd>
                 </dl>
                 <dl>
@@ -121,8 +121,8 @@
                 </dl>
                 <dl>
                     <dt>我的消息</dt>
-                    <dd><a href="#">商城快讯</a></dd>
-                    <dd><a href="#">帮助中心</a></dd>
+                    <dd><a href="javascript:void(0)">商城快讯</a></dd>
+                    <dd><a href="javascript:void(0)">帮助中心</a></dd>
                 </dl>
             </div>
         </div>
