@@ -88,9 +88,11 @@ class OrdersController extends Controller
         $data = ShopCarorder::where('id','like','%'.$request->id.'%')
         ->where('getman','like','%'.$request->getman.'%')
         ->where('address','like','%'.$request->address.'%')
+        ->where('status','like','%'.$request->status.'%')
         ->where($kong)
         ->paginate(5)
-        ->appends(['id' => $request->id, 'getman'=> $request->getman, 'address' => $request->address]);
+        ->appends(['id' => $request->id, 'getman'=> $request->getman, 'address' => $request->address ,'status' => $request->status]);
+        // $data->withPath('seeks?status='.$request->status);
         return view('Admin.Orders.show_orders', ['datas'=>$data]);
     }
 	

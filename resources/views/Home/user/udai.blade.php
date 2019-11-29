@@ -47,7 +47,7 @@
 	<div class="bgf5 clearfix">
 		<div class="top-user">
 			<div class="inner">
-				<a class="logo" href="index.html"><img src="/lib/site/images/icons/logo.jpg" alt="U袋网" class="cover"></a>
+				<a class="logo" href="/home"><img src="/lib/site/images/icons/logo.jpg" alt="U袋网" class="cover"></a>
 				<div class="title">个人中心</div>
 			</div>
 		</div>
@@ -68,9 +68,9 @@
 				</dl>
 				<dl class="user-center__nav">
 					<dt>订单中心</dt>
-					<a href="udai_order.html"><dd>我的订单</dd></a>
-					<a href="udai_collection.html"><dd>我的收藏</dd></a>
-					<a href="udai_refund.html"><dd>退款/退货</dd></a>
+					<a href="/ShowOrders"><dd>我的订单</dd></a>
+					<a href="/home/collection"><dd>我的收藏</dd></a>
+					<a href="/home/refund/list"><dd>退款/退货</dd></a>
 				</dl>
 				<dl class="user-center__nav">
 					<dt>服务中心</dt>

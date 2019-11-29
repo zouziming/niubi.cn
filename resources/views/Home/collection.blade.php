@@ -61,16 +61,16 @@
 					<a href="/home/user/mycenter"><dd>个人资料</dd></a>
 					<!-- <a href="#"><dd>资金管理</dd></a> -->
 					<a href="#"><dd>积分平台</dd></a>
-					<a href="#"><dd>收货地址</dd></a>
+					<a href="/home/addressIndex"><dd>收货地址</dd></a>
 					<a href="#"><dd>我的优惠券</dd></a>
 					<!-- <a href="#"><dd>修改支付密码</dd></a> -->
 					<a href="/home/user/password"><dd>修改登录密码</dd></a>
 				</dl>
 				<dl class="user-center__nav">
 					<dt>订单中心</dt>
-					<a href="#"><dd>我的订单</dd></a>
+					<a href="/ShowOrders"><dd>我的订单</dd></a>
 					<a href="/home/collection"><dd class="active">我的收藏</dd></a>
-					<a href="#"><dd>退款/退货</dd></a>
+					<a href="/home/refund/list"><dd>退款/退货</dd></a>
 				</dl>
 				<dl class="user-center__nav">
 					<dt>服务中心</dt>
