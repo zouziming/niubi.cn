@@ -37,7 +37,7 @@ class IndexController extends Controller
     public function pwd(Request $request)
     {
         $id = $request->all('id');
-        $user = \App\ShopUserinfo::where($id)->first();
+        $user = \App\ShopUsers::where($id)->first();
 
         return view('Admin.pwd',[
             'user' => $user
@@ -60,12 +60,12 @@ class IndexController extends Controller
         ]);
 
         // 验证身份
-        $userInfo = \App\ShopUserinfo::where('username', '=', $request->username)
+        $userInfo = \App\ShopUsers::where('username', '=', $request->username)
             ->first();
         // 验证密码
         if (Hash::check( $request->oldpassword, $userInfo->password)) {
             $password = Hash::make($request->password);
-            $res = \App\ShopUserinfo::where('id', '=', $request->id)
+            $res = \App\ShopUsers::where('id', '=', $request->id)
                     ->update(['password'=>$password]);
             if ($res) {
                 echo "<script>alert('修改成功');location.href='/admin/login'</script>"; 
@@ -91,7 +91,7 @@ class IndexController extends Controller
             'phone.regex' => '手机格式不对',
         ]);
 
-        $res = \App\ShopUserinfo::where('id', '=', $request->id)
+        $res = \App\ShopUsers::where('id', '=', $request->id)
                 ->update([
                     'username' => $request->username,
                     'phone' => $request->phone,
@@ -112,7 +112,7 @@ class IndexController extends Controller
     // 显示修改头像页面
     public function headpic()
     {
-        // $user = \App\ShopUserinfo::where('id', '=', session('userInfo.id'))
+        // $user = \App\ShopUsers::where('id', '=', session('userInfo.id'))
         //         ->first();['user' => $user]
         return view('Admin.headpic');
     }
@@ -123,7 +123,7 @@ class IndexController extends Controller
 
         $data = $request->pic->store('touxiang', 'public');
 
-        $res = \App\ShopUserinfo::where('id', '=', $request->id)
+        $res = \App\ShopUsers::where('id', '=', $request->id)
             ->update(['pic' => $data]);
         if ($res) {
             return [

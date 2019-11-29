@@ -13,7 +13,7 @@
 <body>
     <!--顶部-->
     <div class="layout_top_header">
-        <div style="float: left"><span style="font-siz e: 16px;line-height: 45px;padding-left: 20px;color: violet ">您好，{{ session('users.username') }} 欢迎您来到后台管理</span></div>
+        <div style="float: left"><span style="font-siz e: 16px;line-height: 45px;padding-left: 20px;color: violet ">您好，{{ session('userInfo.username') }} 欢迎您来到后台管理</span></div>
         <div id="ad_setting" class="ad_setting">
             <a class="ad_setting_a" href="javascript:;">
                 <i class="icon-user glyph-icon" style="font-size: 20px"></i>
@@ -23,7 +23,7 @@
             <ul class="dropdown-menu-uu" style="display: none" id="ad_setting_ul">
 
                 <li class="ad_setting_ul_li"> <a href="/admin"><i class="icon-user glyph-icon"></i> 个人中心 </a> </li>
-                <li class="ad_setting_ul_li"> <a href="/admin/pwd?id={{ session('users.id') }}"><i class="icon-cog glyph-icon"></i> 修改密码 </a> </li>
+                <li class="ad_setting_ul_li"> <a href="/admin/pwd?id={{ session('userInfo.id') }}"><i class="icon-cog glyph-icon"></i> 修改密码 </a> </li>
 
                 <li class="ad_setting_ul_li"> <a href="/admin/logout"><i class="icon-signout glyph-icon"></i><span class="font-bold">退出</span> </a> </li>
             </ul>
