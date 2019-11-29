@@ -232,7 +232,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['user.login']], function(){
     Route::get('/details', 'Admin\OrdersController@orders_detail');
 
 // 订单管理搜索
-    Route::post('/seeks', 'Admin\OrdersController@seek');
+    Route::get('/seeks', 'Admin\OrdersController@seek');
 });
 
     // 后台登录
