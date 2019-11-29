@@ -245,12 +245,13 @@ class GoodsController extends Controller
 	
 	public function checkhasattr(Request $request)
 	{
+		
 		$id = $request->id;
 		$cid = Goods::where('id', $id)->pluck('cid');
 		$pid = ShopCate::where('id', $cid)->pluck('pid');
 		$key = AttributeKey::where('cate_id', $pid)->first();
-		if ($key == null) {
-			return ['code'=>0, 'msg'=>'请先给分类添加主规格'];
+		if ($key == null || $request->data != '/lib/images/no.gif') {
+			return ['code'=>0, 'msg'=>'请先给分类添加主规格或者先下架'];
 		} else {
 			return ['code'=>1];
 		}

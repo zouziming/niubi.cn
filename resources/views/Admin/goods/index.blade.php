@@ -207,6 +207,7 @@
 		})
 		
 		$('.edits').click(function(){
+			var data = $(this.parentElement.parentElement).children().eq(8).children().eq(0).attr('src');
 			var id = $(this).data('id')
 			$.ajax({
 				method:'post',
@@ -214,6 +215,7 @@
 				data:{
 					_token : '{{ csrf_token() }}',
 					id : id,
+					data : data,
 				},
 				success: function(res){
 					if (res.code == 0) {
