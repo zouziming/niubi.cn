@@ -28,10 +28,14 @@ class TrolleyController extends Controller
 	
 	public function jian(Request $request)
 	{
-		$res = ShopCar::where('id', $request->id)->update(['goods_num'=>$request->num]);
-		
-		if ($res) {
-			return ['code'=>0, 'msg'=>'ok'];
+		if ((int)$request->num < 1) {
+			ShopCar::where('id', $request->id)->update(['goods_num'=>1]);
+			return ['code'=>1,'msg'=>'你小子别玩花样啊', 'num'=>1];
+		} else {
+			$res = ShopCar::where('id', $request->id)->update(['goods_num'=>$request->num]);
+			if ($res) {
+				return ['code'=>0, 'msg'=>'ok'];
+			}
 		}
 	}
 	
@@ -54,9 +58,21 @@ class TrolleyController extends Controller
 	
 	public function ipt(Request $request)
 	{
-		$res = ShopCar::where('id', $request->id)->update(['goods_num'=>$request->num]);
-		if ($res) {
-			return ['code'=>0, 'msg'=>'ok'];
+		// dump($request->all());
+		$shopcar = ShopCar::where('id', $request->id)->first();
+		$num = GoodsSpecs::where('goods_id', $shopcar['gid'])->where('goods_specs', $shopcar['goods_specs'])->pluck('goods_stock')[0];
+		
+		if ((int)$request->num > $num) {
+			ShopCar::where('id', $request->id)->update(['goods_num'=>$num]);
+			return ['code'=>1, 'msg'=>'真的没了', 'num'=>$num];
+		} elseif ((int)$request->num == null || (int)$request->num == 0) {
+			ShopCar::where('id', $request->id)->update(['goods_num'=>1]);
+			return ['code'=>1,'msg'=>'你小子别玩花样啊', 'num'=>1];
+		} else {
+			$res = ShopCar::where('id', $request->id)->update(['goods_num'=>$request->num]);
+			if ($res) {
+				return ['code'=>0, 'msg'=>'ok'];
+			}
 		}
 	}
 	

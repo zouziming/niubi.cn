@@ -271,6 +271,7 @@
 			// console.dir(id)
 			var num = ($(this.parentElement).children().eq(1).val())-1
 			var id = $(this).data('id')
+			var _this = this
 			$.ajax({
 				url: '/home/shopcar/jian',
 				method: 'post',
@@ -281,6 +282,10 @@
 				},
 				success:function(res){
 					if (res.code == 0) {
+						layer.msg(res.msg)
+						total()
+					} else if (res.code == 1) {
+						$(_this.parentElement).children().eq(1).val(res.num)
 						layer.msg(res.msg)
 						total()
 					}
@@ -315,9 +320,10 @@
 		})
 		
 		$('.ipts').blur(function(){
-			var num = $(this.parentElement).children().eq(1).val()
+			var _this = this
+			var num = Number($(this.parentElement).children().eq(1).val())
 			var id = $(this).data('id')
-			// console.dir(id)
+			console.dir(id)
 			$.ajax({
 				url: '/home/shopcar/ipt',
 				method: 'post',
@@ -328,6 +334,10 @@
 				},
 				success:function(res){
 					if (res.code == 0) {
+						layer.msg(res.msg)
+						total()
+					} else if (res.code == 1) {
+						$(_this.parentElement).children().eq(1).val(res.num)
 						layer.msg(res.msg)
 						total()
 					}
