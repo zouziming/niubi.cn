@@ -24,7 +24,7 @@ class LoginController extends Controller
 
         // 表单验证
         $this->validate($request, [
-            'username' => 'required|exists:shop_userinfo|max:255',
+            'username' => 'required|exists:shop_users|max:255',
             'password' => 'required|min:6',
             'captcha' => 'required|captcha',
         ],[
