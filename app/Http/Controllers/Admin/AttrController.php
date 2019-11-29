@@ -54,7 +54,7 @@ class AttrController extends Controller
 			$data['attr_name'] = $v;
 			$data['cate_id'] = $request->all()['cate_id'];
 			$res = AttributeKey::create($data);
-			// dump($data);
+
 		}
 		
 		if ($res) {

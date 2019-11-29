@@ -33,7 +33,7 @@
         <div class="mianCont">
             <div class="top">
                 @empty(SESSION('userInfo'))
-                <span>您好！欢迎来到17商城 请</span>
+                <span>您好！欢迎来到sb商城 请</span>
                 <span>
                 <a href="/home/login">[登录]</a>
                 </span>
@@ -43,9 +43,9 @@
                 <a style="color:violet">{{ session('userInfo.username') }}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</a>
                 <a href="/home/logout" style="color:red">退出&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</a>
 				<span class="topRight">
+					<a href="/home/user/secure">账户安全</a>&nbsp;| 
                     <a href="/ShowOrders">我的订单</a>&nbsp;|
                     <a href="/home/collection">我的收藏</a>&nbsp;|
-                    <a href="#">联系我们</a>
 				</span>
                 @endempty
             </div>
@@ -53,7 +53,7 @@
             <div class="lsg">
                 <h1 class="logo">
                     <a href="/home">
-                        <img src="/lib/image/logo.png" width="217" height="90" /></a>
+                        <img src="/lib/images/01.jpg" width="217" height="90" /></a>
                 </h1>
                 <form action="#" method="get" class="subBox">
                     <div class="subBoxDiv">
@@ -67,11 +67,9 @@
                     <!--subBoxDiv/--></form>
                 <!--subBox/-->
                 <div class="gouwuche">
-                    <div class="gouCar">
-                        <img src="/lib/image/gouimg.png" width="19" height="20" style="position:relative;top:6px;" />&nbsp;|&nbsp;
-                        <strong class="red">0</strong>&nbsp;件&nbsp;|
-                        <strong class="red">￥ 0.00</strong>
-                        <a href="/home/shopcar/pay">去结算</a>
+                    <div class="gouCar" style="width: 100px;">
+                        <a href="/home/shopcar"><img src="/lib/image/gouimg.png" width="19" height="20" style="position:relative;top:6px;" /></a>&nbsp;|
+                        <strong class="red">{{ $shopnum }}</strong>&nbsp;件&nbsp;
                         <img src="/lib/image/youjian.jpg" width="5" height="8" /></div>
                     <!--gouCar/-->
                     <div class="myChunlv">
@@ -139,7 +137,7 @@
                                 <a href="/home/goods/{{$v['id']}}" class="clicknum" data-id="{{$v['id']}}">
                                     <img src="{{$v['pic']}}" width="132" height="129" /></a>
                             </dt>
-                            <dd>{{substr($v['name'], 0, 31)}}</dd>
+                            <dd>{{$v['name']}}</dd>
                             <dd class="cheng">￥{{$v['price']}}</dd>
 						</dl>
 						@endforeach
@@ -153,7 +151,7 @@
 								<a href="/home/goods/{{$v['id']}}" class="clicknum" data-id="{{$v['id']}}">
 									<img src="{{$v['pic']}}" width="132" height="129" /></a>
 							</dt>
-							<dd>{{substr($v['name'], 0, 31)}}</dd>
+							<dd>{{$v['name']}}</dd>
 							<dd class="cheng">￥{{$v['price']}}</dd>
 						</dl>
 						@endforeach
@@ -200,7 +198,7 @@
 											<img src="{{$v['pic']}}" width="132" height="129" />
 										</a>
 									</dt>
-									<dd>{{substr($v['name'], 0, 30)}}</dd>
+									<dd>{{substr($v['name'], 0, 29)}}</dd>
 									<dd class="cheng">￥{{$v['price']}}</dd>
 									<dd style="float: right;">点击:{{$v['clicknum']}}</dd>
 								</dl>
@@ -245,7 +243,7 @@
 										<img src="{{$v['pic']}}" width="132" height="129" />
 									</a>
 								</dt>
-								<dd>{{substr($v['name'], 0, 30)}}</dd>
+								<dd>{{substr($v['name'], 0, 29)}}</dd>
 								<dd class="cheng">￥{{$v['price']}}</dd>
 								<dd style="float: right;">点击:{{$v['clicknum']}}</dd>
 							</dl>
@@ -312,16 +310,13 @@
             
             <div class="inHelp">
                 <div class="inHLeft">
-                    <h4>帮助中心</h4>
+                    <h4>友情链接</h4>
                     <ul class="inHeList">
-                        <li>
-                            <a href="#">购物指南</a></li>
-                        <li>
-                            <a href="#">支付方式</a></li>
-                        <li>
-                            <a href="#">售后服务</a></li>
-                        <li>
-                            <a href="#">企业简介</a></li>
+						@foreach($link as $v)
+						<li>
+							<a href="{{$v['url']}}">{{$v['name']}}</a>
+						</li>
+						@endforeach
                         <div class="clears"></div>
                     </ul>
                     <!--inHeList/--></div>
@@ -336,7 +331,7 @@
                         <li>
                             <a href="/home/shopcar">购物车</a></li>
                         <li>
-                            <a href="#">我的订单</a></li>
+                            <a href="/ShowOrders">我的订单</a></li>
                         <div class="clears"></div>
                     </ul>
                     <!--inHeList/--></div>

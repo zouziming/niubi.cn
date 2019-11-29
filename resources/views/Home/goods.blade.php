@@ -48,15 +48,13 @@
                 <li class="headerul">|</li>
                 <li><a href="/home/collection">我的收藏</a> </li>
                 <li class="headerul">|</li>
-                <li><a href="#" class="M-iphone">手机悦商城</a> </li>
-				<li class="headerul">|</li>
 				@endempty
             </ul>
         </div>
     </div>
     <div class="container clearfix">
 
-        <div class="header-logo fl"><h1><a href="/home"><img src="/lib/theme/icon/logo.png"></a> </h1></div>
+        <div class="header-logo fl"><h1><a href="/home"><img src="/lib/images/01.jpg" style="max-width: 400px;max-height: 118px;"></a> </h1></div>
         <div class="head-form fl">
             <form class="clearfix" onsubmit="return false">
                 <input type="text" class="search-text" accesskey="" id="key" autocomplete="off"  placeholder="手机模型">
@@ -296,7 +294,13 @@
                                 <div class="column2"><img src="/lib/theme/icon/star.png"></div>
                                 <div class="column3">颜色：屎黄色</div>
                                 <div class="column4">
-                                    <p><img src="/lib/theme/icon/user.png"></p>
+                                    <p><img src="
+									@if($v['tou'] == null)
+										/lib/theme/icon/user.png
+									@else
+										{{ $v['tou'] }}
+									@endif
+									"></p>
                                     <p>2014-11-23 22:37 购买</p>
                                 </div>
                             </li>
@@ -314,7 +318,13 @@
 						        <div class="column2"><img src="/lib/theme/icon/star.png"></div>
 						        <div class="column3">颜色：屎黄色</div>
 						        <div class="column4">
-						            <p><img src="/lib/theme/icon/user.png"></p>
+						            <p><img src="
+									@if($v['tou'] == null)
+										/lib/theme/icon/user.png
+									@else
+										{{ $v['tou'] }}
+									@endif
+									"></p>
 						            <p>2014-11-23 22:37 购买</p>
 						        </div>
 						    </li>

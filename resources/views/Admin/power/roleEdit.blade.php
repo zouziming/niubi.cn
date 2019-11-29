@@ -7,6 +7,15 @@
   <div class="page-title">
     <span class="modular fl"><i class="user"></i><em>修改角色</em></span>
   </div>
+      @if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <form action="/admin/power/role/edit" method="post">
   {{csrf_field()}}
   <input type="hidden" name="role_id" value="{{$data->id}}">
@@ -19,7 +28,7 @@
 
   </table>
   <br><button style="margin-left: 172px" class="btn btn-success">提交</button>
-  <h2>设置权限：</h2>
+  <h2>设置权限：</h2><button id="quanxuan" class="btn btn-success">全选</button>　<button id="quanquxiao" class="btn btn-success">全取消</button>　
   @foreach($qx as $v) 
 
   <label><input style="width:15px" type="checkbox" name="permission_id[]"  value="{{$v->id}}" 
@@ -35,5 +44,21 @@
 @endsection
 
 @section('script')
+  <script type="text/javascript">
+      var ipt = $('input[type="checkbox"]')
+    $('#quanxuan').click(function(){
+      for (var i = 0; i < ipt.length; i++) {
+        ipt[i].checked=true;
+      }
+      return false;
+    })
 
+
+    $('#quanquxiao').click(function(){
+      for (var i = 0; i < ipt.length; i++) {
+        ipt[i].checked=false;
+      }
+      return false;
+    })
+  </script>
 @endsection

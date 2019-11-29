@@ -37,8 +37,7 @@
 				@empty(!SESSION('userInfo'))
 				<a href="/home/collection">我的收藏</a>
 				<a href="/home/shopcar">我的购物车</a>
-				<a href="javascript:void(0)">我的订单</a>
-				<a href="udai_integral.html">积分平台</a>
+				<a href="/ShowOrders">我的订单</a>
 				@endempty
 			</div>
 		</div>
@@ -47,7 +46,7 @@
 	<div class="bgf5 clearfix">
 		<div class="top-user">
 			<div class="inner">
-				<a class="logo" href="/home"><img src="/lib/shopcar/images/icons/logo.jpg" alt="U袋网" class="cover"></a>
+				<a class="logo" href="/home"><img src="/lib/images/01.jpg" alt="sb网" class="cover"></a>
 				<div class="title">购物车</div>
 			</div>
 		</div>
@@ -90,6 +89,7 @@
 					</div>
 					<div class="add_addr"><a href="/home/addressIndex">添加新地址</a></div>
 					<div class="shop-title">确认订单</div>
+					<div class="shop-title delorder" data-val="{{$data}}">删除订单</div>
 					<div class="shop-order__detail">
 						<table class="table">
 							<thead>
@@ -278,7 +278,6 @@
 			// console.dir(total)
 			$('.datas').each(function(index, item){
 				detail.push($(item).data('id'))
-
 			})
 			// console.dir(detail)
 			$.ajax({
@@ -296,6 +295,29 @@
 						setTimeout(function(){
 							location.href = '/home/shopcar/pyjy?id='+res.oid
 						}, 1000);
+					} else {
+						layer.msg(res.msg)
+					}
+				}
+			})
+		})
+	</script>
+	<script>
+		$('.delorder').click(function(){
+			var val = $(this).data('val')
+			$.ajax({
+				url: '/home/shopcar/delorder',
+				method: 'post',
+				data: {
+					_token : '{{ csrf_token() }}',
+					val : val,
+				},
+				success:function(res){
+					if (res.code == 0) {
+						layer.msg(res.msg)
+						setTimeout(function(){
+							location.href = '/home'
+						}, 1000)
 					} else {
 						layer.msg(res.msg)
 					}

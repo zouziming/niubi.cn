@@ -12,7 +12,7 @@
     <meta content="歪秀购物，购物商城。" name="description">
     <title>@yield('title')</title>
     <link rel="shortcut icon" type="image/x-icon" href="/lib/theme/icon/favicon.ico">
-	<!-- <link rel="stylesheet" href="/lib/libs/layui/css/layui.css"> -->
+	<link rel="stylesheet" href="/lib/libs/layui/css/layui.css">
 	<link rel="stylesheet" href="/lib/libs/layui/css/modules/layer/default/layer.css">
 	<!-- <link rel="stylesheet" href="/lib/libs/xadmin.css"> -->
     <link rel="stylesheet" type="text/css" href="/lib/theme/css/base.css">
@@ -72,14 +72,12 @@
                 <li class="headerul">|</li>
                 <li><a href="/home/collection">我的收藏</a> </li>
                 <li class="headerul">|</li>
-                <li><a href="#" class="M-iphone">手机悦商城</a> </li>
-                <li class="headerul">|</li>
                 @endempty
             </ul>
         </div>
     </div>
     <div class="container clearfix" style="background: #fff;">
-        <div class="header-logo fl"><h1><a href="/home"><img src="/lib/theme/icon/logo.png"></a> </h1></div>
+        <div class="header-logo fl"><h1><a href="/home"><img src="/lib/images/01.jpg" style="max-width: 400px;max-height: 118px;"></a> </h1></div>
         <div class="member-title fl"><h2></h2></div>
         <div class="head-form fl">
             <form class="clearfix">

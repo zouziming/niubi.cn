@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\AttributeKey;
 use App\GoodsSpecs;
 use App\ShopCate;
 use App\Goods;
@@ -24,7 +25,7 @@ class GoodsController extends Controller
 	
 	public function add()
 	{
-		
+		// dump(session('data'));
 		$catedata = ShopCate::orderByRaw('concat(path, id) ASC')->get();
 		// dump($catedata);
 		return view('Admin.goods.add')->with('cate', $catedata);
@@ -32,6 +33,7 @@ class GoodsController extends Controller
 	
 	public function checkadd(Request $request)
 	{
+		$request->session()->flash('data', $request->all());
 		
 		$this->validate($request, [
 		    'name' => 'required',
@@ -238,6 +240,19 @@ class GoodsController extends Controller
 	{
 		if($request->data != '/lib/images/no.gif') {
 			return ['code'=>0];
+		}
+	}
+	
+	public function checkhasattr(Request $request)
+	{
+		$id = $request->id;
+		$cid = Goods::where('id', $id)->pluck('cid');
+		$pid = ShopCate::where('id', $cid)->pluck('pid');
+		$key = AttributeKey::where('cate_id', $pid)->first();
+		if ($key == null) {
+			return ['code'=>0, 'msg'=>'请先给分类添加主规格'];
+		} else {
+			return ['code'=>1];
 		}
 	}
 }

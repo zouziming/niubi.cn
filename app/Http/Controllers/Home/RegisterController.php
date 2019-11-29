@@ -18,10 +18,6 @@ class RegisterController extends Controller
     }
     
 
-
-
-
-
     // 手机号注册发送验证码
     public function register(Request $request)
     {
@@ -51,10 +47,11 @@ class RegisterController extends Controller
             }
         }
     }
+
     // 手机号注册
     public function doRegister(Request $request)
     {
-        // dd(session('checkcode'));
+
         $this->validate($request, [
             'phone'=>'required|regex:/^1[345789][0-9]{9}$/',
             'checkcode'=>'required',

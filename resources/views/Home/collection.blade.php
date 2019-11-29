@@ -39,7 +39,6 @@
 				<a href="/home/collection">我的收藏</a>
 				<a href="/home/shopcar">我的购物车</a>
 				<a href="/ShowOrders">我的订单</a>
-				<a href="#">积分平台</a>
 				@endempty
 			</div>
 		</div>
@@ -48,7 +47,7 @@
 	<div class="bgf5 clearfix">
 		<div class="top-user">
 			<div class="inner">
-				<a class="logo" href="/home"><img src="/lib/shopcar/images/icons/logo.jpg" alt="U袋网" class="cover"></a>
+				<a class="logo" href="/home"><img src="/lib/images/01.jpg" alt="sb网" class="cover"></a>
 				<div class="title">个人中心</div>
 			</div>
 		</div>

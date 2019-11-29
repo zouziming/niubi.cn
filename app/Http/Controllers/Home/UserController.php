@@ -12,23 +12,22 @@ use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
-    // 显示账户安全
-    public function secure()
-    {
-        return view('Home.user.secure');
-    }
-
     // 显示个人资料
     public function mycenter()
     {
-        return view('Home.user.mycenter');
+        $user = \App\ShopUserinfo::where('id', '=', session('userInfo.id'))
+                ->first();
+		// dd(session('userInfo.id'));
+        return view('Home.user.mycenter',['user' => $user]);
     }
     
 
     // 显示修改密码页面
     public function show()
     {
-        return view('Home.user.password');
+        $user = \App\ShopUserinfo::where('id', '=', session('userInfo.id'))
+                ->first();
+        return view('Home.user.password',['user' => $user]);
     }
     // 修改密码
     public function password(Request $request)
@@ -67,19 +66,19 @@ class UserController extends Controller
     public function addressIndex(Request $request)
     {
         $session=$request->session()->get('userInfo');
-        // dump($session);
+        
         $user=ShopAddres::where('uid',$session['id'])->orderBy('status')->get();
-        // dump($user);
+        
        return view('Home/user/udai',['data'=>$user]);
     }
 
     // 添加收货地址
     public function address(Request $request)
     {   
-        // dd($request->all());
+        
         $session=$request->session()->get('userInfo');
         $status=[];
-        // dd(empty($request->status));
+     
         if (!empty($request->status)) {
             $status=['status'=>$request->status];
         }
@@ -105,9 +104,7 @@ class UserController extends Controller
             'city'=>$request->city,
             'area'=>$request->area
                         ]);
-        // dump($ist);
-
-        // dd($request->all());
+       
 	        if ($ist) {
 	            return ['code'=>0,'msg'=>'添加成功'];
 	        } else {
@@ -118,10 +115,6 @@ class UserController extends Controller
         	
         }
 
-
-
-            // dd($request->address);
-        // dd($request->all());
     }
 
     // 修改收货地址页面
@@ -132,7 +125,7 @@ class UserController extends Controller
             return redirect('/home/addressIndex');
         }
          $session=$request->session()->get('userInfo');
-        // dump($session);
+     
         $user=ShopAddres::where('uid',$session['id'])->orderBy('status')->get();
 
         return view('/Home/user/addressEdit',['data'=>$user,'id'=>$request->id,'edit'=>$address]);
@@ -141,6 +134,19 @@ class UserController extends Controller
 
     public function addressEdit(Request $request)
             {  
+                $this->validate($request, [
+            'consignee'=>'required',
+            'phone'=>'required | regex:/^1[345789][0-9]{9}$/',
+            'address'=>'required',
+        ],[
+            'required'=>':attribute 不能为空',
+            'regex'=>'手机号格式不对',
+        ],[
+            'address'=>'详细地址',
+            'consignee'=>'收件人',
+            'phone'=>'手机号',
+        ]);
+
                 $user=ShopAddres::where('id',$request->id)->update(['address'=>$request->address,
                 'consignee'=>$request->consignee,
                 'phone'=>$request->phone,
@@ -149,13 +155,12 @@ class UserController extends Controller
                 'city'=>$request->city,
                 'area'=>$request->area
             ]);
-                // dd($user);  
+         
                 if ($user) {
                     return redirect('/home/addressIndex');
                 } else {
                     echo "<script>alert('修改失败');location.href='/home/addressIndex'</script>";
                 }
-        // dd($request->all());
     }
 
 
@@ -181,7 +186,7 @@ class UserController extends Controller
           $session=$request->session()->get('userInfo');
         ShopAddres::where('uid',$session['id'])->update(['status'=>2]);
        $edit= ShopAddres::where('id',$request->id)->update(['status'=>1]);
-        // dd($request->all());
+
        // if ($edit) {
        //      return redirect('/home/addressIndex');
        //          } else {
@@ -201,11 +206,12 @@ class UserController extends Controller
     public function edit(Request $request)
     {
         $this->validate($request, [
-            'username' => 'min:2',
+            'username' => 'min:2|',
             'email' => 'email',
             'phone' => 'regex:/^1[345789][0-9]{9}$/',
         ],[
             'username.min' => '用户名最少2个字符',
+            'username.unique' => '用户名已存在',
             'email.email' => '邮箱规则不合法',
             'phone.regex' => '手机格式不对',
         ]);
@@ -216,7 +222,6 @@ class UserController extends Controller
                     'email' => $request->email,
                     'phone' => $request->phone,
                     'sex' => $request->sex,
-                    'pic' => $request->pic,
                 ]);
         if ($res) {
             echo "<script>alert('修改成功');location.href='/home/user/mycenter'</script>";
@@ -229,7 +234,9 @@ class UserController extends Controller
     // 显示修改头像页面
     public function pic()
     {
-        return view('Home.user.picture');
+        $user = \App\ShopUserinfo::where('id', '=', session('userInfo.id'))
+                ->first();
+        return view('Home.user.picture',['user' => $user]);
     }
     // 修改头像
     public function picture(Request $request)

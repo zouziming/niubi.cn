@@ -80,6 +80,7 @@ class OrdersController extends Controller
 		], [
 		    'required' => ':attribute 必须填写',
 			'numeric'   => ':attribute 必须为数字',
+			'regex' => ':attribute 格式不对',
 		], [
 		    'getman' => '收件人',
 		    'phone' => '手机',
@@ -126,7 +127,7 @@ class OrdersController extends Controller
 	{
 		$refund = ShopCarorder::where('id', $request->id)->pluck('refund')[0];
 		if ($refund == 2) {
-			return ['code'=>0, 'msg'=>'你tm已经申请过了'];
+			return ['code'=>0, 'msg'=>'你已经申请过了'];
 		}
 		$res = ShopCarorder::where('id', $request->id)->update(['refund'=>2]);
 		if ($res) {

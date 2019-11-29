@@ -64,7 +64,8 @@ class LoginController extends Controller
             // 跳转到后台首页
             return redirect('/home');
         } else {
-            echo "<script>alert('密码错误！');location.href='/home/login'</script>";
+            // echo "<script>alert('密码错误！');location.href='/home/login'</script>";
+            return back()->withInput();
         }
     }
 
@@ -102,7 +103,7 @@ class LoginController extends Controller
     // 手机号登录
     public function dologincode(Request $request)
     {
-        // dd(session('checkcode'));
+
         $this->validate($request, [
             'phone'=>'required|regex:/^1[345789][0-9]{9}$/',
             'checkcode'=>'required',

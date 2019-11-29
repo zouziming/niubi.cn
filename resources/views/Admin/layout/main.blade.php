@@ -60,7 +60,7 @@
             <li class="childUlLi">
                 <a href="#" target="_self"> <i class="glyph-icon icon-reorder"></i>订单管理</a>
                 <ul>
-                    <li><a href="/seeks" target="_top"><i class="glyph-icon icon-chevron-right"></i>订单列表</a></li>
+                    <li><a href="/admin/seeks" target="_top"><i class="glyph-icon icon-chevron-right"></i>订单列表</a></li>
                     <li><a href="/admin/order/refund" target="_self"><i class="glyph-icon icon-chevron-right"></i>退货列表</a></li>
                 </ul>
             </li>

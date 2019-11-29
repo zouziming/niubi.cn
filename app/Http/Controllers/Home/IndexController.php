@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\ShopLink;
+use App\ShopCar;
 use App\ShopLunbo;
 use App\ShopCate;
 use App\Goods;
@@ -11,7 +13,6 @@ use App\AttributeValue;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use App\ShopUsers;
 use App\Models\Cate;
 
 class IndexController extends Controller
@@ -29,26 +30,37 @@ class IndexController extends Controller
 	public function index(Request $request)
 	{
 		// dump(session('userInfo'));
+		$link = ShopLink::limit(4)->get();
+		$shopnum = 0;
+		if (session('userInfo.id')) {
+			$shopcar = ShopCar::where('uid', session('userInfo.id'))->get();
+			foreach ($shopcar as $v) {
+				
+				$shopnum += $v['goods_num'];
+			}
+		}
+		// dd($shopnum);
+		// dump(session('userInfo'));
 		$cate = ShopCate::where('pid', 0)->get();
-		// dd($cate);
+
 		foreach ($cate as $k=>$v) {
 			$data[$k]['fu'] = $v;
 			$data[$k]['er'] = ShopCate::where('pid', $v['id'])->get();
 			$id = ShopCate::where('pid', $v['id'])->pluck('id');
 			$data[$k]['goods'] = Goods::whereIn('cid', $id)->where('is_recycle', 0)->where('status', 1)->limit(8)->get();
-			// dd($data);
+
 			
 			foreach ($data[$k]['goods'] as $kk=>$vv) {
 				$data[$k]['goods'][$kk]['price'] = GoodsSpecs::where('goods_id', $vv['id'])->pluck('goods_price')[0];
 			}
 			
 		}
-		// dd($data);
+
 		$tui = Goods::where('boutique', 1)->where('is_recycle', 0)->where('status', 1)->limit(5)->orderBy('addtime', 'desc')->get();
 		foreach ($tui as $k=>$v) {
 			$tui[$k]['price'] = GoodsSpecs::where('goods_id', $v['id'])->pluck('goods_price')[0];
 		}
-		// dump($tui);
+
 		$hot = Goods::where('hot', 1)->where('is_recycle', 0)->where('status', 1)->limit(5)->get(); 
 		foreach ($hot as $k=>$v) {
 			$hot[$k]['price'] = GoodsSpecs::where('goods_id', $v['id'])->pluck('goods_price')[0];
@@ -63,7 +75,7 @@ class IndexController extends Controller
 
 		$lunbo = ShopLunbo::limit(5)->orderBy('id', 'desc')->get();
 		
-		return view('Home.index')->with(['data'=>$data, 'tui'=>$tui, 'hot'=>$hot, 'lunbo'=>$lunbo]);
+		return view('Home.index')->with(['data'=>$data, 'tui'=>$tui, 'hot'=>$hot, 'lunbo'=>$lunbo, 'shopnum'=>$shopnum, 'link'=>$link]);
 	}
 
 	// 键盘按下搜索

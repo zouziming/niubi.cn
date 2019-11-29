@@ -23,10 +23,10 @@ class QtLogin
             //已经登录了，继续下一步
             return $next($request);
         } 
-        // else {
-        //     //没有登录，跳到登录页面
-        //     return redirect('/home/login');
-        // }
+        else {
+            //没有登录，跳到登录页面
+            return redirect('/home/login');
+        }
 
         return $next($request);
     }

@@ -1,7 +1,9 @@
 @extends('Admin.layout.main')
 @section('title', '首页')
 @section('content')
-<div class="col-md-12" width="100%" height="100%" style="background:url(/lib/img/99.jpg) no-repeat center  0;background-size:100% 100%;"  >
+
+    <h1>欢迎来到后台管理</h1>
+<!-- <div class="col-md-12" width="100%" height="100%" style="background:url(/lib/img/99.jpg) no-repeat center  0;background-size:100% 100%;"  >
 <div class="route_bg">
     <a href="/admin">返回首页</a>
     -
@@ -12,7 +14,7 @@
         <br>
         <div class="form-group col-md-12">
         @if(session('userInfo.pic') == true)
-        <a href="/admin/headpic"><img src="/storage/{{ session('userInfo.pic') }}" value="" style="width:125px;height:125px" alt="" class="img-circle"></a>
+        <a href="/admin/headpic"><img src="/storage/{{session('userInfo.pic')}}" value="" style="width:125px;height:125px" alt="" class="img-circle"></a>
         @else
         <a href="/admin/headpic"><img src="/lib/img/do.jpg" value="" style="width:125px;height:125px" alt="" class="img-circle"></a>
         @endif
@@ -21,7 +23,7 @@
             <label for="exampleInputEmail1" style="color:blue">用户名</label>
             <div class="panel panel-default">
               <div class="panel-body" style="padding:8px;height:36px">
-                {{ session('userInfo.username') }}
+                {{session('userInfo.username')}}
               </div>
             </div>
         </div>
@@ -29,7 +31,7 @@
             <label for="exampleInputEmail1" style="color:blue">手机号</label>
             <div class="panel panel-default">
               <div class="panel-body" style="padding:8px;height:36px">
-                {{ session('userInfo.phone') }}
+                {{session('userInfo.phone')}}
               </div>
             </div>
         </div>
@@ -37,7 +39,7 @@
             <label for="exampleInputEmail1" style="color:blue">邮箱</label>
             <div class="panel panel-default">
               <div class="panel-body" style="padding:8px;height:36px">
-                {{ session('userInfo.email') }}
+                {{session('userInfo.email')}}
               </div>
             </div>
         </div>
@@ -59,20 +61,20 @@
             <label for="exampleInputEmail1" style="color:blue">权限</label>
             <div class="panel panel-default">
               <div class="panel-body" style="padding:8px;height:36px">
-                <!-- {{ session('userInfo.sex') }} -->无
-              </div>
+                <!-- {{ session('userInfo.sex') }} -->
+   <!--            无</div>
             </div>
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1" style="color:blue">注册时间</label>
             <div class="panel panel-default">
               <div class="panel-body" style="padding:8px;height:36px">
-                {{ session('userInfo.addtime') }}
+                {{session('userInfo.addtime')}}
               </div>
             </div>
         </div>
         <div class="form-group">
-            <!-- <button class="btn btn-info" style="width:120px;">修改</button> -->
+            <button class="btn btn-info" style="width:120px;">修改</button>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">修改资料</button>
         </div>
         <div class="control-group"></div>
@@ -98,20 +100,20 @@
             </div>
             <form>
             <!-- action="/admin/index" method="post" -->
-            <input type="hidden" name="id" value="{{ session('userInfo.id') }}">
+            <!-- <input type="hidden" name="id" value="{{ session('users.id') }}">
             <div class="modal-body">
                 <div class="form-group">
                     <label for="recipient-name" class="control-label">用户名:</label>
-                    <input type="text" name="username" class="form-control" id="recipient-name" value="{{ session('userInfo.username') }}">
+                    <input type="text" name="username" class="form-control" id="recipient-name" value="{{session('users.username')}}">
                     {{$errors->first('username')}}
                 </div>
                 <div class="form-group">
                     <label for="recipient-name" class="control-label">手机号:</label>
-                    <input type="text" name="phone" class="form-control" id="recipient-name" value="{{ session('userInfo.phone') }}">
+                    <input type="text" name="phone" class="form-control" id="recipient-name" value="{{session('users.phone')}}">
                 </div>
                 <div class="form-group">
                     <label for="recipient-name" class="control-label">邮箱:</label>
-                    <input type="text" name="email" class="form-control" id="recipient-name" value="{{ session('userInfo.email') }}">
+                    <input type="text" name="email" class="form-control" id="recipient-name" value="{{session('users.email')}}">
                 </div>
                 <div class="form-group">
                     <label for="recipient-name" class="control-label">性别:</label>
@@ -131,7 +133,7 @@
         </div>
     </div>
 </div>
-</div>
+</div> -->
 @endsection
 @section('script')
 <script src="/lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>

@@ -87,6 +87,17 @@
 				</dl>
 			</div>
 			<div class="pull-right">
+				
+				@if (count($errors) > 0)
+				    <div class="alert alert-danger">
+				        <ul>
+				            @foreach ($errors->all() as $error)
+				                <li>{{ $error }}</li>
+				            @endforeach
+				        </ul>
+				    </div>
+				@endif
+
 				<div class="user-content__box clearfix bgf">
 					<div class="title">账户信息-编辑收货地址</div>
 					<form action="/home/addressEdit" method="post" class="user-addr__form form-horizontal" role="form">

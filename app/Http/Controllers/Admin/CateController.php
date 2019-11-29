@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Models\Cate;
+use App\Goods;
 
 class CateController extends Controller
 {
@@ -98,13 +99,18 @@ class CateController extends Controller
     }
 
     public function del(Request $request)
-    {
+    {   
         $cate = new \App\Models\Cate;
         $pid = $cate->where('id', $request->id)->pluck('pid')[0];
+        $cip = Goods::where('cid',$request->id)->first();
+        // dd($cip);
         // dd($pid); 
        if ($pid == 0) {
+            // 父类
+            // 查出子类
             $res = $cate->where('pid', $request->id)->first();
             // dd($res);
+            // 没有子类
             if ($res == null) {
                 $del=$cate ->where('id','=',$request->id)->delete();
                 if ($del) {
@@ -119,14 +125,21 @@ class CateController extends Controller
                 return ['msg'=>'请先删除子类'];
             }
        } else {
-            $del=$cate ->where('id', $request->id)->delete();
-            if ($del) {
-                  return [
-                        'code'=>0,
-                        'msg'=>'你真棒',
-                        ];
+            if ($cip==null) {
+                # code...
+                $del=$cate ->where('id', $request->id)->delete();
+                if ($del) {
+                      return [
+                            'code'=>0,
+                            'msg'=>'你真棒',
+                            ];
+                } else {
+                    return ['msg'=>'删除失败'];
+                }
             } else {
-                return ['msg'=>'删除失败'];
+                return [
+                    'msg'=>'请先删除此类商品',
+                ];
             }
        }
         
@@ -150,6 +163,15 @@ class CateController extends Controller
     // 编辑分类
     public function cateEdit(Request $request)
     {       
+    	  $this->validate($request, [
+            
+            'name'=>'required',
+        ],[
+            'required'=>':attribute 必须要填写',
+        ],[
+            'name'=>'分类名',
+        ]);
+    	
         $cate = new \App\Models\Cate;     
         $edit = $cate->where('id','=',$request->id)->update(['name'=>$request->name]);        
         if ($edit) {
