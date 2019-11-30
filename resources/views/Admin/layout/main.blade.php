@@ -55,6 +55,7 @@
             		<li><a href="/admin/comment"><i class="glyph-icon icon-chevron-right"></i>评论列表</a></li>
             		<li><a href="/admin/collection"><i class="glyph-icon icon-chevron-right"></i>收藏列表</a></li>
             		<li><a href="/admin/goods/recycle"><i class="glyph-icon icon-chevron-right"></i>回收站</a></li>
+					<li><a href="/admin/pattern"><i class="glyph-icon icon-chevron-right"></i>模型列表</a></li>
                 </ul>
             </li> 
             <li class="childUlLi">

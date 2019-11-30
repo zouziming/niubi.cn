@@ -95,6 +95,7 @@
 					<img width="40px;" src="/lib/images/icon_view.gif"/>
 				</a>
 				<a href="javascript:void(0)" title="设置商品价格" ><img width="40px;" src="/lib/images/icon_title.gif"/></a>
+				<span>设置规格</span>
 			</td>
 		</tr>
 		@endforeach

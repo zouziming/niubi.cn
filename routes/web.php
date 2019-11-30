@@ -164,6 +164,13 @@ Route::group(['prefix' => '/admin', 'middleware' => ['user.login']], function(){
 	Route::get('/refund/agree/{id}', 'Admin\OrdersController@refundagree');
 	Route::post('/pagepay/refund', 'Admin\OrdersController@refundpagepay');	
 
+	//模型
+	Route::get('/pattern', 'Admin\PatternController@lists');
+	Route::get('/pattern/add', 'Admin\PatternController@add');
+	Route::post('/pattern/add', 'Admin\PatternController@checkadd');
+	Route::get('/pattern/edit/{id}', 'Admin\PatternController@edit');
+	Route::post('/pattern/edit/{id}', 'Admin\PatternController@checkedit');
+	Route::get('/pattern/del/{id}', 'Admin\PatternController@del');
 
 
 // 分类
