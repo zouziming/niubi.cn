@@ -20,7 +20,7 @@
             <div class="form-group">
                 <label for="exampleInputName2"><span class="label label-primary">发货状态:</span></label>
                     <select name="status" class="form-control">
-                        <option value="0">--请选择--</option>
+                        <option value="">--请选择--</option>
                         <option value="1">未发货</option>
                         <option value="2">待发货</option>
                         <option value="3">已发货</option>
