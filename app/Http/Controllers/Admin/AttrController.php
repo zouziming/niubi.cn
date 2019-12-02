@@ -82,6 +82,12 @@ class AttrController extends Controller
 		]);
 		
 		$data = $request->all();
+		// dd($request->id);
+		$value = AttributeValue::where('attr_id', $request->id)->first();
+		// dd($value);
+		if ($value != null) {
+			return  ['code'=>1, 'msg'=>'请先删除属性下的值'];
+		}
 		
 		// dump($data);
 		$attr = AttributeKey::find($data['id']);
@@ -89,15 +95,10 @@ class AttrController extends Controller
 		$res = $attr->save();
 		
 		if ($res) {
-		    $res = [
-		        'code' => 0,
-		    ];
+		    return ['code' => 0, 'msg'=>'修改成功'];
 		} else {
-		    $res = [
-		        'code' => 1,
-		    ];
+		    return ['code' => 1, 'msg'=>'修改失败'];
 		}
-		return $res;
 	}
 	
 	public function del(Request $request)
@@ -219,8 +220,9 @@ class AttrController extends Controller
 			$gid[] = Goods::where('cid', $v)->pluck('id');
 			Goods::where('cid', $v)->update(['status'=>0]);
 		}
-		foreach ($gid[0] as $v) {
-			GoodsSpecs::where('goods_id', $v)->delete();
+		// dd($gid);
+		foreach ($gid as $v) {
+			GoodsSpecs::where('goods_id', $v[0])->delete();
 		}
 		
 		$keyid = AttributeKey::where('cate_id', $id)->pluck('id');

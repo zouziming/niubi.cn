@@ -155,39 +155,37 @@ class GoodsController extends Controller
 			} else {
 				$specs = rtrim($request->str, '_');
 				$price = GoodsSpecs::where('goods_id', $request->data[0]['id'])->where('goods_specs', rtrim($request->str, '_'))->pluck('goods_price')[0];
-					// dump($request->all());
-					$shuju['gid'] = $request->data[0]['id'];
-					$shuju['uid'] = session('userInfo.id');
-					$shuju['goods_name'] = $request->data[0]['name'];
-					$shuju['goods_price'] = $price;
-					$shuju['goods_num'] = $request->num;
-					$shuju['goods_specs'] = $specs;
-					$shuju['goods_img'] = $request->data[0]['pic'];
-					if ($request->button == 1) {
-						$shuju['is_buy'] = 1;
-						$res = ShopCar::create($shuju);
-						if ($res) {
-							return ['code'=>1, 'msg'=>'购买成功，请滚去结账'];
-						} else {
-							return ['msg'=>'购买失败'];
-						}
+				// dump($request->all());
+				$shuju['gid'] = $request->data[0]['id'];
+				$shuju['uid'] = session('userInfo.id');
+				$shuju['goods_name'] = $request->data[0]['name'];
+				$shuju['goods_price'] = $price;
+				$shuju['goods_num'] = $request->num;
+				$shuju['goods_specs'] = $specs;
+				$shuju['goods_img'] = $request->data[0]['pic'];
+				if ($request->button == 1) {
+					$shuju['is_buy'] = 1;
+					$res = ShopCar::create($shuju);
+					if ($res) {
+						return ['code'=>1, 'msg'=>'购买成功，请滚去结账'];
 					} else {
-						$old = ShopCar::where('gid', $request->data[0]['id'])->where('goods_specs', $specs)->first();
-						if ($old != null) {
-							$res = ShopCar::where('gid', $request->data[0]['id'])->where('goods_specs', $specs)->increment('goods_num', $request->num);
-						} else {
-							$shuju['is_buy'] = 0;
-							$res = ShopCar::create($shuju);
-						}
-
-						if ($res) {
-							return ['code'=>2, 'msg'=>'添加购物车成功'];
-						} else {
-							return ['msg'=>'添加购物车失败'];
-						}
+						return ['msg'=>'购买失败'];
 					}
-				
-				
+				} else {
+					$old = ShopCar::where('gid', $request->data[0]['id'])->where('goods_specs', $specs)->where('is_buy', 0)->first();
+					if ($old != null) {
+						$res = ShopCar::where('gid', $request->data[0]['id'])->where('goods_specs', $specs)->where('is_buy', 0)->increment('goods_num', $request->num);
+					} else {
+						$shuju['is_buy'] = 0;
+						$res = ShopCar::create($shuju);
+					}
+
+					if ($res) {
+						return ['code'=>2, 'msg'=>'添加购物车成功'];
+					} else {
+						return ['msg'=>'添加购物车失败'];
+					}
+				}
 			}
 		}
 	}

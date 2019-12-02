@@ -245,7 +245,6 @@ class GoodsController extends Controller
 	
 	public function checkhasattr(Request $request)
 	{
-		
 		$id = $request->id;
 		$cid = Goods::where('id', $id)->pluck('cid');
 		$pid = ShopCate::where('id', $cid)->pluck('pid');

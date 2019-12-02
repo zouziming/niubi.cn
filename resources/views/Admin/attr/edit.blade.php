@@ -52,9 +52,9 @@
 			},
 			success: function(res){
 				if (res.code == 0) {
-					layer.msg('修改成功!');
+					layer.msg(res.msg);
 				} else if (res.code != 0) {
-					layer.msg('修改失败!');
+					layer.msg(res.msg);
 				}
 			}	
 		});
