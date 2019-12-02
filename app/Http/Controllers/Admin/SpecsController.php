@@ -77,8 +77,7 @@ class SpecsController extends Controller
 		if (count(array_unique($res1)) <= 0 && count(array_unique($res1)) > 3) {
 			echo "<script>alert('请先设置好子规格');window.history.back(-1);</script>";die;	
 		}
-		// dump($attr_list);
-		// dd(count(array_unique($res1)));
+
 		if (count(array_unique($res1)) == 1) {
 			foreach ($attr_list as $v) {
 				$a = AttributeValue::where('attr_value', $v)->get()[0];
