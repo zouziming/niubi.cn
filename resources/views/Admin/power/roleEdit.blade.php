@@ -27,18 +27,26 @@
    </tr>
 
   </table>
-  <br><button style="margin-left: 172px" class="btn btn-success">提交</button>
-  <h2>设置权限：</h2><button id="quanxuan" class="btn btn-success">全选</button>　<button id="quanquxiao" class="btn btn-success">全取消</button>　
-  @foreach($qx as $v) 
+  <div>
+        
+    <br><button style="margin-left: 172px" class="btn btn-success">提交</button>
+    <div>
+    <h2>设置权限：</h2><button id="quanxuan" class="btn btn-success">全选</button>　<button id="quanquxiao" class="btn btn-success">全取消</button>　
+    </div>
+    <div>
+        
+    @foreach($qx as $v) 
 
-  <label><input style="width:15px" type="checkbox" name="permission_id[]"  value="{{$v->id}}" 
-    @if(in_array($v->id, $arr))
-        checked 
-    @endif
-    >
-    {{$v->name}}　
-    </label>
-  @endforeach
+    <label><input style="width:15px" type="checkbox" name="permission_id[]"  value="{{$v->id}}" 
+      @if(in_array($v->id, $arr))
+          checked 
+      @endif
+      >
+      {{$v->name}}　
+      </label>
+    @endforeach
+    </div>
+  </div>
 </form>
  </div>
 @endsection

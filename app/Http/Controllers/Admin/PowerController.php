@@ -319,13 +319,18 @@ class PowerController extends Controller
         // 删除管理员
         public function userRoleDel(Request $request)
         {
-
+            DB::beginTransaction();
             $del=shopUserHasRole::where('id','=',$request->id)->delete();
             $delUser=DB::table('shop_users')->where('id',$request->uid)->delete();
+            // return $request->uid;
             if ($del && $delUser) {
-             return redirect('/admin/power/userRole')->with('status', '删除成功!');
+                DB::commit();
+             // return redirect('/admin/power/userRole')->with('status', '删除成功!');
+                return ['code'=>0,'msg'=>"删除成功"];
             } else{
-               return redirect('/admin/power/userRole')->with('status', '删除数据失败!');
+                DB::rollBack();
+               // return redirect('/admin/power/userRole')->with('status', '删除数据失败!');
+                return ['msg'=>'删除失败'];
             }
             // $req=$request->all();
             // dump($req);
