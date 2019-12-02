@@ -171,7 +171,12 @@ Route::group(['prefix' => '/admin', 'middleware' => ['user.login']], function(){
 	Route::get('/pattern/edit/{id}', 'Admin\PatternController@edit');
 	Route::post('/pattern/edit/{id}', 'Admin\PatternController@checkedit');
 	Route::get('/pattern/del/{id}', 'Admin\PatternController@del');
-
+	
+	//模型与商品
+	Route::get('/setpattern/{id}', 'Admin\PatternController@setpattern');
+	Route::post('/pattern/checkmodel', 'Admin\PatternController@checkmodel');
+	Route::post('/pattern/checkspecskey', 'Admin\PatternController@checkspecskey');
+	
 
 // 分类
 // Route::group(['prefix'=>'/admin','middleware' => ['power']],function() {

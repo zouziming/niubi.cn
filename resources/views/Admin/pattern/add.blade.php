@@ -89,14 +89,10 @@
 		}
 	});
 	
-	$('#table').on('click', '.delval', function(){
-		console.dir(this)
-		$(this).prev().remove()
-		$(this).remove()
-	})
 	
 	$('#table').on('click','.delspecs',function(){
 		$(this.parentElement.parentElement).remove()
+		i--;
 	})
 </script>
 @endsection

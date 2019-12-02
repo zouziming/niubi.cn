@@ -121,6 +121,7 @@
     <script src="/lib/js/common.js"></script>
     <script src="/lib/js/public.js"></script>
     <script src="/lib/layer/layer.js"></script>
+	<script src="/lib/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     @yield('script')
 </body>
 </html>
