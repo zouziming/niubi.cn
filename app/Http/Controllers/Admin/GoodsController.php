@@ -18,8 +18,10 @@ class GoodsController extends Controller
 		$data = Goods::where('is_recycle', 0)->orderBy('id', 'desc')->paginate(3);
 		foreach ($data as $k=>$v) {
 			$v['cid'] = ShopCate::where('id', $v['cid'])->pluck('name')[0];
+			if (GoodsSpecs::where('goods_id', $v['id'])->first() == null) {
+				Goods::where('id', $v['id'])->update(['status'=>0]);
+			}
 		}
-		
 		return view('Admin.goods.index')->with(["data"=>$data, 'res'=>$res]);
 	}
 	

@@ -18,7 +18,7 @@
 						@foreach($v['value'] as $vv)
 							<input type="text" class="textBox length-long" style="height: 60px;width: 100px;" value="{{$vv->attr_value}}" ids="{{$vv->id}}"/>
 						@endforeach
-						<input type="submit" value="编辑" class="tdBtn"/><br>
+						<input type="submit" value="编辑" class="tdBtn" data-id="{{$v['id']}}"/><br>
 					</div>
 				</td>
 			</tr>
@@ -34,6 +34,7 @@
 	$('.tdBtn').click(function(){
 		var count = this.parentElement.childElementCount - 3;
 		var data = [];
+		var id = $(this).data('id')
 		for(var i = 1; i <= count; i++) {
 			data[$(this.parentElement).children().eq(i).attr('ids')] = $(this.parentElement).children().eq(i).val();
 		}
@@ -44,9 +45,9 @@
 			data:{
 				_token : '{{ csrf_token() }}',
 				datas : data,
+				id : id,
 			},
 			success: function(res){
-				// console.dir(res)
 				if (res.code == 0) {
 					layer.msg('设置成功!');
 				} else if (res.code != 0) {

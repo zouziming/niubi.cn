@@ -197,8 +197,12 @@ class AttrController extends Controller
 		], [
 		    'datas' => '规格',
 		]);
+		$pid = AttributeKey::where('id', $request->id)->pluck('cate_id')[0];
+		$cid = ShopCate::where('pid', $pid)->pluck('id');
+		$gid = Goods::whereIn('cid', $cid)->pluck('id');
+		$specs = GoodsSpecs::whereIn('goods_id', $gid)->delete();
+		// dd($specs);
 		$data = $request->datas;
-
 		foreach ($data as $k=>$v) {
 			if ($v != null) {
 				AttributeValue::where('id', $k)->update(['attr_value' => $v]);
