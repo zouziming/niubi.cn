@@ -113,6 +113,7 @@
                     <dd><a href="/home/collection">我的收藏</a></dd>
                     <dd><a href="javascript:void(0)">账户安全</a></dd>
                     <dd><a href="javascript:void(0)">我的评价</a></dd>
+
                     <dd><a href="/home/addressIndex">地址管理</a></dd>
                 </dl>
                 <dl>

@@ -48,7 +48,7 @@
 	<div class="bgf5 clearfix">
 		<div class="top-user">
 			<div class="inner">
-				<a class="logo" href="index.html"><img src="/lib/shopcar/images/icons/logo.jpg" alt="U袋网" class="cover"></a>
+				<a class="logo" href="/home"><img src="/lib/shopcar/images/icons/logo.jpg" alt="U袋网" class="cover"></a>
 				<div class="title">个人中心</div>
 			</div>
 		</div>
@@ -60,6 +60,7 @@
 				<dl class="user-center__nav">
 					<dt>帐户信息</dt>
 
+
 					<a href="/home/user/mycenter"><dd>个人资料</dd></a>
 					<a href="javascript:void(0)"><dd>资金管理</dd></a>
 					<a href="javascript:void(0)"><dd>积分平台</dd></a>
@@ -67,10 +68,14 @@
 					<a href="javascript:void(0)"><dd>我的优惠券</dd></a>
 					<a href="javascript:void(0)"><dd>修改支付密码</dd></a>
 					<a href="javascript:void(0)"><dd>修改登录密码</dd></a>
+
 				</dl>
 				<dl class="user-center__nav">
 					<dt>订单中心</dt>
 					<a href="/ShowOrders"><dd class="active">我的订单</dd></a>
+
+					<a href=""><dd class="active">我的评价</dd></a>
+
 					<a href="/home/collection"><dd>我的收藏</dd></a>
 					<a href="/home/refund/list"><dd>退款/退货</dd></a>
 				</dl>
@@ -270,35 +275,35 @@
 	<div class="right-nav">
 		<ul class="r-with-gotop">
 			<li class="r-toolbar-item">
-				<a href="udai_welcome.html" class="r-item-hd">
+				<a href="/home/user/mycenter" class="r-item-hd">
 					<i class="iconfont icon-user" data-badge="0"></i>
 					<div class="r-tip__box"><span class="r-tip-text">用户中心</span></div>
 				</a>
 			</li>
 			<li class="r-toolbar-item">
-				<a href="udai_shopcart.html" class="r-item-hd">
+				<a href="/home/shopcar" class="r-item-hd">
 					<i class="iconfont icon-cart"></i>
 					<div class="r-tip__box"><span class="r-tip-text">购物车</span></div>
 				</a>
 			</li>
 			<li class="r-toolbar-item">
-				<a href="udai_collection.html" class="r-item-hd">
+				<a href="/home/collection" class="r-item-hd">
 					<i class="iconfont icon-aixin"></i>
 					<div class="r-tip__box"><span class="r-tip-text">我的收藏</span></div>
 				</a>
 			</li>
-			<li class="r-toolbar-item">
+<!-- 			<li class="r-toolbar-item">
 				<a href="" class="r-item-hd">
 					<i class="iconfont icon-liaotian"></i>
 					<div class="r-tip__box"><span class="r-tip-text">联系客服</span></div>
 				</a>
-			</li>
-			<li class="r-toolbar-item">
+			</li> -->
+<!-- 			<li class="r-toolbar-item">
 				<a href="issues.html" class="r-item-hd">
 					<i class="iconfont icon-liuyan"></i>
 					<div class="r-tip__box"><span class="r-tip-text">留言反馈</span></div>
 				</a>
-			</li>
+			</li> -->
 			<li class="r-toolbar-item to-top">
 				<i class="iconfont icon-top"></i>
 				<div class="r-tip__box"><span class="r-tip-text">返回顶部</span></div>

@@ -63,6 +63,7 @@
 					<a href="javascript:void(0)"><dd>积分平台</dd></a>
 					<a href="/home/addressIndex"><dd>收货地址</dd></a>
 					<a href="javascript:void(0)"><dd>我的优惠券</dd></a>
+
 					<!-- <a href="#"><dd>修改支付密码</dd></a> -->
 					<a href="/home/user/password"><dd>修改登录密码</dd></a>
 				</dl>
